@@ -248,13 +248,20 @@ namespace Production_control_1._0
         private void enviar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudes (modulo, maquina, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO')";
+            string sql = "insert into solicitudes (modulo, maquina, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO')  SELECT SCOPE_IDENTITY()";
             string sql2 = "insert into actualizacion(evento) values(1)";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            dr.Read();
+            int id_ingresado = Convert.ToInt32(dr[0]);
+            dr.Close();
             SqlCommand cm2 = new SqlCommand(sql2, cn);
-            cm.ExecuteNonQuery();
             cm2.ExecuteNonQuery();
+            string sql3 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_ingresado + "', '" + codigo.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+            SqlCommand cm3 = new SqlCommand(sql3, cn);
+            cm3.ExecuteNonQuery();
+            cn.Close();
         }
 
         #endregion
@@ -445,19 +452,151 @@ namespace Production_control_1._0
 
         private void pausar_Click(object sender, RoutedEventArgs e)
         {
+            #region tamano_de_pop
+            pausar_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            pausar_solicitud.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            pausar_solicitud.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+            pausar_solicitud.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+
+            #endregion
+            //se limpian los items de motivos de pausa
+            motivo_de_pausa.Items.Clear();
+            id_2.Content = solicitud.Content.ToString();
+            meca_.Content = codigo_mecanico.Content.ToString();
+            //se consulta en la base la lista y se agregan
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select motivo from motivos_de_pausa";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                motivo_de_pausa.Items.Add(dr["motivo"].ToString());
+            };
+            dr.Close();
+            cn.Close();
+
+            //se abre el pop_up para reportar motivo de pausa
+            pausar_solicitud.IsOpen = true;
+            datos_solicitud.IsOpen = false;
 
         }
 
         private void reanudar_Click(object sender, RoutedEventArgs e)
         {
+            #region tamano_de_pop
+            reanudar_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            reanudar_solicitud.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            reanudar_solicitud.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+            reanudar_solicitud.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
 
+            codigo_mec_re.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
+            codigo_mec_re.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
+            codigo_mec_re.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
+            codigo_mec_re.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
+
+            #endregion
+            codigo_mec_re.Text = "";
+            id_3.Content = solicitud.Content.ToString();
+            reanudar_solicitud.IsOpen = true;
+            datos_solicitud.IsOpen = false;
         }
 
         private void terminar_Click(object sender, RoutedEventArgs e)
         {
+            #region tamano_de_pop
+            terminar_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            terminar_solicitud.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            terminar_solicitud.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+            terminar_solicitud.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
 
+            #endregion
+            //se limpian los items de motivos de pausa
+            id_4.Content = solicitud.Content.ToString();
+            meca_2.Content = codigo_mecanico.Content.ToString();
+            motivo_real.Items.Clear();
+
+            //se consulta en la base la lista y se agregan
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select falla from defectos_totales";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                motivo_real.Items.Add(dr["falla"].ToString());
+            };
+            dr.Close();
+            cn.Close();
+
+            //se abre el pop_up para reportar motivo de pausa
+            terminar_solicitud.IsOpen = true;
+            datos_solicitud.IsOpen = false;
         }
 
         #endregion
+
+        private void motivo_de_pausa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (motivo_de_pausa.SelectedIndex >= 0)
+            {
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "insert into pausas (num_solicitud, hora, tipo, motivo) values('" + id_2.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1', '" + motivo_de_pausa.SelectedItem.ToString() + "')";
+                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_2.Content.ToString() + "', '" + meca_.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlCommand cm2 = new SqlCommand(sql2, cn);
+                cm.ExecuteNonQuery();
+                cm2.ExecuteNonQuery();
+                cn.Close();
+                pausar_solicitud.IsOpen = false;
+            }
+            else
+            {
+
+            }
+        }
+
+        private void btn_reanudar_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(codigo_mec_re.Text))
+            {
+
+            }
+            else
+            {
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "insert into pausas (num_solicitud, hora, tipo) values('" + id_3.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_3.Content.ToString() + "', '" + codigo_mec_re.Text.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlCommand cm2 = new SqlCommand(sql2, cn);
+                cm.ExecuteNonQuery();
+                cm2.ExecuteNonQuery();
+                cn.Close();
+                codigo_mec_re.Text = "";
+                reanudar_solicitud.IsOpen = false;
+            }
+        }
+
+        private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void codigo_autoriza_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buscar_motivo_real_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

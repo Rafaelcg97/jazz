@@ -10,6 +10,7 @@
       Background="White">
  
     <Grid>
+        <!--#region filas/columans-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -49,6 +50,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <!--#endregion-->
         </Grid.RowDefinitions>
         <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
             <Image Source="/imagenes/casa.png"/>

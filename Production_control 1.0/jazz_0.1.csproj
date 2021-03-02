@@ -370,12 +370,6 @@
     <Resource Include="imagenes\terminar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\iniciar_in.png" />
-    <Resource Include="imagenes\pausa_in.png" />
-    <Resource Include="imagenes\reanudar_in.png" />
-    <Resource Include="imagenes\terminar_in.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\engine.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +392,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\iniciar_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\pausa_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\reanudar_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\terminar_in.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
