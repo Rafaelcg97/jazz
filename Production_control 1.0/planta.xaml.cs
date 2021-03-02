@@ -31,6 +31,12 @@ namespace Production_control_1._0
             public string corresponde { get; set; }
             public int prioridad { get; set; }
         }
+
+        public class item_actualizacion
+        {
+            public int id { get; set; }
+        }
+
         public string CS = "Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"];
         #endregion
 
@@ -196,8 +202,8 @@ namespace Production_control_1._0
             try
             {
                 var connectionString = CS;
-                var tableName = "solicitudes";
-                var tableDependency = new SqlTableDependency<item_solicitud>(connectionString, tableName);
+                var tableName = "actualizacion";
+                var tableDependency = new SqlTableDependency<item_actualizacion>(connectionString, tableName);
                 tableDependency.OnChanged += OnNotificationReceived;
                 tableDependency.Start();
             }
@@ -207,7 +213,7 @@ namespace Production_control_1._0
             }
         }
 
-        private void OnNotificationReceived(object sender, RecordChangedEventArgs<item_solicitud> e)
+        private void OnNotificationReceived(object sender, RecordChangedEventArgs<item_actualizacion> e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -671,7 +677,7 @@ namespace Production_control_1._0
                 {
                     case "MANTENIMIENTO":
                         {
-                            if(problema.hora_apertura == "0")
+                            if (problema.hora_apertura == "0")
                             {
                                 problemas_mantenimiento_reportados_1 = problemas_mantenimiento_reportados_1 + 1;
                             }
@@ -691,7 +697,7 @@ namespace Production_control_1._0
                             {
                                 problemas_smed_abiertos_1 = problemas_smed_abiertos_1 + 1;
                             }
-                            if (problema.problema_reportado=="CAMBIO")
+                            if (problema.problema_reportado == "CAMBIO")
                             {
                                 cambio_1 = cambio_1 + 1;
                             }
@@ -1864,15 +1870,15 @@ namespace Production_control_1._0
             {
                 case 0:
                     {
-                        if(problemas_mantenimiento_reportados_1>0)
+                        if (problemas_mantenimiento_reportados_1 > 0)
                         {
                             modulo_1.Background = Brushes.Red;
                         }
-                        else if(problemas_mantenimiento_reportados_1 == 0 & problemas_smed_reportados_1 > 0)
+                        else if (problemas_mantenimiento_reportados_1 == 0 & problemas_smed_reportados_1 > 0)
                         {
                             modulo_1.Background = Brushes.Orange;
                         }
-                        else if (problemas_mantenimiento_abiertos_1 > 0 || problemas_smed_abiertos_1 > 0 )
+                        else if (problemas_mantenimiento_abiertos_1 > 0 || problemas_smed_abiertos_1 > 0)
                         {
                             modulo_1.Background = Brushes.Yellow;
                         }
@@ -1917,7 +1923,7 @@ namespace Production_control_1._0
                         {
                             modulo_1.BorderBrush = Brushes.Red;
                         }
-                        else if (problemas_smed_reportados_1 == 0 & problemas_mantenimiento_reportados_1 == 0  & (problemas_mantenimiento_abiertos_1 > 0 || problemas_smed_abiertos_1 > 0))
+                        else if (problemas_smed_reportados_1 == 0 & problemas_mantenimiento_reportados_1 == 0 & (problemas_mantenimiento_abiertos_1 > 0 || problemas_smed_abiertos_1 > 0))
                         {
                             modulo_1.BorderBrush = Brushes.Yellow;
                         }
@@ -1929,7 +1935,7 @@ namespace Production_control_1._0
                     break;
                 default:
                     {
-                            modulo_1.BorderBrush = Brushes.Blue;
+                        modulo_1.BorderBrush = Brushes.Blue;
                     }
                     break;
             }
@@ -4468,6 +4474,7 @@ namespace Production_control_1._0
 
 
             #endregion
+
 
             WatchTable();
         }
