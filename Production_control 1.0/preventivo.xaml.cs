@@ -249,9 +249,12 @@ namespace Production_control_1._0
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "insert into solicitudes (modulo, maquina, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO')";
+            string sql2 = "insert into actualizacion(evento) values(1)";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
+            SqlCommand cm2 = new SqlCommand(sql2, cn);
             cm.ExecuteNonQuery();
+            cm2.ExecuteNonQuery();
         }
 
         #endregion
@@ -263,8 +266,8 @@ namespace Production_control_1._0
             try
             {
             var connectionString = cs;
-            var tableName = "solicitudes";
-            var tableDependency = new SqlTableDependency<item_solicitud>(connectionString, tableName);
+            var tableName = "actualizacion";
+            var tableDependency = new SqlTableDependency<item_actualizacion>(connectionString, tableName);
             tableDependency.OnChanged += OnNotificationReceived;
             tableDependency.Start();
             }
@@ -274,7 +277,7 @@ namespace Production_control_1._0
             }
         }
 
-        private void OnNotificationReceived(object sender, RecordChangedEventArgs<item_solicitud> e)
+        private void OnNotificationReceived(object sender, RecordChangedEventArgs<item_actualizacion> e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -308,6 +311,8 @@ namespace Production_control_1._0
 
 
         #endregion
+
+        #region pop_reportar_problema
 
         private void abiertos_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -452,5 +457,7 @@ namespace Production_control_1._0
         {
 
         }
+
+        #endregion
     }
 }
