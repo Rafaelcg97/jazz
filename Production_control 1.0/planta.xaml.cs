@@ -35,6 +35,8 @@ namespace Production_control_1._0
         public class item_actualizacion
         {
             public int id { get; set; }
+
+            public string evento { get; set; }
         }
 
         public string CS = "Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"];
@@ -192,6 +194,7 @@ namespace Production_control_1._0
             dr.Close();
             cn.Close();
             datos_llamados();
+            WatchTable();
         }
         #endregion
 
@@ -218,6 +221,7 @@ namespace Production_control_1._0
             this.Dispatcher.Invoke(() =>
             {
                 datos_llamados();
+                MessageBox.Show("sdfsdf");
             });
         }
 
