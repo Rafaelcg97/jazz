@@ -1,0 +1,124 @@
+﻿<Page x:Class="Production_control_1._0.configuraciones"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="configuraciones">
+
+    <Grid Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
+            <Image Source="/imagenes/casa.png"/>
+        </Button>
+        <Label Content="Configuraciones del Programa" Grid.Row="0" Grid.Column="12" Grid.ColumnSpan="18" FontSize="25" FontFamily="Calibri" FontWeight="ExtraBold" HorizontalAlignment="Center" Margin="11,0,11,21" Grid.RowSpan="2"/>
+        <Label Content="Servidor:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="server" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="6" Grid.ColumnSpan="10" Grid.Row="2" VerticalAlignment="Center"/>
+        <Button x:Name="mod_server"  Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="2" VerticalAlignment="Center" Grid.RowSpan="1" Click="mod_server_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+        <Label Content="Usuario:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="user" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="6" Grid.ColumnSpan="10" Grid.Row="3" VerticalAlignment="Center"/>
+        <Button x:Name="mod_user"  Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="3" VerticalAlignment="Center" Click="mod_user_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+        <Label Content="Password:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="pass" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="6" Grid.ColumnSpan="10" Grid.Row="4" VerticalAlignment="Center"/>
+        <Button x:Name="mod_pass"  Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="4" VerticalAlignment="Center" Click="mod_pass_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+        <Label Content="Base Ingenieria:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="b_ingenieria" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="9" Grid.ColumnSpan="5" Grid.Row="6" VerticalAlignment="Center"/>
+        <Button x:Name="mod_bing"  Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="6" VerticalAlignment="Bottom" Margin="0,0,0,6" Click="mod_bing_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+        <Label Content="Base SMED:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="b_smed" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="9" Grid.ColumnSpan="5" Grid.Row="7" VerticalAlignment="Center"/>
+        <Button x:Name="mod_bsmed"  Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="7" VerticalAlignment="Center" Click="mod_bsmed_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+        <Label Content="Base Producción:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="b_prod" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="9" Grid.ColumnSpan="5" Grid.Row="8" VerticalAlignment="Center"/>
+        <Button x:Name="mod_bprod"  Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="8" VerticalAlignment="Center" Click="mod_bprod_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+        <Label Content="Base Mantenimiento:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="b_manto" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="9" Grid.ColumnSpan="5" Grid.Row="9" VerticalAlignment="Center"/>
+        <Button x:Name="mod_bmanto"  Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="9" VerticalAlignment="Center" Click="mod_bmanto_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+
+        <Label Content="Galeria:" FontFamily="Calibri" FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="imag" FontFamily="Calibri" FontSize="14" FontWeight="Medium" Grid.Column="6" Grid.ColumnSpan="10" Grid.Row="11" VerticalAlignment="Center"/>
+        <Button x:Name="mod_imag"  Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="11" VerticalAlignment="Center" Click="mod_imag_Click">
+            <Image Source="/imagenes/apply.ico"/>
+        </Button>
+
+    </Grid>
+</Page>

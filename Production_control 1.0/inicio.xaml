@@ -1,0 +1,324 @@
+﻿<Page x:Class="Production_control_1._0.inicio"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="inicio" Background="White">
+
+    <Grid Margin="0,0,0,0">
+        <!--#region filas/columnas -->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--#endregion-->
+        <!--#region encabezado-->
+        <Button x:Name="navegar_configuraciones"  Grid.Column="38" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="navegar_configuraciones_Click" Margin="0,10,10,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71*"/>
+                    <ColumnDefinition Width="18*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="imagenes/mantenimiento.png" Grid.ColumnSpan="3" Margin="0,0,0,-14"></Image>
+                <Label Content="Configuraciones" Grid.ColumnSpan="3" Margin="0,0,0,-14"></Label>
+            </Grid>
+        </Button>
+        <StackPanel Background="#AEC4E4" Grid.ColumnSpan="40" Grid.RowSpan="2"></StackPanel>
+        <Image Grid.Row="0" Source="imagenes/log_t.png" Grid.ColumnSpan="8" Grid.RowSpan="2"></Image>
+        <!--#endregion-->
+        <!--#region titulos_de_Area-->
+        <Label Grid.Row="3" FontFamily="Calibri" FontWeight="Bold" Grid.Column="4" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="25">Producción</Label>
+        <Label Grid.Row="3" FontFamily="Calibri" FontWeight="Bold" Grid.Column="18" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="25">Mantenimiento</Label>
+        <Label Grid.Row="3" FontFamily="Calibri" FontWeight="Bold" Grid.Column="32" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="25">Ingeniería</Label>
+        <!--#endregion-->
+        <!--#region produccion-->
+        <Border Grid.Column="0" Grid.ColumnSpan="12" Grid.Row="4" Grid.RowSpan="15" BorderThickness="3" BorderBrush="Black" Margin="10,0,0,10"  CornerRadius="7">
+            <Grid Grid.Row="4" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="10">
+                <!--#region filas/columnas-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--#endregion-->
+                <Button x:Name="navegar_sam"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="imagenes/lista.png" Grid.ColumnSpan="2" Margin="0"></Image>
+                <Label Content="Consulta de Estilos" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+            </Grid>
+        </Button>
+                <Button x:Name="abrir_balances"  Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="abrir_balances_Click">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="imagenes/cajaa.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+            </Grid>
+                 </Button>
+                <Button x:Name="produccion_ingreso"  Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="11" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="10,0" Background="Transparent" BorderBrush="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/notas.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+            </Grid>
+        </Border>
+        <!--#endregion-->
+        <!--#region mantenimiento-->
+        <Border Grid.Column="14" Grid.ColumnSpan="12" Grid.Row="4" Grid.RowSpan="15" BorderThickness="3" BorderBrush="Black" Margin="10,0,0,10"  CornerRadius="7">
+            <Grid Grid.Row="4" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="10">
+                <!--#region filas/columnas-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--#endregion-->
+                <!--#region boton_reportar_maquinas-->
+                <Button x:Name="reporte_maquina"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Click="reporte_maquina_Click" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/administrador.png" Grid.ColumnSpan="2" Margin="0"></Image>
+                        <Label Content="Consulta de Estilos" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+                <!--#endregion-->
+                <!--#region boton_planta-->
+                <Button x:Name="estado_plant"  Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Margin="0,0,10,0" Background="Transparent" Click="estado_plant_Click" BorderBrush="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/aparato.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+                <!--#endregion-->
+                <!--#region boton_mantenimiento_preventivo-->
+                <Button x:Name="mantenimiento_preventiv"  Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="11" Grid.RowSpan="8"  Margin="10,0" Background="Transparent" BorderBrush="Transparent" Click="mantenimiento_preventiv_Click" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/gestion-del-tiempo.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+                <!--#endregion-->
+            </Grid>
+        </Border>
+        <!--#endregion-->
+        <!--#region ingenieria-->
+        <Border Grid.Column="28" Grid.ColumnSpan="12" Grid.Row="4" Grid.RowSpan="15" BorderThickness="3" BorderBrush="Black" Margin="10,0,10,10"  CornerRadius="7">
+            <Grid Grid.Row="4" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button x:Name="actividades_sm"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/lista.png" Grid.ColumnSpan="2" Margin="0"></Image>
+                        <Label Content="Consulta de Estilos" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+                <Button x:Name="control_bonificacion"  Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/cajaa.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+            </Grid>
+        </Border>
+        <!--#endregion-->
+    </Grid>
+</Page>
