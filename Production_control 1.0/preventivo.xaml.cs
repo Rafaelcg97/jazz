@@ -196,6 +196,12 @@ namespace Production_control_1._0
                 e.Handled = true;
         }
 
+        private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Control tmp = sender as Control;
+            tmp.FontSize = e.NewSize.Height * 0.8 / tmp.FontFamily.LineSpacing;
+        }
+
 
         #endregion
 
@@ -321,6 +327,7 @@ namespace Production_control_1._0
 
         #region pop_reportar_problema
 
+        #region abrir_pop_prin
         private void abiertos_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //strings generales para la conexion a la base y la direccion de las imagenes de los botones (se cambian para hacer evidente si estan habilitados o no)
@@ -445,6 +452,10 @@ namespace Production_control_1._0
             }
         }
 
+        #endregion
+
+        #region botones_pop_principal
+
         private void iniciar_Click(object sender, RoutedEventArgs e)
         {
 
@@ -504,38 +515,24 @@ namespace Production_control_1._0
 
         private void terminar_Click(object sender, RoutedEventArgs e)
         {
-            #region tamano_de_pop
-            terminar_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
-            terminar_solicitud.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
-            terminar_solicitud.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
-            terminar_solicitud.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
-
-            #endregion
-            //se limpian los items de motivos de pausa
-            id_4.Content = solicitud.Content.ToString();
-            meca_2.Content = codigo_mecanico.Content.ToString();
-            motivo_real.Items.Clear();
-
-            //se consulta en la base la lista y se agregan
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select falla from defectos_totales";
+            string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "' where id_solicitud= '" + solicitud.Content.ToString() + "'";
+            string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + solicitud.Content.ToString() + "', '" + codigo_mecanico.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +"', '1')";
+            string sql3 = "insert into actualizacion(evento) values(1)";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
-            SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                motivo_real.Items.Add(dr["falla"].ToString());
-            };
-            dr.Close();
+            SqlCommand cm2 = new SqlCommand(sql2, cn);
+            SqlCommand cm3 = new SqlCommand(sql3, cn);
+            cm.ExecuteNonQuery();
+            cm2.ExecuteNonQuery();
+            cm3.ExecuteNonQuery();
             cn.Close();
-
-            //se abre el pop_up para reportar motivo de pausa
-            terminar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
 
         #endregion
 
+        #region botones_por_pop_up
         private void motivo_de_pausa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (motivo_de_pausa.SelectedIndex >= 0)
@@ -579,24 +576,8 @@ namespace Production_control_1._0
             }
         }
 
-        private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
+        #endregion
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void codigo_autoriza_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void buscar_motivo_real_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        #endregion
     }
 }

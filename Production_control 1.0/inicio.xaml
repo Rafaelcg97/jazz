@@ -140,25 +140,25 @@
                 </Grid.RowDefinitions>
                 <!--#endregion-->
                 <Button x:Name="navegar_sam"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="89*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>
-                <Image Source="imagenes/lista.png" Grid.ColumnSpan="2" Margin="0"></Image>
-                <Label Content="Consulta de Estilos" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
-            </Grid>
-        </Button>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/lista.png" Grid.ColumnSpan="2" Margin="0"></Image>
+                        <Label Content="Consulta de Estilos" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
                 <Button x:Name="abrir_balances"  Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="abrir_balances_Click">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="89*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>
-                <Image Source="imagenes/cajaa.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
-                <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
-            </Grid>
-                 </Button>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/cajaa.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
                 <Button x:Name="produccion_ingreso"  Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="11" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="10,0" Background="Transparent" BorderBrush="Transparent">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -232,11 +232,12 @@
                 <Button x:Name="estado_plant"  Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Margin="0,0,10,0" Background="Transparent" Click="estado_plant_Click" BorderBrush="Transparent">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="89*"/>
-                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="69*"/>
+                            <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="imagenes/aparato.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
-                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                        <Image Source="imagenes/aparato.png" Grid.ColumnSpan="3" Margin="0,0,0,-6"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="3" Margin="0,-22,0,-6"></Label>
                     </Grid>
                 </Button>
                 <!--#endregion-->
@@ -297,13 +298,13 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button x:Name="actividades_sm"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Click="navegar_sam_Click" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
+                <Button x:Name="actividades_sm"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="8" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent" Click="actividades_sm_Click">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="89*"/>
                             <ColumnDefinition Width="7*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="imagenes/lista.png" Grid.ColumnSpan="2" Margin="0"></Image>
+                        <Image Source="imagenes/participacion.png" Grid.ColumnSpan="2" Margin="0"></Image>
                         <Label Content="Consulta de Estilos" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
                     </Grid>
                 </Button>

@@ -60,6 +60,12 @@ namespace Production_control_1._0
             preventivo preventivo = new preventivo();
             this.NavigationService.Navigate(preventivo);
         }
+
+        private void actividades_sm_Click(object sender, RoutedEventArgs e)
+        {
+            smed smed = new smed();
+            this.NavigationService.Navigate(smed);
+        }
     }
 
 

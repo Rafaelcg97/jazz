@@ -341,12 +341,15 @@ namespace Production_control_1._0
         private void enviar_reporte_Click(object sender, RoutedEventArgs e)
         {
 
-                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "insert into solicitudes (modulo, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
-                cn.Open();
-                SqlCommand cm = new SqlCommand(sql, cn);
-                cm.ExecuteNonQuery();
-                cn.Close();
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "insert into solicitudes (modulo, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
+            string sql2 = "insert into actualizacion(evento) values(1)";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlCommand cm2 = new SqlCommand(sql2, cn);
+            cm.ExecuteNonQuery();
+            cm2.ExecuteNonQuery();
+            cn.Close();
 
                 planta planta = new planta();
                 this.NavigationService.Navigate(planta);
@@ -372,9 +375,6 @@ namespace Production_control_1._0
                 img_enviar.Source = new BitmapImage(inhabilitado);
             }
         }
-
-
-        #endregion
 
         private void actualizar_grafica()
         {
@@ -407,6 +407,9 @@ namespace Production_control_1._0
                 }
             }
         }
+        #endregion
+
+
 
     }
 

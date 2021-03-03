@@ -187,6 +187,9 @@
     <Compile Include="preventivo.xaml.cs">
       <DependentUpon>preventivo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="smed.xaml.cs">
+      <DependentUpon>smed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="solicitudes.xaml.cs">
       <DependentUpon>solicitudes.xaml</DependentUpon>
     </Compile>
@@ -239,6 +242,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="smed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="solicitudes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -404,6 +411,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\terminar_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\participacion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\add.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
