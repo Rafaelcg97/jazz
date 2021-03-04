@@ -278,23 +278,71 @@
                     <Label x:Name="o2" Grid.Row="11" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
                     <!--#endregion-->
 
-                    <!--#region maquina_2-->
+                    <!--#region maquina_3-->
                     <Label x:Name="mp3" Grid.Row="13" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
                     <ListBox x:Name="op3" Grid.Row="14" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
                     <Label x:Name="o3" Grid.Row="17" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
                     <!--#endregion-->
 
-                    <!--#region maquina_2-->
+                    <!--#region maquina_4-->
                     <Label x:Name="mp4" Grid.Row="19" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
                     <ListBox x:Name="op4" Grid.Row="20" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
                     <Label x:Name="o4" Grid.Row="23" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
                     <!--#endregion-->
 
-                    <!--#region maquina_2-->
+                    <!--#region maquina_5-->
                     <Label x:Name="mp5" Grid.Row="25" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
                     <ListBox x:Name="op5" Grid.Row="26" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
                     <Label x:Name="o5" Grid.Row="29" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
                     <!--#endregion-->
+
+                   
+                    <Label x:Name="mp6" Grid.Row="31" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red" BorderBrush="Black" BorderThickness="1"/>
+                    <ListBox x:Name="op6" Grid.Row="32" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue" BorderBrush="Black" BorderThickness="1"/>
+                    <Label x:Name="o6" Grid.Row="35" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red" BorderBrush="Black" BorderThickness="1"/>
+                    
+
+                    
+                    <Label x:Name="mp7" Grid.Row="37" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op7" Grid.Row="38" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o7" Grid.Row="41" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+             
+
+                    <!--#region maquina_8-->
+                    <Label x:Name="mp8" Grid.Row="41" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op8" Grid.Row="42" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o8" Grid.Row="44" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+                    <!--#endregion-->
+
+                    <!--#region maquina_9--><!--
+                    <Label x:Name="mp9" Grid.Row="19" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op9" Grid.Row="20" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o9" Grid.Row="23" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+                    --><!--#endregion-->
+
+                    <!--#region maquina_10--><!--
+                    <Label x:Name="mp10" Grid.Row="25" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op10" Grid.Row="26" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o10" Grid.Row="29" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+                    --><!--#endregion-->
+
+                    <!--#region maquina_11--><!--
+                    <Label x:Name="mp11" Grid.Row="13" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op11" Grid.Row="14" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o11" Grid.Row="17" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+                    --><!--#endregion-->
+
+                    <!--#region maquina_12--><!--
+                    <Label x:Name="mp12" Grid.Row="19" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op12" Grid.Row="20" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o12" Grid.Row="23" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+                    --><!--#endregion-->
+
+                    <!--#region maquina_13--><!--
+                    <Label x:Name="mp13" Grid.Row="25" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="DDDD" Background="Red"/>
+                    <ListBox x:Name="op13" Grid.Row="26" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Background="Blue"/>
+                    <Label x:Name="o13" Grid.Row="29" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Content="SDS" Background="Red"/>
+                    --><!--#endregion-->
 
                 </Grid>
             </Border>
