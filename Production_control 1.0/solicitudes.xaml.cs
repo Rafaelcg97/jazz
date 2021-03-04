@@ -350,10 +350,8 @@ namespace Production_control_1._0
             cm.ExecuteNonQuery();
             cm2.ExecuteNonQuery();
             cn.Close();
-
                 planta planta = new planta();
                 this.NavigationService.Navigate(planta);
-
         }
 
         #endregion

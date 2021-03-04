@@ -416,7 +416,7 @@
     <Resource Include="imagenes\participacion.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\add.ico" />
+    <Resource Include="imagenes\add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
