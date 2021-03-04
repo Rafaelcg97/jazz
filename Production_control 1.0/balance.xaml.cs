@@ -1009,22 +1009,40 @@ namespace Production_control_1._0
 
         private void imprimir_Click(object sender, RoutedEventArgs e)
         {
-            espacio.ScrollToHorizontalOffset(0);
-            espacio.ScrollToVerticalOffset(0);
-            tamano.Value = 2500;
-            try
-            {
-                this.IsEnabled = false;
-                PrintDialog printDialog = new PrintDialog();
-                if (printDialog.ShowDialog() == true)
-                {
-                    printDialog.PrintVisual(ZoomViewbox, "balance");
-                }
-            }
-            finally
-            {
-                this.IsEnabled = true;
-            }
+            //espacio.ScrollToHorizontalOffset(0);
+            //espacio.ScrollToVerticalOffset(0);
+            //tamano.Value = 2500;
+            //try
+            //{
+            //    this.IsEnabled = false;
+            //    PrintDialog printDialog = new PrintDialog();
+            //    if (printDialog.ShowDialog() == true)
+            //    {
+            //        printDialog.PrintVisual(ZoomViewbox, "balance");
+            //    }
+            //}
+            //finally
+            //{
+            //    this.IsEnabled = true;
+            //}
+
+            #region tamano_de_pop
+            vista_previa_impresion.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 1.12;
+            vista_previa_impresion.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 1.12;
+            vista_previa_impresion.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 1.2;
+            vista_previa_impresion.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 1.2;
+            #endregion
+
+
+
+
+            vista_previa_impresion.IsOpen = true;
+
+
+
+
+
+
 
         }
 
@@ -1055,8 +1073,6 @@ namespace Production_control_1._0
             };
             dr.Close();
             cn.Close();
-
-
         }
 
         #endregion
@@ -32623,6 +32639,9 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
                 }
 
                 #endregion
+
+                confirmar_guard.IsOpen = false;
+                MessageBox.Show("Balance Guardado");
             }
 
             //si ya existe se eliminan los datos guardados y se cargan los nuevos
@@ -32749,7 +32768,7 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
                 {
                     string operacion = item.Title.ToString().Replace("'", "");
                     cn.Open();
-                    string sql4 = "insert into maquinas(identificador, maquina, ajuste, categoria, color, correlativo, operacion, carga, operario) values('" + identificador_g + "', '" + 2 + "', '" + maquina2.Text.ToString() + "', '" + categoria2.Text.ToString() + "', '" + b1.Background.ToString() + "', '" + item.correlativo + "', '" + operacion + "', '" + item.cap_cod + "', '" + operario2.Text.ToString() + "')";
+                    string sql4 = "insert into maquinas(identificador, maquina, ajuste, categoria, color, correlativo, operacion, carga, operario) values('" + identificador_g + "', '" + 2 + "', '" + maquina2.Text.ToString() + "', '" + categoria2.Text.ToString() + "', '" + b2.Background.ToString() + "', '" + item.correlativo + "', '" + operacion + "', '" + item.cap_cod + "', '" + operario2.Text.ToString() + "')";
                     SqlCommand cm4 = new SqlCommand(sql4, cn);
                     SqlDataReader dr4 = cm4.ExecuteReader();
                     dr.Close();
@@ -33397,6 +33416,9 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
                 }
 
                 #endregion
+
+                confirmar_guard.IsOpen = false;
+                MessageBox.Show("Balance Guardado");
             }
         }
         #endregion
