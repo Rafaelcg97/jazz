@@ -1026,24 +1026,8 @@ namespace Production_control_1._0
             //    this.IsEnabled = true;
             //}
 
-            #region tamano_de_pop
-            vista_previa_impresion.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 1.12;
-            vista_previa_impresion.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 1.12;
-            vista_previa_impresion.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 1.2;
-            vista_previa_impresion.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 1.2;
-            #endregion
-
-
-
-
-            vista_previa_impresion.IsOpen = true;
-
-
-
-
-
-
-
+            impresion impresion = new impresion();
+            this.NavigationService.Navigate(impresion);
         }
 
         private void guardar_Click(object sender, RoutedEventArgs e)
@@ -33477,6 +33461,7 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
             }
         }
         #endregion
+
     }
 
 
