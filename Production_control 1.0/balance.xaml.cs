@@ -1009,22 +1009,18 @@ namespace Production_control_1._0
 
         private void imprimir_Click(object sender, RoutedEventArgs e)
         {
-            //espacio.ScrollToHorizontalOffset(0);
-            //espacio.ScrollToVerticalOffset(0);
-            //tamano.Value = 2500;
-            //try
-            //{
-            //    this.IsEnabled = false;
-            //    PrintDialog printDialog = new PrintDialog();
-            //    if (printDialog.ShowDialog() == true)
-            //    {
-            //        printDialog.PrintVisual(ZoomViewbox, "balance");
-            //    }
-            //}
-            //finally
-            //{
-            //    this.IsEnabled = true;
-            //}
+            impresion_global.maquina_1 = maquina1.Text.ToString();
+
+            foreach (TodoItem item in Operacion1.Items) 
+            {
+                impresion_global.operaciones_1.Add(item.Title);
+             };
+
+            impresion_global.operario_1 = operario1.Text.ToString();
+
+            impresion_global.color_1 = b1.Background;
+
+
 
             impresion impresion = new impresion();
             this.NavigationService.Navigate(impresion);
@@ -33475,6 +33471,40 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
             get { return _operacion_s; }
             set { _operacion_s = value; }
         }
+    }
+
+
+
+    static class impresion_global
+    {
+        private static string _maquina_1 = "";
+
+        private static string _operario_1 = "";
+
+        private static Brush _color_1 = Brushes.White;
+
+        public static string maquina_1
+        {
+            get { return _maquina_1; }
+            set { _maquina_1 = value; }
+        }
+
+        public static string operario_1
+        {
+            get { return _operario_1; }
+            set { _operario_1 = value; }
+        }
+
+
+        public static Brush color_1
+        {
+            get { return _color_1; }
+            set { _color_1 = value; }
+        }
+
+        public static List<string> operaciones_1 = new List<string>();
+        
+     
     }
     #endregion
 
