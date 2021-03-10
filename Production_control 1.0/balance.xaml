@@ -2581,7 +2581,7 @@
 
                                 <StackPanel>
                                     <Border BorderBrush="Black" BorderThickness="1">
-                                        <TextBox MinWidth="400" MaxWidth="400" MaxHeight="25" MinHeight="25" Background="Yellow" FontWeight="ExtraBold" FontSize="20" Margin="5"></TextBox>
+                                        <TextBox x:Name="lote" MinWidth="400" MaxWidth="400" MaxHeight="25" MinHeight="25" Background="Yellow" FontWeight="ExtraBold" FontSize="20" Margin="5"></TextBox>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1">
                                         <Image x:Name="foto_2" MinWidth="400" MaxWidth="400" MinHeight="400" MaxHeight="300" Source="/imagenes/ini.jpg" Margin="5"></Image>

@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Configuration;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Printing;
@@ -63,6 +64,7 @@ namespace Production_control_1._0
             copias.Text = "1";
 
             cargar_layout();
+            cargar_image();
 
         }
 
@@ -98,6 +100,20 @@ namespace Production_control_1._0
             }
         }
 
+        private void letra_pequena_3(object sender, SizeChangedEventArgs e)
+        {
+            try
+            {
+                Control tmp = sender as Control;
+                tmp.FontSize = e.NewSize.Height * 0.7 / tmp.FontFamily.LineSpacing;
+            }
+            catch
+            {
+                Control tmp = sender as Control;
+                tmp.FontSize = 2;
+            }
+        }
+
         private void letra_list_box(object sender, SizeChangedEventArgs e)
         {
             try
@@ -121,6 +137,13 @@ namespace Production_control_1._0
         }
         #endregion
 
+        #region control_general_Del_programa
+
+        private void salir_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+        #endregion
 
         #region formulario_impresion
         private void confirmar_impresion_Click(object sender, RoutedEventArgs e)
@@ -612,6 +635,37 @@ namespace Production_control_1._0
 
             #endregion
 
+            #region general
+
+            modulo.Content = impresion_global.modulo;
+            estilo.Content = impresion_global.estilo;
+            temporada.Content = impresion_global.temporada;
+            sam.Content = impresion_global.sam;
+            operarios.Content = impresion_global.operarios;
+            subutilizado.Text = impresion_global.subutilizado;
+            sobrecarga.Text = impresion_global.sobrecarga;
+            lote.Content = impresion_global.lote;
+
+            #endregion
+
         }
+
+        private void cargar_image()
+        {
+            // se carga la imagen desde archivo
+            try
+            {
+                Uri fileUri = new Uri(ConfigurationManager.AppSettings["imagenes"] + temporada.Content.ToString()+ "/" + estilo.Content.ToString() + ".jpg");
+                imagen.Source = new BitmapImage(fileUri);
+            }
+
+            // si no encuentra la imagen del estilo carga la imagen inicial
+            catch
+            {
+                Uri fileUri = new Uri("/imagenes/ini.jpg", UriKind.RelativeOrAbsolute);
+                imagen.Source = new BitmapImage(fileUri);
+            }
+        }
+
     }
 }

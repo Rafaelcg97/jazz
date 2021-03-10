@@ -1287,6 +1287,18 @@ namespace Production_control_1._0
             impresion_global.color_66 = b66.Background;
             #endregion
 
+            #region general
+            impresion_global.modulo = modulo_2.Content.ToString();
+            impresion_global.estilo = estilo_2.Content.ToString();
+            impresion_global.temporada = temporada_2.Content.ToString();
+            impresion_global.sam = sam_2.Content.ToString();
+            impresion_global.operarios = operarios_2.Content.ToString();
+            impresion_global.sobrecarga = sobrecarga_2.Content.ToString();
+            impresion_global.subutilizado = subutilizacion_2.Content.ToString();
+            impresion_global.lote = lote.Text.ToString();
+
+            #endregion
+
             impresion impresion = new impresion();
             this.NavigationService.Navigate(impresion);
         }
@@ -33951,6 +33963,19 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
 
         #endregion
 
+        #region general
+        private static string _estilo = "";
+        private static string _temporada = "";
+        private static string _sam = "";
+        private static string _modulo = "";
+        private static string _operarios = "";
+        private static string _eficiencia = "";
+        private static string _sobrecarga = "";
+        private static string _subutilizado = "";
+        private static string _lote = "";
+
+        #endregion
+
         #region maquina_varaible
         public static string maquina_1 { get { return _maquina_1; } set { _maquina_1 = value; } }
         public static string maquina_2 { get { return _maquina_2; } set { _maquina_2 = value; } }
@@ -34231,6 +34256,19 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
         public static List<string> operaciones_64 = new List<string>();
         public static List<string> operaciones_65 = new List<string>();
         public static List<string> operaciones_66 = new List<string>();
+
+        #endregion
+
+        #region general_variable
+        public static string estilo { get { return _estilo; } set { _estilo = value; } }
+        public static string temporada { get { return _temporada; } set { _temporada = value; } }
+        public static string sam { get { return _sam; } set { _sam = value; } }
+        public static string modulo { get { return _modulo; } set { _modulo = value; } }
+        public static string operarios { get { return _operarios; } set { _operarios = value; } }
+        public static string eficiencia { get { return _eficiencia; } set { _eficiencia = value; } }
+        public static string sobrecarga { get { return _sobrecarga; } set { _sobrecarga = value; } }
+        public static string subutilizado { get { return _subutilizado; } set { _subutilizado = value; } }
+        public static string lote { get { return _lote; } set { _lote = value; } }
 
         #endregion
     }

@@ -57,8 +57,15 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Button x:Name="salir" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Click="salir_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Regresar a Edicion" Padding="0" SizeChanged="letra_pequena" HorizontalAlignment="Left" Margin="15,0"/>
+                    <Image Source="/imagenes/tocar.png" Grid.Column="3" Grid.ColumnSpan="1"/>
+
+                </StackPanel>
+            </Button>
             <Button x:Name="confirmar_impresion" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Grid.RowSpan="2" Click="confirmar_impresion_Click" BorderBrush="Gray" Background="Transparent">
-                <Image Source="/imagenes/impresora.png"/>
+            <Image Source="/imagenes/impresora.png"/>
             </Button>
             <Label Content="Tamaño de Impresión:" Grid.Row="7" Grid.Column="0" FontWeight="Bold"></Label>
             <Label Content="Orientación:" Grid.Row="8" Grid.Column="0" FontWeight="Bold"></Label>
@@ -576,9 +583,9 @@
 
                 <!--#endregion-->
         <!--#region datos_generales_layout-->
-                <Label Grid.Column="10" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" BorderBrush="Yellow" BorderThickness="1" Background="Yellow" Content=""/>
+                <Label x:Name="lote" Grid.Column="10" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" BorderBrush="Yellow" BorderThickness="1" Background="Yellow" Content="" SizeChanged="letra_pequena_3" FontWeight="Bold"/>
                 <Border Grid.Column="10" Grid.Row="4" Grid.RowSpan="14" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2">
-                <Image Source="/imagenes/add.png"/>
+                <Image x:Name="imagen" Source="/imagenes/ini.jpg"/>
                 </Border>
                 <Label Grid.Column="10" Grid.Row="19" Grid.RowSpan="4" Grid.ColumnSpan="1"  Content="ESTILO:" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
                 <Label Grid.Column="10" Grid.Row="22" Grid.RowSpan="4" Grid.ColumnSpan="1"  Content="TEMPORADA:" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2" />
@@ -593,10 +600,9 @@
                 <Label  x:Name="sam" Grid.Column="11" Grid.Row="25" Grid.RowSpan="4" Grid.ColumnSpan="1"   Content="----" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
                 <Label  x:Name="modulo" Grid.Column="11" Grid.Row="28" Grid.RowSpan="4" Grid.ColumnSpan="1"   Content="----" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
                 <Label  x:Name="operarios" Grid.Column="11" Grid.Row="31" Grid.RowSpan="4" Grid.ColumnSpan="1"   Content="----" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
-                <Label  x:Name="sobrecarga" Grid.Column="11" Grid.Row="34" Grid.RowSpan="4" Grid.ColumnSpan="1"   Content="----" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
-                <Label  x:Name="subutilizado" Grid.Column="11" Grid.Row="37" Grid.RowSpan="4" Grid.ColumnSpan="1"   Content="----" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
+                <TextBlock  x:Name="sobrecarga" TextWrapping="WrapWithOverflow" Grid.Column="11" Grid.Row="34" Grid.RowSpan="4" Grid.ColumnSpan="1"   Text="----" FontWeight="Light"  Padding="0"/>
+                <TextBlock  x:Name="subutilizado" TextWrapping="WrapWithOverflow" Grid.Column="11" Grid.Row="37" Grid.RowSpan="4" Grid.ColumnSpan="1"   Text="----" FontWeight="Light" Padding="0"/>
                 <!--#endregion-->
-        
         <!--#region colores-->
                 <Border Background="Red" Grid.Column="10" Grid.Row="60" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <Label Content="Interno-Interno" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
@@ -614,7 +620,6 @@
                     <Label Content="No Ajuste" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
                 <!--#endregion-->
-        
         <!--#region autor-->
                 <Border Background="White" Grid.Column="10" Grid.Row="72" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2">
                     <Label x:Name="ingeniero" Content="----" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
@@ -623,12 +628,7 @@
                   
                 </Border>
                 <!--#endregion-->
-
-
-
-
-
-                <!--#region lineas de borde-->
+        <!--#region lineas de borde-->
 
         <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="78" BorderThickness="4" BorderBrush="Black" CornerRadius="8" Margin="10" ></Border>
         <Border Grid.Column="7" Grid.Row="1" Grid.RowSpan="78" BorderThickness="4" BorderBrush="Black" CornerRadius="8" Margin="10" ></Border>
