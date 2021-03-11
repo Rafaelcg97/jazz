@@ -9,6 +9,7 @@
       Title="impresion"
       Background="White">
 
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -602,29 +603,90 @@
                 <Label  x:Name="operarios" Grid.Column="11" Grid.Row="31" Grid.RowSpan="4" Grid.ColumnSpan="1"   Content="----" FontWeight="Bold" Padding="0" SizeChanged="letra_pequena_2"/>
                 <TextBlock  x:Name="sobrecarga" TextWrapping="WrapWithOverflow" Grid.Column="11" Grid.Row="34" Grid.RowSpan="4" Grid.ColumnSpan="1"   Text="----" FontWeight="Light"  Padding="0"/>
                 <TextBlock  x:Name="subutilizado" TextWrapping="WrapWithOverflow" Grid.Column="11" Grid.Row="37" Grid.RowSpan="4" Grid.ColumnSpan="1"   Text="----" FontWeight="Light" Padding="0"/>
+
+                <ListView x:Name="resumen_maquinas" Grid.ColumnSpan="3" Grid.Row="40" Grid.Column="10" Grid.RowSpan="24" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.View>
+                        <GridView>
+                            <!--#region maquina_lista-->
+                            <GridViewColumn Header="Máquina">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=maquina_lista}" Grid.ColumnSpan="1"  Padding="0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region ii-->
+                            <GridViewColumn Header="ii">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=ii}" Grid.ColumnSpan="1" Background="Red" Padding="0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region ii-->
+                            <GridViewColumn Header="ee">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=ee}" Grid.ColumnSpan="1" Background="Green" Padding="0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region ii-->
+                            <GridViewColumn Header="ei">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=ei}" Grid.ColumnSpan="1" Background="Orange" Padding="0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region ii-->
+                            <GridViewColumn Header="ie">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=ie}" Grid.ColumnSpan="1" Background="Yellow" Padding="0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region ii-->
+                            <GridViewColumn Header="na">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=na}" Grid.ColumnSpan="1" Background="AliceBlue" Padding="0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        </GridView>
+                    </ListView.View>
+                </ListView>
                 <!--#endregion-->
         <!--#region colores-->
-                <Border Background="Red" Grid.Column="10" Grid.Row="60" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Border Background="Red" Grid.Column="10" Grid.Row="66" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <Label Content="Interno-Interno" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
-                <Border Background="Orange" Grid.Column="10" Grid.Row="62" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Border Background="Orange" Grid.Column="10" Grid.Row="68" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <Label Content="Externo-Interno" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
-                <Border Background="Yellow" Grid.Column="10" Grid.Row="64" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Border Background="Yellow" Grid.Column="10" Grid.Row="70" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <Label Content="Interno-Externo" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
-                <Border Background="Green" Grid.Column="10" Grid.Row="66" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Border Background="Green" Grid.Column="10" Grid.Row="72" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <Label Content="Externo-Externo" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
-                <Border Background="LightBlue" Grid.Column="10" Grid.Row="68" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Border Background="LightBlue" Grid.Column="10" Grid.Row="74" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <Label Content="No Ajuste" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
                 <!--#endregion-->
         <!--#region autor-->
-                <Border Background="White" Grid.Column="10" Grid.Row="72" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2">
+                <Border Background="White" Grid.Column="10" Grid.Row="78" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2">
                     <Label x:Name="ingeniero" Content="----" Padding="0" FontWeight="Bold" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
-                <Border Background="White" Grid.Column="10" Grid.Row="75" Grid.RowSpan="4" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2">
+                <Border Background="White" Grid.Column="10" Grid.Row="80" Grid.RowSpan="4" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2">
                   
                 </Border>
                 <!--#endregion-->

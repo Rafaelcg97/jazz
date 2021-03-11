@@ -1296,6 +1296,16 @@ namespace Production_control_1._0
             impresion_global.sobrecarga = sobrecarga_2.Content.ToString();
             impresion_global.subutilizado = subutilizacion_2.Content.ToString();
             impresion_global.lote = lote.Text.ToString();
+            impresion_global.ingeniero = ingeniero_.Text.ToString();
+
+            #endregion
+
+            #region consolidado
+            impresion_global.consolidado_maquinas.Clear();
+            foreach (elementos elemento in resumen_maquinas.Items)
+            {
+                impresion_global.consolidado_maquinas.Add(new impresion_global.elementos { maquina_lista = elemento.maquina_lista, ee = elemento.ee, ei = elemento.ei, ie = elemento.ie, ii = elemento.ii, na = elemento.na });
+            }
 
             #endregion
 
@@ -33752,6 +33762,19 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
 
     static class impresion_global
     {
+
+        #region consolidado_maquinas
+        public class elementos
+        {
+            public string maquina_lista { get; set; }
+            public int ii { get; set; }
+            public int ie { get; set; }
+            public int ei { get; set; }
+            public int ee { get; set; }
+            public int na { get; set; }
+        }
+        #endregion
+
         #region maquinas
         private static string _maquina_1 = "";
         private static string _maquina_2 = "";
@@ -33973,6 +33996,7 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
         private static string _sobrecarga = "";
         private static string _subutilizado = "";
         private static string _lote = "";
+        private static string _ingeniero = "";
 
         #endregion
 
@@ -34269,6 +34293,13 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
         public static string sobrecarga { get { return _sobrecarga; } set { _sobrecarga = value; } }
         public static string subutilizado { get { return _subutilizado; } set { _subutilizado = value; } }
         public static string lote { get { return _lote; } set { _lote = value; } }
+        public static string ingeniero { get { return _ingeniero; } set { _ingeniero = value; } }
+
+        #endregion
+
+        #region consolidado_variable
+
+        public static List<elementos> consolidado_maquinas = new List<elementos>();
 
         #endregion
     }

@@ -211,6 +211,8 @@ namespace Production_control_1._0
 
         #endregion
 
+        #region calculos_generales
+
         private void cargar_layout()
         {
             #region maquinas
@@ -645,9 +647,15 @@ namespace Production_control_1._0
             subutilizado.Text = impresion_global.subutilizado;
             sobrecarga.Text = impresion_global.sobrecarga;
             lote.Content = impresion_global.lote;
+            ingeniero.Content = impresion_global.ingeniero;
 
             #endregion
 
+            #region consolidado
+            resumen_maquinas.Items.Clear();
+            resumen_maquinas.ItemsSource = impresion_global.consolidado_maquinas;
+
+            #endregion
         }
 
         private void cargar_image()
@@ -666,6 +674,8 @@ namespace Production_control_1._0
                 imagen.Source = new BitmapImage(fileUri);
             }
         }
+
+        #endregion
 
     }
 }

@@ -115,6 +115,16 @@
             <Button x:Name="imprimir" Width="20"  Click="imprimir_Click" Height="15" Margin="2,0">
                 <Image Source="/imagenes/impresora.png" />
             </Button>
+            <Menu Width="20" Height="15" Margin="2,0">
+                <MenuItem Header="Impresio">
+                    <MenuItem Header="LayOut">
+                        <MenuItem.Icon>
+                            <Image Source="/imagenes/impresora.png"  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Show groups" IsCheckable="True" IsChecked="True" />
+                </MenuItem>
+            </Menu>
             <Popup x:Name="confirmar_guard" Width="622" Height="200" Grid.ColumnSpan="14" StaysOpen="False">
                 <Border Background="#F9FAFA" CornerRadius="10">
                     <StackPanel Orientation="Horizontal">
