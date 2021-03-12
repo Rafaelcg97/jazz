@@ -1009,308 +1009,340 @@ namespace Production_control_1._0
 
         private void imprimir_Click(object sender, RoutedEventArgs e)
         {
-            #region maquina
-            impresion_global.maquina_1 = maquina1.Text.ToString();
-            impresion_global.maquina_2 = maquina2.Text.ToString();
-            impresion_global.maquina_3 = maquina3.Text.ToString();
-            impresion_global.maquina_4 = maquina4.Text.ToString();
-            impresion_global.maquina_5 = maquina5.Text.ToString();
-            impresion_global.maquina_6 = maquina6.Text.ToString();
-            impresion_global.maquina_7 = maquina7.Text.ToString();
-            impresion_global.maquina_8 = maquina8.Text.ToString();
-            impresion_global.maquina_9 = maquina9.Text.ToString();
-            impresion_global.maquina_10 = maquina10.Text.ToString();
-            impresion_global.maquina_11 = maquina11.Text.ToString();
-            impresion_global.maquina_12 = maquina12.Text.ToString();
-            impresion_global.maquina_13 = maquina13.Text.ToString();
-            impresion_global.maquina_14 = maquina14.Text.ToString();
-            impresion_global.maquina_15 = maquina15.Text.ToString();
-            impresion_global.maquina_16 = maquina16.Text.ToString();
-            impresion_global.maquina_17 = maquina17.Text.ToString();
-            impresion_global.maquina_18 = maquina18.Text.ToString();
-            impresion_global.maquina_19 = maquina19.Text.ToString();
-            impresion_global.maquina_20 = maquina20.Text.ToString();
-            impresion_global.maquina_21 = maquina21.Text.ToString();
-            impresion_global.maquina_22 = maquina22.Text.ToString();
-            impresion_global.maquina_23 = maquina23.Text.ToString();
-            impresion_global.maquina_24 = maquina24.Text.ToString();
-            impresion_global.maquina_25 = maquina25.Text.ToString();
-            impresion_global.maquina_26 = maquina26.Text.ToString();
-            impresion_global.maquina_27 = maquina27.Text.ToString();
-            impresion_global.maquina_28 = maquina28.Text.ToString();
-            impresion_global.maquina_29 = maquina29.Text.ToString();
-            impresion_global.maquina_30 = maquina30.Text.ToString();
-            impresion_global.maquina_31 = maquina31.Text.ToString();
-            impresion_global.maquina_32 = maquina32.Text.ToString();
-            impresion_global.maquina_33 = maquina33.Text.ToString();
-            impresion_global.maquina_34 = maquina34.Text.ToString();
-            impresion_global.maquina_35 = maquina35.Text.ToString();
-            impresion_global.maquina_36 = maquina36.Text.ToString();
-            impresion_global.maquina_37 = maquina37.Text.ToString();
-            impresion_global.maquina_38 = maquina38.Text.ToString();
-            impresion_global.maquina_39 = maquina39.Text.ToString();
-            impresion_global.maquina_40 = maquina40.Text.ToString();
-            impresion_global.maquina_41 = maquina41.Text.ToString();
-            impresion_global.maquina_42 = maquina42.Text.ToString();
-            impresion_global.maquina_43 = maquina43.Text.ToString();
-            impresion_global.maquina_44 = maquina44.Text.ToString();
-            impresion_global.maquina_45 = maquina45.Text.ToString();
-            impresion_global.maquina_46 = maquina46.Text.ToString();
-            impresion_global.maquina_47 = maquina47.Text.ToString();
-            impresion_global.maquina_48 = maquina48.Text.ToString();
-            impresion_global.maquina_49 = maquina49.Text.ToString();
-            impresion_global.maquina_50 = maquina50.Text.ToString();
-            impresion_global.maquina_51 = maquina51.Text.ToString();
-            impresion_global.maquina_52 = maquina52.Text.ToString();
-            impresion_global.maquina_53 = maquina53.Text.ToString();
-            impresion_global.maquina_54 = maquina54.Text.ToString();
-            impresion_global.maquina_55 = maquina55.Text.ToString();
-            impresion_global.maquina_56 = maquina56.Text.ToString();
-            impresion_global.maquina_57 = maquina57.Text.ToString();
-            impresion_global.maquina_58 = maquina58.Text.ToString();
-            impresion_global.maquina_59 = maquina59.Text.ToString();
-            impresion_global.maquina_60 = maquina60.Text.ToString();
-            impresion_global.maquina_61 = maquina61.Text.ToString();
-            impresion_global.maquina_62 = maquina62.Text.ToString();
-            impresion_global.maquina_63 = maquina63.Text.ToString();
-            impresion_global.maquina_64 = maquina64.Text.ToString();
-            impresion_global.maquina_65 = maquina65.Text.ToString();
-            impresion_global.maquina_66 = maquina66.Text.ToString();
+            int impresion_seleccionada = control_tab_maquinas.SelectedIndex;
 
-            #endregion
-
-            #region operaciones
-            foreach (TodoItem item in Operacion1.Items) { impresion_global.operaciones_1.Add(item.Title); };
-            foreach (TodoItem item in Operacion2.Items) { impresion_global.operaciones_2.Add(item.Title); };
-            foreach (TodoItem item in Operacion3.Items) { impresion_global.operaciones_3.Add(item.Title); };
-            foreach (TodoItem item in Operacion4.Items) { impresion_global.operaciones_4.Add(item.Title); };
-            foreach (TodoItem item in Operacion5.Items) { impresion_global.operaciones_5.Add(item.Title); };
-            foreach (TodoItem item in Operacion6.Items) { impresion_global.operaciones_6.Add(item.Title); };
-            foreach (TodoItem item in Operacion7.Items) { impresion_global.operaciones_7.Add(item.Title); };
-            foreach (TodoItem item in Operacion8.Items) { impresion_global.operaciones_8.Add(item.Title); };
-            foreach (TodoItem item in Operacion9.Items) { impresion_global.operaciones_9.Add(item.Title); };
-            foreach (TodoItem item in Operacion10.Items) { impresion_global.operaciones_10.Add(item.Title); };
-            foreach (TodoItem item in Operacion11.Items) { impresion_global.operaciones_11.Add(item.Title); };
-            foreach (TodoItem item in Operacion12.Items) { impresion_global.operaciones_12.Add(item.Title); };
-            foreach (TodoItem item in Operacion13.Items) { impresion_global.operaciones_13.Add(item.Title); };
-            foreach (TodoItem item in Operacion14.Items) { impresion_global.operaciones_14.Add(item.Title); };
-            foreach (TodoItem item in Operacion15.Items) { impresion_global.operaciones_15.Add(item.Title); };
-            foreach (TodoItem item in Operacion16.Items) { impresion_global.operaciones_16.Add(item.Title); };
-            foreach (TodoItem item in Operacion17.Items) { impresion_global.operaciones_17.Add(item.Title); };
-            foreach (TodoItem item in Operacion18.Items) { impresion_global.operaciones_18.Add(item.Title); };
-            foreach (TodoItem item in Operacion19.Items) { impresion_global.operaciones_19.Add(item.Title); };
-            foreach (TodoItem item in Operacion20.Items) { impresion_global.operaciones_20.Add(item.Title); };
-            foreach (TodoItem item in Operacion21.Items) { impresion_global.operaciones_21.Add(item.Title); };
-            foreach (TodoItem item in Operacion22.Items) { impresion_global.operaciones_22.Add(item.Title); };
-            foreach (TodoItem item in Operacion23.Items) { impresion_global.operaciones_23.Add(item.Title); };
-            foreach (TodoItem item in Operacion24.Items) { impresion_global.operaciones_24.Add(item.Title); };
-            foreach (TodoItem item in Operacion25.Items) { impresion_global.operaciones_25.Add(item.Title); };
-            foreach (TodoItem item in Operacion26.Items) { impresion_global.operaciones_26.Add(item.Title); };
-            foreach (TodoItem item in Operacion27.Items) { impresion_global.operaciones_27.Add(item.Title); };
-            foreach (TodoItem item in Operacion28.Items) { impresion_global.operaciones_28.Add(item.Title); };
-            foreach (TodoItem item in Operacion29.Items) { impresion_global.operaciones_29.Add(item.Title); };
-            foreach (TodoItem item in Operacion30.Items) { impresion_global.operaciones_30.Add(item.Title); };
-            foreach (TodoItem item in Operacion31.Items) { impresion_global.operaciones_31.Add(item.Title); };
-            foreach (TodoItem item in Operacion32.Items) { impresion_global.operaciones_32.Add(item.Title); };
-            foreach (TodoItem item in Operacion33.Items) { impresion_global.operaciones_33.Add(item.Title); };
-            foreach (TodoItem item in Operacion34.Items) { impresion_global.operaciones_34.Add(item.Title); };
-            foreach (TodoItem item in Operacion35.Items) { impresion_global.operaciones_35.Add(item.Title); };
-            foreach (TodoItem item in Operacion36.Items) { impresion_global.operaciones_36.Add(item.Title); };
-            foreach (TodoItem item in Operacion37.Items) { impresion_global.operaciones_37.Add(item.Title); };
-            foreach (TodoItem item in Operacion38.Items) { impresion_global.operaciones_38.Add(item.Title); };
-            foreach (TodoItem item in Operacion39.Items) { impresion_global.operaciones_39.Add(item.Title); };
-            foreach (TodoItem item in Operacion40.Items) { impresion_global.operaciones_40.Add(item.Title); };
-            foreach (TodoItem item in Operacion41.Items) { impresion_global.operaciones_41.Add(item.Title); };
-            foreach (TodoItem item in Operacion42.Items) { impresion_global.operaciones_42.Add(item.Title); };
-            foreach (TodoItem item in Operacion43.Items) { impresion_global.operaciones_43.Add(item.Title); };
-            foreach (TodoItem item in Operacion44.Items) { impresion_global.operaciones_44.Add(item.Title); };
-            foreach (TodoItem item in Operacion45.Items) { impresion_global.operaciones_45.Add(item.Title); };
-            foreach (TodoItem item in Operacion46.Items) { impresion_global.operaciones_46.Add(item.Title); };
-            foreach (TodoItem item in Operacion47.Items) { impresion_global.operaciones_47.Add(item.Title); };
-            foreach (TodoItem item in Operacion48.Items) { impresion_global.operaciones_48.Add(item.Title); };
-            foreach (TodoItem item in Operacion49.Items) { impresion_global.operaciones_49.Add(item.Title); };
-            foreach (TodoItem item in Operacion50.Items) { impresion_global.operaciones_50.Add(item.Title); };
-            foreach (TodoItem item in Operacion51.Items) { impresion_global.operaciones_51.Add(item.Title); };
-            foreach (TodoItem item in Operacion52.Items) { impresion_global.operaciones_52.Add(item.Title); };
-            foreach (TodoItem item in Operacion53.Items) { impresion_global.operaciones_53.Add(item.Title); };
-            foreach (TodoItem item in Operacion54.Items) { impresion_global.operaciones_54.Add(item.Title); };
-            foreach (TodoItem item in Operacion55.Items) { impresion_global.operaciones_55.Add(item.Title); };
-            foreach (TodoItem item in Operacion56.Items) { impresion_global.operaciones_56.Add(item.Title); };
-            foreach (TodoItem item in Operacion57.Items) { impresion_global.operaciones_57.Add(item.Title); };
-            foreach (TodoItem item in Operacion58.Items) { impresion_global.operaciones_58.Add(item.Title); };
-            foreach (TodoItem item in Operacion59.Items) { impresion_global.operaciones_59.Add(item.Title); };
-            foreach (TodoItem item in Operacion60.Items) { impresion_global.operaciones_60.Add(item.Title); };
-            foreach (TodoItem item in Operacion61.Items) { impresion_global.operaciones_61.Add(item.Title); };
-            foreach (TodoItem item in Operacion62.Items) { impresion_global.operaciones_62.Add(item.Title); };
-            foreach (TodoItem item in Operacion63.Items) { impresion_global.operaciones_63.Add(item.Title); };
-            foreach (TodoItem item in Operacion64.Items) { impresion_global.operaciones_64.Add(item.Title); };
-            foreach (TodoItem item in Operacion65.Items) { impresion_global.operaciones_65.Add(item.Title); };
-            foreach (TodoItem item in Operacion66.Items) { impresion_global.operaciones_66.Add(item.Title); };
-            #endregion
-
-            #region operarios
-            impresion_global.operario_1 = operario1.Text.ToString();
-            impresion_global.operario_2 = operario2.Text.ToString();
-            impresion_global.operario_3 = operario3.Text.ToString();
-            impresion_global.operario_4 = operario4.Text.ToString();
-            impresion_global.operario_5 = operario5.Text.ToString();
-            impresion_global.operario_6 = operario6.Text.ToString();
-            impresion_global.operario_7 = operario7.Text.ToString();
-            impresion_global.operario_8 = operario8.Text.ToString();
-            impresion_global.operario_9 = operario9.Text.ToString();
-            impresion_global.operario_10 = operario10.Text.ToString();
-            impresion_global.operario_11 = operario11.Text.ToString();
-            impresion_global.operario_12 = operario12.Text.ToString();
-            impresion_global.operario_13 = operario13.Text.ToString();
-            impresion_global.operario_14 = operario14.Text.ToString();
-            impresion_global.operario_15 = operario15.Text.ToString();
-            impresion_global.operario_16 = operario16.Text.ToString();
-            impresion_global.operario_17 = operario17.Text.ToString();
-            impresion_global.operario_18 = operario18.Text.ToString();
-            impresion_global.operario_19 = operario19.Text.ToString();
-            impresion_global.operario_20 = operario20.Text.ToString();
-            impresion_global.operario_21 = operario21.Text.ToString();
-            impresion_global.operario_22 = operario22.Text.ToString();
-            impresion_global.operario_23 = operario23.Text.ToString();
-            impresion_global.operario_24 = operario24.Text.ToString();
-            impresion_global.operario_25 = operario25.Text.ToString();
-            impresion_global.operario_26 = operario26.Text.ToString();
-            impresion_global.operario_27 = operario27.Text.ToString();
-            impresion_global.operario_28 = operario28.Text.ToString();
-            impresion_global.operario_29 = operario29.Text.ToString();
-            impresion_global.operario_30 = operario30.Text.ToString();
-            impresion_global.operario_31 = operario31.Text.ToString();
-            impresion_global.operario_32 = operario32.Text.ToString();
-            impresion_global.operario_33 = operario33.Text.ToString();
-            impresion_global.operario_34 = operario34.Text.ToString();
-            impresion_global.operario_35 = operario35.Text.ToString();
-            impresion_global.operario_36 = operario36.Text.ToString();
-            impresion_global.operario_37 = operario37.Text.ToString();
-            impresion_global.operario_38 = operario38.Text.ToString();
-            impresion_global.operario_39 = operario39.Text.ToString();
-            impresion_global.operario_40 = operario40.Text.ToString();
-            impresion_global.operario_41 = operario41.Text.ToString();
-            impresion_global.operario_42 = operario42.Text.ToString();
-            impresion_global.operario_43 = operario43.Text.ToString();
-            impresion_global.operario_44 = operario44.Text.ToString();
-            impresion_global.operario_45 = operario45.Text.ToString();
-            impresion_global.operario_46 = operario46.Text.ToString();
-            impresion_global.operario_47 = operario47.Text.ToString();
-            impresion_global.operario_48 = operario48.Text.ToString();
-            impresion_global.operario_49 = operario49.Text.ToString();
-            impresion_global.operario_50 = operario50.Text.ToString();
-            impresion_global.operario_51 = operario51.Text.ToString();
-            impresion_global.operario_52 = operario52.Text.ToString();
-            impresion_global.operario_53 = operario53.Text.ToString();
-            impresion_global.operario_54 = operario54.Text.ToString();
-            impresion_global.operario_55 = operario55.Text.ToString();
-            impresion_global.operario_56 = operario56.Text.ToString();
-            impresion_global.operario_57 = operario57.Text.ToString();
-            impresion_global.operario_58 = operario58.Text.ToString();
-            impresion_global.operario_59 = operario59.Text.ToString();
-            impresion_global.operario_60 = operario60.Text.ToString();
-            impresion_global.operario_61 = operario61.Text.ToString();
-            impresion_global.operario_62 = operario62.Text.ToString();
-            impresion_global.operario_63 = operario63.Text.ToString();
-            impresion_global.operario_64 = operario64.Text.ToString();
-            impresion_global.operario_65 = operario65.Text.ToString();
-            impresion_global.operario_66 = operario66.Text.ToString();
-
-            #endregion
-
-            #region colores_maquina
-            impresion_global.color_1 = b1.Background;
-            impresion_global.color_2 = b2.Background;
-            impresion_global.color_3 = b3.Background;
-            impresion_global.color_4 = b4.Background;
-            impresion_global.color_5 = b5.Background;
-            impresion_global.color_6 = b6.Background;
-            impresion_global.color_7 = b7.Background;
-            impresion_global.color_8 = b8.Background;
-            impresion_global.color_9 = b9.Background;
-            impresion_global.color_10 = b10.Background;
-            impresion_global.color_11 = b11.Background;
-            impresion_global.color_12 = b12.Background;
-            impresion_global.color_13 = b13.Background;
-            impresion_global.color_14 = b14.Background;
-            impresion_global.color_15 = b15.Background;
-            impresion_global.color_16 = b16.Background;
-            impresion_global.color_17 = b17.Background;
-            impresion_global.color_18 = b18.Background;
-            impresion_global.color_19 = b19.Background;
-            impresion_global.color_20 = b20.Background;
-            impresion_global.color_21 = b21.Background;
-            impresion_global.color_22 = b22.Background;
-            impresion_global.color_23 = b23.Background;
-            impresion_global.color_24 = b24.Background;
-            impresion_global.color_25 = b25.Background;
-            impresion_global.color_26 = b26.Background;
-            impresion_global.color_27 = b27.Background;
-            impresion_global.color_28 = b28.Background;
-            impresion_global.color_29 = b29.Background;
-            impresion_global.color_30 = b30.Background;
-            impresion_global.color_31 = b31.Background;
-            impresion_global.color_32 = b32.Background;
-            impresion_global.color_33 = b33.Background;
-            impresion_global.color_34 = b34.Background;
-            impresion_global.color_35 = b35.Background;
-            impresion_global.color_36 = b36.Background;
-            impresion_global.color_37 = b37.Background;
-            impresion_global.color_38 = b38.Background;
-            impresion_global.color_39 = b39.Background;
-            impresion_global.color_40 = b40.Background;
-            impresion_global.color_41 = b41.Background;
-            impresion_global.color_42 = b42.Background;
-            impresion_global.color_43 = b43.Background;
-            impresion_global.color_44 = b44.Background;
-            impresion_global.color_45 = b45.Background;
-            impresion_global.color_46 = b46.Background;
-            impresion_global.color_47 = b47.Background;
-            impresion_global.color_48 = b48.Background;
-            impresion_global.color_49 = b49.Background;
-            impresion_global.color_50 = b50.Background;
-            impresion_global.color_51 = b51.Background;
-            impresion_global.color_52 = b52.Background;
-            impresion_global.color_53 = b53.Background;
-            impresion_global.color_54 = b54.Background;
-            impresion_global.color_55 = b55.Background;
-            impresion_global.color_56 = b56.Background;
-            impresion_global.color_57 = b57.Background;
-            impresion_global.color_58 = b58.Background;
-            impresion_global.color_59 = b59.Background;
-            impresion_global.color_60 = b60.Background;
-            impresion_global.color_61 = b61.Background;
-            impresion_global.color_62 = b62.Background;
-            impresion_global.color_63 = b63.Background;
-            impresion_global.color_64 = b64.Background;
-            impresion_global.color_65 = b65.Background;
-            impresion_global.color_66 = b66.Background;
-            #endregion
-
-            #region general
-            impresion_global.modulo = modulo_2.Content.ToString();
-            impresion_global.estilo = estilo_2.Content.ToString();
-            impresion_global.temporada = temporada_2.Content.ToString();
-            impresion_global.sam = sam_2.Content.ToString();
-            impresion_global.operarios = operarios_2.Content.ToString();
-            impresion_global.sobrecarga = sobrecarga_2.Content.ToString();
-            impresion_global.subutilizado = subutilizacion_2.Content.ToString();
-            impresion_global.lote = lote.Text.ToString();
-            impresion_global.ingeniero = ingeniero_.Text.ToString();
-
-            #endregion
-
-            #region consolidado
-            impresion_global.consolidado_maquinas.Clear();
-            foreach (elementos elemento in resumen_maquinas.Items)
+            switch (impresion_seleccionada)
             {
-                impresion_global.consolidado_maquinas.Add(new impresion_global.elementos { maquina_lista = elemento.maquina_lista, ee = elemento.ee, ei = elemento.ei, ie = elemento.ie, ii = elemento.ii, na = elemento.na });
+
+                case 0:
+
+                    #region maquina
+                    impresion_global.maquina_1 = maquina1.Text.ToString();
+                    impresion_global.maquina_2 = maquina2.Text.ToString();
+                    impresion_global.maquina_3 = maquina3.Text.ToString();
+                    impresion_global.maquina_4 = maquina4.Text.ToString();
+                    impresion_global.maquina_5 = maquina5.Text.ToString();
+                    impresion_global.maquina_6 = maquina6.Text.ToString();
+                    impresion_global.maquina_7 = maquina7.Text.ToString();
+                    impresion_global.maquina_8 = maquina8.Text.ToString();
+                    impresion_global.maquina_9 = maquina9.Text.ToString();
+                    impresion_global.maquina_10 = maquina10.Text.ToString();
+                    impresion_global.maquina_11 = maquina11.Text.ToString();
+                    impresion_global.maquina_12 = maquina12.Text.ToString();
+                    impresion_global.maquina_13 = maquina13.Text.ToString();
+                    impresion_global.maquina_14 = maquina14.Text.ToString();
+                    impresion_global.maquina_15 = maquina15.Text.ToString();
+                    impresion_global.maquina_16 = maquina16.Text.ToString();
+                    impresion_global.maquina_17 = maquina17.Text.ToString();
+                    impresion_global.maquina_18 = maquina18.Text.ToString();
+                    impresion_global.maquina_19 = maquina19.Text.ToString();
+                    impresion_global.maquina_20 = maquina20.Text.ToString();
+                    impresion_global.maquina_21 = maquina21.Text.ToString();
+                    impresion_global.maquina_22 = maquina22.Text.ToString();
+                    impresion_global.maquina_23 = maquina23.Text.ToString();
+                    impresion_global.maquina_24 = maquina24.Text.ToString();
+                    impresion_global.maquina_25 = maquina25.Text.ToString();
+                    impresion_global.maquina_26 = maquina26.Text.ToString();
+                    impresion_global.maquina_27 = maquina27.Text.ToString();
+                    impresion_global.maquina_28 = maquina28.Text.ToString();
+                    impresion_global.maquina_29 = maquina29.Text.ToString();
+                    impresion_global.maquina_30 = maquina30.Text.ToString();
+                    impresion_global.maquina_31 = maquina31.Text.ToString();
+                    impresion_global.maquina_32 = maquina32.Text.ToString();
+                    impresion_global.maquina_33 = maquina33.Text.ToString();
+                    impresion_global.maquina_34 = maquina34.Text.ToString();
+                    impresion_global.maquina_35 = maquina35.Text.ToString();
+                    impresion_global.maquina_36 = maquina36.Text.ToString();
+                    impresion_global.maquina_37 = maquina37.Text.ToString();
+                    impresion_global.maquina_38 = maquina38.Text.ToString();
+                    impresion_global.maquina_39 = maquina39.Text.ToString();
+                    impresion_global.maquina_40 = maquina40.Text.ToString();
+                    impresion_global.maquina_41 = maquina41.Text.ToString();
+                    impresion_global.maquina_42 = maquina42.Text.ToString();
+                    impresion_global.maquina_43 = maquina43.Text.ToString();
+                    impresion_global.maquina_44 = maquina44.Text.ToString();
+                    impresion_global.maquina_45 = maquina45.Text.ToString();
+                    impresion_global.maquina_46 = maquina46.Text.ToString();
+                    impresion_global.maquina_47 = maquina47.Text.ToString();
+                    impresion_global.maquina_48 = maquina48.Text.ToString();
+                    impresion_global.maquina_49 = maquina49.Text.ToString();
+                    impresion_global.maquina_50 = maquina50.Text.ToString();
+                    impresion_global.maquina_51 = maquina51.Text.ToString();
+                    impresion_global.maquina_52 = maquina52.Text.ToString();
+                    impresion_global.maquina_53 = maquina53.Text.ToString();
+                    impresion_global.maquina_54 = maquina54.Text.ToString();
+                    impresion_global.maquina_55 = maquina55.Text.ToString();
+                    impresion_global.maquina_56 = maquina56.Text.ToString();
+                    impresion_global.maquina_57 = maquina57.Text.ToString();
+                    impresion_global.maquina_58 = maquina58.Text.ToString();
+                    impresion_global.maquina_59 = maquina59.Text.ToString();
+                    impresion_global.maquina_60 = maquina60.Text.ToString();
+                    impresion_global.maquina_61 = maquina61.Text.ToString();
+                    impresion_global.maquina_62 = maquina62.Text.ToString();
+                    impresion_global.maquina_63 = maquina63.Text.ToString();
+                    impresion_global.maquina_64 = maquina64.Text.ToString();
+                    impresion_global.maquina_65 = maquina65.Text.ToString();
+                    impresion_global.maquina_66 = maquina66.Text.ToString();
+
+                    #endregion
+
+                    #region operaciones
+                    foreach (TodoItem item in Operacion1.Items) { impresion_global.operaciones_1.Add(item.Title); };
+                    foreach (TodoItem item in Operacion2.Items) { impresion_global.operaciones_2.Add(item.Title); };
+                    foreach (TodoItem item in Operacion3.Items) { impresion_global.operaciones_3.Add(item.Title); };
+                    foreach (TodoItem item in Operacion4.Items) { impresion_global.operaciones_4.Add(item.Title); };
+                    foreach (TodoItem item in Operacion5.Items) { impresion_global.operaciones_5.Add(item.Title); };
+                    foreach (TodoItem item in Operacion6.Items) { impresion_global.operaciones_6.Add(item.Title); };
+                    foreach (TodoItem item in Operacion7.Items) { impresion_global.operaciones_7.Add(item.Title); };
+                    foreach (TodoItem item in Operacion8.Items) { impresion_global.operaciones_8.Add(item.Title); };
+                    foreach (TodoItem item in Operacion9.Items) { impresion_global.operaciones_9.Add(item.Title); };
+                    foreach (TodoItem item in Operacion10.Items) { impresion_global.operaciones_10.Add(item.Title); };
+                    foreach (TodoItem item in Operacion11.Items) { impresion_global.operaciones_11.Add(item.Title); };
+                    foreach (TodoItem item in Operacion12.Items) { impresion_global.operaciones_12.Add(item.Title); };
+                    foreach (TodoItem item in Operacion13.Items) { impresion_global.operaciones_13.Add(item.Title); };
+                    foreach (TodoItem item in Operacion14.Items) { impresion_global.operaciones_14.Add(item.Title); };
+                    foreach (TodoItem item in Operacion15.Items) { impresion_global.operaciones_15.Add(item.Title); };
+                    foreach (TodoItem item in Operacion16.Items) { impresion_global.operaciones_16.Add(item.Title); };
+                    foreach (TodoItem item in Operacion17.Items) { impresion_global.operaciones_17.Add(item.Title); };
+                    foreach (TodoItem item in Operacion18.Items) { impresion_global.operaciones_18.Add(item.Title); };
+                    foreach (TodoItem item in Operacion19.Items) { impresion_global.operaciones_19.Add(item.Title); };
+                    foreach (TodoItem item in Operacion20.Items) { impresion_global.operaciones_20.Add(item.Title); };
+                    foreach (TodoItem item in Operacion21.Items) { impresion_global.operaciones_21.Add(item.Title); };
+                    foreach (TodoItem item in Operacion22.Items) { impresion_global.operaciones_22.Add(item.Title); };
+                    foreach (TodoItem item in Operacion23.Items) { impresion_global.operaciones_23.Add(item.Title); };
+                    foreach (TodoItem item in Operacion24.Items) { impresion_global.operaciones_24.Add(item.Title); };
+                    foreach (TodoItem item in Operacion25.Items) { impresion_global.operaciones_25.Add(item.Title); };
+                    foreach (TodoItem item in Operacion26.Items) { impresion_global.operaciones_26.Add(item.Title); };
+                    foreach (TodoItem item in Operacion27.Items) { impresion_global.operaciones_27.Add(item.Title); };
+                    foreach (TodoItem item in Operacion28.Items) { impresion_global.operaciones_28.Add(item.Title); };
+                    foreach (TodoItem item in Operacion29.Items) { impresion_global.operaciones_29.Add(item.Title); };
+                    foreach (TodoItem item in Operacion30.Items) { impresion_global.operaciones_30.Add(item.Title); };
+                    foreach (TodoItem item in Operacion31.Items) { impresion_global.operaciones_31.Add(item.Title); };
+                    foreach (TodoItem item in Operacion32.Items) { impresion_global.operaciones_32.Add(item.Title); };
+                    foreach (TodoItem item in Operacion33.Items) { impresion_global.operaciones_33.Add(item.Title); };
+                    foreach (TodoItem item in Operacion34.Items) { impresion_global.operaciones_34.Add(item.Title); };
+                    foreach (TodoItem item in Operacion35.Items) { impresion_global.operaciones_35.Add(item.Title); };
+                    foreach (TodoItem item in Operacion36.Items) { impresion_global.operaciones_36.Add(item.Title); };
+                    foreach (TodoItem item in Operacion37.Items) { impresion_global.operaciones_37.Add(item.Title); };
+                    foreach (TodoItem item in Operacion38.Items) { impresion_global.operaciones_38.Add(item.Title); };
+                    foreach (TodoItem item in Operacion39.Items) { impresion_global.operaciones_39.Add(item.Title); };
+                    foreach (TodoItem item in Operacion40.Items) { impresion_global.operaciones_40.Add(item.Title); };
+                    foreach (TodoItem item in Operacion41.Items) { impresion_global.operaciones_41.Add(item.Title); };
+                    foreach (TodoItem item in Operacion42.Items) { impresion_global.operaciones_42.Add(item.Title); };
+                    foreach (TodoItem item in Operacion43.Items) { impresion_global.operaciones_43.Add(item.Title); };
+                    foreach (TodoItem item in Operacion44.Items) { impresion_global.operaciones_44.Add(item.Title); };
+                    foreach (TodoItem item in Operacion45.Items) { impresion_global.operaciones_45.Add(item.Title); };
+                    foreach (TodoItem item in Operacion46.Items) { impresion_global.operaciones_46.Add(item.Title); };
+                    foreach (TodoItem item in Operacion47.Items) { impresion_global.operaciones_47.Add(item.Title); };
+                    foreach (TodoItem item in Operacion48.Items) { impresion_global.operaciones_48.Add(item.Title); };
+                    foreach (TodoItem item in Operacion49.Items) { impresion_global.operaciones_49.Add(item.Title); };
+                    foreach (TodoItem item in Operacion50.Items) { impresion_global.operaciones_50.Add(item.Title); };
+                    foreach (TodoItem item in Operacion51.Items) { impresion_global.operaciones_51.Add(item.Title); };
+                    foreach (TodoItem item in Operacion52.Items) { impresion_global.operaciones_52.Add(item.Title); };
+                    foreach (TodoItem item in Operacion53.Items) { impresion_global.operaciones_53.Add(item.Title); };
+                    foreach (TodoItem item in Operacion54.Items) { impresion_global.operaciones_54.Add(item.Title); };
+                    foreach (TodoItem item in Operacion55.Items) { impresion_global.operaciones_55.Add(item.Title); };
+                    foreach (TodoItem item in Operacion56.Items) { impresion_global.operaciones_56.Add(item.Title); };
+                    foreach (TodoItem item in Operacion57.Items) { impresion_global.operaciones_57.Add(item.Title); };
+                    foreach (TodoItem item in Operacion58.Items) { impresion_global.operaciones_58.Add(item.Title); };
+                    foreach (TodoItem item in Operacion59.Items) { impresion_global.operaciones_59.Add(item.Title); };
+                    foreach (TodoItem item in Operacion60.Items) { impresion_global.operaciones_60.Add(item.Title); };
+                    foreach (TodoItem item in Operacion61.Items) { impresion_global.operaciones_61.Add(item.Title); };
+                    foreach (TodoItem item in Operacion62.Items) { impresion_global.operaciones_62.Add(item.Title); };
+                    foreach (TodoItem item in Operacion63.Items) { impresion_global.operaciones_63.Add(item.Title); };
+                    foreach (TodoItem item in Operacion64.Items) { impresion_global.operaciones_64.Add(item.Title); };
+                    foreach (TodoItem item in Operacion65.Items) { impresion_global.operaciones_65.Add(item.Title); };
+                    foreach (TodoItem item in Operacion66.Items) { impresion_global.operaciones_66.Add(item.Title); };
+                    #endregion
+
+                    #region operarios
+                    impresion_global.operario_1 = operario1.Text.ToString();
+                    impresion_global.operario_2 = operario2.Text.ToString();
+                    impresion_global.operario_3 = operario3.Text.ToString();
+                    impresion_global.operario_4 = operario4.Text.ToString();
+                    impresion_global.operario_5 = operario5.Text.ToString();
+                    impresion_global.operario_6 = operario6.Text.ToString();
+                    impresion_global.operario_7 = operario7.Text.ToString();
+                    impresion_global.operario_8 = operario8.Text.ToString();
+                    impresion_global.operario_9 = operario9.Text.ToString();
+                    impresion_global.operario_10 = operario10.Text.ToString();
+                    impresion_global.operario_11 = operario11.Text.ToString();
+                    impresion_global.operario_12 = operario12.Text.ToString();
+                    impresion_global.operario_13 = operario13.Text.ToString();
+                    impresion_global.operario_14 = operario14.Text.ToString();
+                    impresion_global.operario_15 = operario15.Text.ToString();
+                    impresion_global.operario_16 = operario16.Text.ToString();
+                    impresion_global.operario_17 = operario17.Text.ToString();
+                    impresion_global.operario_18 = operario18.Text.ToString();
+                    impresion_global.operario_19 = operario19.Text.ToString();
+                    impresion_global.operario_20 = operario20.Text.ToString();
+                    impresion_global.operario_21 = operario21.Text.ToString();
+                    impresion_global.operario_22 = operario22.Text.ToString();
+                    impresion_global.operario_23 = operario23.Text.ToString();
+                    impresion_global.operario_24 = operario24.Text.ToString();
+                    impresion_global.operario_25 = operario25.Text.ToString();
+                    impresion_global.operario_26 = operario26.Text.ToString();
+                    impresion_global.operario_27 = operario27.Text.ToString();
+                    impresion_global.operario_28 = operario28.Text.ToString();
+                    impresion_global.operario_29 = operario29.Text.ToString();
+                    impresion_global.operario_30 = operario30.Text.ToString();
+                    impresion_global.operario_31 = operario31.Text.ToString();
+                    impresion_global.operario_32 = operario32.Text.ToString();
+                    impresion_global.operario_33 = operario33.Text.ToString();
+                    impresion_global.operario_34 = operario34.Text.ToString();
+                    impresion_global.operario_35 = operario35.Text.ToString();
+                    impresion_global.operario_36 = operario36.Text.ToString();
+                    impresion_global.operario_37 = operario37.Text.ToString();
+                    impresion_global.operario_38 = operario38.Text.ToString();
+                    impresion_global.operario_39 = operario39.Text.ToString();
+                    impresion_global.operario_40 = operario40.Text.ToString();
+                    impresion_global.operario_41 = operario41.Text.ToString();
+                    impresion_global.operario_42 = operario42.Text.ToString();
+                    impresion_global.operario_43 = operario43.Text.ToString();
+                    impresion_global.operario_44 = operario44.Text.ToString();
+                    impresion_global.operario_45 = operario45.Text.ToString();
+                    impresion_global.operario_46 = operario46.Text.ToString();
+                    impresion_global.operario_47 = operario47.Text.ToString();
+                    impresion_global.operario_48 = operario48.Text.ToString();
+                    impresion_global.operario_49 = operario49.Text.ToString();
+                    impresion_global.operario_50 = operario50.Text.ToString();
+                    impresion_global.operario_51 = operario51.Text.ToString();
+                    impresion_global.operario_52 = operario52.Text.ToString();
+                    impresion_global.operario_53 = operario53.Text.ToString();
+                    impresion_global.operario_54 = operario54.Text.ToString();
+                    impresion_global.operario_55 = operario55.Text.ToString();
+                    impresion_global.operario_56 = operario56.Text.ToString();
+                    impresion_global.operario_57 = operario57.Text.ToString();
+                    impresion_global.operario_58 = operario58.Text.ToString();
+                    impresion_global.operario_59 = operario59.Text.ToString();
+                    impresion_global.operario_60 = operario60.Text.ToString();
+                    impresion_global.operario_61 = operario61.Text.ToString();
+                    impresion_global.operario_62 = operario62.Text.ToString();
+                    impresion_global.operario_63 = operario63.Text.ToString();
+                    impresion_global.operario_64 = operario64.Text.ToString();
+                    impresion_global.operario_65 = operario65.Text.ToString();
+                    impresion_global.operario_66 = operario66.Text.ToString();
+
+                    #endregion
+
+                    #region colores_maquina
+                    impresion_global.color_1 = b1.Background;
+                    impresion_global.color_2 = b2.Background;
+                    impresion_global.color_3 = b3.Background;
+                    impresion_global.color_4 = b4.Background;
+                    impresion_global.color_5 = b5.Background;
+                    impresion_global.color_6 = b6.Background;
+                    impresion_global.color_7 = b7.Background;
+                    impresion_global.color_8 = b8.Background;
+                    impresion_global.color_9 = b9.Background;
+                    impresion_global.color_10 = b10.Background;
+                    impresion_global.color_11 = b11.Background;
+                    impresion_global.color_12 = b12.Background;
+                    impresion_global.color_13 = b13.Background;
+                    impresion_global.color_14 = b14.Background;
+                    impresion_global.color_15 = b15.Background;
+                    impresion_global.color_16 = b16.Background;
+                    impresion_global.color_17 = b17.Background;
+                    impresion_global.color_18 = b18.Background;
+                    impresion_global.color_19 = b19.Background;
+                    impresion_global.color_20 = b20.Background;
+                    impresion_global.color_21 = b21.Background;
+                    impresion_global.color_22 = b22.Background;
+                    impresion_global.color_23 = b23.Background;
+                    impresion_global.color_24 = b24.Background;
+                    impresion_global.color_25 = b25.Background;
+                    impresion_global.color_26 = b26.Background;
+                    impresion_global.color_27 = b27.Background;
+                    impresion_global.color_28 = b28.Background;
+                    impresion_global.color_29 = b29.Background;
+                    impresion_global.color_30 = b30.Background;
+                    impresion_global.color_31 = b31.Background;
+                    impresion_global.color_32 = b32.Background;
+                    impresion_global.color_33 = b33.Background;
+                    impresion_global.color_34 = b34.Background;
+                    impresion_global.color_35 = b35.Background;
+                    impresion_global.color_36 = b36.Background;
+                    impresion_global.color_37 = b37.Background;
+                    impresion_global.color_38 = b38.Background;
+                    impresion_global.color_39 = b39.Background;
+                    impresion_global.color_40 = b40.Background;
+                    impresion_global.color_41 = b41.Background;
+                    impresion_global.color_42 = b42.Background;
+                    impresion_global.color_43 = b43.Background;
+                    impresion_global.color_44 = b44.Background;
+                    impresion_global.color_45 = b45.Background;
+                    impresion_global.color_46 = b46.Background;
+                    impresion_global.color_47 = b47.Background;
+                    impresion_global.color_48 = b48.Background;
+                    impresion_global.color_49 = b49.Background;
+                    impresion_global.color_50 = b50.Background;
+                    impresion_global.color_51 = b51.Background;
+                    impresion_global.color_52 = b52.Background;
+                    impresion_global.color_53 = b53.Background;
+                    impresion_global.color_54 = b54.Background;
+                    impresion_global.color_55 = b55.Background;
+                    impresion_global.color_56 = b56.Background;
+                    impresion_global.color_57 = b57.Background;
+                    impresion_global.color_58 = b58.Background;
+                    impresion_global.color_59 = b59.Background;
+                    impresion_global.color_60 = b60.Background;
+                    impresion_global.color_61 = b61.Background;
+                    impresion_global.color_62 = b62.Background;
+                    impresion_global.color_63 = b63.Background;
+                    impresion_global.color_64 = b64.Background;
+                    impresion_global.color_65 = b65.Background;
+                    impresion_global.color_66 = b66.Background;
+                    #endregion
+
+                    #region general
+                    impresion_global.modulo = modulo_2.Content.ToString();
+                    impresion_global.estilo = estilo_2.Content.ToString();
+                    impresion_global.temporada = temporada_2.Content.ToString();
+                    impresion_global.sam = sam_2.Content.ToString();
+                    impresion_global.operarios = operarios_2.Content.ToString();
+                    impresion_global.sobrecarga = sobrecarga_2.Content.ToString();
+                    impresion_global.subutilizado = subutilizacion_2.Content.ToString();
+                    impresion_global.lote = lote.Text.ToString();
+                    impresion_global.ingeniero = ingeniero_.Text.ToString();
+
+                    #endregion
+
+                    #region consolidado
+                    impresion_global.consolidado_maquinas.Clear();
+                    foreach (elementos elemento in resumen_maquinas.Items)
+                    {
+                        impresion_global.consolidado_maquinas.Add(new impresion_global.elementos { maquina_lista = elemento.maquina_lista, ee = elemento.ee, ei = elemento.ei, ie = elemento.ie, ii = elemento.ii, na = elemento.na });
+                    }
+
+                    #endregion
+
+                    impresion impresion = new impresion();
+                    this.NavigationService.Navigate(impresion);
+
+                    break;
+
+                case 1:
+
+                    #region general
+                    impresion_global.modulo = modulo_2.Content.ToString();
+                    impresion_global.estilo = estilo_2.Content.ToString();
+                    impresion_global.temporada = temporada_2.Content.ToString();
+                    impresion_global.sam = sam_2.Content.ToString();
+                    impresion_global.operarios = operarios_2.Content.ToString();
+                    impresion_global.ingeniero = ingeniero_.Text.ToString();
+                    impresion_global.tipo = "Rebalance";
+                    impresion_global.fecha = fecha_.Content.ToString();
+
+                    #endregion
+
+                    imprimir_balance imprimir_balance = new imprimir_balance();
+                    this.NavigationService.Navigate(imprimir_balance);
+                    break;
+                case 2:
+                    MessageBox.Show("rebalance");
+                    break;
+
             }
-
-            #endregion
-
-            impresion impresion = new impresion();
-            this.NavigationService.Navigate(impresion);
         }
 
         private void guardar_Click(object sender, RoutedEventArgs e)
@@ -33744,7 +33776,6 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
             }
         }
         #endregion
-
     }
 
 
@@ -33997,6 +34028,8 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
         private static string _subutilizado = "";
         private static string _lote = "";
         private static string _ingeniero = "";
+        private static string _fecha = "";
+        private static string _tipo = "";
 
         #endregion
 
@@ -34294,6 +34327,8 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
         public static string subutilizado { get { return _subutilizado; } set { _subutilizado = value; } }
         public static string lote { get { return _lote; } set { _lote = value; } }
         public static string ingeniero { get { return _ingeniero; } set { _ingeniero = value; } }
+        public static string fecha { get { return _fecha; } set { _fecha = value; } }
+        public static string tipo { get { return _tipo; } set { _tipo = value; } }
 
         #endregion
 

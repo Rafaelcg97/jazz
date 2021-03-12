@@ -205,6 +205,9 @@
     <Compile Include="impresion.xaml.cs">
       <DependentUpon>impresion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="imprimir_balance.xaml.cs">
+      <DependentUpon>imprimir_balance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="preventivo.xaml.cs">
       <DependentUpon>preventivo.xaml</DependentUpon>
     </Compile>
@@ -227,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="impresion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="imprimir_balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
