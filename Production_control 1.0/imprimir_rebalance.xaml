@@ -1,4 +1,4 @@
-﻿<Page x:Class="Production_control_1._0.imprimir_balance"
+﻿<Page x:Class="Production_control_1._0.imprimir_rebalance"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:Production_control_1._0"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="imprimir_balance"
+      Title="imprimir_rebalance"
       Background="White">
 
     <Grid>
@@ -200,14 +200,14 @@
                 <Label Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Creación:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
                 <Label Grid.Column="0" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Impresión:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
                 <Label Grid.Column="0" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Tipo:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                
+
                 <Label x:Name="creacion" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
                 <Label x:Name="impresion" Grid.Column="2" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
                 <Label x:Name="tipo" Grid.Column="2" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
 
 
                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" Grid.RowSpan="8">
-                <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
+                    <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
 
                 <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" Grid.Row="15"  Grid.ColumnSpan="12" Grid.RowSpan="70">

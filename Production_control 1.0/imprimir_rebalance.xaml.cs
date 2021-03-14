@@ -19,7 +19,7 @@ using LiveCharts.Wpf;
 
 namespace Production_control_1._0
 {
-    public partial class imprimir_balance : Page
+    public partial class imprimir_rebalance : Page
     {
         #region clases_especiales
         private PrintDocument printDoc = new PrintDocument();
@@ -34,7 +34,7 @@ namespace Production_control_1._0
         #endregion
 
         #region datos_iniciales
-        public imprimir_balance()
+        public imprimir_rebalance()
         {
             InitializeComponent();
 
@@ -72,6 +72,7 @@ namespace Production_control_1._0
 
             cargar_datos_grafica();
         }
+
         #endregion
 
         #region tamanos_de_letra_/_tipo_de_texto
@@ -258,6 +259,14 @@ namespace Production_control_1._0
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = Brushes.Transparent,
                     PointGeometry= System.Windows.Media.Geometry.Empty
+                },
+                 new LineSeries
+                {
+                    Title="Eficiencia",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.DarkGoldenrod,
+                    Fill = Brushes.Transparent,
+                    PointGeometry= DefaultGeometries.Circle,
                 }
             };
             Formatter = value => value.ToString("N");
@@ -267,17 +276,22 @@ namespace Production_control_1._0
             SeriesCollection[0].Values.Clear();
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
-            grafico.AxisX.Add(new Axis() { Labels = clases_globales.impresion_grafica.lista_de_operarios.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
-        
-            foreach(double item in clases_globales.impresion_grafica.lista_de_cargas)
+            SeriesCollection[3].Values.Clear();
+            grafico.AxisX.Add(new Axis() { Labels = clases_globales.impresion_rebalance.lista_de_operarios_rebalance.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
+
+            foreach (double item in clases_globales.impresion_rebalance.lista_de_cargas_rebalance)
             {
                 SeriesCollection[0].Values.Add(item);
                 SeriesCollection[1].Values.Add(1d);
                 SeriesCollection[2].Values.Add(0.9d);
             }
-        
-        
-        
+
+            foreach (double item2 in clases_globales.impresion_rebalance.lista_de_eficiencias_rebalance)
+            {
+                SeriesCollection[3].Values.Add(item2);
+            }
+
+
         }
 
         #endregion

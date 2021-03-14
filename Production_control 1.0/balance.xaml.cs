@@ -1339,7 +1339,20 @@ namespace Production_control_1._0
                     this.NavigationService.Navigate(imprimir_balance);
                     break;
                 case 2:
-                    MessageBox.Show("rebalance");
+                    #region general
+                    impresion_global.modulo = modulo_2.Content.ToString();
+                    impresion_global.estilo = estilo_2.Content.ToString();
+                    impresion_global.temporada = temporada_2.Content.ToString();
+                    impresion_global.sam = sam_2.Content.ToString();
+                    impresion_global.operarios = operarios_2.Content.ToString();
+                    impresion_global.ingeniero = ingeniero_.Text.ToString();
+                    impresion_global.tipo = "Rebalance";
+                    impresion_global.fecha = fecha_.Content.ToString();
+
+                    #endregion
+
+                    imprimir_rebalance imprimir_rebalance = new imprimir_rebalance();
+                    this.NavigationService.Navigate(imprimir_rebalance);
                     break;
 
             }
@@ -5885,11 +5898,14 @@ namespace Production_control_1._0
         private void actualizar_grafica()
         {
             List<string> lista_de_operarios = new List<string>();
+            clases_globales.impresion_grafica.lista_de_cargas.Clear();
+            clases_globales.impresion_grafica.lista_de_operarios.Clear();
             foreach (TodoItem item in Operarios.Items)
             {
                 if (item.Completion > 0)
                 {
                     lista_de_operarios.Add(item.Title);
+                    clases_globales.impresion_grafica.lista_de_operarios.Add(item.Title);
                 }
             }
 
@@ -5906,6 +5922,7 @@ namespace Production_control_1._0
                     SeriesCollection[0].Values.Add(Convert.ToDouble(item.Completion));
                     SeriesCollection[1].Values.Add(1d);
                     SeriesCollection[2].Values.Add(0.9d);
+                    clases_globales.impresion_grafica.lista_de_cargas.Add(Convert.ToDouble(item.Completion));
                 }
             };
         }
@@ -5914,6 +5931,9 @@ namespace Production_control_1._0
             // se definen las listas donde se va a consolidar la informacion para el rebalanc
             List<rebalance> lista_resumen = new List<rebalance>();
             List<string> lista_de_operarios_2 = new List<string>();
+            clases_globales.impresion_rebalance.lista_de_cargas_rebalance.Clear();
+            clases_globales.impresion_rebalance.lista_de_eficiencias_rebalance.Clear();
+            clases_globales.impresion_rebalance.lista_de_operarios_rebalance.Clear();
 
             //para una lista sin nombres repetidos se va a evaluar cada operario de rebalance contra los operarios de la lista operarios
             foreach (TodoItem elemento in Operarios.Items)
@@ -5954,8 +5974,10 @@ namespace Production_control_1._0
 
            foreach (rebalance item in lista_resumen)
             {
-                    lista_de_operarios_2.Add(item.operario);
-           }
+                lista_de_operarios_2.Add(item.operario);
+                clases_globales.impresion_rebalance.lista_de_operarios_rebalance.Add(item.operario);
+
+            }
 
            // se limpian las series de la grafic para cuando se actualice no tenga datos anteriores
 
@@ -5972,10 +5994,13 @@ namespace Production_control_1._0
             // se agregan  los valores de cada nombre de la grafica
             foreach (rebalance item in lista_resumen)
             {
-                    SeriesCollection_2[0].Values.Add(Convert.ToDouble(item.carga));
-                    SeriesCollection_2[1].Values.Add(1d);
-                    SeriesCollection_2[2].Values.Add(0.9d);
-                    SeriesCollection_2[3].Values.Add(Convert.ToDouble(item.eficiencia));
+                SeriesCollection_2[0].Values.Add(Convert.ToDouble(item.carga));
+                SeriesCollection_2[1].Values.Add(1d);
+                SeriesCollection_2[2].Values.Add(0.9d);
+                SeriesCollection_2[3].Values.Add(Convert.ToDouble(item.eficiencia));
+                clases_globales.impresion_rebalance.lista_de_cargas_rebalance.Add(Convert.ToDouble(item.carga));
+                clases_globales.impresion_rebalance.lista_de_eficiencias_rebalance.Add(Convert.ToDouble(item.eficiencia));
+
             };
         }
         private void lista_de_maquinas()
@@ -33776,6 +33801,7 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
             }
         }
         #endregion
+
     }
 
 

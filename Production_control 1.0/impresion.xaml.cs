@@ -19,9 +19,6 @@ using NHibernate.Impl;
 
 namespace Production_control_1._0
 {
-    /// <summary>
-    /// Interaction logic for impresion.xaml
-    /// </summary>
     public partial class impresion : Page
     {
         #region clases_especiales
@@ -32,7 +29,6 @@ namespace Production_control_1._0
         public impresion()
         {
             InitializeComponent();
-
             //agregar la lista de impresoras instaladas
             string impresora_instalada;
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
@@ -207,6 +203,14 @@ namespace Production_control_1._0
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {
             copias.Text = (Convert.ToInt32(copias.Text) + 1).ToString();
+        }
+
+        private void disminuir_copias_Click(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToInt32(copias.Text) > 1)
+            {
+                copias.Text = (Convert.ToInt32(copias.Text) - 1).ToString();
+            }
         }
 
         #endregion
@@ -676,6 +680,7 @@ namespace Production_control_1._0
         }
 
         #endregion
+
 
     }
 }
