@@ -75,7 +75,7 @@
             <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="tamano_impresion"/>
             <ComboBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="orientacion_impresion"/>
             <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="impresora"/>
-            <TextBox x:Name="copias" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" KeyDown="solo_numeros"></TextBox>
+            <TextBox x:Name="copias" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" KeyDown="solo_numeros" SizeChanged="letra_pequena"></TextBox>
             <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

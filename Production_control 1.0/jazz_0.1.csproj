@@ -213,6 +213,9 @@
     <Compile Include="imprimir_rebalance.xaml.cs">
       <DependentUpon>imprimir_rebalance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ingreso_produccion.xaml.cs">
+      <DependentUpon>ingreso_produccion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="preventivo.xaml.cs">
       <DependentUpon>preventivo.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="imprimir_rebalance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ingreso_produccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
