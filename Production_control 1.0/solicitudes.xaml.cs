@@ -20,9 +20,6 @@ using LiveCharts.Wpf;
 
 namespace Production_control_1._0
 {
-    /// <summary>
-    /// Interaction logic for solicitudes.xaml
-    /// </summary>
     public partial class solicitudes : Page
     {
         #region clases_especiales

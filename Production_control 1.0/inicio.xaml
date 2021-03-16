@@ -242,13 +242,25 @@
                 </Button>
                 <!--#endregion-->
                 <!--#region boton_mantenimiento_preventivo-->
-                <Button x:Name="mantenimiento_preventiv"  Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="11" Grid.RowSpan="8"  Margin="10,0" Background="Transparent" BorderBrush="Transparent" Click="mantenimiento_preventiv_Click" >
+                <Button x:Name="mantenimiento_preventiv"  Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="5" Grid.RowSpan="8"  Margin="10,0" Background="Transparent" BorderBrush="Transparent" Click="mantenimiento_preventiv_Click" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="89*"/>
                             <ColumnDefinition Width="7*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="imagenes/gestion-del-tiempo.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
+                        <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
+                    </Grid>
+                </Button>
+                <!--#endregion-->
+                <!--#region boton_solicitud_repuestos-->
+                <Button x:Name="solicitar_repuest"  Grid.Column="6" Grid.Row="13" Grid.ColumnSpan="5" Grid.RowSpan="8"  Margin="10,0" Background="Transparent" BorderBrush="Transparent" Click="solicitar_repuest_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="imagenes/carrito.png" Grid.ColumnSpan="2" Margin="0,0,0,0"></Image>
                         <Label Content="Abrir Balance" Grid.ColumnSpan="2" Margin="0,-22,0,0"></Label>
                     </Grid>
                 </Button>

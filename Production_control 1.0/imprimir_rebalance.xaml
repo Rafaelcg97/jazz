@@ -209,6 +209,14 @@
                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" Grid.RowSpan="8">
                     <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
+                <Label Grid.Column="9" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Estilo:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label Grid.Column="9" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="SAM:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label x:Name="estilo" Grid.Column="10" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Label x:Name="sam" Grid.Column="10" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Label Grid.Column="9" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Operarios:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label Grid.Column="9" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Eficiencia:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label x:Name="operarios" Grid.Column="10" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Label x:Name="eficiencia" Grid.Column="10" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
 
                 <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" Grid.Row="15"  Grid.ColumnSpan="12" Grid.RowSpan="70">
                     <lvc:CartesianChart.AxisX>

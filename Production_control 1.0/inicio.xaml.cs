@@ -66,6 +66,12 @@ namespace Production_control_1._0
             smed smed = new smed();
             this.NavigationService.Navigate(smed);
         }
+
+        private void solicitar_repuest_Click(object sender, RoutedEventArgs e)
+        {
+            sesion_mecanico sesion_mecanico = new sesion_mecanico() ;
+            this.NavigationService.Navigate(sesion_mecanico);
+        }
     }
 
 

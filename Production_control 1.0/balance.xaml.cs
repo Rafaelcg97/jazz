@@ -1330,8 +1330,9 @@ namespace Production_control_1._0
                     impresion_global.sam = sam_2.Content.ToString();
                     impresion_global.operarios = operarios_2.Content.ToString();
                     impresion_global.ingeniero = ingeniero_.Text.ToString();
-                    impresion_global.tipo = "Rebalance";
+                    impresion_global.tipo = "Balance";
                     impresion_global.fecha = fecha_.Content.ToString();
+                    impresion_global.eficiencia = eficiencia_2.Content.ToString();
 
                     #endregion
 
@@ -1348,6 +1349,7 @@ namespace Production_control_1._0
                     impresion_global.ingeniero = ingeniero_.Text.ToString();
                     impresion_global.tipo = "Rebalance";
                     impresion_global.fecha = fecha_.Content.ToString();
+                    impresion_global.eficiencia = eficiencia_2.Content.ToString();
 
                     #endregion
 

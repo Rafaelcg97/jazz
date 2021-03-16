@@ -230,6 +230,11 @@ namespace Production_control_1._0
             modulo.Content = impresion_global.modulo;
             impresion.Content = DateTime.Now.ToString("yyyy-MM-dd");
             creacion.Content = impresion_global.fecha;
+            operarios.Content = impresion_global.operarios;
+            sam.Content = impresion_global.sam;
+            tipo.Content = impresion_global.tipo;
+            estilo.Content = impresion_global.estilo + ", " + impresion_global.temporada;
+            eficiencia.Content = impresion_global.eficiencia;
 
         }
         private void cargar_datos_grafica()
