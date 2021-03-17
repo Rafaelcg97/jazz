@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="clases globales\impresion_grafica.cs" />
     <Compile Include="clases globales\impresion_rebalance.cs" />
+    <Compile Include="clases globales\usuario_respuesto.cs" />
     <Compile Include="configuraciones.xaml.cs">
       <DependentUpon>configuraciones.xaml</DependentUpon>
     </Compile>
@@ -227,6 +228,9 @@
     </Compile>
     <Compile Include="solicitudes.xaml.cs">
       <DependentUpon>solicitudes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="solicitud_repuestos.xaml.cs">
+      <DependentUpon>solicitud_repuestos.xaml</DependentUpon>
     </Compile>
     <Page Include="abrir.xaml">
       <SubType>Designer</SubType>
@@ -302,6 +306,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="solicitudes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="solicitud_repuestos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -488,6 +496,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\carrito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\compra.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

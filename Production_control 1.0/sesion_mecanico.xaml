@@ -69,12 +69,12 @@
                 <!--#region formulario_ingreso-->
                 <Label Content="Usuario:" Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2"  SizeChanged="letra_grande" Padding="0"/>
                 <Label Content="Contraseña:" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="3"  SizeChanged="letra_grande" Padding="0"/>
-                <Button x:Name="Ingresar" Grid.Row="5" Grid.Column="3" Grid.RowSpan="1" Grid.ColumnSpan="1" Background="Transparent" BorderBrush="Transparent">
+                <Button x:Name="Ingresar" Grid.Row="5" Grid.Column="3" Grid.RowSpan="1" Grid.ColumnSpan="1" Background="Transparent" BorderBrush="Transparent" Click="Ingresar_Click">
                     <Image Source="/imagenes/finsesion.png"/>
                 </Button>
 
                 <TextBox x:Name="Usuario" Grid.Row="1" Grid.Column="4" Grid.RowSpan="1" Grid.ColumnSpan="2" SizeChanged="letra_grande" Padding="0,5,0,0" MaxLength="4" KeyDown="solo_numeros"/>
-                <PasswordBox x:Name="password" Grid.Row="3" Grid.Column="4" Grid.RowSpan="1" Grid.ColumnSpan="2" SizeChanged="letra_grande" Padding="0,5,0,0" MaxLength="10"/>
+                <PasswordBox x:Name="password" Grid.Row="3" Grid.Column="4" Grid.RowSpan="1" Grid.ColumnSpan="2" SizeChanged="letra_grande" Padding="0,5,0,0" MaxLength="10" KeyDown="solo_numeros"/>
                 <!--#endregion-->
             </Grid>
         </Border> 

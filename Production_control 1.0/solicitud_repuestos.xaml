@@ -1,0 +1,212 @@
+﻿<Page x:Class="Production_control_1._0.solicitud_repuestos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="solicitud_repuestos"
+      Background="White">
+
+    <Grid>
+        <!--#region filas/columnas-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>          
+
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+        <!--#region encabezado-->
+        <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
+            <Image Source="/imagenes/casa.png"/>
+        </Button>
+        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="letra_8" Foreground="Green" FontWeight="Bold">Solicitud de Repuestos</Label>
+        <!--#endregion-->  
+        <!--#region formulario_componente-->
+        <Border Grid.Column="1" Grid.Row="4" BorderBrush="Black" BorderThickness="4" Grid.ColumnSpan="7" Grid.RowSpan="15" CornerRadius="10">
+            <Grid>
+                <!--#region filas/columnas-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--#endregion-->
+                <!--#region etiquetas-->
+                <Label Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="2" Content="Usuario:" FontWeight="Bold" SizeChanged="letra_7" />
+                <Label Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Content="Nombre:" FontWeight="Bold" SizeChanged="letra_7"/>
+                <Label Grid.Column="7" Grid.ColumnSpan="10" Grid.Row="1" Grid.RowSpan="2" Content="----" FontWeight="Light"  SizeChanged="letra_7" x:Name="usuario_"/>
+                <Label Grid.Column="7" Grid.ColumnSpan="11" Grid.Row="3" Grid.RowSpan="2" Content="----" FontWeight="Light"  SizeChanged="letra_7" x:Name="nombre_"/>
+                <Label Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="7" Grid.RowSpan="2" Content="Máquina:" FontWeight="Bold" SizeChanged="letra_7" />
+                <Label Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2" Content="Repuesto:" FontWeight="Bold" SizeChanged="letra_7" />
+                <!--#endregion-->
+
+                <TextBox x:Name="buscar_maquina" Grid.Row="7" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="9" Padding="0" SizeChanged="letra_7" TextChanged="buscar_maquina_TextChanged"/>
+                <ListBox x:Name="maquina" Grid.Row="8" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="9" SizeChanged="letra_09"/>
+                <TextBox x:Name="buscar_repuesto" Grid.Row="17" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="9" Padding="0" SizeChanged="letra_7"/>
+                <ListBox x:Name="repuesto" Grid.Row="18" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="9" SizeChanged="letra_09"/>
+                <Button x:Name="agregar_list" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="25" Grid.RowSpan="4" BorderBrush="Transparent" Background="Transparent">
+                    <Image Source="/imagenes/compra.png"/>
+                </Button>
+            </Grid>
+        </Border>
+        <!--#endregion-->
+        <!--#region orden_final-->
+        <Border Grid.Column="9" Grid.Row="4" BorderBrush="Black" BorderThickness="4" Grid.ColumnSpan="6" Grid.RowSpan="15" CornerRadius="10">
+            <Grid>
+                <!--#region filas/columnas-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+                <!--#endregion-->
+
+                <Label Content="Orden de Repuestos" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="2" SizeChanged="letra_7" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                <Label Content="Nombre de Empleado:" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="1" SizeChanged="letra_7" FontWeight="DemiBold"/>
+                <Label Content="Código de Empleado:" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="1" SizeChanged="letra_7" FontWeight="DemiBold"/>
+                <Label Content="Código de Máquina:" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="1" SizeChanged="letra_7" FontWeight="DemiBold"/>
+                <Label x:Name="nombre_2" Content="----" Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="8" Grid.RowSpan="1" SizeChanged="letra_7" FontWeight="DemiBold"/>
+                <Label x:Name="codigo_2" Content="----" Grid.Row="6" Grid.Column="7" Grid.ColumnSpan="6" Grid.RowSpan="1" SizeChanged="letra_7" FontWeight="DemiBold"/>
+                <Label x:Name="maquina_2" Content="----" Grid.Row="8" Grid.Column="7" Grid.ColumnSpan="6" Grid.RowSpan="1" SizeChanged="letra_7" FontWeight="DemiBold"/>
+                <ListBox x:Name="repuestos_solicitados" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="18" Grid.RowSpan="16"/>
+            </Grid>
+        </Border>
+
+        <!--#endregion-->
+    </Grid>
+</Page>
