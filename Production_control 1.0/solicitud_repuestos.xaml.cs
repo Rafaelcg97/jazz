@@ -37,7 +37,6 @@ namespace Production_control_1._0
             //cargar los datos del mecanico
             string sql = "select nombre from mecanicos where codigo='" + clases_globales.usuario_respuesto.usuario.ToString() + "'";
             SqlCommand cm = new SqlCommand(sql, cn);
-            cm.ExecuteNonQuery();
             SqlDataReader dr = cm.ExecuteReader();
             dr.Read();
             nombre_.Content = dr[0].ToString();
@@ -47,7 +46,6 @@ namespace Production_control_1._0
             //cargar la lista de maquinas
             string sql2 = "select codigo from inventario_maquinas";
             SqlCommand cm2 = new SqlCommand(sql2, cn);
-            cm2.ExecuteNonQuery();
             SqlDataReader dr2 = cm2.ExecuteReader();
             while (dr2.Read())
             {
@@ -56,16 +54,17 @@ namespace Production_control_1._0
             dr2.Close();
 
             //cargar la lista de repuestos
-            string sql3 = "select Description from spare_onhand group by Description";
+            List <clases_globales.repuesto> lista_repuestos = new List<clases_globales.repuesto>();
+            string sql3 = "select PartNumber, Description, OnHand, Cost from spare_onhand";
             SqlCommand cm3 = new SqlCommand(sql3, cn);
-            cm2.ExecuteNonQuery();
             SqlDataReader dr3 = cm3.ExecuteReader();
             while (dr3.Read())
             {
-                repuesto.Items.Add(dr3["Description"].ToString());
+                lista_repuestos.Add(new clases_globales.repuesto { partnumber = dr3["PartNumber"].ToString(), description = dr3["Description"].ToString(), onhand = Convert.ToInt32(dr3["OnHand"]), cost = Convert.ToDouble(dr3["cost"]) });
             };
             dr3.Close();
-
+            cn.Close();
+            repuesto.ItemsSource = lista_repuestos;
 
         }
         #endregion
@@ -135,7 +134,35 @@ namespace Production_control_1._0
         private void buscar_maquina_TextChanged(object sender, TextChangedEventArgs e)
         {
             maquina.Items.Clear();
+            cn.Open();
+            //cargar la lista de maquinas
+            string sql = "select codigo from inventario_maquinas where codigo like '%" + buscar_maquina.Text + "%'";
+            SqlCommand cm = new SqlCommand(sql, cn);
+            cm.ExecuteNonQuery();
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                maquina.Items.Add(dr["codigo"].ToString());
+            };
+            dr.Close();
+            cn.Close();
+        }
 
+        private void buscar_repuesto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            cn.Open();
+            //cargar la lista de repuestos
+            List<clases_globales.repuesto> lista_repuestos = new List<clases_globales.repuesto>();
+            string sql = "select PartNumber, Description, OnHand, Cost from spare_onhand where Description like '%" + buscar_repuesto.Text + "%'";
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                lista_repuestos.Add(new clases_globales.repuesto { partnumber = dr["PartNumber"].ToString(), description = dr["Description"].ToString(), onhand = Convert.ToInt32(dr["OnHand"]), cost = Convert.ToDouble(dr["cost"])});
+            };
+            dr.Close();
+            cn.Close();
+            repuesto.ItemsSource = lista_repuestos;
         }
     }
 }

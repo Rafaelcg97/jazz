@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="clases globales\impresion_grafica.cs" />
     <Compile Include="clases globales\impresion_rebalance.cs" />
+    <Compile Include="clases globales\repuesto.cs" />
     <Compile Include="clases globales\usuario_respuesto.cs" />
     <Compile Include="configuraciones.xaml.cs">
       <DependentUpon>configuraciones.xaml</DependentUpon>
