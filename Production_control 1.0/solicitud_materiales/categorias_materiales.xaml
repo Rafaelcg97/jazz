@@ -1,0 +1,63 @@
+﻿<Page x:Class="Production_control_1._0.solicitud_materiales.categorias_materiales"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0.solicitud_materiales"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="categorias_materiales"
+      Background="Black">
+    <Grid>
+        <!--#region filas/columnas-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+        <Label FontFamily="calibri" FontWeight="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="10" Grid.RowSpan="1" Foreground="White" Content="SOLICITUD DE MATERIALES" SizeChanged="letra_responsiva" Padding="0"/>
+
+        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="4" Background="#2D6292" Padding="0" BorderThickness="0">
+            <Grid>
+                <Image Source="imagenes/papeleria.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="10" Grid.ColumnSpan="8"/>
+                <Label Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="20" Grid.RowSpan="5" Content="Papeleria" FontWeight="Bold" SizeChanged="letra_responsiva" Foreground="White" Padding="0" HorizontalAlignment="Left"/>
+            </Grid>
+        </Button>
+    </Grid>
+</Page>

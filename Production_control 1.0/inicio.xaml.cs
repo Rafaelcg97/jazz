@@ -69,8 +69,8 @@ namespace Production_control_1._0
 
         private void solicitar_repuest_Click(object sender, RoutedEventArgs e)
         {
-            sesion_mecanico sesion_mecanico = new sesion_mecanico() ;
-            this.NavigationService.Navigate(sesion_mecanico);
+            solicitud_materiales.categorias_materiales nueva_solicitud = new solicitud_materiales.categorias_materiales();
+            this.NavigationService.Navigate(nueva_solicitud);
         }
     }
 

@@ -230,9 +230,13 @@
     <Compile Include="solicitudes.xaml.cs">
       <DependentUpon>solicitudes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="solicitud_materiales\categorias_materiales.xaml.cs">
+      <DependentUpon>categorias_materiales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="solicitud_repuestos.xaml.cs">
       <DependentUpon>solicitud_repuestos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="tamanosLetras\tamanosLetras.cs" />
     <Page Include="abrir.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="solicitudes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="solicitud_materiales\categorias_materiales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -500,6 +508,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\compra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="solicitud_materiales\imagenes\papeleria.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
