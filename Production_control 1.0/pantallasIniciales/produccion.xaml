@@ -28,6 +28,6 @@
         </Grid.RowDefinitions>
         <Border x:Name="BorderConsultaSam" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderBrush="Black" Background="#FF222222" CornerRadius="5"></Border>
         <Border x:Name="BorderAbrirBalance" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5"></Border>
-        <Border x:Name="BorderReportarProduccion" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5"</Border>
+        <Border x:Name="BorderReportarProduccion" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5"></Border>
     </Grid>
 </UserControl>
