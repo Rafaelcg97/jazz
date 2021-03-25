@@ -126,8 +126,7 @@ namespace Production_control_1._0
         #region control_general_del_programa
         private void salir__Click(object sender, RoutedEventArgs e)
         {
-            inicio inicio = new inicio();
-            this.NavigationService.Navigate(inicio);
+  
         }
         #endregion
 

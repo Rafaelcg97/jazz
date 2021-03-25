@@ -1,0 +1,842 @@
+﻿<Page x:Class="Production_control_1._0.estadoPlantaProduccion"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="planta"
+      Background="#FF2A2C32">
+
+    <Grid>
+        <!--#region control general del programa-->
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10"/>
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
+                        <materialDesign:PackIcon Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
+                        <materialDesign:PackIcon Kind="Close"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+        <Grid>
+            <!--#region filas/columans-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <!--#endregion-->
+            </Grid.RowDefinitions>
+            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
+                <Image Source="/imagenes/casa.png"/>
+            </Button>
+            <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Estado Actual de Piso de Producción</Label>
+            <!--#region modulos -->
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_1" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_2" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_3" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_4" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="4" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="5" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_6" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="6" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_7" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_8" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="8" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_9" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="9" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_10" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="10" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_11" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="11" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_12" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="12" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_13" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="13" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_14" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="14" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_15" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="15" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_16" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_17" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_18" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_19" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_20" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="4" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_21" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="5" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_22" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="6" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_23" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_24" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="8" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_25" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="9" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_26" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="10" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_27" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="11" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_28" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="12" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_29" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="13" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_30" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="14" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_31" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="15" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_32" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="17" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Background="Green"  x:Name="modulo_33" Margin="5,0,0,5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="17" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="3" Background="Green"  x:Name="modulo_34" Margin="5,0,0,5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="{Binding problema_reportado}" SizeChanged="letra_priori_solicitudes"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--#endregion-->
+            <!--#region nombres de los modulos-->
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l1" Foreground="AliceBlue" >MODULO 1</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l2" Foreground="AliceBlue">MODULO 2</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l3" Foreground="AliceBlue">MODULO 3</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l4" Foreground="AliceBlue">MODULO 4</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l5" Foreground="AliceBlue">MODULO 5</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l6" Foreground="AliceBlue">MODULO 6</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="6" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l7" Foreground="AliceBlue">MODULO 7</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l8" Foreground="AliceBlue">MODULO 8</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="8" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l9" Foreground="AliceBlue">MODULO 9</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="9" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l10" Foreground="AliceBlue">MODULO 10</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="10" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l11" Foreground="AliceBlue">MODULO 11</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="11" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l12" Foreground="AliceBlue">MODULO 12</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="12" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l13" Foreground="AliceBlue">MODULO 13</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="13" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l14" Foreground="AliceBlue">MODULO 14</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="14" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l15" Foreground="AliceBlue">MODULO 15</Label>
+            <Label Grid.Row="2" Grid.RowSpan="1" Grid.Column="15" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l16" Foreground="AliceBlue">MODULO 16</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l17" Foreground="AliceBlue">MODULO 17</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l18" Foreground="AliceBlue">MODULO 18</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l19" Foreground="AliceBlue">MODULO 19</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l20" Foreground="AliceBlue">MODULO 20</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l21" Foreground="AliceBlue">MODULO 21</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l22" Foreground="AliceBlue">MODULO 22</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="6" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l23" Foreground="AliceBlue">MODULO 23</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l24" Foreground="AliceBlue">MODULO 24</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="8" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l25" Foreground="AliceBlue">MODULO 25</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="9" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l26" Foreground="AliceBlue">MODULO 26</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="10" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l27" Foreground="AliceBlue">MODULO 27</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="11" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l28" Foreground="AliceBlue">MODULO 28</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="12" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l29" Foreground="AliceBlue">MODULO 29</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="13" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l30" Foreground="AliceBlue">MODULO 30</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="14" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l31" Foreground="AliceBlue">MODULO 31</Label>
+            <Label Grid.Row="9" Grid.RowSpan="1" Grid.Column="15" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l32" Foreground="AliceBlue">MODULO 32</Label>
+            <Label Grid.Row="16" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l33" Foreground="AliceBlue">SAMPLE</Label>
+            <Label Grid.Row="16" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l34" Foreground="AliceBlue">PREP ELASTICO</Label>
+            <!--#endregion-->
+            <ItemsControl x:Name="orden_prioridad" Grid.Row="16" Grid.Column="12" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,15,0" Background="#FF2A2C32" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Foreground="AliceBlue" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderBrush="#FFB0A770" BorderThickness="1">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="modulo_orden" Content="{Binding Path=prioridad}" Grid.ColumnSpan="1" FontWeight="Bold" Grid.Column="0" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
+                            <Label x:Name="modulo_prio" Content="{Binding Path=modulo}" Grid.ColumnSpan="2" Grid.Column="1" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
+                            <Label x:Name="maquina_prio" Content="{Binding Path=maquina}" Grid.ColumnSpan="2" Grid.Column="3" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
+                            <Label x:Name="problema_prio" Content="{Binding Path=problema_reportado}" Grid.ColumnSpan="5" Grid.Column="5" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!--#region pop_verificar_estado-->
+            <Popup x:Name="datos_solicitud" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True">
+                <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
+                    <Grid>
+                        <!--#region filas/columnas-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--#endregion-->
+                        <!--#region logo_de_encabezado-->
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                        <!--#endregion-->
+                        <!--#region  Nombre de etiquetas-->
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,2,0,0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Problema</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Maquina</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Estado</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Solicitud</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="9" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Mecánico</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="11" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Código Mec</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="14" Grid.RowSpan="1" Grid.ColumnSpan="2" SizeChanged="letra_pop_cerrar">Hora de Reporte</Label>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="15" Grid.RowSpan="1" Grid.ColumnSpan="2" SizeChanged="letra_pop_cerrar">Hora de Apertura</Label>
+                        <!--#endregion-->
+                        <!--#region  Datos etiquetas-->
+                        <Label x:Name="problema" FontFamily="calibri" FontWeight="Medium"  Margin="10,2,0,0" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="maquina"  FontFamily="calibri" FontWeight="Medium"   Margin="10,0,0,0" Grid.Column="3" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="4" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="estado" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="4" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="solicitud" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="4" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="mecanico" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="9" Grid.RowSpan="2" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="codigo_mecanico" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="11" Grid.RowSpan="2" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="hora_reporte" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="2" Grid.Row="14" Grid.RowSpan="1" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                        <Label x:Name="hora_apertura" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="2" Grid.Row="15" Grid.RowSpan="1" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                        <!--#endregion-->
+                        <!--#region botones-->
+                        <Button Grid.Column="8" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10" Background="Transparent" BorderBrush="Transparent" x:Name="iniciar" Click="iniciar_Click">
+                            <Image x:Name="img_iniciar" Source="/imagenes/iniciar.png"/>
+                        </Button>
+                        <Button Grid.Column="8" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="pausar" Click="pausar_Click" >
+                            <Image x:Name="img_pausar" Source="/imagenes/pausa.png"/>
+                        </Button>
+                        <Button Grid.Column="8" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="reanudar" Click="reanudar_Click" >
+                            <Image x:Name="img_reanudar" Source="/imagenes/reanudar.png"/>
+                        </Button>
+                        <Button Grid.Column="8" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="terminar" Click="terminar_Click" >
+                            <Image x:Name="img_terminar" Source="/imagenes/terminar.png"/>
+                        </Button>
+                        <!--#endregion-->
+                    </Grid>
+                </Border>
+            </Popup>
+            <!--#endregion-->
+            <!--#region pop_abrir_solicitud-->
+            <Popup x:Name="abrir_solicitud" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True">
+                <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
+                    <Grid>
+                        <!--#region filas/columnas-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--#endregion-->
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Grid.Column="1">
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">ID:</Label>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="id_1">----</Label>
+                        </StackPanel>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="0,2,0,0" Grid.Column="2" Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Código de Mecánico</Label>
+                        <TextBox x:Name="codigo_mec" Grid.Row="8" Grid.ColumnSpan="6" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" KeyDown="solo_numeros"/>
+                        <Button Grid.Column="4" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10" Background="Transparent" BorderBrush="Transparent" x:Name="btn_iniciar" Click="btn_iniciar_Click">
+                            <Image x:Name="img_verificar_inicio" Source="/imagenes/iniciar.png"/>
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </Popup>
+            <!--#endregion-->
+            <!--#region pop_pausar_solicitud-->
+            <Popup x:Name="pausar_solicitud" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True">
+                <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
+                    <Grid>
+                        <!--#region filas/columnas-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--#endregion-->
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Grid.Column="1">
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">ID:</Label>
+                            <Label FontFamily="calibri" FontWeight="Normal" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="id_2">----</Label>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center"></Label>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Mec:</Label>
+                            <Label FontFamily="calibri" FontWeight="Normal" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="meca_">----</Label>
+                        </StackPanel>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="0,2,0,0" Grid.Column="2" Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Motivo de la Pausa</Label>
+                        <ComboBox x:Name="motivo_de_pausa" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="4" Grid.RowSpan="2" SizeChanged="letra_pop_cerrar" SelectionChanged="motivo_de_pausa_SelectionChanged" ></ComboBox>
+                    </Grid>
+                </Border>
+            </Popup>
+            <!--#endregion-->
+            <!--#region pop_reanudar_solicitud-->
+            <Popup x:Name="reanudar_solicitud" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True">
+                <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
+                    <Grid>
+                        <!--#region filas/columnas-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--#endregion-->
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Grid.Column="1">
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">ID:</Label>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="id_3">----</Label>
+                        </StackPanel>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="0,2,0,0" Grid.Column="2" Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Código de Mecánico</Label>
+                        <TextBox x:Name="codigo_mec_re" Grid.Row="8" Grid.ColumnSpan="6" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center"/>
+                        <Button Grid.Column="4" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10" Background="Transparent" BorderBrush="Transparent" x:Name="btn_reanudar" Click="btn_reanudar_Click">
+                            <Image x:Name="img_verificar_reanudar" Source="/imagenes/reanudar.png"/>
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </Popup>
+            <!--#endregion-->
+            <!--#region pop_terminar_solicitud-->
+            <Popup x:Name="terminar_solicitud" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True">
+                <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
+                    <Grid>
+                        <!--#region filas/columnas-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--#endregion-->
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="5" Grid.RowSpan="2" Grid.Column="1">
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">ID:</Label>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="id_4">----</Label>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" Content="     "/>
+                            <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Mec:</Label>
+                            <Label FontFamily="calibri" FontWeight="Normal" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="meca_2">----</Label>
+                        </StackPanel>
+                        <Label FontFamily="calibri" FontWeight="Bold" Margin="0,2,0,0" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="6" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Validación de Reparación</Label>
+                        <TextBox x:Name="buscar_motivo_real" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="1" SizeChanged="Control_SizeChanged" TextChanged="buscar_motivo_real_TextChanged" ></TextBox>
+                        <ListBox x:Name="motivo_real" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="10" SizeChanged="letra_pequena"/>
+                        <Label Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Grid.RowSpan="1" SizeChanged="letra_pop_cerrar" FontWeight="Bold">Autoriza:</Label>
+                        <PasswordBox x:Name="codigo_autoriza" Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Grid.RowSpan="1" SizeChanged="Control_SizeChanged" PasswordChanged="codigo_autoriza_PasswordChanged" ></PasswordBox>
+                        <Label Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="3" Grid.RowSpan="1" SizeChanged="letra_pop_cerrar" FontWeight="Black" x:Name="nombre_autoriza">*</Label>
+                        <Button Grid.Column="7" Grid.ColumnSpan="1" Grid.Row="9" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
+                            <Image Source="/imagenes/comprobar.png" Margin="0"/>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Popup>
+            <!--#endregion-->
+        </Grid>
+    </Grid>
+</Page>

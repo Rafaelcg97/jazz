@@ -233,8 +233,8 @@ namespace Production_control_1._0
 
         private void salir__Click(object sender, RoutedEventArgs e)
         {
-            inicio inicio = new inicio();
-            this.NavigationService.Navigate(inicio);
+            PagePrincipal PagePrincipal = new PagePrincipal();
+            this.NavigationService.Navigate(PagePrincipal);
         }
 
 

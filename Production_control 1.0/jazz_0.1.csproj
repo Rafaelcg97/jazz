@@ -193,91 +193,108 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="abrir.xaml.cs">
+    <Compile Include="pantallasIniciales\inicio.xaml.cs">
+      <DependentUpon>inicio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasIniciales\produccion.xaml.cs">
+      <DependentUpon>produccion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasProduccion\abrir.xaml.cs">
       <DependentUpon>abrir.xaml</DependentUpon>
     </Compile>
-    <Compile Include="balance.xaml.cs">
+    <Compile Include="pantallasProduccion\balance.xaml.cs">
       <DependentUpon>balance.xaml</DependentUpon>
     </Compile>
     <Compile Include="clases globales\impresion_grafica.cs" />
     <Compile Include="clases globales\impresion_rebalance.cs" />
     <Compile Include="clases globales\repuesto.cs" />
     <Compile Include="clases globales\usuario_respuesto.cs" />
-    <Compile Include="configuraciones.xaml.cs">
-      <DependentUpon>configuraciones.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="impresion.xaml.cs">
+    <Compile Include="pantallasProduccion\impresion.xaml.cs">
       <DependentUpon>impresion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="imprimir_balance.xaml.cs">
+    <Compile Include="pantallasProduccion\imprimir_balance.xaml.cs">
       <DependentUpon>imprimir_balance.xaml</DependentUpon>
     </Compile>
-    <Compile Include="imprimir_rebalance.xaml.cs">
+    <Compile Include="pantallasProduccion\imprimir_rebalance.xaml.cs">
       <DependentUpon>imprimir_rebalance.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ingreso_produccion.xaml.cs">
-      <DependentUpon>ingreso_produccion.xaml</DependentUpon>
+    <Compile Include="PagePrincipal.xaml.cs">
+      <DependentUpon>PagePrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="preventivo.xaml.cs">
-      <DependentUpon>preventivo.xaml</DependentUpon>
+    <Compile Include="pantallasIniciales\configuracion.xaml.cs">
+      <DependentUpon>configuracion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="sesion_mecanico.xaml.cs">
+    <Compile Include="pantallasIniciales\mantenimiento.xaml.cs">
+      <DependentUpon>mantenimiento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasMantenimiento\mantenimientoPreventivo.xaml.cs">
+      <DependentUpon>mantenimientoPreventivo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasInsumos\sesion_mecanico.xaml.cs">
       <DependentUpon>sesion_mecanico.xaml</DependentUpon>
     </Compile>
-    <Compile Include="smed.xaml.cs">
+    <Compile Include="pantallasSmedIngenieria\smed.xaml.cs">
       <DependentUpon>smed.xaml</DependentUpon>
     </Compile>
-    <Compile Include="solicitudes.xaml.cs">
-      <DependentUpon>solicitudes.xaml</DependentUpon>
+    <Compile Include="pantallasMantenimiento\reporteMaquinaMala.xaml.cs">
+      <DependentUpon>reporteMaquinaMala.xaml</DependentUpon>
     </Compile>
     <Compile Include="solicitud_materiales\categorias_materiales.xaml.cs">
       <DependentUpon>categorias_materiales.xaml</DependentUpon>
     </Compile>
-    <Compile Include="solicitud_repuestos.xaml.cs">
+    <Compile Include="pantallasInsumos\solicitud_repuestos.xaml.cs">
       <DependentUpon>solicitud_repuestos.xaml</DependentUpon>
     </Compile>
     <Compile Include="tamanosLetras\tamanosLetras.cs" />
-    <Page Include="abrir.xaml">
+    <Page Include="pantallasIniciales\inicio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="balance.xaml">
+    <Page Include="pantallasIniciales\produccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="configuraciones.xaml">
+    <Page Include="pantallasProduccion\abrir.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="impresion.xaml">
+    <Page Include="pantallasProduccion\balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="imprimir_balance.xaml">
+    <Page Include="pantallasProduccion\impresion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="imprimir_rebalance.xaml">
+    <Page Include="pantallasProduccion\imprimir_balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ingreso_produccion.xaml">
+    <Page Include="pantallasProduccion\imprimir_rebalance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="inicio.xaml">
+    <Page Include="PagePrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="planta.xaml">
+    <Page Include="pantallasIniciales\configuracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="preventivo.xaml">
+    <Page Include="pantallasIniciales\mantenimiento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="sam.xaml">
+    <Page Include="pantallasMantenimiento\estadoPlantaProduccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasMantenimiento\mantenimientoPreventivo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\sam.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,28 +306,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="inicio.xaml.cs">
-      <DependentUpon>inicio.xaml</DependentUpon>
+    <Compile Include="pantallasMantenimiento\estadoPlantaProduccion.xaml.cs">
+      <DependentUpon>estadoPlantaProduccion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="planta.xaml.cs">
-      <DependentUpon>planta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="sam.xaml.cs">
+    <Compile Include="pantallasProduccion\sam.xaml.cs">
       <DependentUpon>sam.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="sesion_mecanico.xaml">
+    <Page Include="pantallasInsumos\sesion_mecanico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="smed.xaml">
+    <Page Include="pantallasSmedIngenieria\smed.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="solicitudes.xaml">
+    <Page Include="pantallasMantenimiento\reporteMaquinaMala.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,7 +332,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="solicitud_repuestos.xaml">
+    <Page Include="pantallasInsumos\solicitud_repuestos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -512,6 +526,11 @@
   <ItemGroup>
     <Resource Include="solicitud_materiales\imagenes\papeleria.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\cerradura.png" />
+    <Resource Include="imagenes\cerrar.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

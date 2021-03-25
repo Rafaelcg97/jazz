@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0
+namespace Production_control_1._0.pantallasIniciales
 {
     /// <summary>
-    /// Interaction logic for ingreso_produccion.xaml
+    /// Interaction logic for produccion.xaml
     /// </summary>
-    public partial class ingreso_produccion : Page
+    public partial class produccion : UserControl
     {
-        public ingreso_produccion()
+        public produccion()
         {
             InitializeComponent();
         }

@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Configuration;
 using LiveCharts;
@@ -20,7 +12,7 @@ using LiveCharts.Wpf;
 
 namespace Production_control_1._0
 {
-    public partial class solicitudes : Page
+    public partial class reporteMaquinaMala : UserControl
     {
         #region clases_especiales
         public class elementos
@@ -45,7 +37,7 @@ namespace Production_control_1._0
         #endregion
 
         #region datos_iniciales
-        public solicitudes()
+        public reporteMaquinaMala()
         {
             InitializeComponent();
             //se cargan los datos de las listas de modulos y de problemas
@@ -192,17 +184,6 @@ namespace Production_control_1._0
         }
         #endregion
 
-        #region control_general_del_programa
-
-        private void salir__Click(object sender, RoutedEventArgs e)
-        {
-            inicio inicio = new inicio();
-            this.NavigationService.Navigate(inicio);
-
-        }
-
-        #endregion
-
         #region controles_formulario_de_enviar
         private void modulo_reporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -347,8 +328,8 @@ namespace Production_control_1._0
             cm.ExecuteNonQuery();
             cm2.ExecuteNonQuery();
             cn.Close();
-                planta planta = new planta();
-                this.NavigationService.Navigate(planta);
+                estadoPlantaProduccion estadoPlantaProduccion = new estadoPlantaProduccion();
+                //this.NavigationService.Navigate(estadoPlantaProduccion);
         }
 
         #endregion
@@ -403,9 +384,5 @@ namespace Production_control_1._0
             }
         }
         #endregion
-
-
-
     }
-
 }

@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml;
-using System.Configuration;
 
-namespace Production_control_1._0
+namespace Production_control_1._0.pantallasIniciales
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for inicio.xaml
+    /// </summary>
+    public partial class inicio : UserControl
     {
-        public MainWindow()
+        public inicio()
         {
             InitializeComponent();
-            main.Content = new PagePrincipal();
-            NavigationCommands.BrowseBack.InputGestures.Clear();
-            NavigationCommands.BrowseForward.InputGestures.Clear();
         }
     }
 }

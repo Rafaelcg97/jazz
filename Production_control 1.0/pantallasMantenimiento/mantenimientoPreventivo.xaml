@@ -1,4 +1,4 @@
-﻿<Page x:Class="Production_control_1._0.preventivo"
+﻿<UserControl x:Class="Production_control_1._0.mantenimientoPreventivo"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:Production_control_1._0"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="preventivo"
       Background="White">
 
-    <Grid>
+    <!--#region area de trabajo-->
+    <Grid Margin="0 0 0 0" x:Name="GridPrincipal" Background="#FF2A2C32">
         <!--#region filas/columnas-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -52,12 +52,11 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <!--#endregion-->
-        <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
-            <Image Source="/imagenes/casa.png"/>
-        </Button>
-        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="letra_grande" Foreground="Green" FontWeight="Bold">Reporte de Mantenimiento Preventivo</Label>
-        <!--#region formulario_envio-->
-        <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="7" Grid.RowSpan="15" BorderThickness="3" BorderBrush="Black" CornerRadius="8">
+        <!--#region  encabezado-->
+        <Label Content="Reporte de Mantenimiento Preventivo" Grid.Row="1" Grid.ColumnSpan="20" HorizontalAlignment="Center" Grid.RowSpan="2" FontSize="40" Foreground="#FFB0A770" FontWeight="Bold"/>
+        <Border Grid.Row="3" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="20" Background="#FF873232" Margin="15,0,15,25"/>
+        <!--#endregion-->
+        <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="7" Grid.RowSpan="15"  Background="Transparent">
             <Grid>
                 <!--#region filas/columnas-->
                 <Grid.ColumnDefinitions>
@@ -111,75 +110,75 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Right">Módulo</Label>
+                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Right" Foreground="White">Módulo</Label>
                 <ComboBox x:Name="modulo" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="6" Grid.RowSpan="2" SizeChanged="letra_grande_2" FontWeight="Bold" SelectionChanged="modulo_SelectionChanged"></ComboBox>
-                <Label Grid.Row="6" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center">Código</Label>
-                <Label x:Name="accion_l" Grid.Row="6" Grid.RowSpan="2" Grid.Column="7" Grid.ColumnSpan="8" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center">Acción</Label>
-                <ListBox x:Name="codigo" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="16" SizeChanged="letra_pequena_3" SelectionChanged="codigo_SelectionChanged"></ListBox>
-                <ListBox x:Name="accion" Grid.Row="9" Grid.Column="7" Grid.ColumnSpan="8" Grid.RowSpan="16" SizeChanged="letra_pequena_3" SelectionChanged="accion_SelectionChanged"></ListBox>
+                <Label Grid.Row="6" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White">Código</Label>
+                <Label x:Name="accion_l" Grid.Row="6" Grid.RowSpan="2" Grid.Column="7" Grid.ColumnSpan="8" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White">Acción</Label>
+                <ListBox x:Name="codigo" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="16" SizeChanged="letra_pequena_3" SelectionChanged="codigo_SelectionChanged" Background="Transparent" Foreground="White"></ListBox>
+                <ListBox x:Name="accion" Grid.Row="9" Grid.Column="7" Grid.ColumnSpan="8" Grid.RowSpan="16" SizeChanged="letra_pequena_3" SelectionChanged="accion_SelectionChanged" Background="Transparent" Foreground="White"></ListBox>
                 <Button x:Name="enviar" Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="26" Grid.RowSpan="3" BorderBrush="Transparent" Background="Transparent" Click="enviar_Click">
-                    <Image Source="/imagenes/flecha.png" x:Name="img_enviar"></Image>
+                    <Image Source="/pantallasMantenimiento/imagenes/flecha.png" x:Name="img_enviar"></Image>
                 </Button>
             </Grid>
         </Border>
-        <!--#endregion-->
+
         <!--#region modulos_que_estan_en_mantenimiento-->
-        <Border Grid.Column="9" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="15" BorderThickness="3" BorderBrush="Black" CornerRadius="8">
+        <Border Grid.Column="9" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="15" BorderThickness="3" BorderBrush="#FFC8CD9A" CornerRadius="8" >
             <Grid>
-            <!--#region filas/columnas-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <!--#endregion-->
-                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="14" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center" >Módulos en Mantenimiento Preventivo</Label>
-                <ListBox x:Name="abiertos" Grid.Row="5" Grid.ColumnSpan="14" Grid.Column="1" Grid.RowSpan="24" MouseUp="abiertos_MouseUp" >
+                <!--#region filas/columnas-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--#endregion-->
+                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="16" Padding="0" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" >Módulos en Mantenimiento Preventivo</Label>
+                <ListBox x:Name="abiertos" Grid.Row="5" Grid.ColumnSpan="14" Grid.Column="1" Grid.RowSpan="24" MouseUp="abiertos_MouseUp" Background="Transparent" Foreground="White" BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -190,8 +189,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding modulo}" SizeChanged="letra_grande" FontWeight="Bold"/>
-                                <Label Grid.Column="3" Grid.ColumnSpan="1" Content="{Binding problema_reportado}" SizeChanged="letra_grande"/>
+                                <Label Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding modulo}" SizeChanged="letra_grande" FontWeight="Bold" Foreground="AliceBlue"/>
+                                <Label Grid.Column="3" Grid.ColumnSpan="1" Content="{Binding problema_reportado}" SizeChanged="letra_grande" Foreground="AntiqueWhite"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -237,7 +236,7 @@
                     </Grid.RowDefinitions>
                     <!--#endregion-->
                     <!--#region logo_de_encabezado-->
-                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="imagenes/engine.ico"/>
                     <!--#endregion-->
                     <!--#region  Nombre de etiquetas-->
                     <Label FontFamily="calibri" FontWeight="Bold" Margin="10,2,0,0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Problema</Label>
@@ -261,16 +260,16 @@
                     <!--#endregion-->
                     <!--#region botones-->
                     <Button Grid.Column="8" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10" Background="Transparent" BorderBrush="Transparent" x:Name="iniciar" Click="iniciar_Click">
-                        <Image x:Name="img_iniciar" Source="/imagenes/iniciar.png"/>
+                        <Image x:Name="img_iniciar" Source="imagenes/iniciar.png"/>
                     </Button>
                     <Button Grid.Column="8" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="pausar" Click="pausar_Click" >
-                        <Image x:Name="img_pausar" Source="/imagenes/pausa.png"/>
+                        <Image x:Name="img_pausar" Source="imagenes/pausa.png"/>
                     </Button>
                     <Button Grid.Column="8" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="reanudar" Click="reanudar_Click" >
-                        <Image x:Name="img_reanudar" Source="/imagenes/reanudar.png"/>
+                        <Image x:Name="img_reanudar" Source="imagenes/reanudar.png"/>
                     </Button>
                     <Button Grid.Column="8" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="terminar" Click="terminar_Click" >
-                        <Image x:Name="img_terminar" Source="/imagenes/terminar.png"/>
+                        <Image x:Name="img_terminar" Source="imagenes/terminar.png"/>
                     </Button>
                     <!--#endregion-->
                 </Grid>
@@ -314,7 +313,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--#endregion-->
-                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="imagenes/engine.ico"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Grid.Column="1">
                         <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">ID:</Label>
                         <Label FontFamily="calibri" FontWeight="Normal" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="id_2">----</Label>
@@ -365,7 +364,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--#endregion-->
-                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="imagenes/engine.ico"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Grid.Column="1">
                         <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">ID:</Label>
                         <Label FontFamily="calibri" FontWeight="Bold" Margin="0,0,0,0"  Grid.Row="0" Grid.RowSpan="2"  SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center" x:Name="id_3">----</Label>
@@ -373,7 +372,7 @@
                     <Label FontFamily="calibri" FontWeight="Bold" Margin="0,2,0,0" Grid.Column="2" Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center">Código de Mecánico</Label>
                     <TextBox x:Name="codigo_mec_re" Grid.Row="8" Grid.ColumnSpan="6" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" SizeChanged="letra_pop_cerrar" HorizontalAlignment="Center"/>
                     <Button Grid.Column="4" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10" Background="Transparent" BorderBrush="Transparent" x:Name="btn_reanudar" Click="btn_reanudar_Click">
-                        <Image x:Name="img_verificar_reanudar" Source="/imagenes/reanudar.png"/>
+                        <Image x:Name="img_verificar_reanudar" Source="imagenes/reanudar.png"/>
                     </Button>
 
                 </Grid>
@@ -381,4 +380,5 @@
         </Popup>
         <!--#endregion-->
     </Grid>
-</Page>
+    <!--#endregion-->
+</UserControl>

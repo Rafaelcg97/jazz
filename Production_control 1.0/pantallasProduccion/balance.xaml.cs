@@ -24,9 +24,6 @@ using LiveCharts.Wpf;
 
 namespace Production_control_1._0
 {
-    /// <summary>
-    /// Interaction logic for balance.xaml
-    /// </summary>
     public partial class balance : Page
     {
         #region clasee_especiales()
@@ -1003,8 +1000,8 @@ namespace Production_control_1._0
         #region contro_general_programa
         private void salir_Click(object sender, RoutedEventArgs e)
         {
-            inicio inicio = new inicio();
-            this.NavigationService.Navigate(inicio);
+            PagePrincipal PagePrincipal = new PagePrincipal();
+            this.NavigationService.Navigate(PagePrincipal);
         }
 
         private void imprimir_Click(object sender, RoutedEventArgs e)

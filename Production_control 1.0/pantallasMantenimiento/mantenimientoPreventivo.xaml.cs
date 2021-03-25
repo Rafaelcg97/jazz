@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Configuration;
 using TableDependency.SqlClient;
@@ -19,10 +10,7 @@ using TableDependency.SqlClient.Base.EventArgs;
 
 namespace Production_control_1._0
 {
-    /// <summary>
-    /// Interaction logic for preventivo.xaml
-    /// </summary>
-    public partial class preventivo : Page
+    public partial class mantenimientoPreventivo : UserControl
     {
         #region clases_especiales()
         public class item_solicitud
@@ -47,7 +35,7 @@ namespace Production_control_1._0
         #endregion
 
         #region datos_iniciales()
-        public preventivo()
+        public mantenimientoPreventivo()
         {
             InitializeComponent();
             //se cargan los datos de las listas de modulos y de problemas
@@ -203,16 +191,6 @@ namespace Production_control_1._0
         }
 
 
-        #endregion
-
-        #region control_general_del_programa
-
-        private void salir__Click(object sender, RoutedEventArgs e)
-        {
-            inicio inicio = new inicio();
-            this.NavigationService.Navigate(inicio);
-
-        }
         #endregion
 
         #region calculos_generales
