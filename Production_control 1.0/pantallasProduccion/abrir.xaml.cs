@@ -17,9 +17,6 @@ using System.Configuration;
 
 namespace Production_control_1._0
 {
-    /// <summary>
-    /// Interaction logic for abrir.xaml
-    /// </summary>
     public partial class abrir : Page
     {
         #region clases_especiales()
@@ -240,8 +237,9 @@ namespace Production_control_1._0
 
 
             Global.identificador = modulo_.SelectedItem.ToString() + estilo_.SelectedItem.ToString() + temporada_.SelectedItem.ToString() + vers_.SelectedItem.ToString();
-            balance balance = new balance();
-            NavigationService.Navigate(balance);
+                clases.balance nuevoBalance = new clases.balance();
+                nuevoBalance.nombre = "sdfsfsdf";
+                this.NavigationService.Navigate(new balance(nuevoBalance));
             }
         }
 

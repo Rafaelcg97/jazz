@@ -193,6 +193,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="clases\balance.cs" />
+    <Compile Include="clases\estilo.cs" />
+    <Compile Include="clases\maquina.cs" />
+    <Compile Include="clases\operacion.cs" />
+    <Compile Include="clases\operario.cs" />
     <Compile Include="pantallasIniciales\inicio.xaml.cs">
       <DependentUpon>inicio.xaml</DependentUpon>
     </Compile>

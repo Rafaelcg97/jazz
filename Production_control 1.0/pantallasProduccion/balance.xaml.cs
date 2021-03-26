@@ -21,11 +21,13 @@ using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using System.Runtime.InteropServices;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Production_control_1._0.clases;
 
 namespace Production_control_1._0
 {
     public partial class balance : Page
     {
+
         #region clasee_especiales()
         public class TodoItem
         {
@@ -108,7 +110,7 @@ namespace Production_control_1._0
 
         #region datos_iniciales()
 
-        public balance()
+        public balance(clases.balance datosBalance)
         {
             InitializeComponent();
             //datos generales para obtener la altura del zoom
@@ -117,12 +119,12 @@ namespace Production_control_1._0
             ZoomViewbox.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
 
             // determinar si el balance es nuevo o se esta abriendo una ya empezado
-            if (Global.identificador == "nuevo")
+            if (datosBalance.tipo == "nuevo")
             {
                 // se declaran las variables de conexion
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 SqlConnection cn2 = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "select correlativo, nombre, titulo, sam, maquina, categoria from operaciones where temporada= '" + Global.temporadaselec.ToString() + "' and estilo= '" + Global.estiloselec.ToString() + "' and sam is not null";
+                string sql = "select correlativo, nombre, titulo, sam, maquina, categoria from operaciones where temporada= '" + datosBalance.temporada + "' and estilo= '" + datosBalance.nombre + "' and sam is not null";
                 string sql2 = "select Descripción from coordinadores";
                 cn.Open();
 
@@ -131,16 +133,18 @@ namespace Production_control_1._0
                 SqlDataReader dr = cm.ExecuteReader();
 
 
-                List<TodoItem> lista_operaciones = new List<TodoItem>();
-
+                List<operacion> listaOperaciones = new List<operacion>();
+                //agregar operaciones de consulta
                 while (dr.Read())
                 {
-                    lista_operaciones.Add(new TodoItem() { Title = dr["titulo"].ToString(), sam_cod = Convert.ToDecimal(dr["sam"]), Completion = 0, ajuste_cod = dr["maquina"].ToString(), correlativo = Convert.ToInt32(dr["correlativo"]), categoria = dr["categoria"].ToString(), cod_opera=dr["nombre"].ToString() });
+                    listaOperaciones.Add(new operacion() { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), nombreOperacion = dr["nombre"].ToString(), tituloOperacion = dr["titulo"].ToString(), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = 0, requeridoOperacion=0, ajusteMaquina = dr["maquina"].ToString(), categoriaMaquina = dr["categoria"].ToString()});
                 };
                 dr.Close();
                 cn.Close();
-                lista_operaciones.Add(new TodoItem() { Title = Global.empaqclase, sam_cod = Convert.ToDecimal(Global.samemp), Completion = 0, ajuste_cod = "Mesa de Empaque", correlativo = Convert.ToInt32(0), categoria = "manual", cod_opera ="empaque" });
-                Operaciones.ItemsSource = lista_operaciones;
+                //agregar operacion de empaque
+
+                listaOperaciones.Add(new operacion() { correlativoOperacion = 0, nombreOperacion ="empaque", tituloOperacion = datosBalance.nombreEmpaque, samOperacion = datosBalance.samEmpaque, asignadoOperacion = 0, requeridoOperacion=0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
+                Operaciones.ItemsSource = listaOperaciones;
 
                 // se agregan los modulos
                 cn2.Open();
@@ -154,14 +158,14 @@ namespace Production_control_1._0
                 cn2.Close();
 
                 //se cargan los datos generales de las variables globales
-                fecha_.Content = DateTime.Today.ToString("yyyy-MM-dd");
-                estilo_.Content = Global.estiloselec.ToString();
-                estilo_2.Content = Global.estiloselec.ToString();
-                temporada_.Content = Global.temporadaselec.ToString();
-                temporada_2.Content = Global.temporadaselec.ToString();
-                sam_.Content = Global.samselec.ToString();
-                sam_2.Content = Global.samselec.ToString();
-                version_.Text = 1.ToString();
+                fecha_.Content = datosBalance.fechaCreacion;
+                estilo_.Content = datosBalance.nombre;
+                estilo_2.Content = datosBalance.nombre;
+                temporada_.Content = datosBalance.temporada;
+                temporada_2.Content = datosBalance.temporada;
+                sam_.Content = datosBalance.sam;
+                sam_2.Content = datosBalance.sam;
+                version_.Text = datosBalance.version.ToString();
                 autoriza.IsEnabled = false;
 
                 // se carga la imagen
@@ -348,9 +352,9 @@ namespace Production_control_1._0
                 // se declaran las variables de conexion
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_balances"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 string sql = "select correlativo, codigo, titulo, sam, ajuste, categoria, requerimiento, asignado from operaciones where identificador= '" + Global.identificador.ToString() + "'";
-                string sql2 = "select codigo, nombre, asignado, plana, rana, flat, cover, transfer, atracadora, plancha, bonding, zig_zag, multiaguja, manual, varias from operarios_2 where identificador= '" + Global.identificador.ToString() + "'";
-                string sql3 = "select fecha_creacion, estilo, temporada, sam, modulo, corrida, horas, operarios, eficiencia, piezash, ingeniero, version from lista_balances where identificador= '" + Global.identificador.ToString() + "'";
-                string sql_a = "select maquina, ajuste, categoria, color, correlativo, operacion, carga, operario from maquinas  where identificador= '" + Global.identificador.ToString() + "'";
+                string sql2 = "select codigo, nombre, asignado, plana, rana, flat, cover, transfer, atracadora, plancha, bonding, zig_zag, multiaguja, manual, varias from operarios_2 where identificador= '" + datosBalance.identificador + "'";
+                string sql3 = "select fecha_creacion, estilo, temporada, sam, modulo, corrida, horas, operarios, eficiencia, piezash, ingeniero, version from lista_balances where identificador= '" + datosBalance.identificador + "'";
+                string sql_a = "select maquina, ajuste, categoria, color, correlativo, operacion, carga, operario from maquinas  where identificador= '" + datosBalance.identificador + "'";
                 cn.Open();
 
                 // se llenan la lista de operaciones con los datos de la consulta
@@ -358,15 +362,15 @@ namespace Production_control_1._0
                 SqlDataReader dr = cm.ExecuteReader();
 
 
-                List<TodoItem> lista_operaciones = new List<TodoItem>();
+                List<operacion> listaOperaciones = new List<operacion>();
 
                 while (dr.Read())
                 {
-                    lista_operaciones.Add(new TodoItem() { cod_opera = dr["codigo"].ToString(), Title = dr["titulo"].ToString(), sam_cod = Convert.ToDecimal(dr["sam"]), Completion = Convert.ToDecimal(dr["asignado"]), ajuste_cod = dr["ajuste"].ToString(), correlativo = Convert.ToInt32(dr["correlativo"]), cap_cod = Convert.ToDecimal(dr["requerimiento"]), categoria = dr["categoria"].ToString() }); ;
+                    listaOperaciones.Add(new operacion { nombreOperacion = dr["codigo"].ToString(), tituloOperacion = dr["titulo"].ToString(), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = Convert.ToDouble(dr["asignado"]), ajusteMaquina = dr["ajuste"].ToString(), correlativoOperacion = Convert.ToInt32(dr["correlativo"]), requeridoOperacion = Convert.ToDouble(dr["requerimiento"]), categoriaMaquina = dr["categoria"].ToString() });
                 };
                 dr.Close();
                 cn.Close();
-                Operaciones.ItemsSource = lista_operaciones;
+                Operaciones.ItemsSource = listaOperaciones;
 
                 //se cargan los datos 
                 cn.Open();
@@ -397,10 +401,10 @@ namespace Production_control_1._0
                 cn.Open();
                 SqlCommand cm2 = new SqlCommand(sql2, cn);
                 SqlDataReader dr2 = cm2.ExecuteReader();
-                List<TodoItem> items = new List<TodoItem>();
+                List<operario> items = new List<operario>();
                 while (dr2.Read())
                 {
-                    items.Add(new TodoItem() {cod_oper= Convert.ToInt32(dr2["codigo"]), Title = dr2["nombre"].ToString(), Completion = Convert.ToDecimal(dr2["asignado"]), diferenciador = "op", plana=dr2["plana"].ToString(), rana = dr2["rana"].ToString(), flat= dr2["flat"].ToString(), cover= dr2["cover"].ToString(), transfer= dr2["transfer"].ToString(), atracadora= dr2["atracadora"].ToString(), plancha= dr2["plancha"].ToString(), bonding= dr2["bonding"].ToString(), zig_zag= dr2["zig_Zag"].ToString(), multiaguja= dr2["multiaguja"].ToString(), manual= dr2["manual"].ToString(), varias= dr2["varias"].ToString() });
+                    items.Add(new operario() {codigoOperarios = Convert.ToInt32(dr2["codigo"]), nombreOperario = dr2["nombre"].ToString(), asignadoOperario = Convert.ToDouble(dr2["asignado"]), planaOperario=Convert.ToDouble(dr2["plana"]), ranaOperario = Convert.ToDouble(dr2["rana"]), flatOperario= Convert.ToDouble(dr2["flat"]), coverOperario= Convert.ToDouble(dr2["cover"]), transferOperario= Convert.ToDouble(dr2["transfer"]), atracadoraOperario= Convert.ToDouble(dr2["atracadora"]), planchaOperario= Convert.ToDouble(dr2["plancha"]), bondingOperario= Convert.ToDouble(dr2["bonding"]), zigzagOperario= Convert.ToDouble(dr2["zig_Zag"]), multiagujaOperario= Convert.ToDouble(dr2["multiaguja"]), manualOperario= Convert.ToDouble(dr2["manual"]), variasOperario= Convert.ToDouble(dr2["varias"]) });
                 };
                 Operarios.ItemsSource = items;
                 dr2.Close();
@@ -970,7 +974,7 @@ namespace Production_control_1._0
                 operaciones_subcarga_sobrecarga();
             }
         }
-
+        
 
         #endregion
 
@@ -33800,7 +33804,6 @@ var elemento_maximo = lista_2.Max(x => x.Completion);
             }
         }
         #endregion
-
     }
 
 

@@ -1,27 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Configuration;
-using System.Xml;
 using System.Data.SqlClient;
-using SendGrid;
 
 namespace Production_control_1._0
 {
-    /// <summary>
-    /// Interaction logic for inicio.xaml
-    /// </summary>
     public partial class sam : Page
     {
         public sam()
@@ -92,6 +79,35 @@ namespace Production_control_1._0
             cn.Close();
 
         }
+
+
+        #region control_general_del programa
+        private void ButtonSalir(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void ButtonMaximizar(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            };
+
+        }
+        private void ButtonMinimizar(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
+        #endregion
+
 
         private void temporada_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -484,16 +500,30 @@ namespace Production_control_1._0
 
             else
             {
+                //datos a pasar para generar nuevo balance
+                clases.balance nuevoBalance = new clases.balance();
+                nuevoBalance.nombre = estilo.SelectedItem.ToString();
+                nuevoBalance.temporada = temporada.SelectedItem.ToString();
+                nuevoBalance.samEmpaque = Convert.ToDouble(empaque_s.Content);
+                nuevoBalance.samOperarcional = Convert.ToDouble(sam_op.Content);
+                nuevoBalance.version = 1;
+                nuevoBalance.tipo = "nuevo";
+                nuevoBalance.nombreEmpaque= empaque.SelectedItem.ToString();
+                nuevoBalance.fechaCreacion = DateTime.Now;
+
+
                 Global.estiloselec = estilo.SelectedItem.ToString();
                 Global.temporadaselec = temporada.SelectedItem.ToString();
                 Global.samselec = total.Content.ToString();
                 Global.samemp = empaque_s.Content.ToString();
                 Global.empaqclase = empaque.SelectedItem.ToString();
                 Global.identificador = "nuevo";
-                balance balance = new balance();
-                NavigationService.Navigate(balance);
+                this.NavigationService.Navigate(new balance(nuevoBalance));
             }
         }
+
+
+
     }
     public class _item
     {
@@ -508,7 +538,7 @@ namespace Production_control_1._0
         public decimal samemp { get; set; }
     }
 
-static class Global
+   static class Global
     {
         private static string _temporadaselec = "";
         private static string _estiloselec = "";
