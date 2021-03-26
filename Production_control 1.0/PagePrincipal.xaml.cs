@@ -28,6 +28,7 @@ namespace Production_control_1._0
                     break;
                 case 1:
                     GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new pantallasIniciales.produccion());
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
