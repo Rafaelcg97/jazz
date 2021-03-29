@@ -506,18 +506,11 @@ namespace Production_control_1._0
                 nuevoBalance.temporada = temporada.SelectedItem.ToString();
                 nuevoBalance.samEmpaque = Convert.ToDouble(empaque_s.Content);
                 nuevoBalance.samOperarcional = Convert.ToDouble(sam_op.Content);
+                nuevoBalance.sam= Convert.ToDouble(sam_op.Content)+ Convert.ToDouble(empaque_s.Content); ;
                 nuevoBalance.version = 1;
                 nuevoBalance.tipo = "nuevo";
                 nuevoBalance.nombreEmpaque= empaque.SelectedItem.ToString();
                 nuevoBalance.fechaCreacion = DateTime.Now;
-
-
-                Global.estiloselec = estilo.SelectedItem.ToString();
-                Global.temporadaselec = temporada.SelectedItem.ToString();
-                Global.samselec = total.Content.ToString();
-                Global.samemp = empaque_s.Content.ToString();
-                Global.empaqclase = empaque.SelectedItem.ToString();
-                Global.identificador = "nuevo";
                 this.NavigationService.Navigate(new balance(nuevoBalance));
                 
             }

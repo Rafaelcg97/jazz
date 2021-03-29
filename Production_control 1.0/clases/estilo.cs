@@ -14,11 +14,7 @@ namespace Production_control_1._0.clases
         public double samOperarcional {get; set;}
         public double samEmpaque {get; set;}
         public string nombreEmpaque { get; set; }
-        public double sam 
-        {
-            get { return sam_; }
-            set { sam_ = samOperarcional + samEmpaque; }
-        }
+        public double sam { get; set; }
 
 
 

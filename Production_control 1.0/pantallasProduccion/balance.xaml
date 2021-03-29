@@ -10,6 +10,7 @@
      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="balance" Background="white">
     <Grid Margin="5,0,0,5" x:Name="print" >
+        
         <!--#region filas/columnas-->
         <Grid.RowDefinitions>
             <RowDefinition Height="23*"/>
@@ -259,9 +260,9 @@
                                 <TextBlock Grid.Column="0" Text="{Binding tituloOperacion}"/>
                                 <TextBlock Grid.Column="1" Text="{Binding samOperacion}"/>
                                 <TextBlock Grid.Column="2" FontSize="8" Text="{Binding ajusteMaquina}"/>
-                                <TextBlock Grid.Column="3" Text="{Binding asignadoOperacion}"/>
+                                <TextBlock Grid.Column="3" Text="{Binding requeridoOperacion}"/>
                                 <Grid Grid.Column="4">
-                                    <ProgressBar  Minimum="0" Maximum="1" Value="{Binding asignadoOperacion}"/>
+                                    <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperacion}" x:Name="progressBarAsignado" Loaded="progressBarAsignado_Loaded"  />
                                     <TextBlock Text="{Binding asignadoOperacion, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>
@@ -432,7 +433,7 @@
                         <Border BorderBrush="White" BorderThickness="2" Margin="10" >
                             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="26" >
                                 <!--#region areaPreparacion-->
-                                <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4">
+                                <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="areaPreparacion">
                                     <!--#region estacion1-->
                                     <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                         <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
@@ -846,7 +847,7 @@
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <!--#region arteriaUno-->
-                                        <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4">
+                                        <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="arteriaUno">
                                             <!--#region estacion1-->
                                             <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                 <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
@@ -1258,7 +1259,7 @@
                                         </StackPanel>
                                         <!--#endregion-->
                                         <!--#region arteriaDos-->
-                                        <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4">
+                                        <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="arteriaDos">
                                             <!--#region estacion14-->
                                             <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                 <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
@@ -1678,7 +1679,7 @@
                                             </StackPanel>
                                             <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                             <TextBox Height="20" Width="556" Background="Transparent" Padding="0,0,0,0"/>
-                                            <ListBox Background="Transparent" Padding="-5,1,-5,0" Height="55" Width="556" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" FontSize="8" MouseDoubleClick="eliminarItem" >
+                                            <ListBox x:Name="listBoxEnganche" Background="Transparent" Padding="-5,1,-5,0" Height="55" Width="556" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" FontSize="8" MouseDoubleClick="eliminarItem" >
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid>
@@ -1692,7 +1693,7 @@
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
-                                            <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                            <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" x:Name="operarioEnganche"/>
                                         </StackPanel>
                                     </Border>
                                     <!--#endregion-->
@@ -1703,7 +1704,7 @@
                                 </StackPanel>
                                 <!--#endregion-->
                                 <!--#region arteriaTres-->
-                                <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4">
+                                <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="arteriaTres">
                                     <!--#region estacion27-->
                                     <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                         <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
@@ -2115,7 +2116,7 @@
                                 </StackPanel>
                                 <!--#endregion-->
                                 <!--#region arteriaCuatro-->
-                                <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4">
+                                <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="arteriaCuatro">
                                     <!--#region estacion40-->
                                     <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                         <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
