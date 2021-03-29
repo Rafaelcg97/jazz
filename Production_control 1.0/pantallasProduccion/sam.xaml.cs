@@ -519,6 +519,7 @@ namespace Production_control_1._0
                 Global.empaqclase = empaque.SelectedItem.ToString();
                 Global.identificador = "nuevo";
                 this.NavigationService.Navigate(new balance(nuevoBalance));
+                
             }
         }
 

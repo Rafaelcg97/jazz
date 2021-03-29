@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    class maquina:operario
+    class elementoListBox:operacion
     {
-        public string ajusteMaquina { get; set; }
-        public string categoriaMaquina { get; set; }
+        public string identificador { get; set; }
     }
 }

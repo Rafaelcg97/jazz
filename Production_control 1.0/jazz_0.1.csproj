@@ -194,6 +194,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="clases\balance.cs" />
+    <Compile Include="clases\elementoListBox.cs" />
     <Compile Include="clases\estilo.cs" />
     <Compile Include="clases\maquina.cs" />
     <Compile Include="clases\operacion.cs" />

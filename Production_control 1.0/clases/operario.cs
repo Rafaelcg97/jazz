@@ -8,7 +8,7 @@ namespace Production_control_1._0.clases
 {
     class operario
     {
-        public int codigoOperarios { get; set; }
+        public int codigoOperario { get; set; }
         public string nombreOperario { get; set; }
         public double asignadoOperario { get; set; }
         public double planaOperario { get; set; }
