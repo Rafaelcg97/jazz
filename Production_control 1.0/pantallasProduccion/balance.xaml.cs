@@ -294,6 +294,32 @@ namespace Production_control_1._0
         #endregion
 
         #region contro_general_programa
+
+        private void ButtonSalir(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void ButtonMaximizar(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            };
+
+        }
+        private void ButtonMinimizar(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
+
         private void salir_Click(object sender, RoutedEventArgs e)
         {
             PagePrincipal PagePrincipal = new PagePrincipal();
