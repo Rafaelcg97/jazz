@@ -265,108 +265,59 @@
             <TabControl  Grid.Row="8" Grid.RowSpan="40" Grid.Column="0" Grid.ColumnSpan="13">
                 <!--#region lista_de_operaciones-->
                 <TabItem Header="Operaciones" ScrollViewer.HorizontalScrollBarVisibility="Visible">
-                    <ListBox x:Name="Operaciones" HorizontalAlignment="Stretch" FontSize="10" SelectionMode="Extended" Grid.Row="1" Grid.RowSpan="15"  Grid.Column="1" Grid.ColumnSpan="15" PreviewMouseLeftButtonDown="Operaciones_PreviewMouseLeftButtonDown">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="275"/>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="130"/>
-                                        <ColumnDefinition Width="28"/>
-                                        <ColumnDefinition Width="100"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding tituloOperacion}"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding samOperacion}"/>
-                                    <TextBlock Grid.Column="2" FontSize="8" Text="{Binding ajusteMaquina}"/>
-                                    <TextBlock Grid.Column="3" Text="{Binding requeridoOperacion}"/>
-                                    <Grid Grid.Column="4">
-                                        <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperacion}" x:Name="progressBarAsignado" Loaded="progressBarAsignado_Loaded"  />
-                                        <TextBlock Text="{Binding asignadoOperacion, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Grid>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <ListView x:Name="Operaciones" HorizontalAlignment="Stretch" FontSize="10" SelectionMode="Extended"  PreviewMouseLeftButtonDown="informacioDeListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Titulo de Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}" Width="275" />
+                                <GridViewColumn Header="Asignado" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperacion}" Width="100"  x:Name="progressBarAsignado" Loaded="progressBarAsignado_Loaded" />
+                                                <TextBlock Text="{Binding asignadoOperacion, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
+                                <GridViewColumn Header="Ajuste" DisplayMemberBinding="{Binding Path=ajusteMaquina}"/>
+                                <GridViewColumn Header="Requerido" DisplayMemberBinding="{Binding Path=requeridoOperacion}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </TabItem>
                 <!--#endregion-->
                 <!--#region lista_de_operarios-->
                 <TabItem Header="Operarios">
-                    <StackPanel Grid.RowSpan="15">
-                        <Grid Margin="0.2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="90"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="NOMBRE" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="1"  Text="PL" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="2"  Text="RN" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="3"  Text="FS" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="4"  Text="CV" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="5"  Text="TF" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="6"  Text="AT" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="7"  Text="PC" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="8"  Text="BD" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="9"  Text="Z-Z" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="10"  Text="MA" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="11"  Text="ML" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="12"  Text="VR" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="13"  Text="ASIGNADO" FontSize="10" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        </Grid>
-                        <ListBox x:Name="Operarios" HorizontalAlignment="Stretch"  SelectionMode="Extended" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="11" PreviewMouseLeftButtonDown="Operarios_PreviewMouseLeftButtonDown" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" MaxHeight="550" KeyDown="Operarios_KeyDown">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="0.2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="25"/>
-                                            <ColumnDefinition Width="90"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding nombreOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="1"  Text="{Binding planaOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="2"  Text="{Binding ranaOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="3"  Text="{Binding flatOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="4"  Text="{Binding coverOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="5"  Text="{Binding transferOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="6"  Text="{Binding atracadoraOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="7"  Text="{Binding planchaOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="8"  Text="{Binding bondingOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="9"  Text="{Binding zigzagOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="10"  Text="{Binding multiagujaOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="11"  Text="{Binding manualOperario}" FontSize="10"/>
-                                        <TextBlock Grid.Column="12"  Text="{Binding variasOperario}" FontSize="10"/>
-                                        <Grid Grid.Column="13">
-                                            <ProgressBar  Minimum="0" Maximum="1" Value="{Binding asignadoOperario}"/>
-                                            <TextBlock Text="{Binding asignadoOperario, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Grid>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
+                    <ListView x:Name="Operarios" HorizontalAlignment="Stretch"  SelectionMode="Extended"  PreviewMouseLeftButtonDown="informacioDeListView" FontSize="10" KeyDown="Operarios_KeyDown">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Nombre de Operario" DisplayMemberBinding="{Binding Path=nombreOperario, StringFormat=P0}" />
+                                <GridViewColumn Header="Asignado">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid Grid.Column="13">
+                                                <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperario}" Width="85" Loaded="progressBarAsignado_Loaded" />
+                                                <TextBlock Text="{Binding asignadoOperario, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Plana" DisplayMemberBinding="{Binding Path=planaOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Rana" DisplayMemberBinding="{Binding Path=ranaOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Flat" DisplayMemberBinding="{Binding Path=flatOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Cover" DisplayMemberBinding="{Binding Path=coverOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Transfer" DisplayMemberBinding="{Binding Path=transferOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Atraca" DisplayMemberBinding="{Binding Path=atracadoraOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Plancha" DisplayMemberBinding="{Binding Path=planchaOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Bonding" DisplayMemberBinding="{Binding Path=bondingOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="ZigZag" DisplayMemberBinding="{Binding Path=zigzagOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Multi" DisplayMemberBinding="{Binding Path=multiagujaOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Manual" DisplayMemberBinding="{Binding Path=manualOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Varias" DisplayMemberBinding="{Binding Path=variasOperario, StringFormat=P0}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </TabItem>
                 <!--#endregion-->
                 <!--#region rebalance-->
@@ -419,22 +370,22 @@
                         <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="calibri" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top">Enviar</Label>
                         <!--#endregion-->
                         <!--#region list_view-->
-                        <ListView x:Name="rebalance_" Grid.Row="2" Grid.RowSpan="15"  Grid.Column="0" Grid.ColumnSpan="15" Margin="0,-35,0,0" >
+                        <ListView x:Name="ListViewRebalance" Grid.Row="2" Grid.RowSpan="15"  Grid.Column="0" Grid.ColumnSpan="15" Margin="0,-35,0,0" >
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Operario" DisplayMemberBinding="{Binding Path=operario}" />
-                                    <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=operacion}"/>
-                                    <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=sam}"/>
-                                    <GridViewColumn Header="Asignado" DisplayMemberBinding="{Binding Path=asignado}"/>
+                                    <GridViewColumn Header="Operario" DisplayMemberBinding="{Binding Path=nombreOperario}" />
+                                    <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}"/>
+                                    <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
+                                    <GridViewColumn Header="Asignado" DisplayMemberBinding="{Binding Path=asignadoOperacion}"/>
                                     <GridViewColumn Header="Tiempo">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBox x:Name="tiempo_tomado" Width="40" Text="{Binding Path=tiempo}" LostFocus="tiempo_tomado_LostFocus"/>
+                                                <TextBox x:Name="tiempo_tomado" Width="40" Text="{Binding Path=tiempoRebalance}" LostFocus="tiempo_tomado_LostFocus"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Eficiencia" DisplayMemberBinding="{Binding Path=eficiencia, StringFormat=P}"/>
-                                    <GridViewColumn Header="Carga" DisplayMemberBinding="{Binding Path=carga}"/>
+                                    <GridViewColumn Header="Eficiencia" DisplayMemberBinding="{Binding Path=eficienciaRebalance, StringFormat=P}"/>
+                                    <GridViewColumn Header="Carga" DisplayMemberBinding="{Binding Path=cargaRebalance}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>

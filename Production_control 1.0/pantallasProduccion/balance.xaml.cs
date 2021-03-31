@@ -620,22 +620,9 @@ namespace Production_control_1._0
         #endregion
 
         ListBox dragSource = null;
-
-        private void Operaciones_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void informacioDeListView(object sender, MouseButtonEventArgs e)
         {
-            ListBox parent = (ListBox)sender;
-            dragSource = parent;
-            object data = GetDataFromListBox(dragSource, e.GetPosition(parent));
-
-            if (data != null)
-            {
-                DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
-            }
-        }
-
-        private void Operarios_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ListBox parent = (ListBox)sender;
+            ListView parent = (ListView)sender;
             dragSource = parent;
             object data = GetDataFromListBox(dragSource, e.GetPosition(parent));
 
@@ -2199,47 +2186,41 @@ namespace Production_control_1._0
 
         private void rebalance_bt_Click(object sender, RoutedEventArgs e)
         {
-            //consolidar_elemento_balance();
-
-            //consultar_toma_de_tiempos();
-
-            //recalcular_rebalance();
-
-            //actualizar_grafica_reba();
+            generarListaDeOperacionesRebalance();
         }
 
         private void actuali_balance_Click(object sender, RoutedEventArgs e)
         {
-            // se valdia el modulo que se ha escogido si no ha escogido podria generar error
-            string modulo_va;
-            if (modulo.SelectedIndex < 0)
-            {
-                modulo_va = "GENERICO";
-            }
-            else
-            {
-                modulo_va = modulo.SelectedItem.ToString();
-            }
+         //   // se valdia el modulo que se ha escogido si no ha escogido podria generar error
+         //   string modulo_va;
+         //   if (modulo.SelectedIndex < 0)
+         //   {
+         //       modulo_va = "GENERICO";
+         //   }
+         //   else
+         //   {
+         //       modulo_va = modulo.SelectedItem.ToString();
+         //   }
 
-            // se eliminan tomas de tiempo anteriores para esa version de layout
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            cn.Open();
-            string sql_v = "delete from toma_de_tiempos where modulo= '" + modulo_va + "' and estilo= '" + estilo_.Content.ToString() + "' and temporada= '" + temporada_.Content.ToString() + "' and version= '" + version_.Text.ToString() + "'";
-            SqlCommand cm_v = new SqlCommand(sql_v, cn);
-            SqlDataReader dr_v = cm_v.ExecuteReader();
-            dr_v.Close();
-            cn.Close();
+         //   // se eliminan tomas de tiempo anteriores para esa version de layout
+         //   SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+         //   cn.Open();
+         //   string sql_v = "delete from toma_de_tiempos where modulo= '" + modulo_va + "' and estilo= '" + estilo_.Content.ToString() + "' and temporada= '" + temporada_.Content.ToString() + "' and version= '" + version_.Text.ToString() + "'";
+         //   SqlCommand cm_v = new SqlCommand(sql_v, cn);
+         //   SqlDataReader dr_v = cm_v.ExecuteReader();
+         //   dr_v.Close();
+         //   cn.Close();
 
-            //se ingresan los datos nuevos de tiempo ingresados
-            foreach (rebalance item in rebalance_.Items)
-            {
-                cn.Open();
-                string sql2 = "insert into toma_de_tiempos (fecha, modulo, estilo, temporada, version, codigo, nombre, titulo, operacion, ajuste, sam, tiempo_objetivo) values('" + System.DateTime.Now.ToString() + "', '" + modulo_va + "', '" + estilo_.Content.ToString() + "', '" + temporada_.Content.ToString() + "', '" + version_.Text.ToString() + "', '" + item.codigo + "', '" + item.operario + "', '" + item.operacion + "', '" +  item.operacion_cod + "', '" +  item.ajuste + "', '" + item.sam + "', '" + item.tiempo + "')";
-                SqlCommand cm2 = new SqlCommand(sql2, cn);
-                SqlDataReader dr2 = cm2.ExecuteReader();
-                dr2.Close();
-                cn.Close();
-            }
+         //   //se ingresan los datos nuevos de tiempo ingresados
+         ////   foreach (rebalance item in rebalance_.Items)
+         //   {
+         //       cn.Open();
+         //       string sql2 = "insert into toma_de_tiempos (fecha, modulo, estilo, temporada, version, codigo, nombre, titulo, operacion, ajuste, sam, tiempo_objetivo) values('" + System.DateTime.Now.ToString() + "', '" + modulo_va + "', '" + estilo_.Content.ToString() + "', '" + temporada_.Content.ToString() + "', '" + version_.Text.ToString() + "', '" + item.codigo + "', '" + item.operario + "', '" + item.operacion + "', '" +  item.operacion_cod + "', '" +  item.ajuste + "', '" + item.sam + "', '" + item.tiempo + "')";
+         //       SqlCommand cm2 = new SqlCommand(sql2, cn);
+         //       SqlDataReader dr2 = cm2.ExecuteReader();
+         //       dr2.Close();
+         //       cn.Close();
+         //   }
         }
         #endregion
 
@@ -2255,7 +2236,7 @@ namespace Production_control_1._0
                 {
                     if (elemento.GetType() == typeof(ListBox) && informacionElemento.identificador == "operacion")
                     {
-                        ((ListBox)elemento).Items.Add(new elementoListBox() { tituloOperacion= informacionElemento.tituloOperacion, asignadoOperacion=informacionElemento.requeridoOperacion, correlativoOperacion=informacionElemento.correlativoOperacion });
+                        ((ListBox)elemento).Items.Add(new elementoListBox() { tituloOperacion= informacionElemento.tituloOperacion, asignadoOperacion=informacionElemento.requeridoOperacion, correlativoOperacion=informacionElemento.correlativoOperacion, samOperacion=informacionElemento.samOperacion, ajusteMaquina=informacionElemento.ajusteMaquina, nombreOperacion=informacionElemento.nombreOperacion });
                     }
                     else if (elemento.GetType() == typeof(TextBox) && informacionElemento.identificador == "operacion")
                     {
@@ -2942,10 +2923,13 @@ namespace Production_control_1._0
 
         private void generarListaDeOperacionesRebalance()
         {
+            //se crea una lista donde se coloca cada operario con cada operacion que hace (para obtenerla se revisan cada una de las estaciones (border) en el layout y lo que se le ha asigando) recordar que codigo se repite por por cada arteria para resumir
             List<elementoRebalance> listaOperariosRebalance = new List<elementoRebalance>();
             #region areaPreparacion
             foreach (Border estacion in areaPreparacion.Children)
             {
+                //lista donde se obtienen las operaciones del listbox con sus datos
+                List<elementoRebalance> listaOperacionesDeBorder = new List<elementoRebalance>();
                 string operario = "";
                 //Dentro de los bordes hay un StackPanel que tiene todo 
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
@@ -2960,19 +2944,25 @@ namespace Production_control_1._0
                     if (elemento.GetType() == typeof(ListBox))
                     {
                         ListBox listaDeOperaciones = ((ListBox)elemento);
-
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            listaOperariosRebalance.Add(new elementoRebalance {nombreRebalance=operario, operacionRebalance=item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance=item.samOperacion, tiempoRebalance=0, eficienciaRebalance=0, cargaRebalance=0});
+                            listaOperacionesDeBorder.Add(new elementoRebalance { nombreOperario = "", tituloOperacion = item.tituloOperacion, nombreOperacion=item.nombreOperacion, ajusteMaquina=item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
                 }
+                //a todas las operaciones del listbox se le agrega el operario y eso se coloca en la lista total
+                foreach (elementoRebalance item in listaOperacionesDeBorder)
+                {
+                    listaOperariosRebalance.Add(new elementoRebalance { nombreOperario = operario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                }
+
             }
             #endregion
             #region arteriaUno
             foreach (Border estacion in arteriaUno.Children)
             {
+                List<elementoRebalance> listaOperacionesDeBorder = new List<elementoRebalance>();
                 string operario = "";
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 foreach (object elemento in stackPanelEstacion.Children)
@@ -2984,18 +2974,22 @@ namespace Production_control_1._0
                     if (elemento.GetType() == typeof(ListBox))
                     {
                         ListBox listaDeOperaciones = ((ListBox)elemento);
-
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperacionesDeBorder.Add(new elementoRebalance { nombreOperario = "", tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
+                }
+                foreach (elementoRebalance item in listaOperacionesDeBorder)
+                {
+                    listaOperariosRebalance.Add(new elementoRebalance { nombreOperario = operario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                 }
             }
             #endregion
             #region arteriaDos
             foreach (Border estacion in arteriaDos.Children)
             {
+                List<elementoRebalance> listaOperacionesDeBorder = new List<elementoRebalance>();
                 string operario = "";
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 foreach (object elemento in stackPanelEstacion.Children)
@@ -3007,18 +3001,22 @@ namespace Production_control_1._0
                     if (elemento.GetType() == typeof(ListBox))
                     {
                         ListBox listaDeOperaciones = ((ListBox)elemento);
-
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperacionesDeBorder.Add(new elementoRebalance { nombreOperario = "", tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
+                }
+                foreach (elementoRebalance item in listaOperacionesDeBorder)
+                {
+                    listaOperariosRebalance.Add(new elementoRebalance { nombreOperario = operario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                 }
             }
             #endregion
             #region arteriaTres
             foreach (Border estacion in arteriaTres.Children)
             {
+                List<elementoRebalance> listaOperacionesDeBorder = new List<elementoRebalance>();
                 string operario = "";
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 foreach (object elemento in stackPanelEstacion.Children)
@@ -3030,18 +3028,22 @@ namespace Production_control_1._0
                     if (elemento.GetType() == typeof(ListBox))
                     {
                         ListBox listaDeOperaciones = ((ListBox)elemento);
-
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperacionesDeBorder.Add(new elementoRebalance { nombreOperario = "", tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
+                }
+                foreach (elementoRebalance item in listaOperacionesDeBorder)
+                {
+                    listaOperariosRebalance.Add(new elementoRebalance { nombreOperario = operario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                 }
             }
             #endregion
             #region arteriaCuatro
             foreach (Border estacion in arteriaCuatro.Children)
             {
+                List<elementoRebalance> listaOperacionesDeBorder = new List<elementoRebalance>();
                 string operario = "";
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 foreach (object elemento in stackPanelEstacion.Children)
@@ -3053,15 +3055,69 @@ namespace Production_control_1._0
                     if (elemento.GetType() == typeof(ListBox))
                     {
                         ListBox listaDeOperaciones = ((ListBox)elemento);
-
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperacionesDeBorder.Add(new elementoRebalance { nombreOperario = "", tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
+                    }
+                }
+                foreach (elementoRebalance item in listaOperacionesDeBorder)
+                {
+                    listaOperariosRebalance.Add(new elementoRebalance { nombreOperario = operario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                }
+            }
+            #endregion
+            // los codigos de los operarios solo estan en la lista de operarios por lo que se agregaran a traves de esa
+            List<elementoRebalance> listaOperariosRebalanceConCodigos = new List<elementoRebalance>();
+            #region listaConCodigos
+            foreach (elementoRebalance item in listaOperariosRebalance)
+            {
+                foreach(elementoListBox subitem in Operarios.Items)
+                {
+                    if (item.nombreOperario == subitem.nombreOperario)
+                    {
+                        listaOperariosRebalanceConCodigos.Add(new elementoRebalance { nombreOperario = item.nombreOperario, codigoOperario = subitem.codigoOperario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                     }
                 }
             }
             #endregion
+
+            if (modulo.SelectedIndex > -1)
+            {
+                // se declaran las variables de conexion
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "select codigo, operacion, tiempo_objetivo from toma_de_tiempos where modulo='" + modulo.SelectedItem.ToString() + "' and estilo='" + estilo_.Content + "' and temporada='" + temporada_.Content + "' and version=1";
+                // se agregan los modulos
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                List<elementoRebalance> tomaDeTiempo = new List<elementoRebalance>();
+                while (dr.Read())
+                {
+                    tomaDeTiempo.Add(new elementoRebalance() { codigoOperario = Convert.ToInt32(dr["codigo"]), nombreOperacion = dr["operacion"].ToString(), tiempoRebalance= Convert.ToDouble(dr["tiempo_objetivo"])});
+                };
+                dr.Close();
+                cn.Close();
+
+                List<elementoRebalance> listaOperarioRebalanceConTiempos = new List<elementoRebalance>();
+
+                foreach(elementoRebalance item in listaOperariosRebalanceConCodigos)
+                {
+                    foreach(elementoRebalance subitem in listaOperarioRebalanceConTiempos)
+                    {
+                        if(item.codigoOperario == subitem.codigoOperario && item.nombreOperacion== subitem.nombreOperacion)
+                        {
+                            listaOperarioRebalanceConTiempos.Add(new elementoRebalance{ nombreOperario = item.nombreOperario, codigoOperario = item.codigoOperario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = subitem.tiempoRebalance, eficienciaRebalance = 0, cargaRebalance = 0 });
+                        }
+                        else
+                        {
+                            listaOperarioRebalanceConTiempos.Add(new elementoRebalance { nombreOperario = item.nombreOperario, codigoOperario = item.codigoOperario, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, ajusteMaquina = item.ajusteMaquina, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                        }
+                    }
+                }
+                ListViewRebalance.ItemsSource = listaOperarioRebalanceConTiempos;
+            }
+
         }
 
         private void recalcular_rebalance()
