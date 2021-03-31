@@ -29,7 +29,6 @@
         </StackPanel>
         <!--#endregion-->
         <Grid Margin="5,30,0,5" x:Name="print">
-
             <!--#region filas/columnas-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="23*"/>

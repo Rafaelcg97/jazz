@@ -15,48 +15,13 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using Production_control_1._0.clases;
 using System.Globalization;
+using System.Linq;
 
 namespace Production_control_1._0
 {
     public partial class balance : Page
     {
-
         #region clasee_especiales()
-        public class TodoItem
-        {
-            public string Title { get; set; }
-            public decimal Completion { get; set; }
-            public decimal sam_cod { get; set; }
-            public decimal cap_cod { get; set; }
-            public string ajuste_cod { get; set; }
-            public string asignacion { get; set; }
-            public int correlativo { get; set; }
-            public string diferenciador { get; set; }
-            public string categoria { get; set; }
-            public string plana { get; set; }
-            public string rana { get; set; }
-            public string flat { get; set; }
-            public string cover { get; set; }
-            public string transfer { get; set; }
-            public string atracadora { get; set; }
-            public string plancha { get; set; }
-            public string bonding { get; set; }
-            public string zig_zag { get; set; }
-            public string multiaguja { get; set; }
-            public string manual { get; set; }
-            public string varias { get; set; }
-            public decimal eficiencia { get; set; }
-            public int cod_oper { get; set; }
-            public string cod_opera { get; set; }
-        }
-
-        public class ultimon
-        {
-            public string fecha { get; set; }
-            public string modulo { get; set; }
-            public int version { get; set; }
-        }
-
         public class rebalance
         {
             public string operario { get; set; }
@@ -73,7 +38,7 @@ namespace Production_control_1._0
 
         #endregion
 
-        #region clases_para_la_grafica
+        #region clasesDeGraficas
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
@@ -81,14 +46,6 @@ namespace Production_control_1._0
         public string[] Labels_2 { get; set; }
         public Func<double, string> Formatter_2 { get; set; }
 
-        #endregion
-
-        #region colores_formato_hexadecimal()
-        public string rojo = "#F91811";
-        public string anaranjado = "#E67E22";
-        public string amarillo = "#FAF611";
-        public string verde = "#229954";
-        public string azul = "#A8D6F5";
         #endregion
 
         #region datos_iniciales()
@@ -390,7 +347,7 @@ namespace Production_control_1._0
             ultimos_estilos.Items.Clear();
             while (dr.Read())
             {
-                ultimos_estilos.Items.Add(new ultimon { modulo = dr["modulo"].ToString(), fecha = dr["fecha_modificacion"].ToString(), version = Convert.ToInt32(dr["version"]) });
+             //   ultimos_estilos.Items.Add(new ultimon { modulo = dr["modulo"].ToString(), fecha = dr["fecha_modificacion"].ToString(), version = Convert.ToInt32(dr["version"]) });
             };
             dr.Close();
             cn.Close();
@@ -687,496 +644,6 @@ namespace Production_control_1._0
                 DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
             }
         }
-        #endregion
-
-        #region codigo viejo
-
-        //private void actualizar_grafica_reba()
-        //{
-        //    // se definen las listas donde se va a consolidar la informacion para el rebalanc
-        //    List<rebalance> lista_resumen = new List<rebalance>();
-        //    List<string> lista_de_operarios_2 = new List<string>();
-        //    clases_globales.impresion_rebalance.lista_de_cargas_rebalance.Clear();
-        //    clases_globales.impresion_rebalance.lista_de_eficiencias_rebalance.Clear();
-        //    clases_globales.impresion_rebalance.lista_de_operarios_rebalance.Clear();
-
-        //    //para una lista sin nombres repetidos se va a evaluar cada operario de rebalance contra los operarios de la lista operarios
-        //    foreach (TodoItem elemento in Operarios.Items)
-        //    {
-        //        int conteo = 0;
-        //        decimal asignacion = 0;
-        //        decimal sam_total = 0;
-        //        decimal tiempo_total = 0;
-        //        foreach (rebalance elemento_2 in rebalance_.Items)
-        //        {
-        //            if (elemento.Title == elemento_2.operario)
-        //            {
-        //                conteo = conteo = 1;
-        //                asignacion = asignacion + elemento_2.carga;
-        //                sam_total = sam_total + elemento_2.sam;
-        //                tiempo_total = tiempo_total + elemento_2.tiempo;
-        //            }
-        //        }
-
-        //        // si se encuentra asignado se pone en la lista que se va a presentar en la grafic
-        //        if (conteo > 0)
-        //        {
-        //            decimal eficiencia_total;
-        //            if (tiempo_total > 0)
-        //            {
-        //                eficiencia_total = sam_total / tiempo_total;
-        //            }
-        //            else
-        //            {
-        //                eficiencia_total = 0;
-        //            }
-        //            lista_resumen.Add(new rebalance() { operario = elemento.Title, carga = asignacion, eficiencia = eficiencia_total });
-        //        }
-
-        //    }
-
-        //    // se crea una lista con los nombres para poner en el eje horizontal
-
-        //    foreach (rebalance item in lista_resumen)
-        //    {
-        //        lista_de_operarios_2.Add(item.operario);
-        //        clases_globales.impresion_rebalance.lista_de_operarios_rebalance.Add(item.operario);
-
-        //    }
-
-        //    // se limpian las series de la grafic para cuando se actualice no tenga datos anteriores
-
-        //    grafico_rebalance.AxisX.Clear();
-        //    SeriesCollection_2[0].Values.Clear();
-        //    SeriesCollection_2[1].Values.Clear();
-        //    SeriesCollection_2[2].Values.Clear();
-        //    SeriesCollection_2[3].Values.Clear();
-
-        //    // se agregan los nombres al eje
-        //    grafico_rebalance.AxisX.Add(new Axis() { Labels = lista_de_operarios_2.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
-
-
-        //    // se agregan  los valores de cada nombre de la grafica
-        //    foreach (rebalance item in lista_resumen)
-        //    {
-        //        SeriesCollection_2[0].Values.Add(Convert.ToDouble(item.carga));
-        //        SeriesCollection_2[1].Values.Add(1d);
-        //        SeriesCollection_2[2].Values.Add(0.9d);
-        //        SeriesCollection_2[3].Values.Add(Convert.ToDouble(item.eficiencia));
-        //        clases_globales.impresion_rebalance.lista_de_cargas_rebalance.Add(Convert.ToDouble(item.carga));
-        //        clases_globales.impresion_rebalance.lista_de_eficiencias_rebalance.Add(Convert.ToDouble(item.eficiencia));
-
-        //    };
-        //}
-      
-  
-        //private void operaciones_subcarga_sobrecarga()
-        //{
-        //    List<TodoItem> lista_2 = new List<TodoItem>();
-        //    foreach (TodoItem item in Operarios.Items)
-        //    {
-        //        lista_2.Add(new TodoItem
-        //        {
-        //            Title = item.Title,
-        //            Completion = item.Completion
-        //        });
-        //    };
-        //    try
-        //    {
-        //        var elemento_minimo = lista_2.Min(x => x.Completion);
-        //        var elemento_maximo = lista_2.Max(x => x.Completion);
-
-        //        if (elemento_minimo < 0.7m)
-        //        {
-        //            foreach (TodoItem item in lista_2)
-        //            {
-        //                if (item.Completion == elemento_minimo)
-        //                {
-        //                    subutilizacion_2.Content = item.Title.ToString();
-        //                }
-        //            }
-        //        };
-        //        if (elemento_maximo > 1.05m)
-        //        {
-        //            foreach (TodoItem item in lista_2)
-        //            {
-        //                if (item.Completion == elemento_maximo)
-        //                {
-        //                    sobrecarga_2.Content = item.Title.ToString();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch { }
-        //}
-        //private void consolidar_elemento_balance()
-        //{
-        //    // se define una lista donde se cargara la informacion para el listv
-        //    List<rebalance> lista_r = new List<rebalance>();
-        //    List<rebalance> lista_r2 = new List<rebalance>();
-
-        //    #region crear_lista_con_operaciones_asignadas()
-        //    //se define la lista donde se pondran
-        //    List<rebalance> lista_operaciones_sam = new List<rebalance>();
-
-        //    //a la lista se le ponen los datos de cada maquina
-        //    foreach (TodoItem item in Operacion1.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario1.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion2.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario2.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion3.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario3.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion4.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario4.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion5.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario5.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion6.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario6.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion7.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario7.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion8.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario8.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion9.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario9.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion10.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario10.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion11.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario11.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion12.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario12.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion13.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario13.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion14.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario14.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion15.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario15.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion16.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario16.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion17.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario17.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion18.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario18.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion19.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario19.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion20.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario20.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion21.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario21.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion22.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario22.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion23.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario23.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion24.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario24.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion25.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario25.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion26.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario26.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion27.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario27.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion28.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario28.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion29.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario29.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion30.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario30.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion31.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario31.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion32.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario32.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion33.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario33.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion34.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario34.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion35.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario35.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion36.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario36.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion37.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario37.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion38.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario38.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion39.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario39.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion40.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario40.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion41.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario41.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion42.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario42.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion43.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario43.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion44.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario44.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion45.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario45.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion46.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario46.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion47.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario47.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion48.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario48.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion49.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario49.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion50.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario50.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion51.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario51.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion52.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario52.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion53.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario53.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion54.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario54.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion55.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario55.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion56.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario56.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion57.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario57.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion58.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario58.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion59.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario59.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion60.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario60.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion61.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario61.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion62.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario62.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion63.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario63.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion64.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario64.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion65.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario65.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    foreach (TodoItem item in Operacion66.Items)
-        //    {
-        //        lista_operaciones_sam.Add(new rebalance() { operario = operario66.Text.ToString(), operacion = item.Title.ToString(), asignado = Convert.ToDecimal(item.cap_cod) });
-        //    }
-        //    #endregion
-
-        //    foreach (rebalance item in lista_operaciones_sam)
-        //    {
-        //        foreach (TodoItem subitem in Operaciones.Items)
-        //        {
-        //            if (item.operacion == subitem.Title)
-        //            {
-        //                lista_r.Add(new rebalance() { operario = item.operario.ToString(), operacion = item.operacion, sam = subitem.sam_cod * 60, asignado = item.asignado, tiempo = Convert.ToDecimal(0), ajuste = subitem.ajuste_cod, operacion_cod = subitem.cod_opera, codigo = item.codigo });
-        //            }
-        //        }
-        //    }
-
-        //    foreach (rebalance elemento in lista_r)
-        //    {
-        //        foreach (TodoItem linea in Operarios.Items)
-        //        {
-        //            if (elemento.operario == linea.Title)
-        //            {
-        //                lista_r2.Add(new rebalance() { operario = elemento.operario, operacion = elemento.operacion, sam = elemento.sam, asignado = elemento.asignado, tiempo = elemento.tiempo, ajuste = elemento.ajuste, operacion_cod = elemento.operacion_cod, codigo = linea.cod_oper });
-        //            }
-        //        }
-        //    }
-
-        //    rebalance_.ItemsSource = lista_r2;
-        //}
-        //private void recalcular_rebalance()
-        //{
-        //    List<rebalance> lista_r = new List<rebalance>();
-        //    foreach (rebalance elemento in rebalance_.Items)
-        //    {
-        //        try
-        //        {
-        //            decimal eficiencia_r = Math.Round((elemento.sam / elemento.tiempo), 4);
-        //            decimal carga_r = Math.Round(elemento.asignado / (elemento.sam / elemento.tiempo), 3);
-        //            lista_r.Add(new rebalance() { operario = elemento.operario.ToString(), operacion = elemento.operacion, sam = elemento.sam, asignado = elemento.asignado, tiempo = elemento.tiempo, eficiencia = eficiencia_r, carga = carga_r, ajuste = elemento.ajuste, codigo = elemento.codigo, operacion_cod = elemento.operacion_cod });
-        //        }
-        //        catch
-        //        {
-        //            lista_r.Add(new rebalance() { operario = elemento.operario.ToString(), operacion = elemento.operacion, sam = elemento.sam, asignado = elemento.asignado, tiempo = elemento.tiempo, eficiencia = elemento.eficiencia, carga = elemento.carga, ajuste = elemento.ajuste, codigo = elemento.codigo, operacion_cod = elemento.operacion_cod });
-        //        }
-        //    }
-        //    rebalance_.ItemsSource = lista_r;
-        //}
-        //private void consultar_toma_de_tiempos()
-        //{
-        //    List<rebalance> lista_r = new List<rebalance>();
-        //    foreach (rebalance elemento in rebalance_.Items)
-        //    {
-        //        try
-        //        {
-        //            string modulo_consult;
-        //            if (modulo.SelectedIndex < 0)
-        //            {
-        //                modulo_consult = "GENERICO".ToString();
-        //            }
-        //            else
-        //            {
-        //                modulo_consult = modulo.SelectedItem.ToString();
-        //            }
-
-        //            // se declaran las variables de conexion
-        //            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        //            string sql = "select avg(tiempo_objetivo) as tiempo_objetivo, nombre, titulo, max(ajuste) as ajuste from toma_de_tiempos where modulo= '" + modulo_consult + "' and estilo= '" + estilo_.Content.ToString() + "' and temporada= '" + temporada_.Content.ToString() + "' and version= '" + version_.Text.ToString() + "' and nombre= '" + elemento.operario + "' and titulo= '" + elemento.operacion + "' group by modulo, estilo, temporada, version, nombre, titulo";
-        //            // se agregan los modulos
-        //            cn.Open();
-        //            SqlCommand cm = new SqlCommand(sql, cn);
-        //            SqlDataReader dr = cm.ExecuteReader();
-        //            int conteo = 0;
-        //            while (dr.Read())
-        //            {
-        //                conteo = conteo + 1;
-        //                lista_r.Add(new rebalance() { operario = elemento.operario, operacion = elemento.operacion, sam = elemento.sam, asignado = elemento.asignado, tiempo = Convert.ToDecimal(dr["tiempo_objetivo"]), eficiencia = elemento.eficiencia, carga = elemento.carga, ajuste = dr["ajuste"].ToString(), operacion_cod = elemento.operacion_cod, codigo = elemento.codigo });
-        //            }
-        //            dr.Close();
-        //            cn.Close();
-        //            if (conteo == 0)
-        //            {
-        //                lista_r.Add(new rebalance() { operario = elemento.operario.ToString(), operacion = elemento.operacion, sam = elemento.sam, asignado = elemento.asignado, tiempo = elemento.tiempo, eficiencia = elemento.eficiencia, carga = elemento.carga, ajuste = elemento.ajuste, operacion_cod = elemento.operacion_cod, codigo = elemento.codigo });
-        //            }
-        //        }
-        //        catch
-        //        {
-        //            lista_r.Add(new rebalance() { operario = elemento.operario.ToString(), operacion = elemento.operacion, sam = elemento.sam, asignado = elemento.asignado, tiempo = elemento.tiempo, eficiencia = elemento.eficiencia, carga = elemento.carga, ajuste = elemento.ajuste, operacion_cod = elemento.operacion_cod, codigo = elemento.codigo });
-        //        }
-        //    }
-        //    rebalance_.ItemsSource = lista_r;
-
-        //}
-
-      
-      
-      
         #endregion
 
         #region pop_ip_guardar
@@ -2805,6 +2272,7 @@ namespace Production_control_1._0
                 }
             CalculoAsignadoPorOperacion();
             actualizarGrafica();
+            operacionSobrecargadaOperacionSubutilizada();
 
         }
         #endregion
@@ -2878,8 +2346,6 @@ namespace Production_control_1._0
             {
                 progressBar.Foreground = Brushes.Red;
             }
-
-
         }
         #endregion
 
@@ -2905,6 +2371,7 @@ namespace Production_control_1._0
         {
             CalculoAsignadoPorOperacion();
             actualizarGrafica();
+            operacionSobrecargadaOperacionSubutilizada();
         }
         private void CalculoAsignadoPorOperacion()
         {
@@ -3367,6 +2834,7 @@ namespace Production_control_1._0
                 listBox.Items.RemoveAt(listBox.Items.IndexOf(listBox.SelectedItem));
                 CalculoAsignadoPorOperacion();
                 actualizarGrafica();
+                operacionSobrecargadaOperacionSubutilizada();
             }
             catch
             {
@@ -3399,14 +2867,9 @@ namespace Production_control_1._0
                 // Actualizar grafica
                 actualizarGrafica();
 
-                //Actualizar operacion con mas y menos carga
-            //    operaciones_subcarga_sobrecarga();
-
                 //se agrega el nuevo numero de operarios que se ha calculado
                 operarios_.Content = (operarios_conteo - 1).ToString();
                 operarios_2.Content = (operarios_conteo - 1).ToString();
-
-
                 eficiencia_.Content = ejecutarCalculoDeEficiencia();
                 eficiencia_2.Content = ejecutarCalculoDeEficiencia();
             }
@@ -3424,16 +2887,13 @@ namespace Production_control_1._0
                     listaDeOperarios.Add(item.nombreOperario);
                 }
             }
-
             //se limpian los datos cargados anteriormente para poder volver a cargar
             grafico.AxisX.Clear();
             SeriesCollection[0].Values.Clear();
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
-
             //se agrega la lista de operarios hecha al principio
             grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
-
             //se agregan los valores de las cargas en las columnas
             foreach (elementoListBox item in Operarios.Items)
             {
@@ -3446,7 +2906,171 @@ namespace Production_control_1._0
             };
         }
         #endregion
+        #region operarioSobrecargadoSubutilizado
+        private void operacionSobrecargadaOperacionSubutilizada()
+        {
+            List<elementoListBox> lista = new List<elementoListBox>();
+            foreach (elementoListBox item in Operarios.Items)
+            {
+                lista.Add(new elementoListBox{ nombreOperario = item.nombreOperario, asignadoOperario = item.asignadoOperario});
+            };
+            try
+            {
+                if (lista.Min(x => x.asignadoOperario) <0.75)
+                {
+                    int datoMinimo = lista.FindIndex(r => r.asignadoOperario.Equals(lista.Min(x => x.asignadoOperario)));
+                    subutilizacion_2.Content = lista[datoMinimo].nombreOperario;
+                }
+                else
+                {
+                    subutilizacion_2.Content = "----";
+                }
+                if (lista.Max(x => x.asignadoOperario) > 1.0) 
+                {
+                    int datoMaximo = lista.FindIndex(r => r.asignadoOperario.Equals(lista.Max(x => x.asignadoOperario)));
+                    sobrecarga_2.Content = lista[datoMaximo].nombreOperario;
+                }
+                else
+                {
+                    sobrecarga_2.Content = "----";
+                }
+            }
+            catch { }
+        }
         #endregion
+        #endregion
+
+        private void generarListaDeOperacionesRebalance()
+        {
+            List<elementoRebalance> listaOperariosRebalance = new List<elementoRebalance>();
+            #region areaPreparacion
+            foreach (Border estacion in areaPreparacion.Children)
+            {
+                string operario = "";
+                //Dentro de los bordes hay un StackPanel que tiene todo 
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            //Cada elemento del listBox se agrega en la lista declarada al inicio
+                            listaOperariosRebalance.Add(new elementoRebalance {nombreRebalance=operario, operacionRebalance=item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance=item.samOperacion, tiempoRebalance=0, eficienciaRebalance=0, cargaRebalance=0});
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaUno
+            foreach (Border estacion in arteriaUno.Children)
+            {
+                string operario = "";
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaDos
+            foreach (Border estacion in arteriaDos.Children)
+            {
+                string operario = "";
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaTres
+            foreach (Border estacion in arteriaTres.Children)
+            {
+                string operario = "";
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaCuatro
+            foreach (Border estacion in arteriaCuatro.Children)
+            {
+                string operario = "";
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            listaOperariosRebalance.Add(new elementoRebalance { nombreRebalance = operario, operacionRebalance = item.nombreOperacion, asignadoReablance = item.asignadoOperacion, samRebalance = item.samOperacion, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                        }
+                    }
+                }
+            }
+            #endregion
+        }
+
+        private void recalcular_rebalance()
+        {
+        }
+        private void consultar_toma_de_tiempos()
+        {
+        }
+
     }
     #region datos_globales
     static class Global2
