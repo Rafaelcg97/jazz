@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Configuration;
 using System.Data.SqlClient;
+using Production_control_1._0.clases;
 
 namespace Production_control_1._0
 {
@@ -80,7 +81,6 @@ namespace Production_control_1._0
 
         }
 
-
         #region control_general_del programa
         private void ButtonSalir(object sender, RoutedEventArgs e)
         {
@@ -107,7 +107,6 @@ namespace Production_control_1._0
             Application.Current.MainWindow.DragMove();
         }
         #endregion
-
 
         private void temporada_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -363,7 +362,7 @@ namespace Production_control_1._0
                 SqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    operaciones.Items.Add(new _item() { nombre = dr["nombre"].ToString(), titulo = dr["titulo"].ToString(), sam = Convert.ToDecimal(dr["sam"]) });
+                    operaciones.Items.Add(new elementoListBox {nombreOperacion = dr["nombre"].ToString(), tituloOperacion = dr["titulo"].ToString(), samOperacion = Convert.ToDouble(dr["sam"]) });
                 }
                 dr.Close();
 
@@ -516,69 +515,7 @@ namespace Production_control_1._0
             }
         }
 
-
-
     }
-    public class _item
-    {
-        public string nombre { get; set; }
-
-        public string empaqclase { get; set; }
-
-        public string titulo { get; set; }
-
-        public decimal sam { get; set; }
-
-        public decimal samemp { get; set; }
-    }
-
-   static class Global
-    {
-        private static string _temporadaselec = "";
-        private static string _estiloselec = "";
-        private static string _samselec = "";
-        private static string _samemp = "";
-        private static string _empaqclase = "";
-        private static string _identificador = "";
-
-        public static string temporadaselec
-        {
-            get { return _temporadaselec; }
-            set { _temporadaselec = value; }
-        }
-
-        public static string estiloselec
-        {
-            get { return _estiloselec; }
-            set { _estiloselec = value; }
-        }
-
-        public static string samselec
-        {
-            get { return _samselec; }
-            set { _samselec = value; }
-        }
-
-
-        public static string samemp
-        {
-            get { return _samemp; }
-            set { _samemp = value; }
-        }
-
-        public static string empaqclase
-        {
-            get { return _empaqclase; }
-            set { _empaqclase = value; }
-        }
-
-        public static string identificador
-        {
-            get { return _identificador; }
-            set { _identificador= value; }
-        }
-    }
-
 }
 
 

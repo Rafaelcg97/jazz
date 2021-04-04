@@ -36,7 +36,6 @@ namespace Production_control_1._0.pantallasIniciales
 
         private void BorderAbrirBalance_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            estadoPlantaProduccion estadoPlantaProduccion = new estadoPlantaProduccion();
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new abrir();
         }
@@ -60,5 +59,10 @@ namespace Production_control_1._0.pantallasIniciales
 
         #endregion
 
+        private void BorderReporteProduccion_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = new pantallasProduccion.reporteProduccion();
+        }
     }
 }

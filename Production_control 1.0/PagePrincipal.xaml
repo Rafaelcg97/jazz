@@ -81,7 +81,7 @@
         <!--#endregion-->
 
         <!--#region popUp configuraciones-->
-        <Popup x:Name="popUpConfiguraciones" Height="300" Width="500" StaysOpen="False" PlacementTarget="{Binding ElementName=PageInicio}" Placement="Center" AllowsTransparency="True">
+        <Popup x:Name="popUpConfiguraciones" Height="300" Width="500" StaysOpen="False" PlacementTarget="{Binding ElementName=GridInicio}" Placement="Center" AllowsTransparency="True">
             <Border Background="White" CornerRadius="4">
                 <Grid>
                     <!--#region filas/columnas-->

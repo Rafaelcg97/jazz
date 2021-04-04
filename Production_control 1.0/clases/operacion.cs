@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    class operacion:maquina
+    public class Operacion:maquina
     {
         public int correlativoOperacion { get; set; }
         public string nombreOperacion { get; set; }

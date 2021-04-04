@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    class elementoListBox:operacion
+    public class elementoListBox:Operacion
     {
         public string identificador { get; set; }
     }

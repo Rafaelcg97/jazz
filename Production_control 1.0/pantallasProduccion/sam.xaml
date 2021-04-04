@@ -100,9 +100,9 @@
         <ListView x:Name="operaciones" Grid.Row="1" Grid.RowSpan="12" Grid.Column="20" Grid.ColumnSpan="11">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Path=nombre}"/>
-                    <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=titulo}"/>
-                    <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=sam}"/>
+                    <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Path=nombreOperacion}"/>
+                    <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}"/>
+                    <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
                 </GridView>
             </ListView.View>
         </ListView>

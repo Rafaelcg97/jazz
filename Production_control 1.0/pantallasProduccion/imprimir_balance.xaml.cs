@@ -16,12 +16,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Production_control_1._0.clases;
 
 namespace Production_control_1._0
 {
     public partial class imprimir_balance : Page
     {
-        #region clases_especiales
+        #region strings
         private PrintDocument printDoc = new PrintDocument();
         #endregion
 
@@ -29,15 +30,75 @@ namespace Production_control_1._0
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
-
-
         #endregion
 
         #region datos_iniciales
-        public imprimir_balance()
+        public imprimir_balance(List<operario> listaOperariosRecibidos, clases.balance datosBalanceRecibidos)
         {
             InitializeComponent();
-
+            #region datosInicialesDeGraficoo
+            // se cargan los datos iniciales para la grafica
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Carga",
+                    Values = new ChartValues<double> {0},
+                    Fill = System.Windows.Media.Brushes.Green,
+                },
+                new LineSeries
+                {
+                    Title="",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.Red,
+                    Fill = Brushes.Transparent,
+                    PointGeometry= System.Windows.Media.Geometry.Empty
+                },
+                 new LineSeries
+                {
+                    Title="",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.Blue,
+                    Fill = Brushes.Transparent,
+                    PointGeometry= System.Windows.Media.Geometry.Empty
+                }
+            };
+            Formatter = value => value.ToString("N");
+            DataContext = this;
+            #endregion
+            #region cargarDatosDeGrafica
+            //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
+            List<string> listaDeOperarios = new List<string>();
+            foreach (operario item in listaOperariosRecibidos)
+            {
+                listaDeOperarios.Add(item.nombreOperario);
+            }
+            //se limpian los datos cargados anteriormente para poder volver a cargar
+            grafico.AxisX.Clear();
+            SeriesCollection[0].Values.Clear();
+            SeriesCollection[1].Values.Clear();
+            SeriesCollection[2].Values.Clear();
+            //se agrega la lista de operarios hecha al principio
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
+            //se agregan los valores de las cargas en las columnas
+            foreach (operario item in listaOperariosRecibidos)
+            {
+                SeriesCollection[0].Values.Add(item.asignadoOperario);
+                SeriesCollection[1].Values.Add(1d);
+                SeriesCollection[2].Values.Add(0.9d);
+            };
+            #endregion
+            #region datosEncabezado
+            creacion.Content = datosBalanceRecibidos.fechaCreacion.ToString("yyyy-MM-dd");
+            impresion.Content = DateTime.Now.ToString("yyyy-MM-dd");
+            tipo.Content = "Teorico";
+            estilo.Content = datosBalanceRecibidos.nombre;
+            sam.Content = datosBalanceRecibidos.sam;
+            operarios.Content = datosBalanceRecibidos.operarios;
+            eficiencia.Content = datosBalanceRecibidos.eficiencia;
+            modulo.Content = datosBalanceRecibidos.modulo;
+            #endregion
+            #region datosFormulario
             //agregar la lista de impresoras instaladas
             string impresora_instalada;
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
@@ -67,10 +128,7 @@ namespace Production_control_1._0
 
             //numero de copias
             copias.Text = "1";
-
-            cargar_datos_generales();
-
-            cargar_datos_grafica();
+            #endregion
         }
         #endregion
 
@@ -142,11 +200,36 @@ namespace Production_control_1._0
         #endregion
 
         #region control_general_Del_programa
-
         private void salir_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
+        #region accionesBarraDeTitulo
+        private void ButtonSalir(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void ButtonMaximizar(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            };
+
+        }
+        private void ButtonMinimizar(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
+        #endregion
         #endregion
 
         #region formulario_impresion
@@ -207,12 +290,10 @@ namespace Production_control_1._0
                 MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
             }
         }
-
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {
             copias.Text = (Convert.ToInt32(copias.Text) + 1).ToString();
         }
-
         private void disminuir_copias_Click(object sender, RoutedEventArgs e)
         {
             if (Convert.ToInt32(copias.Text) > 1)
@@ -220,69 +301,6 @@ namespace Production_control_1._0
                 copias.Text = (Convert.ToInt32(copias.Text) - 1).ToString();
             }
 
-        }
-
-        #endregion
-
-        #region calculos_generales
-        private void cargar_datos_generales()
-        {
-            modulo.Content = impresion_global.modulo;
-            impresion.Content = DateTime.Now.ToString("yyyy-MM-dd");
-            creacion.Content = impresion_global.fecha;
-            operarios.Content = impresion_global.operarios;
-            sam.Content = impresion_global.sam;
-            tipo.Content = impresion_global.tipo;
-            estilo.Content = impresion_global.estilo + ", " + impresion_global.temporada;
-            eficiencia.Content = impresion_global.eficiencia;
-
-        }
-        private void cargar_datos_grafica()
-        {
-            // se cargan los datos iniciales para la graf
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Carga",
-                    Values = new ChartValues<double> {0},
-                    Fill = System.Windows.Media.Brushes.Green,
-                },
-                new LineSeries
-                {
-                    Title="",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.Red,
-                    Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
-                },
-                 new LineSeries
-                {
-                    Title="",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.Blue,
-                    Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
-                }
-            };
-            Formatter = value => value.ToString("N");
-            DataContext = this;
-
-            grafico.AxisX.Clear();
-            SeriesCollection[0].Values.Clear();
-            SeriesCollection[1].Values.Clear();
-            SeriesCollection[2].Values.Clear();
-            grafico.AxisX.Add(new Axis() { Labels = clases_globales.impresion_grafica.lista_de_operarios.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
-        
-            foreach(double item in clases_globales.impresion_grafica.lista_de_cargas)
-            {
-                SeriesCollection[0].Values.Add(item);
-                SeriesCollection[1].Values.Add(1d);
-                SeriesCollection[2].Values.Add(0.9d);
-            }
-        
-        
-        
         }
 
         #endregion

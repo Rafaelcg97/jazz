@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    class operario
+    public class operario
     {
         public int codigoOperario { get; set; }
         public string nombreOperario { get; set; }
