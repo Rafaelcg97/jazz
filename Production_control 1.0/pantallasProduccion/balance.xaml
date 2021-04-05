@@ -14,7 +14,7 @@
         <StackPanel VerticalAlignment="Top">
             <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
             <Grid Margin="5">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10, 0" >
                     <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
                         <materialDesign:PackIcon Kind="WindowMinimize"/>
                     </Button>
@@ -25,10 +25,101 @@
                         <materialDesign:PackIcon Kind="Close"/>
                     </Button>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10, 0" >
+                    <Button x:Name="ButtonOpen" HorizontalAlignment="Left" Height="30" Width="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonOpen_Click">
+                        <materialDesign:PackIcon Kind="Menu" Foreground="#FF313131"/>
+                    </Button>
+                </StackPanel>
             </Grid>
         </StackPanel>
         <!--#endregion-->
-        <Grid Margin="5,30,0,5" x:Name="print">
+        <!--#region menuLateral-->
+        <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Margin="-250 0 0 0" Background="Black" RenderTransformOrigin="0.5,0.5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="ButtonClose" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderBrush="Transparent" Width="30" Height="30" Padding="0" Click="ButtonClose_Click" >
+                <materialDesign:PackIcon Kind="Close"/>
+            </Button>
+            <Label Grid.Row="1" Grid.ColumnSpan="4" FontSize="20" Foreground="White" Content="Últimas Versiones" HorizontalAlignment="Center"/>
+            <ItemsControl x:Name="UltimasVersiones" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Background="#FF22242C" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="modulo_orden" Content="{Binding Path=modulo}" Grid.ColumnSpan="4" FontWeight="Bold" Grid.Column="0"  Foreground="AliceBlue" />
+                            <Label x:Name="modulo_prio" Content="{Binding Path=fechaModificacion}" Grid.ColumnSpan="3" Grid.Column="4" Foreground="AliceBlue" />
+                            <Label x:Name="maquina_prio" Content="{Binding Path=version}" Grid.ColumnSpan="2" Grid.Column="7"  Foreground="AliceBlue" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="4">
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="15" Content="Estilo:" FontWeight="Bold" Foreground="White" Width="100"/>
+                    <Label  x:Name="LabelEstiloGuardar"  FontSize="15"  Content="----" FontWeight="Bold" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="15" Content="Temporada:" FontWeight="Bold" Foreground="White" Width="100"/>
+                    <Label  x:Name="LabelTemporadaGuardar"  FontSize="15"  Content="----" FontWeight="Bold" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="15" Content="Módulo:" FontWeight="Bold" Foreground="White" Width="100"/>
+                    <Label  x:Name="LabelModuloGuardar"  FontSize="15"  Content="----" FontWeight="Bold" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="15" Content="Versión:" FontWeight="Bold" Foreground="White" Width="100"/>
+                    <Label  x:Name="LabelVersionGuardar"  FontSize="15"  Content="----" FontWeight="Bold" Foreground="White"/>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="ButtonGuardarBalance" Margin="0,0,0,10" Grid.Row="6" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" Click="ButtonGuardarBalance_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PantallasProduccion/imagenes/disquete.png" Height="40" Margin="0,0,35,0"/>
+                    <Label FontSize="20" Foreground="White" Content="Guardar" VerticalAlignment="Center" Padding="0"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="ButtonImprimirBalance" Margin="0,10,0,0" Grid.Row="7" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" Click="ButtonImprimirBalance_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PantallasProduccion/imagenes/impresora.png" Height="50" Margin="0,0,35,0"/>
+                    <Label FontSize="20" Foreground="White" Content="Imprimir" VerticalAlignment="Center" Padding="0"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="0,20,0,20" Grid.Row="9" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" x:Name="ButtonCerrarBalance" Click="ButtonCerrarBalance_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PantallasProduccion/imagenes/salir.png" Margin="0,0,30,0" />
+                    <Label FontSize="17" Foreground="White" Content="Salir de Editor" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <!--#endregion-->
+        <!--#region areaDeTrabajo-->
+        <Grid Margin="5,30,0,5" x:Name="GridBackground">
             <!--#region filas/columnas-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="23*"/>
@@ -123,65 +214,6 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!--#endregion-->
-            <!--#region control_general-->
-            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="12">
-                <Button x:Name="salir" Width="20"  Click="salir_Click" Height="15" Margin="2,0">
-                    <Image Source="/imagenes/cancelar.png" />
-                </Button>
-                <Button x:Name="guardar" Width="20"  Click="guardar_Click" Height="15" Margin="2,0">
-                    <Image Source="/imagenes/disquete.png" />
-                </Button>
-                <Button x:Name="imprimir" Width="20"  Click="imprimir_Click" Height="15" Margin="2,0">
-                    <Image Source="/imagenes/impresora.png" />
-                </Button>
-                <Popup x:Name="confirmar_guard" Width="622" Height="200" Grid.ColumnSpan="14" StaysOpen="False">
-                    <Border Background="#F9FAFA" CornerRadius="10">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                    <Label FontWeight="Bold" Background="#F9FAFA" Width="150" Margin="0,5,0,0">Modulo:</Label>
-                                    <TextBox x:Name="modulo_guard" Width="200" Margin="10,5,0,0" IsEnabled="False">-----</TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                    <Label FontWeight="Bold" Background="#F9FAFA" Width="150">Estilo:</Label>
-                                    <TextBox x:Name="estilo_guard" Width="200" Margin="10,0,0,0" IsEnabled="False"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                    <Label FontWeight="Bold" Background="#F9FAFA" Width="150" Margin="0">Temporada:</Label>
-                                    <TextBox x:Name="temporada_guard" Width="200" Margin="10,0,0,0" IsEnabled="False"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                    <Label FontWeight="Bold" Background="#F9FAFA" Width="150" Margin="0">Version:</Label>
-                                    <TextBox x:Name="version_guard" Width="200" Margin="10,0,0,0" KeyDown="solo_numeros"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                    <Button x:Name="guard" Width="30" Height="30" Margin="10,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="guard_Click">
-                                        <Image Source="/imagenes/disquete.png"></Image>
-                                    </Button>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Margin="38,0,0,0">
-                                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Height="190">
-                                    <StackPanel>
-                                        <Label FontWeight="Bold">Versiones Existentes del estilo</Label>
-                                        <ListView x:Name="ultimos_estilos"  Height="150" Margin="5,0" Width="200">
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Header="Modulo" DisplayMemberBinding="{Binding Path=modulo}" Width="100"/>
-                                                    <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Path=version}" Width="25"/>
-                                                    <GridViewColumn Header="Fecha" DisplayMemberBinding="{Binding Path=fecha, StringFormat=0:d}" Width="75" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Popup>
-            </StackPanel>
-            <!--#endregion-->
-
             <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="7">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="5">
@@ -203,7 +235,7 @@
                                 <Image Source="imagenes/desconocido.png" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="1" Height="15" Width="31" UseLayoutRounding="False" RenderTransformOrigin="0.758,0.5"/>
                             </Button>
                             <Button x:Name="agregar_operario" Grid.Column="4" Grid.ColumnSpan="1" Click="agregar_operario_Click">
-                                <Image Source="imagenes/nuevo_use.png" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="1" Height="15" Width="31" UseLayoutRounding="False" RenderTransformOrigin="0.758,0.5"/>
+                                <Image Source="/imagenes/nuevo_use.png" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="1" Height="15" Width="31" UseLayoutRounding="False" RenderTransformOrigin="0.758,0.5"/>
                             </Button>
                             <Popup x:Name="datos_operario" Width="420" Height="150">
                                 <Border Background="#F9FAFA" CornerRadius="10">
@@ -265,23 +297,23 @@
             <TabControl  Grid.Row="8" Grid.RowSpan="40" Grid.Column="0" Grid.ColumnSpan="13">
                 <!--#region lista_de_operaciones-->
                 <TabItem Header="Operaciones" ScrollViewer.HorizontalScrollBarVisibility="Visible">
-                    <ListView x:Name="Operaciones" HorizontalAlignment="Stretch" FontSize="10" SelectionMode="Extended"  PreviewMouseLeftButtonDown="informacioDeListView">
+                    <ListView x:Name="Operaciones" HorizontalAlignment="Stretch" FontSize="10" SelectionMode="Extended" PreviewMouseLeftButtonDown="obtenerDatosListView">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Titulo de Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}" Width="275" />
-                                <GridViewColumn Header="Asignado" Width="100">
+                                <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}" Width="275" />
+                                <GridViewColumn Header="Asignado">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Grid>
-                                                <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperacion}" Width="100"  x:Name="progressBarAsignado" Loaded="progressBarAsignado_Loaded" />
+                                            <Grid Grid.Column="4">
+                                                <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperacion}" x:Name="progressBarAsignado" Loaded="progressBarAsignado_Loaded" Width="100"/>
                                                 <TextBlock Text="{Binding asignadoOperacion, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Grid>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
-                                <GridViewColumn Header="Ajuste" DisplayMemberBinding="{Binding Path=ajusteMaquina}"/>
-                                <GridViewColumn Header="Requerido" DisplayMemberBinding="{Binding Path=requeridoOperacion}"/>
+                                <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}" Width="40"/>
+                                <GridViewColumn Header="Ajuste" DisplayMemberBinding="{Binding Path=ajusteMaquina}" Width="130"/>
+                                <GridViewColumn Header="Requerido" DisplayMemberBinding="{Binding Path=requeridoOperacion}" Width="28"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -289,16 +321,16 @@
                 <!--#endregion-->
                 <!--#region lista_de_operarios-->
                 <TabItem Header="Operarios">
-                    <ListView x:Name="Operarios" HorizontalAlignment="Stretch"  SelectionMode="Extended"  PreviewMouseLeftButtonDown="informacioDeListView" FontSize="10" KeyDown="Operarios_KeyDown">
+                    <ListView x:Name="Operarios" HorizontalAlignment="Stretch"  SelectionMode="Extended" PreviewMouseLeftButtonDown="obtenerDatosListView" KeyDown="Operarios_KeyDown" FontSize="8">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Nombre de Operario" DisplayMemberBinding="{Binding Path=nombreOperario, StringFormat=P0}" />
+                                <GridViewColumn Header="Operarios" DisplayMemberBinding="{Binding Path=nombreOperario}" Width="275" />
                                 <GridViewColumn Header="Asignado">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Grid Grid.Column="13">
-                                                <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperario}" Width="85" Loaded="progressBarAsignado_Loaded" />
-                                                <TextBlock Text="{Binding asignadoOperario, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Grid Grid.Column="4">
+                                                <ProgressBar  Minimum="0" Maximum="1.01" Value="{Binding asignadoOperario}" Loaded="progressBarAsignado_Loaded" Width="100"/>
+                                                <TextBlock Text="{Binding asignadoOperario, StringFormat=P1}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Grid>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -307,7 +339,7 @@
                                 <GridViewColumn Header="Rana" DisplayMemberBinding="{Binding Path=ranaOperario, StringFormat=P0}"/>
                                 <GridViewColumn Header="Flat" DisplayMemberBinding="{Binding Path=flatOperario, StringFormat=P0}"/>
                                 <GridViewColumn Header="Cover" DisplayMemberBinding="{Binding Path=coverOperario, StringFormat=P0}"/>
-                                <GridViewColumn Header="Transfer" DisplayMemberBinding="{Binding Path=transferOperario, StringFormat=P0}"/>
+                                <GridViewColumn Header="Trans" DisplayMemberBinding="{Binding Path=transferOperario, StringFormat=P0}"/>
                                 <GridViewColumn Header="Atraca" DisplayMemberBinding="{Binding Path=atracadoraOperario, StringFormat=P0}"/>
                                 <GridViewColumn Header="Plancha" DisplayMemberBinding="{Binding Path=planchaOperario, StringFormat=P0}"/>
                                 <GridViewColumn Header="Bonding" DisplayMemberBinding="{Binding Path=bondingOperario, StringFormat=P0}"/>
@@ -370,7 +402,7 @@
                         <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="calibri" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top">Enviar</Label>
                         <!--#endregion-->
                         <!--#region list_view-->
-                        <ListView x:Name="ListViewRebalance" Grid.Row="2" Grid.RowSpan="15"  Grid.Column="0" Grid.ColumnSpan="15" Margin="0,-35,0,0" >
+                        <ListView x:Name="rebalance_" Grid.Row="2" Grid.RowSpan="15"  Grid.Column="0" Grid.ColumnSpan="15" Margin="0,-35,0,0" FontSize="9" >
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Operario" DisplayMemberBinding="{Binding Path=nombreOperario}" />
@@ -380,7 +412,7 @@
                                     <GridViewColumn Header="Tiempo">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBox x:Name="tiempo_tomado" Width="40" Text="{Binding Path=tiempoRebalance}" LostFocus="tiempo_tomado_LostFocus"/>
+                                                <TextBox x:Name="tiempoTomado" Width="40" Text="{Binding Path=tiempoRebalance}" LostFocus="tiempo_tomado_LostFocus" KeyDown="soloNumerosDecimales"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -1648,7 +1680,7 @@
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden" x:Name="textBlockEngancheCategoria"/>
-                                                <TextBox Height="20" Width="556" Background="Transparent" Padding="0,0,0,0"/>
+                                                <TextBox Height="20" Width="556" Background="Transparent" Padding="0,0,0,0" x:Name="ajusteEnganche"/>
                                                 <ListBox x:Name="listBoxEnganche" Background="Transparent" Padding="-5,1,-5,0" Height="55" Width="556" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" FontSize="8" MouseDoubleClick="eliminarItem" >
                                                     <ListBox.ItemTemplate>
                                                         <DataTemplate>
@@ -2612,23 +2644,23 @@
                 </TabItem>
                 <TabItem Header="Grafica Real" ScrollViewer.HorizontalScrollBarVisibility="Visible" TabIndex="2">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="11">
-                        <lvc:CartesianChart Series="{Binding SeriesCollection_2}" LegendLocation="Left" x:Name="grafico_rebalance"  Grid.ColumnSpan="11" Grid.RowSpan="10" MinWidth="600" >
+                        <lvc:CartesianChart Series="{Binding DatosGraficaRebalance}" LegendLocation="Left" x:Name="graficoRebalance"  Grid.ColumnSpan="11" Grid.RowSpan="10" MinWidth="600" >
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Operarios" Labels="{Binding Labels_2}" LabelsRotation="20">
+                                <lvc:Axis Title="Operarios" Labels="{Binding etiquetasRebalance}" LabelsRotation="20">
                                     <lvc:Axis.Separator>
                                         <lvc:Separator Step="1"></lvc:Separator>
                                     </lvc:Axis.Separator>
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Cargas" LabelFormatter="{Binding Formatter_2}" MinValue="0"></lvc:Axis>
+                                <lvc:Axis Title="Cargas" LabelFormatter="{Binding FormatterRebalance}" MinValue="0"></lvc:Axis>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
             <!--#endregion-->
-
         </Grid>
+        <!--#endregion-->
     </Grid>
 </Page>

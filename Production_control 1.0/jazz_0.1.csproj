@@ -240,6 +240,9 @@
     <Compile Include="pantallasInsumos\sesion_mecanico.xaml.cs">
       <DependentUpon>sesion_mecanico.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasProduccion\reporteProduccion.xaml.cs">
+      <DependentUpon>reporteProduccion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasSmedIngenieria\smed.xaml.cs">
       <DependentUpon>smed.xaml</DependentUpon>
     </Compile>
@@ -298,6 +301,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasMantenimiento\mantenimientoPreventivo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\reporteProduccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -537,7 +544,21 @@
     <Resource Include="imagenes\cerradura.png" />
     <Resource Include="imagenes\cerrar.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="pantallasProduccion\imagenes\desconocido.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pantallasProduccion\imagenes\disquete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pantallasProduccion\imagenes\impresora.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pantallasProduccion\imagenes\salir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pantallasProduccion\imagenes\cerrar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

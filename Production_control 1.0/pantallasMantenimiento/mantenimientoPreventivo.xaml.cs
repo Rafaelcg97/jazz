@@ -213,22 +213,18 @@ namespace Production_control_1._0
         #endregion
 
         #region control_de_formulario
-
         private void modulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             habilitar_boton();
         }
-
         private void codigo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             habilitar_boton();
         }
-
         private void accion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             habilitar_boton();
         }
-
         private void enviar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);

@@ -19,26 +19,37 @@ namespace Production_control_1._0
 {
     public partial class abrir : Page
     {
-        #region clases_especiales()
-        public class elementos
-        {
-            public string estilo { get; set; }
-            public string temporada { get; set; }
-            public decimal sam { get; set; }
-            public string modulo { get; set; }
-            public int corrida { get; set; }
-            public int horas { get; set; }
-            public int operarios { get; set; }
-            public int ingeniero { get; set; }
-            public string version { get; set; }
-        }
-        #endregion
-
         #region control_general_programa()
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
+        #region accionesBarraDeTitulo
+        private void ButtonSalir(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void ButtonMaximizar(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            };
+
+        }
+        private void ButtonMinimizar(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
+        #endregion
         #endregion
 
         #region datos_iniciales()
@@ -225,20 +236,20 @@ namespace Production_control_1._0
         #endregion
 
         #region abrir_balance
-
         private void abrir_c_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             if(modulo_.SelectedIndex<0 || estilo_.SelectedIndex<0 || temporada_.SelectedIndex<0 || vers_.SelectedIndex < 0)
             {
                 MessageBox.Show("Datos seleccionados incompletos");
             }
             else
             {
-
-
-            Global.identificador = modulo_.SelectedItem.ToString() + estilo_.SelectedItem.ToString() + temporada_.SelectedItem.ToString() + vers_.SelectedItem.ToString();
                 clases.balance nuevoBalance = new clases.balance();
-                nuevoBalance.nombre = "sdfsfsdf";
+                nuevoBalance.nombre = estilo_.SelectedItem.ToString();
+                nuevoBalance.temporada = temporada_.SelectedItem.ToString();
+                nuevoBalance.version = Convert.ToInt32(vers_.SelectedItem);
+                nuevoBalance.modulo = modulo_.SelectedItem.ToString();
+                nuevoBalance.tipo = "edicion";
                 this.NavigationService.Navigate(new balance(nuevoBalance));
             }
         }

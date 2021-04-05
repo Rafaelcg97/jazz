@@ -4,234 +4,254 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Production_control_1._0"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="imprimir_balance"
       Background="White">
-
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="3" Grid.Column="11">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="salir" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Click="salir_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Regresar a Edicion" Padding="0" SizeChanged="letra_pequena" HorizontalAlignment="Left" Margin="15,0"/>
-                    <Image Source="/imagenes/tocar.png" Grid.Column="3" Grid.ColumnSpan="1"/>
-
+        <!--#region control general del programa-->
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
+                        <materialDesign:PackIcon Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
+                        <materialDesign:PackIcon Kind="Close"/>
+                    </Button>
                 </StackPanel>
-            </Button>
-            <Button x:Name="confirmar_impresion" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Grid.RowSpan="2" Click="confirmar_impresion_Click" BorderBrush="Gray" Background="Transparent">
-                <Image Source="/imagenes/impresora.png"/>
-            </Button>
-            <Label Content="Tamaño de Impresión:" Grid.Row="7" Grid.Column="0" FontWeight="Bold"></Label>
-            <Label Content="Orientación:" Grid.Row="8" Grid.Column="0" FontWeight="Bold"></Label>
-            <Label Content="Impresora:" Grid.Row="9" Grid.Column="0" FontWeight="Bold"></Label>
-            <Label Content="Copias:" Grid.Row="10" Grid.Column="0" FontWeight="Bold"></Label>
-            <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="tamano_impresion"/>
-            <ComboBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="orientacion_impresion"/>
-            <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="impresora"/>
-            <TextBox x:Name="copias" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" KeyDown="solo_numeros" SizeChanged="letra_pequena"></TextBox>
-            <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="aumentar_copias" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" Click="aumentar_copias_Click">
-                    <Image Source="/imagenes/mas.png"/>
-                </Button>
-                <Button x:Name="disminuir_copias" Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" Click="disminuir_copias_Click">
-                    <Image Source="/imagenes/menos.png"/>
-                </Button>
             </Grid>
-        </Grid>
-        <Border Grid.ColumnSpan="11" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="20" x:Name="area_de_impresion">
-            <Grid x:Name="prueba" Grid.ColumnSpan="11" Grid.Column="1">
-                <!--#region filas/columnas-->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        </StackPanel>
+        <!--#endregion-->
+        <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.ColumnSpan="3" Grid.Column="11">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-
-
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <!--#endregion-->
-                <Label Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Creación:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                <Label Grid.Column="0" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Impresión:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                <Label Grid.Column="0" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Tipo:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                
-                <Label x:Name="creacion" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
-                <Label x:Name="impresion" Grid.Column="2" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
-                <Label x:Name="tipo" Grid.Column="2" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="salir" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Click="salir_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Regresar a Edicion" Padding="0" SizeChanged="letra_pequena" HorizontalAlignment="Left" Margin="15,0"/>
+                        <Image Source="/imagenes/tocar.png" Grid.Column="3" Grid.ColumnSpan="1"/>
 
-
-                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" Grid.RowSpan="8">
-                    <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
-                </Border>
-                <Label Grid.Column="9" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Estilo:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                <Label Grid.Column="9" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="SAM:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                <Label x:Name="estilo" Grid.Column="10" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
-                <Label x:Name="sam" Grid.Column="10" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
-                <Label Grid.Column="9" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Operarios:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                <Label Grid.Column="9" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Eficiencia:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
-                <Label x:Name="operarios" Grid.Column="10" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
-                <Label x:Name="eficiencia" Grid.Column="10" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
-
-
-                <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" Grid.Row="15"  Grid.ColumnSpan="12" Grid.RowSpan="70">
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Operarios" Labels="{Binding Labels}" LabelsRotation="20">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Step="1"></lvc:Separator>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Cargas" LabelFormatter="{Binding Formatter}" MinValue="0"></lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                </lvc:CartesianChart>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="confirmar_impresion" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Grid.RowSpan="2" Click="confirmar_impresion_Click" BorderBrush="Gray" Background="Transparent">
+                    <Image Source="/imagenes/impresora.png"/>
+                </Button>
+                <Label Content="Tamaño de Impresión:" Grid.Row="7" Grid.Column="0" FontWeight="Bold"></Label>
+                <Label Content="Orientación:" Grid.Row="8" Grid.Column="0" FontWeight="Bold"></Label>
+                <Label Content="Impresora:" Grid.Row="9" Grid.Column="0" FontWeight="Bold"></Label>
+                <Label Content="Copias:" Grid.Row="10" Grid.Column="0" FontWeight="Bold"></Label>
+                <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="tamano_impresion"/>
+                <ComboBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="orientacion_impresion"/>
+                <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="impresora"/>
+                <TextBox x:Name="copias" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" KeyDown="solo_numeros" SizeChanged="letra_pequena"></TextBox>
+                <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="aumentar_copias" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" Click="aumentar_copias_Click">
+                        <Image Source="/imagenes/mas.png"/>
+                    </Button>
+                    <Button x:Name="disminuir_copias" Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.RowSpan="1" Click="disminuir_copias_Click">
+                        <Image Source="/imagenes/menos.png"/>
+                    </Button>
+                </Grid>
             </Grid>
-        </Border>
+            <Border Grid.ColumnSpan="11" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="20" x:Name="area_de_impresion">
+                <Grid x:Name="prueba" Grid.ColumnSpan="11" Grid.Column="1">
+                    <!--#region filas/columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+
+                    </Grid.RowDefinitions>
+                    <!--#endregion-->
+                    <Label Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Creación:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                    <Label Grid.Column="0" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Impresión:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                    <Label Grid.Column="0" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Tipo:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+
+                    <Label x:Name="creacion" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                    <Label x:Name="impresion" Grid.Column="2" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                    <Label x:Name="tipo" Grid.Column="2" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+
+
+                    <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" Grid.RowSpan="8">
+                        <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
+                    </Border>
+                    <Label Grid.Column="9" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Estilo:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                    <Label Grid.Column="9" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="SAM:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                    <Label x:Name="estilo" Grid.Column="10" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                    <Label x:Name="sam" Grid.Column="10" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="9" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Operarios:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                    <Label Grid.Column="9" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Eficiencia:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                    <Label x:Name="operarios" Grid.Column="10" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                    <Label x:Name="eficiencia" Grid.Column="10" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+
+
+                    <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" Grid.Row="15"  Grid.ColumnSpan="12" Grid.RowSpan="70">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Operarios" Labels="{Binding Labels}" LabelsRotation="20">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1"></lvc:Separator>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Cargas" LabelFormatter="{Binding Formatter}" MinValue="0"></lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>
