@@ -29,7 +29,7 @@
             </Grid>
         </StackPanel>
         <!--#endregion-->
-        <Grid>
+        <Grid x:Name="areaDeTrabajo">
             <!--#region filas/columans-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -70,8 +70,8 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <!--#endregion-->
             </Grid.RowDefinitions>
+            <!--#endregion-->
             <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
                 <Image Source="/imagenes/casa.png"/>
             </Button>
@@ -522,6 +522,7 @@
             <Label Grid.Row="16" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l33" Foreground="AliceBlue">SAMPLE</Label>
             <Label Grid.Row="16" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l34" Foreground="AliceBlue">PREP ELASTICO</Label>
             <!--#endregion-->
+            <!--#region prioridades-->
             <ItemsControl x:Name="orden_prioridad" Grid.Row="16" Grid.Column="12" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,15,0" Background="#FF2A2C32" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Foreground="AliceBlue" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderBrush="#FFB0A770" BorderThickness="1">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -546,6 +547,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <!--#endregion-->
             <!--#region pop_verificar_estado-->
             <Popup x:Name="datos_solicitud" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True">
                 <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">

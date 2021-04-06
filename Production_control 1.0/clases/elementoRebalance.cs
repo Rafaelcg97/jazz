@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    class elementoRebalance
+    public class ElementoRebalance:Operacion
     {
         public double tiempoRebalance { get; set; }
         public double eficienciaRebalance { get; set; }

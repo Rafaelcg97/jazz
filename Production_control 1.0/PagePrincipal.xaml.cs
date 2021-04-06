@@ -36,6 +36,7 @@ namespace Production_control_1._0
                     break;
                 case 3:
                     GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new pantallasIniciales.insumos());
                     break;
                 case 4:
                     GridPrincipal.Children.Clear();

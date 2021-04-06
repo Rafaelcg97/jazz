@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid Height="auto" Width="auto" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -26,8 +26,95 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border x:Name="BorderReporteMaquinaMala" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderBrush="Black" Background="#FF222222" CornerRadius="5" MouseUp="BorderReporteMaquinaMala_MouseUp"></Border>
-        <Border x:Name="BorderMantenimientoPreventivo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderMantenimientoPreventivo_MouseUp"></Border>
-        <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp"></Border>
+        <Border x:Name="BorderReporteMaquinaMala" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderBrush="Black" Background="#FF222222" CornerRadius="5" MouseUp="BorderReporteMaquinaMala_MouseUp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/reportarMaquinaMala.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Máquina Mala" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderMantenimientoPreventivo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderMantenimientoPreventivo_MouseUp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/mantenimientoPreventivo.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Mantenimiento Preventivo" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/estadoPlantaProduccion.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Estado de Planta de Producción" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

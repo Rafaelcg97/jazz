@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using LiveCharts;
 using LiveCharts.Wpf;
-
+using System.Windows.Media;
 
 namespace Production_control_1._0
 {
@@ -184,6 +184,23 @@ namespace Production_control_1._0
         }
         #endregion
 
+        #region calculos_generals
+        private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
+        {
+            //dependencia hacia la pagina
+            DependencyObject parent = startObject;
+            while (parent != null)
+            {
+                if (type.IsInstanceOfType(parent))
+                    break;
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
+            }
+            return parent;
+        }
+
+        #endregion
+
         #region controles_formulario_de_enviar
         private void modulo_reporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -328,8 +345,9 @@ namespace Production_control_1._0
             cm.ExecuteNonQuery();
             cm2.ExecuteNonQuery();
             cn.Close();
-                estadoPlantaProduccion estadoPlantaProduccion = new estadoPlantaProduccion();
-                //this.NavigationService.Navigate(estadoPlantaProduccion);
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = new estadoPlantaProduccion();
+
         }
 
         #endregion
