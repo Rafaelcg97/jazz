@@ -37,6 +37,7 @@
             <Image Source="/imagenes/salir.png"/>
         </Button>
         <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="6" Grid.RowSpan="1" Content="Solicitud de Repuestos de Costura" FontSize="37" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#FFA84D4D"/>
+        <!--#region agregarRespuest-->
         <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="8" BorderThickness="4" BorderBrush="#FFB7C151" CornerRadius="2" >
             <Grid>
                 <!--#region filas/columnas-->
@@ -78,9 +79,17 @@
 
                 <Label Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="1" FontSize="15" FontWeight="Light"  Content="----" Margin="10,0,0,0" x:Name="labelNombre"/>
                 <Label Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="1" FontSize="15" FontWeight="Light"  Content="----" Margin="10,0,0,0" x:Name="labelCodigoSolicitante"/>
-                <TextBox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="20" x:Name="TextBoXBuscarMaquina" Margin="0,10,0,0" Padding="0"/>
-                <ListBox Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="3" x:Name="listBoxMaquina"/>
-                <TextBox Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="20" x:Name="TextBoXBuscarRepuesto" Margin="0,10,0,0" Padding="0"/>
+                <TextBox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="20" x:Name="TextBoXBuscarMaquina" Margin="0,10,0,0" Padding="0" TextChanged="TextBoXBuscarMaquina_TextChanged"/>
+                <ListBox Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="3" x:Name="listBoxMaquina" SelectionChanged="listBoxMaquina_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Label Content="{Binding codigoMaquina}" FontSize="9" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBox Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="20" x:Name="TextBoXBuscarRepuesto" Margin="0,10,0,0" Padding="0" TextChanged="TextBoXBuscarRepuesto_TextChanged" />
                 <ListBox Grid.Row="8" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="3" x:Name="listBoxRepuesto">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -95,19 +104,20 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button Grid.Column="5" Grid.Row="11" Grid.ColumnSpan="1" Grid.RowSpan="1" x:Name="aumentarCantidad" Background="Transparent" BorderBrush="Transparent" Margin="0,20,0,0" HorizontalAlignment="Right">
+                <Button Grid.Column="5" Grid.Row="11" Grid.ColumnSpan="1" Grid.RowSpan="1" x:Name="disminuirCantidad" Background="Transparent" BorderBrush="Transparent"  Margin="0,20,0,0" HorizontalAlignment="Right" Click="disminuirCantidad_Click"   >
                     <Image Source="/imagenes/menos.png"/>
                 </Button>
-                <TextBox x:Name="textBoxCantidad" Grid.Row="11" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0,20,0,0"/>
-                <Button Grid.Column="8" Grid.Row="11" Grid.ColumnSpan="1" Grid.RowSpan="1" x:Name="disminuirCantidad" Background="Transparent" BorderBrush="Transparent" Margin="0,20,0,0" HorizontalAlignment="Left">
+                <TextBox x:Name="textBoxCantidad" Grid.Row="11" Text="1" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0,20,0,0" KeyDown="solo_numeros" FontSize="20" HorizontalContentAlignment="Center"/>
+                <Button Grid.Column="8" Grid.Row="11" Grid.ColumnSpan="1" Grid.RowSpan="1"  x:Name="aumentarCantidad" Background="Transparent" BorderBrush="Transparent"  Margin="0,20,0,0" HorizontalAlignment="Left" Click="aumentarCantidad_Click" >
                     <Image Source="/imagenes/mas.png"/>
                 </Button>
-                <Button Grid.Column="4" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="ButtomIngresarRepuesto" Background="Transparent" BorderBrush="Transparent">
+                <Button Grid.Column="4" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="ButtomIngresarRepuesto" Background="Transparent" BorderBrush="Transparent" Click="ButtomIngresarRepuesto_Click">
                     <Image Source="/imagenes/aceptar.png"/>
                 </Button>
-
             </Grid>
         </Border>
+        <!--#endregion-->
+        <!--#region consolidado-->
         <Border Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="8" BorderThickness="4" BorderBrush="#FF9B5555" CornerRadius="2" >
             <Grid>
                 <!--#region filas/columnas-->
@@ -143,7 +153,24 @@
                 <!--#endregion-->
                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="10" Content="Orden de Repuestos de Costura" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
                 <Line Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9" X1="0" X2="450" Y1="0" Y2="0" StrokeThickness="4" Stroke="Black" Margin="20,0,0,0" VerticalAlignment="Top" />
+                <Border Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" BorderThickness="2" BorderBrush="Black" Margin="20,20,0,0">
+                    <Label Content="###NuevaOrden" FontSize="20" Padding="0"/>
+                </Border>
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="3" Margin="20,10,0,0">
+                    <Label FontSize="20" FontWeight="Bold" Content="Máquina:" />
+                    <Label x:Name="labelMaquinaSeleccionada" FontSize="20" FontWeight="Light"  Content="----" />
+                </StackPanel>
+                <ListView x:Name="listViewRepuestosSolicitados" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="7" Margin="20,0,30,0" KeyDown="listViewRepuestosSolicitados_KeyDown">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Repuesto" DisplayMemberBinding="{Binding Path=description}" Width="370" />
+                            <GridViewColumn Header="Cantidad" DisplayMemberBinding="{Binding Path=solicitado}" Width="75"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
             </Grid>
         </Border>
+        <!--#endregion-->
     </Grid>
 </UserControl>

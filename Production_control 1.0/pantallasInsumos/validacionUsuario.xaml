@@ -73,7 +73,7 @@
                 <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Usuario:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Contraseña:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="2" Grid.Column="5" x:Name="labelAreaSolicitada" Grid.ColumnSpan="5" Grid.RowSpan="2" Content="----" FontSize="25" FontWeight="Light"/>
-                <TextBox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="textBoxUsuario" VerticalContentAlignment="Center"/>
+                <TextBox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="textBoxUsuario" VerticalContentAlignment="Center" KeyDown="solo_numeros"/>
                 <PasswordBox Grid.Row="8" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="PasswordBoxContra" VerticalContentAlignment="Center"/>
                 <Button x:Name="ButtonIngresar" Grid.Column="4" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="3" BorderBrush="Transparent" Background="Transparent" Click="ButtonIngresar_Click">
                     <Image Source="/imagenes/entrar.png"/>

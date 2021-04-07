@@ -11,6 +11,7 @@ namespace Production_control_1._0.clases
         public string ajusteMaquina { get; set; }
         public string categoriaMaquina { get; set; }
         public string colorAjuste { get; set; }
+        public string codigoMaquina { get; set; }
         public int ii { get; set; }
         public int ie { get; set; }
         public int ee { get; set; }

@@ -50,6 +50,14 @@ namespace Production_control_1._0.pantallasInsumos
             GridPrincipal.Children.Add(new pantallasIniciales.insumos());
         }
 
+        private void solo_numeros(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
         #endregion
 
         #region ingresarAreas
@@ -90,7 +98,7 @@ namespace Production_control_1._0.pantallasInsumos
                     case "Repuestos Costura":
                         Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
                         GridPrincipal.Children.Clear();
-                        GridPrincipal.Children.Add(new repuestosCostura());
+                        GridPrincipal.Children.Add(new repuestosCostura(Convert.ToInt32(textBoxUsuario.Text)));
                         break;
                     case "Repuestos Máquinas":
                         break;
