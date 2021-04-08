@@ -16,5 +16,6 @@ namespace Production_control_1._0.clases
         public string finalCategory { get; set; }
         public string color { get; set; }
         public string autorizado { get; set; }
+        public string comentario { get; set; }
     }
 }

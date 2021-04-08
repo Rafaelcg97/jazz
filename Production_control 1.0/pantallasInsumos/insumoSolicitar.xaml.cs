@@ -18,7 +18,7 @@ using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasInsumos
 {
-    public partial class repuestosCostura : UserControl
+    public partial class insumosSolicitar : UserControl
     {
         #region conexionesConBasesSQL
         SqlConnection cnMantenimiento = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -29,7 +29,7 @@ namespace Production_control_1._0.pantallasInsumos
         #endregion
 
         #region datosIniciales
-        public repuestosCostura(int codigo, string areaCategoria)
+        public insumosSolicitar(int codigo, string areaCategoria)
         {
             InitializeComponent();
             #region deshabilitarButtonAgreg
@@ -40,6 +40,8 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
             #region agregarCategor
             labelOrdenCate.Content = areaCategoria;
+            labelEncabezado.Content = labelEncabezado.Content.ToString() + areaCategoria;
+            labelConsolidado.Content = labelEncabezado.Content;
             #endregion
             #region agregarNombreUsuario
             cnIngenieria.Open();
@@ -53,7 +55,7 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
             #region agregarRepuestos
             cnMantenimiento.Open();
-            sql = "select top 100 PartNumber, Description, OnHand, Cost from spare_onhand where final_category='Repuestos de Costura'";
+            sql = "select top 100 PartNumber, Description, OnHand, Cost from spare_onhand where final_category='"+ labelOrdenCate.Content.ToString()+"'";
             cm = new SqlCommand(sql, cnMantenimiento);
             dr = cm.ExecuteReader();
             List<solicitudInsumo> listaDeInsumos = new List<solicitudInsumo>();
@@ -75,23 +77,6 @@ namespace Production_control_1._0.pantallasInsumos
             cnMantenimiento.Close();
             //agregar lista de respuestos a listBoxRepuesto
             listBoxRepuesto.ItemsSource = listaDeInsumos;
-            #endregion
-            #region agregarMaquinas
-            cnMantenimiento.Open();
-            sql = "select codigo from inventario_maquinas";
-            cm = new SqlCommand(sql, cnMantenimiento);
-            dr = cm.ExecuteReader();
-            List<maquina> listaDeMaquinas = new List<maquina>();
-            //agregar maquinas existentes
-            while (dr.Read())
-            {
-
-                listaDeMaquinas.Add(new maquina { codigoMaquina = dr["codigo"].ToString() });
-            };
-            dr.Close();
-            cnMantenimiento.Close();
-            //agregar lista de maquinas a listboxmaquinas
-            listBoxMaquina.ItemsSource = listaDeMaquinas;
             #endregion
         }
         #endregion
@@ -128,13 +113,13 @@ namespace Production_control_1._0.pantallasInsumos
 
         private void deshabilitarBoton()
         {
-            if (listBoxRepuesto.SelectedIndex >=0  && listBoxMaquina.SelectedIndex >=0)
+            if (listBoxRepuesto.SelectedIndex < 0)
             {
-                ButtomIngresarRepuesto.IsEnabled = true;
+                ButtomIngresarRepuesto.IsEnabled = false;
             }
             else
             {
-                ButtomIngresarRepuesto.IsEnabled = false;
+                ButtomIngresarRepuesto.IsEnabled = true;
             }
         }
 
@@ -142,6 +127,7 @@ namespace Production_control_1._0.pantallasInsumos
         {
             deshabilitarBoton();
         }
+
         #endregion
 
         #region botonesControlFormulario
@@ -166,26 +152,6 @@ namespace Production_control_1._0.pantallasInsumos
             }
         }
 
-        private void listBoxMaquina_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            maquina itemMaquinaSeleccionada = (maquina)listBoxMaquina.SelectedItem;
-
-            if (listBoxMaquina.SelectedIndex > -1)
-            {
-                if (labelMaquinaSeleccionada.Content.ToString() == "----")
-                {
-                    labelMaquinaSeleccionada.Content = itemMaquinaSeleccionada.codigoMaquina;
-                }
-                else
-                {
-                    MessageBox.Show("Acabas de cambiar la máquina previamente seleccionada");
-                    labelMaquinaSeleccionada.Content = itemMaquinaSeleccionada.codigoMaquina;
-                }
-
-            }
-            deshabilitarBoton();
-        }
-
         private void listViewRepuestosSolicitados_KeyDown(object sender, KeyEventArgs e)
         {
             // eliminar el repuesto solicitado al presionar la tecla d
@@ -208,36 +174,15 @@ namespace Production_control_1._0.pantallasInsumos
                 listViewRepuestosSolicitados.ItemsSource = items;
             }
         }
-
         #endregion
 
-        #region FiltrarListasMaquinaRepuestos
-
-        private void TextBoXBuscarMaquina_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            cnMantenimiento.Open();
-            sql = "select codigo from inventario_maquinas where codigo like '%"+ TextBoXBuscarMaquina.Text +"%'";
-            cm = new SqlCommand(sql, cnMantenimiento);
-            dr = cm.ExecuteReader();
-            List<maquina> listaDeMaquinas = new List<maquina>();
-            //agregar maquinas existentes
-            while (dr.Read())
-            {
-
-                listaDeMaquinas.Add(new maquina { codigoMaquina = dr["codigo"].ToString() });
-            };
-            dr.Close();
-            cnMantenimiento.Close();
-            //agregar lista de maquinas a listboxmaquinas
-            listBoxMaquina.ItemsSource = listaDeMaquinas;
-            deshabilitarBoton();
-
-        }
+        #region FiltrarListasInsumosSelecc
 
         private void TextBoXBuscarRepuesto_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //se deshabilita el boton porque se va a limpiar la lista de seleccionar
             cnMantenimiento.Open();
-            sql = "select top 20 PartNumber, Description, OnHand, Cost from spare_onhand where final_category='Repuestos de Costura' and Description like '%" + TextBoXBuscarRepuesto.Text + "%'";
+            sql = "select top 20 PartNumber, Description, OnHand, Cost from spare_onhand where final_category='"+ labelOrdenCate.Content.ToString() +"' and Description like '%" + TextBoXBuscarRepuesto.Text + "%'";
             cm = new SqlCommand(sql, cnMantenimiento);
             dr = cm.ExecuteReader();
             List<solicitudInsumo> listaDeInsumos = new List<solicitudInsumo>();
@@ -269,12 +214,12 @@ namespace Production_control_1._0.pantallasInsumos
         private void ButtomIngresarRepuesto_Click(object sender, RoutedEventArgs e)
         {
             //se crea lista consolidad de los repuestos pedidos
-            List<solicitudInsumo> repuestosSolicitados = new List<solicitudInsumo>();
+            List<solicitudInsumo> insumoSolicitados = new List<solicitudInsumo>();
 
             //se obtiene el repuesto que se va a pedir
             solicitudInsumo itemSeleccionado = (solicitudInsumo)listBoxRepuesto.SelectedItem;
 
-            //se revisa si ya existen repuestos agregados
+            //se revisa si ya existen insumo agregados
             int conteoItemsAgregados = 0;
             //se revisa si el item era uno ya agregado o es otro
             int conteoItemsIguales = 0;
@@ -294,16 +239,16 @@ namespace Production_control_1._0.pantallasInsumos
                     if (totalSeleccionado > itemSeleccionado.onHand)
                     {
                         MessageBox.Show("No hay suficiente en sistema");
-                        repuestosSolicitados.Add(new solicitudInsumo { partNumber=item.partNumber, description = item.description, solicitado = item.solicitado, cost = item.cost, comentario=item.comentario });
+                        insumoSolicitados.Add(new solicitudInsumo { partNumber=item.partNumber, description = item.description, solicitado = item.solicitado, cost = item.cost, comentario=item.comentario });
                     }
                     else
                     {
-                        repuestosSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado = totalSeleccionado, cost=item.cost, comentario = item.comentario });
+                        insumoSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado = totalSeleccionado, cost=item.cost, comentario = item.comentario });
                     }
                 }
                 else
                 {
-                    repuestosSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado =item.solicitado, cost=item.cost, comentario =item.comentario });
+                    insumoSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado =item.solicitado, cost=item.cost, comentario =item.comentario });
                 }
             }
             // si no existe ningun item solo se agrega el item lo que se ha elegido
@@ -313,7 +258,7 @@ namespace Production_control_1._0.pantallasInsumos
                 if ((itemSeleccionado.onHand - Convert.ToInt32(textBoxCantidad.Text)) >= 0)
                 {
                     //se agrega a la lista
-                    repuestosSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost, comentario = "" });
+                    insumoSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost, comentario = "" });
                 }
                 else
                 {
@@ -329,7 +274,7 @@ namespace Production_control_1._0.pantallasInsumos
                     if ((itemSeleccionado.onHand - Convert.ToInt32(textBoxCantidad.Text)) >= 0)
                     {
                         //se agrega a la lista
-                        repuestosSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost, comentario = "" });
+                        insumoSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost, comentario = "" });
                     }
                     else
                     {
@@ -338,7 +283,7 @@ namespace Production_control_1._0.pantallasInsumos
                 }
             }
 
-            listViewRepuestosSolicitados.ItemsSource = repuestosSolicitados;
+            listViewRepuestosSolicitados.ItemsSource = insumoSolicitados;
         }
 
 
@@ -357,7 +302,7 @@ namespace Production_control_1._0.pantallasInsumos
             //agregar productos que requieren ser aprobados
             while (dr.Read())
             {
-                listaItemsConCondicion.Add(new solicitudInsumo { partNumber = dr["productId"].ToString() });
+                listaItemsConCondicion.Add(new solicitudInsumo { partNumber = dr["productId"].ToString()});
             };
             dr.Close();
             cnMantenimiento.Close();
@@ -365,12 +310,12 @@ namespace Production_control_1._0.pantallasInsumos
             //se verifica si la orden supera el costo permitido o si hay productos que requieren ser aprobados 
             double totalDeOrden = 0;
             int especial = 0;
-            int conteoIte = 0;
-            foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
+            int numeroRegistros = 0;
+            foreach(solicitudInsumo item in listViewRepuestosSolicitados.Items)
             {
-                totalDeOrden = totalDeOrden + ((double)item.solicitado * item.cost);
-                conteoIte = conteoIte + 1;
-                foreach (solicitudInsumo subitem in listaItemsConCondicion)
+                totalDeOrden = totalDeOrden + ((double)item.solicitado*item.cost);
+                numeroRegistros = numeroRegistros + 1;
+                foreach(solicitudInsumo subitem in listaItemsConCondicion)
                 {
                     if (item.partNumber == subitem.partNumber)
                     {
@@ -379,50 +324,51 @@ namespace Production_control_1._0.pantallasInsumos
                 }
             }
 
-            if (conteoIte > 0)
+            if (numeroRegistros > 0)
             {
-                if (totalDeOrden > 15 || especial > 0)
-                {
-                    cnMantenimiento.Open();
-                    //ingresar orden en odenesBodegaga
-                    sql = "insert into ordenesBodegaInsumos (ordenStatus, ordenCategoria, ordenCodigoSolicitante, ordenNombreSolicitante, codigoMaquina, ordenFecha, CostoTotal) values('Recibida', '" + labelOrdenCate.Content.ToString() + "', '" + labelCodigoSolicitante.Content.ToString() + "', '" + labelNombre.Content.ToString() + "', '" + labelMaquinaSeleccionada.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , " + totalDeOrden + ") SELECT SCOPE_IDENTITY()";
-                    cm = new SqlCommand(sql, cnMantenimiento);
-                    dr = cm.ExecuteReader();
-                    dr.Read();
-                    int idIngreso = Convert.ToInt32(dr[0]);
-                    dr.Close();
+            if (totalDeOrden>15 || especial>0)
+            {
+                cnMantenimiento.Open();
+                //ingresar orden en odenesBodegaga
+                sql = "insert into ordenesBodegaInsumos (ordenStatus, ordenCategoria, ordenCodigoSolicitante, ordenNombreSolicitante, ordenFecha, CostoTotal) values('Recibida', '"+ labelOrdenCate.Content.ToString() +"', '"+ labelCodigoSolicitante.Content.ToString() +"', '"+ labelNombre.Content.ToString() +"', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , " + totalDeOrden + ") SELECT SCOPE_IDENTITY()";
+                cm = new SqlCommand(sql, cnMantenimiento);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                int idIngreso = Convert.ToInt32(dr[0]);
+                dr.Close();
 
-                    //ingresar detalles de la orden
-                    foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
-                    {
-                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
-                        cm = new SqlCommand(sql, cnMantenimiento);
-                        cm.ExecuteNonQuery();
-                    }
-                    cnMantenimiento.Close();
-                    MessageBox.Show("Su orden ha sido enviada esta en espera de aprobación");
-                }
-                else
+                //ingresar detalles de la orden
+                foreach(solicitudInsumo item in listViewRepuestosSolicitados.Items)
                 {
-                    cnMantenimiento.Open();
-                    //ingresar orden en odenesBodegaga
-                    sql = "insert into ordenesBodegaInsumos (ordenStatus, ordenCategoria, ordenCodigoSolicitante, ordenNombreSolicitante, codigoMaquina, ordenFecha, CostoTotal) values('Aprobada', '" + labelOrdenCate.Content.ToString() + "', '" + labelCodigoSolicitante.Content.ToString() + "', '" + labelNombre.Content.ToString() + "', '" + labelMaquinaSeleccionada.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , " + totalDeOrden + ") SELECT SCOPE_IDENTITY()";
-                    cm = new SqlCommand(sql, cnMantenimiento);
-                    dr = cm.ExecuteReader();
-                    dr.Read();
-                    int idIngreso = Convert.ToInt32(dr[0]);
-                    dr.Close();
-
-                    //ingresar detalles de la orden
-                    foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
-                    {
-                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
-                        cm = new SqlCommand(sql, cnMantenimiento);
-                        cm.ExecuteNonQuery();
-                    }
-                    cnMantenimiento.Close();
-                    MessageBox.Show("Su orden ha sido enviada y aprobada");
+                sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('"+ idIngreso +"', '"+ item.partNumber +"', '"+ item.solicitado+"', '"+ ((double)item.solicitado * item.cost) + "', '"+item.comentario+"')";
+                cm = new SqlCommand(sql, cnMantenimiento);
+                cm.ExecuteNonQuery();
                 }
+                cnMantenimiento.Close();
+                MessageBox.Show("Su orden ha sido enviada esta en espera de aprobación");
+            }
+            else
+            {
+                cnMantenimiento.Open();
+                //ingresar orden en odenesBodegaga
+                sql = "insert into ordenesBodegaInsumos (ordenStatus, ordenCategoria, ordenCodigoSolicitante, ordenNombreSolicitante, ordenFecha, CostoTotal) values('Aprobada', '"+ labelOrdenCate.Content.ToString()+"', '" + labelCodigoSolicitante.Content.ToString() + "', '" + labelNombre.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , " + totalDeOrden + ") SELECT SCOPE_IDENTITY()";
+                cm = new SqlCommand(sql, cnMantenimiento);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                int idIngreso = Convert.ToInt32(dr[0]);
+                dr.Close();
+
+                //ingresar detalles de la orden
+                foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
+                {
+                    sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '"+item.comentario+"')";
+                    cm = new SqlCommand(sql, cnMantenimiento);
+                    cm.ExecuteNonQuery();
+                }
+                cnMantenimiento.Close();
+                MessageBox.Show("Su orden ha sido enviada y aprobada");
+                }
+
                 //enviar actualizacion
                 cnMantenimiento.Open();
                 sql = "insert into actualizacionBodegaInsumos (accion) values('1')";
@@ -432,9 +378,11 @@ namespace Production_control_1._0.pantallasInsumos
             }
             else
             {
-                MessageBox.Show("No has agregado ningun repuesto a la lista");
+                MessageBox.Show("No has agregado ningun insumo a la lista");
             }
+
         }
+
 
         #endregion
     }

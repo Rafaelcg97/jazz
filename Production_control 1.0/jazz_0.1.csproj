@@ -210,6 +210,12 @@
     <Compile Include="pantallasIniciales\produccion.xaml.cs">
       <DependentUpon>produccion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasInsumos\estadoSolicitudesInsumos.xaml.cs">
+      <DependentUpon>estadoSolicitudesInsumos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasInsumos\insumoSolicitar.xaml.cs">
+      <DependentUpon>insumoSolicitar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasInsumos\repuestosCostura.xaml.cs">
       <DependentUpon>repuestosCostura.xaml</DependentUpon>
     </Compile>
@@ -264,6 +270,14 @@
     <Page Include="pantallasIniciales\produccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasInsumos\estadoSolicitudesInsumos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasInsumos\insumoSolicitar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="pantallasInsumos\repuestosCostura.xaml">
       <SubType>Designer</SubType>
@@ -385,45 +399,20 @@
     <Resource Include="imagenes\ini.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\config.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\cancel.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\ball_red.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\promedio.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\lista.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\mantenimiento.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\hogar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\desconocido.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\carpeta.png" />
     <Resource Include="imagenes\disquete.png" />
     <Resource Include="imagenes\error.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\cancelar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\impresora.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\logout.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\persona.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\agregar-usuario.png" />
@@ -433,25 +422,7 @@
     <Resource Include="imagenes\nuevo_use.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\marca.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\cajaa.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\notas.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\administrador.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\aparato.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\gestion-del-tiempo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\log_t.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\atras.png" />
@@ -510,16 +481,10 @@
     <Resource Include="imagenes\terminar_in.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\participacion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\add.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\configuracion.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\finsesion.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\tocar.png" />
@@ -527,12 +492,6 @@
   <ItemGroup>
     <Resource Include="imagenes\mas.png" />
     <Resource Include="imagenes\menos.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\carrito.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\compra.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\cerradura.png" />
@@ -576,6 +535,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\aceptar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\enviar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\salirAmarillo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

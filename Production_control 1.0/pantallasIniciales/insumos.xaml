@@ -84,7 +84,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Articulos de Limpieza" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Artículos de Limpieza" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
         <Border x:Name="BorderOficina" Background="Black" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" CornerRadius="2" MouseUp="Border_MouseUp">
@@ -111,7 +111,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Articulos de Oficina" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Artículos de Oficina" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
         <Border x:Name="BorderProduccion" Background="Black" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" CornerRadius="2" MouseUp="Border_MouseUp">
@@ -138,7 +138,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="32" Grid.ColumnSpan="8" Content="Consumibles" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="32" Grid.ColumnSpan="8" Content="Consumibles de Producción" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
         <Border x:Name="BorderHerramientas" Background="Black" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" CornerRadius="2" MouseUp="Border_MouseUp">
@@ -165,7 +165,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Herramientas/Materiales" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Herramientas y Materiales" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
         <Border x:Name="BorderQuimicos" Background="Black" Grid.Column="4" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" CornerRadius="2" MouseUp="Border_MouseUp">
@@ -246,7 +246,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Repuestos Máquinas" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left" Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Repuestos de Maquinas" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left" Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
         <Border x:Name="BorderOtros" Background="Black" Grid.Column="7" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" CornerRadius="2" MouseUp="Border_MouseUp">

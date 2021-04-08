@@ -81,29 +81,17 @@ namespace Production_control_1._0.pantallasInsumos
             cnIngenieria.Close();
             if (conteoVerificacion == 1)
             {
-                switch (areaSolicitadaVerificar)
+                if (areaSolicitadaVerificar== "Repuestos Costura")
                 {
-                    case "Agujas":
-                        break;
-                    case "Articulos de Limpieza":
-                        break;
-                    case "Articulos de oficina":
-                        break;
-                    case "Consumibles":
-                        break;
-                    case "Herramientas/Materiales":
-                        break;
-                    case "Químicos":
-                        break;
-                    case "Repuestos Costura":
-                        Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
-                        GridPrincipal.Children.Clear();
-                        GridPrincipal.Children.Add(new repuestosCostura(Convert.ToInt32(textBoxUsuario.Text)));
-                        break;
-                    case "Repuestos Máquinas":
-                        break;
-                    case "Otros":
-                        break;
+                    Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new repuestosCostura(Convert.ToInt32(textBoxUsuario.Text), labelAreaSolicitada.Content.ToString()));
+                }
+                else
+                {
+                    Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new insumosSolicitar(Convert.ToInt32(textBoxUsuario.Text), labelAreaSolicitada.Content.ToString()));
                 }
 
             }

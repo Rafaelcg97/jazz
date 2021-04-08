@@ -514,6 +514,10 @@ namespace Production_control_1._0
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
 
         #endregion
 
