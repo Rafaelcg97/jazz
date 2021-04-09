@@ -9,6 +9,36 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="estadoSolicitudesInsumos"
       Background="#FF2A2C32">
+    <Page.Resources>
+        <Style TargetType="{x:Type ListBox}">
+
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="1" Height="100" Background="AliceBlue" CornerRadius="8" >
+                            <StackPanel>
+                                <Label FontWeight="Bold" Content="{Binding Path=ordenNombreSolicitante}" Padding="5,0,5,0" Margin="0,15,0,15" FontSize="12"/>
+                                <Label Content="{Binding Path=costC}" HorizontalContentAlignment="Center" FontSize="25"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- para que no muestre el scroll horizontal -->
+            <Setter 
+        Property="ScrollViewer.HorizontalScrollBarVisibility" 
+        Value="Disabled" 
+        />
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <!--#region control general del programa-->
@@ -30,6 +60,7 @@
         </StackPanel>
         <!--#endregion-->
         <Grid x:Name="areaDeTrabajo">
+            <!--#region encabezadoPr-->
             <!--#region filas/columans-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -76,7 +107,31 @@
                 <Image Source="/imagenes/salirAmarillo.png"/>
             </Button>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="tamanoLetrAutomatico" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Solicitudes De Bodega de Insumos</Label>
+            <!--#endregion-->
+            <Label Content="Solicitudes Recibidas" Grid.Column="0" Grid.Row="3" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Recibida" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor" MouseRightButtonUp="Recibida_MouseRightButtonUp" />
+            <Label Content="Solicitudes Aprobadas" Grid.Column="4" Grid.Row="3" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Aprobada" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <Label Content="Solicitudes Entregadas" Grid.Column="8" Grid.Row="3" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Entregada" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <Label Content="Solicitudes Descargadas" Grid.Column="12" Grid.Row="3" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Descargada" Grid.Row="4" Grid.Column="12" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <Label Content="Solicitudes Canceladas" Grid.Column="12" Grid.Row="11" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Cancelada" Grid.Row="12" Grid.Column="12" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
         </Grid>
+        <Popup x:Name="detalles" Width="580" Height="627" AllowsTransparency="True" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center">
+            <Border Background="White" CornerRadius="9">
+                <ListView x:Name="listViewInsumosOrden" Margin="5" BorderThickness="0" BorderBrush="Transparent" FontSize="10" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Repuesto" DisplayMemberBinding="{Binding Path=description}" Width="290" />
+                            <GridViewColumn Header="Cantidad" DisplayMemberBinding="{Binding Path=solicitado}" Width="55"/>
+                            <GridViewColumn Header="$ Total" DisplayMemberBinding="{Binding Path=costC}" Width="55"/>
+                            <GridViewColumn Header="Comentario" DisplayMemberBinding="{Binding Path=comentario}" Width="160"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+        </Popup>
     </Grid>
-     
 </Page>

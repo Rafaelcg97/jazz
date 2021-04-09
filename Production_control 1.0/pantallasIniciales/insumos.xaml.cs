@@ -57,6 +57,17 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new pantallasInsumos.validacionUsuario(areaSeleccionada));
         }
+
+        private void IngresarEstadoDeSolicitudes_Click(object sender, RoutedEventArgs e)
+        {
+            string areaSeleccionada = "Administración Bodega de Insumos";
+
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasInsumos.validacionUsuario(areaSeleccionada));
+        }
         #endregion
+
+
     }
 }

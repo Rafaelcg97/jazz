@@ -73,9 +73,11 @@ namespace Production_control_1._0.pantallasInsumos
             SqlDataReader dr = cm.ExecuteReader();
             //se hace un conteo para ver si existe ese usuario con esa contrasena
             int conteoVerificacion = 0;
+            int nivelUsuario = 0;
             while (dr.Read())
             {
                 conteoVerificacion = conteoVerificacion + 1;
+                nivelUsuario = Convert.ToInt32(dr["nivel"]);
             };
             dr.Close();
             cnIngenieria.Close();
@@ -86,6 +88,16 @@ namespace Production_control_1._0.pantallasInsumos
                     Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new repuestosCostura(Convert.ToInt32(textBoxUsuario.Text), labelAreaSolicitada.Content.ToString()));
+                }
+                else if(areaSolicitadaVerificar== "Administración Bodega de Insumos" && nivelUsuario == 1)
+                {
+                    estadoSolicitudesInsumos estadoSolicitudesInsumos = new estadoSolicitudesInsumos();
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = estadoSolicitudesInsumos;
+                }
+                else if(areaSolicitadaVerificar == "Administración Bodega de Insumos" && nivelUsuario < 1)
+                {
+                    MessageBox.Show("No tiene permiso de acceder a esta area");
                 }
                 else
                 {

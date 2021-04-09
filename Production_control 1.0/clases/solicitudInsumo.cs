@@ -13,9 +13,12 @@ namespace Production_control_1._0.clases
         public int onHand { get; set; }
         public int solicitado { get; set; }
         public double cost { get; set; }
+        public string costC { get; set; }
         public string finalCategory { get; set; }
         public string color { get; set; }
         public string autorizado { get; set; }
         public string comentario { get; set; }
+        public string ordenNombreSolicitante { get; set; }
+        public int ordenIdNum { get; set; }
     }
 }
