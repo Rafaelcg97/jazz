@@ -368,19 +368,15 @@ namespace Production_control_1._0.pantallasInsumos
                 cnMantenimiento.Close();
                 MessageBox.Show("Su orden ha sido enviada y aprobada");
                 }
-
-                //enviar actualizacion
-                cnMantenimiento.Open();
-                sql = "insert into actualizacionBodegaInsumos (accion) values('1')";
-                cm = new SqlCommand(sql, cnMantenimiento);
-                cm.ExecuteNonQuery();
-                cnMantenimiento.Close();
             }
             else
             {
                 MessageBox.Show("No has agregado ningun insumo a la lista");
             }
 
+            List<solicitudInsumo> listaLimpia = new List<solicitudInsumo>();
+            listViewRepuestosSolicitados.ItemsSource = listaLimpia;
+            textBoxCantidad.Text = "1";
         }
 
 

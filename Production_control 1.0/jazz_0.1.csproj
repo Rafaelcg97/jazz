@@ -201,6 +201,9 @@
     <Compile Include="clases\operacion.cs" />
     <Compile Include="clases\operario.cs" />
     <Compile Include="clases\solicitudInsumo.cs" />
+    <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\DelegateCommand.cs" />
+    <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\MessageModel.cs" />
+    <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\SQLNotifier.cs" />
     <Compile Include="pantallasIniciales\inicio.xaml.cs">
       <DependentUpon>inicio.xaml</DependentUpon>
     </Compile>

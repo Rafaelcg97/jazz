@@ -294,16 +294,16 @@ namespace Production_control_1._0.pantallasInsumos
                     if (totalSeleccionado > itemSeleccionado.onHand)
                     {
                         MessageBox.Show("No hay suficiente en sistema");
-                        repuestosSolicitados.Add(new solicitudInsumo { partNumber=item.partNumber, description = item.description, solicitado = item.solicitado, cost = item.cost*(double)item.solicitado, comentario=item.comentario });
+                        repuestosSolicitados.Add(new solicitudInsumo { partNumber=item.partNumber, description = item.description, solicitado = item.solicitado, cost = item.cost, comentario=item.comentario });
                     }
                     else
                     {
-                        repuestosSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado = totalSeleccionado, cost=item.cost*(double)totalSeleccionado, comentario = item.comentario });
+                        repuestosSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado = totalSeleccionado, cost=item.cost, comentario = item.comentario });
                     }
                 }
                 else
                 {
-                    repuestosSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado =item.solicitado, cost=item.cost*(double)item.solicitado, comentario =item.comentario });
+                    repuestosSolicitados.Add(new solicitudInsumo { partNumber = item.partNumber, description = item.description, solicitado =item.solicitado, cost=item.cost, comentario =item.comentario });
                 }
             }
             // si no existe ningun item solo se agrega el item lo que se ha elegido
@@ -313,7 +313,7 @@ namespace Production_control_1._0.pantallasInsumos
                 if ((itemSeleccionado.onHand - Convert.ToInt32(textBoxCantidad.Text)) >= 0)
                 {
                     //se agrega a la lista
-                    repuestosSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost*Convert.ToDouble(textBoxCantidad.Text), comentario = "" });
+                    repuestosSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost, comentario = "" });
                 }
                 else
                 {
@@ -329,7 +329,7 @@ namespace Production_control_1._0.pantallasInsumos
                     if ((itemSeleccionado.onHand - Convert.ToInt32(textBoxCantidad.Text)) >= 0)
                     {
                         //se agrega a la lista
-                        repuestosSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost*Convert.ToDouble(textBoxCantidad.Text), comentario = "" });
+                        repuestosSolicitados.Add(new solicitudInsumo { partNumber = itemSeleccionado.partNumber, description = itemSeleccionado.description, solicitado = Convert.ToInt32(textBoxCantidad.Text), cost = itemSeleccionado.cost, comentario = "" });
                     }
                     else
                     {
@@ -368,7 +368,7 @@ namespace Production_control_1._0.pantallasInsumos
             int conteoIte = 0;
             foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
             {
-                totalDeOrden = totalDeOrden + item.cost;
+                totalDeOrden = totalDeOrden + ((double)item.solicitado * item.cost);
                 conteoIte = conteoIte + 1;
                 foreach (solicitudInsumo subitem in listaItemsConCondicion)
                 {
@@ -395,7 +395,7 @@ namespace Production_control_1._0.pantallasInsumos
                     //ingresar detalles de la orden
                     foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
                     {
-                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + item.cost + "', '" + item.comentario + "')";
+                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
                         cm = new SqlCommand(sql, cnMantenimiento);
                         cm.ExecuteNonQuery();
                     }
@@ -416,24 +416,21 @@ namespace Production_control_1._0.pantallasInsumos
                     //ingresar detalles de la orden
                     foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
                     {
-                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + item.cost + "', '" + item.comentario + "')";
+                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
                         cm = new SqlCommand(sql, cnMantenimiento);
                         cm.ExecuteNonQuery();
                     }
                     cnMantenimiento.Close();
                     MessageBox.Show("Su orden ha sido enviada y aprobada");
                 }
-                //enviar actualizacion
-                cnMantenimiento.Open();
-                sql = "insert into actualizacionBodegaInsumos (accion) values('1')";
-                cm = new SqlCommand(sql, cnMantenimiento);
-                cm.ExecuteNonQuery();
-                cnMantenimiento.Close();
             }
             else
             {
                 MessageBox.Show("No has agregado ningun repuesto a la lista");
             }
+            List<solicitudInsumo> listaLimpia = new List<solicitudInsumo>();
+            listViewRepuestosSolicitados.ItemsSource = listaLimpia;
+            textBoxCantidad.Text = "1";
         }
 
         #endregion

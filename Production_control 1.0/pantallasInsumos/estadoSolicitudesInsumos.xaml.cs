@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Production_control_1._0.clases;
+using Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL;
+using TableDependency.SqlClient;
+using TableDependency.SqlClient.Base.EventArgs;
 
 namespace Production_control_1._0.pantallasInsumos
 {
     public partial class estadoSolicitudesInsumos : Page
     {
+
         #region conexionesConBasesSQL
         public SqlConnection cnMantenimiento = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public string sql; //Consulta que se hace en sql
@@ -33,8 +28,24 @@ namespace Production_control_1._0.pantallasInsumos
         public estadoSolicitudesInsumos()
         {
             InitializeComponent();
-            limpiarSolicitudes();
-            cargarListasSolicitudes();
+            this.CreatePermission();
+
+            MessageModel model = new MessageModel(this.Dispatcher);
+            this.DataContext = model;
+        }
+
+        public void CreatePermission()
+        {
+            // Make sure client has permissions 
+            try
+            {
+                SqlClientPermission perm = new SqlClientPermission(System.Security.Permissions.PermissionState.Unrestricted);
+                perm.Demand();
+            }
+            catch
+            {
+                throw new ApplicationException("No permission");
+            }
         }
         #endregion
 
@@ -139,13 +150,9 @@ namespace Production_control_1._0.pantallasInsumos
             ListBox estacion = (ListBox)sender;
             string status = estacion.Name.ToString();
             object informacion = e.Data.GetData(typeof(solicitudInsumo));
-
             solicitudInsumo informacionElemento = informacion as solicitudInsumo;
-
             limpiarSolicitudes();
-            actualizarTabla(informacionElemento.ordenIdNum, status);
             cargarListasSolicitudes();
-
         }
         #endregion
 
@@ -161,6 +168,8 @@ namespace Production_control_1._0.pantallasInsumos
         private void cargarListasSolicitudes()
         {
             #region agregarSolicitudesInsumos
+            try
+            {
             cnMantenimiento.Open();
             sql = "select*from ordenesBodegaInsumos where ordenStatus<>'Cancelada' and ordenStatus<>'Descargada'";
             cm = new SqlCommand(sql, cnMantenimiento);
@@ -205,15 +214,13 @@ namespace Production_control_1._0.pantallasInsumos
             };
             dr.Close();
             cnMantenimiento.Close();
+
+            }
+            catch
+            {
+
+            }
             #endregion
-        }
-        private void actualizarTabla(int numId, string nuevoStatus)
-        {
-            cnMantenimiento.Open();
-            sql = "update ordenesBodegaInsumos set ordenStatus='" + nuevoStatus + "' where orden_id=" + numId;
-            cm = new SqlCommand(sql, cnMantenimiento);
-            cm.ExecuteNonQuery();
-            cnMantenimiento.Close();
         }
         #endregion
 
