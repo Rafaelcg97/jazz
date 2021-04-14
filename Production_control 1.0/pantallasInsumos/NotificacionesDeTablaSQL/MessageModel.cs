@@ -12,19 +12,35 @@ namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
 {
     class MessageModel : INotifyPropertyChanged
     {
-        private ObservableCollection<solicitudInsumo> messages = null;
-        public ObservableCollection<solicitudInsumo> Messages
+        private ObservableCollection<solicitudInsumo> recibidas = null;
+        private ObservableCollection<solicitudInsumo> aprobadas = null;
+        private ObservableCollection<solicitudInsumo> entregadas = null;
+        public ObservableCollection<solicitudInsumo> Recibidas
         {
             get
             {
-                messages = messages ?? new ObservableCollection<solicitudInsumo>();
-                return messages;
+                recibidas = recibidas ?? new ObservableCollection<solicitudInsumo>();
+                return recibidas;
             }
         }
- 
+        public ObservableCollection<solicitudInsumo> Aprobadas
+        {
+            get
+            {
+                aprobadas = aprobadas ?? new ObservableCollection<solicitudInsumo>();
+                return aprobadas;
+            }
+        }
+        public ObservableCollection<solicitudInsumo> Entregadas
+        {
+            get
+            {
+                entregadas = entregadas ?? new ObservableCollection<solicitudInsumo>();
+                return entregadas;
+            }
+        }
 
         public Dispatcher UIDispatcher { get; set; }
-
         public SQLNotifier Notifier { get; set; }
         public MessageModel(Dispatcher uidispatcher)
         {
@@ -38,57 +54,55 @@ namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
             this.LoadMessage(dt);
         }
 
-        private int ordenId;
-        private string ordenStatus;
-
-        public int OrdenId
-        {
-            get
-            {
-                return this.ordenId;
-            }
-            set
-            {
-                this.ordenId = value;
-                this.OnPropertyChanged("OrdenId");
-            }
-        }
-
-        public string OrdenStatus
-        {
-            get
-            {
-                return this.ordenStatus;
-            }
-            set
-            {
-                this.ordenStatus = value;
-                this.OnPropertyChanged("OrdenStatus");
-            }
-        }
-
-
         private void LoadMessage(DataTable dt)
         {
 
-            this.UIDispatcher.BeginInvoke((Action)delegate ()
-            {
-                if (dt != null)
-                {
-                    this.Messages.Clear();
+            _ = this.UIDispatcher.BeginInvoke((Action)delegate ()
+              {
+                  if (dt != null)
+                  {
+                      this.Recibidas.Clear();
+                      this.Entregadas.Clear();
+                      this.Aprobadas.Clear();
 
-                    foreach (DataRow drow in dt.Rows)
-                    {
-                        solicitudInsumo msg = new solicitudInsumo
-                        {
-                            ordenIdNum = Convert.ToInt32(drow["orden_id"]),
-                            ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
-                            autorizado = drow["ordenStatus"] as string,
-                        };
-                        this.Messages.Add(msg);
-                    }
-                }
-            });
+                      foreach (DataRow drow in dt.Rows)
+                      {
+                          switch (drow["ordenStatus"].ToString())
+                          {
+                              case "Recibida":
+                                  solicitudInsumo recibida = new solicitudInsumo
+                                  {
+                                      ordenIdNum = Convert.ToInt32(drow["orden_id"]),
+                                      ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
+                                      autorizado = drow["ordenStatus"] as string,
+                                      costC = Convert.ToDouble(drow["CostoTotal"]).ToString("C")
+                                  };
+                                  this.Recibidas.Add(recibida);
+                                  break;
+                              case "Aprobada":
+                                  solicitudInsumo aprobada = new solicitudInsumo
+                                  {
+                                      ordenIdNum = Convert.ToInt32(drow["orden_id"]),
+                                      ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
+                                      autorizado = drow["ordenStatus"] as string,
+                                      costC = Convert.ToDouble(drow["CostoTotal"]).ToString("C")
+                                  };
+                                  this.Aprobadas.Add(aprobada);
+                                  break;
+                              case "Entregada":
+                                  solicitudInsumo entregada = new solicitudInsumo
+                                  {
+                                      ordenIdNum = Convert.ToInt32(drow["orden_id"]),
+                                      ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
+                                      autorizado = drow["ordenStatus"] as string,
+                                      costC = Convert.ToDouble(drow["CostoTotal"]).ToString("C")
+                                  };
+                                  this.Entregadas.Add(entregada);
+                                  break;
+                          }
+                      }
+                  }
+              });
         }
         void notifier_NewMessage(object sender, SqlNotificationEventArgs e)
         {

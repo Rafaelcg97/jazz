@@ -8,8 +8,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Production_control_1._0.clases;
 using Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL;
-using TableDependency.SqlClient;
-using TableDependency.SqlClient.Base.EventArgs;
 
 namespace Production_control_1._0.pantallasInsumos
 {
@@ -151,76 +149,11 @@ namespace Production_control_1._0.pantallasInsumos
             string status = estacion.Name.ToString();
             object informacion = e.Data.GetData(typeof(solicitudInsumo));
             solicitudInsumo informacionElemento = informacion as solicitudInsumo;
-            limpiarSolicitudes();
-            cargarListasSolicitudes();
-        }
-        #endregion
-
-        #region calculosGenerales
-        private void limpiarSolicitudes()
-        {
-            Recibida.Items.Clear();
-            Aprobada.Items.Clear();
-            Entregada.Items.Clear();
-            Descargada.Items.Clear();
-            Cancelada.Items.Clear();
-        }
-        private void cargarListasSolicitudes()
-        {
-            #region agregarSolicitudesInsumos
-            try
-            {
+            sql = "update ordenesBodegaInsumos set ordenStatus='"+status+"' where orden_id="+informacionElemento.ordenIdNum;
             cnMantenimiento.Open();
-            sql = "select*from ordenesBodegaInsumos where ordenStatus<>'Cancelada' and ordenStatus<>'Descargada'";
             cm = new SqlCommand(sql, cnMantenimiento);
-            dr = cm.ExecuteReader();
-            //agregar solicitudes recibidas aprobadas entregadas a las listas
-            while (dr.Read())
-            {
-                switch (dr["ordenStatus"].ToString())
-                {
-                    case "Recibida":
-                        Recibida.Items.Add(new solicitudInsumo { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["costoTotal"]).ToString("C") });
-                        break;
-                    case "Aprobada":
-                        Aprobada.Items.Add(new solicitudInsumo { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["costoTotal"]).ToString("C") });
-                        break;
-                    case "Entregada":
-                        Entregada.Items.Add(new solicitudInsumo { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["costoTotal"]).ToString("C") });
-                        break;
-                }
-            };
-            dr.Close();
-
-            //ejecutar las consultas para las canceladas y las descargadas se limitan a las ultimas cinco ya que son miles y es un numero que va en aumento y no es necesario tener acceso a todas  
-            sql = "select top 5*from ordenesBodegaInsumos where ordenStatus='Descargada' order by ordenFecha desc";
-            cm = new SqlCommand(sql, cnMantenimiento);
-            dr = cm.ExecuteReader();
-            //agregar operaciones de consulta
-            while (dr.Read())
-            {
-
-                Descargada.Items.Add(new solicitudInsumo { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["costoTotal"]).ToString("C") });
-            };
-            dr.Close();
-            sql = "select top 5*from ordenesBodegaInsumos where ordenStatus='Cancelada' order by ordenFecha desc";
-            cm = new SqlCommand(sql, cnMantenimiento);
-            dr = cm.ExecuteReader();
-            //agregar operaciones de consulta
-            while (dr.Read())
-            {
-
-                Cancelada.Items.Add(new solicitudInsumo { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["costoTotal"]).ToString("C") });
-            };
-            dr.Close();
+            cm.ExecuteNonQuery();
             cnMantenimiento.Close();
-
-            }
-            catch
-            {
-
-            }
-            #endregion
         }
         #endregion
 
@@ -250,8 +183,45 @@ namespace Production_control_1._0.pantallasInsumos
                 detalles.IsOpen = true;
             }
         }
+
         #endregion
 
+        #region botonesDescargadoCancelado
 
+        private void buttonDescargas_Click(object sender, RoutedEventArgs e)
+        {
+            List<solicitudInsumo> listaSolicitudesDescargadas = new List<solicitudInsumo>();
+            cnMantenimiento.Open();
+            sql = "select top 5 [orden_id], [ordenStatus], [ordenCodigoSolicitante], [ordenNombreSolicitante], [CostoTotal] from dbo.ordenesBodegaInsumos where [ordenStatus]='Descargada' order by ordenFecha desc";
+            cm = new SqlCommand(sql, cnMantenimiento);
+            dr = cm.ExecuteReader();
+            //agregar solicitudes recibidas aprobadas entregadas a las listas
+            while (dr.Read())
+            {
+                listaSolicitudesDescargadas.Add(new solicitudInsumo() { ordenIdNum= Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante=dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["CostoTotal"]).ToString("C") });
+            };
+            dr.Close();
+            cnMantenimiento.Close();
+            Descargada.ItemsSource = listaSolicitudesDescargadas;
+        }
+
+        private void buttonCanceladas_Click(object sender, RoutedEventArgs e)
+        {
+            List<solicitudInsumo> listaSolicitudesCanceladas = new List<solicitudInsumo>();
+            cnMantenimiento.Open();
+            sql = "select top 5 [orden_id], [ordenStatus], [ordenCodigoSolicitante], [ordenNombreSolicitante], [CostoTotal] from dbo.ordenesBodegaInsumos where [ordenStatus]='Cancelada' order by ordenFecha desc";
+            cm = new SqlCommand(sql, cnMantenimiento);
+            dr = cm.ExecuteReader();
+            //agregar solicitudes recibidas aprobadas entregadas a las listas
+            while (dr.Read())
+            {
+                listaSolicitudesCanceladas.Add(new solicitudInsumo() { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["CostoTotal"]).ToString("C") });
+            };
+            dr.Close();
+            cnMantenimiento.Close();
+            Cancelada.ItemsSource = listaSolicitudesCanceladas;
+
+        }
+        #endregion
     }
 }

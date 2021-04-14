@@ -77,7 +77,7 @@
             </Button>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Estado Actual de Piso de Producción</Label>
             <!--#region modulos -->
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_1" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U1}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_1" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -89,7 +89,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_2" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U2}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_2" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -101,7 +101,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_3" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U3}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_3" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -113,7 +113,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_4" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U4}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_4" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -125,7 +125,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="4" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U5}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="4" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -137,7 +137,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="5" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_6" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U6}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="5" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_6" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -149,7 +149,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="6" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_7" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U7}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="6" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_7" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -161,7 +161,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_8" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U8}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_8" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -173,7 +173,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="8" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_9" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U9}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="8" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_9" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -185,7 +185,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="9" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_10" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U10}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="9" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_10" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -197,7 +197,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="10" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_11" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U11}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="10" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_11" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -209,7 +209,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="11" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_12" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U12}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="11" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_12" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -221,7 +221,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="12" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_13" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U13}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="12" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_13" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -233,7 +233,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="13" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_14" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U14}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="13" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_14" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -245,7 +245,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="14" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_15" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U15}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="14" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_15" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -257,7 +257,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="3" Grid.RowSpan="6" Grid.Column="15" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_16" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U16}" Grid.Row="3" Grid.RowSpan="6" Grid.Column="15" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_16" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -269,7 +269,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_17" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U17}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_17" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -281,7 +281,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_18" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U18}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_18" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -293,7 +293,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_19" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U19}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_19" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -305,7 +305,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_20" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U20}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_20" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -317,7 +317,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="4" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_21" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U21}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="4" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_21" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -329,7 +329,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="5" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_22" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U22}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="5" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_22" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -341,7 +341,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="6" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_23" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U23}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="6" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_23" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -353,7 +353,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_24" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U24}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="7" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_24" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -365,7 +365,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="8" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_25" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U25}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="8" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_25" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -377,7 +377,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="9" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_26" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U26}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="9" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_26" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -389,7 +389,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="10" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_27" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U27}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="10" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_27" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -401,7 +401,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="11" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_28" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U28}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="11" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_28" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -413,7 +413,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="12" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_29" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U29}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="12" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_29" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -425,7 +425,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="13" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_30" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U30}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="13" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_30" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -437,7 +437,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="14" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_31" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U31}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="14" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_31" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -449,7 +449,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="10" Grid.RowSpan="6" Grid.Column="15" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_32" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
+            <ListBox ItemsSource="{Binding U32}" Grid.Row="10" Grid.RowSpan="6" Grid.Column="15" Grid.ColumnSpan="1" Background="Green" Margin="5,10" x:Name="modulo_32" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -461,7 +461,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="17" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Background="Green"  x:Name="modulo_33" Margin="5,0,0,5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U33}" Grid.Row="17" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Background="Green"  x:Name="modulo_33" Margin="5,0,0,5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -473,7 +473,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox Grid.Row="17" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="3" Background="Green"  x:Name="modulo_34" Margin="5,0,0,5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
+            <ListBox ItemsSource="{Binding U34}" Grid.Row="17" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="3" Background="Green"  x:Name="modulo_34" Margin="5,0,0,5" BorderThickness="4" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" MouseUp="mostrarPopUp" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,1">
@@ -523,7 +523,7 @@
             <Label Grid.Row="16" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" SizeChanged="letra_modulos_nombres" FontWeight="Bold" x:Name="l34" Foreground="AliceBlue">PREP ELASTICO</Label>
             <!--#endregion-->
             <!--#region prioridades-->
-            <ItemsControl x:Name="orden_prioridad" Grid.Row="16" Grid.Column="12" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,15,0" Background="#FF2A2C32" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Foreground="AliceBlue" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderBrush="#FFB0A770" BorderThickness="1">
+            <ItemsControl x:Name="orden_prioridad" ItemsSource="{Binding P}" Grid.Row="16" Grid.Column="12" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,15,0" Background="#FF2A2C32" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Foreground="AliceBlue" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderBrush="#FFB0A770" BorderThickness="1">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,0,0,5">

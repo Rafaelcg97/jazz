@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Production_control_1._0.NotificacionesDeTablaSQL
+namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL
 {
-    class SQLNotifier
+    class SQLNotifierPlanta
     {
-
         public SqlCommand CurrentCommand { get; set; }
         private SqlConnection connection;
         public SqlConnection CurrentConnection
@@ -29,8 +24,7 @@ namespace Production_control_1._0.NotificacionesDeTablaSQL
                 return "Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"];
             }
         }
-
-        public SQLNotifier()
+        public SQLNotifierPlanta()
         {
             SqlDependency.Start(this.ConnectionString);
 
@@ -57,7 +51,7 @@ namespace Production_control_1._0.NotificacionesDeTablaSQL
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select[orden_id], [ordenStatus], [ordenNombreSolicitante], [CostoTotal] from dbo.ordenesBodegaInsumos where [ordenStatus]<>'Cancelada' and [ordenStatus]<>'Descargada'", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [id_solicitud], [ubicacion], [modulo], [maquina], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudesDesperfectos where [hora_apertura] is null or [hora_cierre] is null", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 
@@ -86,14 +80,5 @@ namespace Production_control_1._0.NotificacionesDeTablaSQL
 
             this.OnNewMessage(e);
         }
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-            SqlDependency.Stop(this.ConnectionString);
-        }
-
-        #endregion
     }
 }
