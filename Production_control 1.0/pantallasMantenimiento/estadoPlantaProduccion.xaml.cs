@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Production_control_1._0.clases;
 using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
-using TableDependency.SqlClient;
-using TableDependency.SqlClient.Base.EventArgs;
+
 
 namespace Production_control_1._0
 {
@@ -172,8 +169,9 @@ namespace Production_control_1._0
                 //se abre la ventana emergente
                 datos_solicitud.IsOpen = true;
                 //se evalua el problema seleccionado
-                foreach (solicitudMaquina item in modulo.SelectedItems)
-                {
+
+                solicitudMaquina item = (solicitudMaquina)modulo.SelectedItem;
+
                     // se agregan el problema, maquina, solicitud y la hora a la que se hizo del problema seleccionado
                     problema.Content = item.problema_reportado.ToString();
                     maquina.Content = item.maquina.ToString();
@@ -262,7 +260,6 @@ namespace Production_control_1._0
                         img_reanudar.Source = new BitmapImage(reanudar_inhabilitado);
                         img_terminar.Source = new BitmapImage(terminar_inhabilitado);
                     }
-                }
             }
         }
         #endregion

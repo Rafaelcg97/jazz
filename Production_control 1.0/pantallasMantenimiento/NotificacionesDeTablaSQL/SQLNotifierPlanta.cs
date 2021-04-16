@@ -2,6 +2,9 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
+using System.Windows.Media;
+using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL
 {
@@ -51,7 +54,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select [id_solicitud], [ubicacion], [modulo], [maquina], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudesDesperfectos where [hora_apertura] is null or [hora_cierre] is null", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [id_solicitud], [ubicacion], [modulo], [maquina], [hora_reportada], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudesDesperfectos where [hora_apertura] is null or [hora_cierre] is null", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 

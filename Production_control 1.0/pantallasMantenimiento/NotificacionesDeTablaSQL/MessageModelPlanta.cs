@@ -4,12 +4,11 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Data;
 using System.Data.SqlClient;
-using Production_control_1._0.NotificacionesDeTablaSQL;
 using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL
 {
-    class MessageModelPlanta 
+    class MessageModelPlanta
     {
         #region coleccionObservablesPriv
         private ObservableCollection<solicitudMaquina> u1 = null;
@@ -47,6 +46,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
         private ObservableCollection<solicitudMaquina> u33 = null;
         private ObservableCollection<solicitudMaquina> u34 = null;
         private ObservableCollection<solicitudMaquina> p = null;
+        private string cf1 = null;
         #endregion
         #region coleccionesObservablesPub
         public ObservableCollection<solicitudMaquina> U1
@@ -329,8 +329,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 return p;
             }
         }
-
+        public string CF1
+        {
+            get
+            {
+                return cf1;
+            }
+        }
         #endregion
+
 
         public Dispatcher UIDispatcher { get; set; }
         public SQLNotifierPlanta Notifier { get; set; }
@@ -353,6 +360,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             {
                 if (consultado != null)
                 {
+                    #region limpiarDatos
                     this.U1.Clear();
                     this.U2.Clear();
                     this.U3.Clear();
@@ -388,8 +396,12 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                     this.U33.Clear();
                     this.U34.Clear();
                     this.P.Clear();
+                    
+                    #endregion
 
                     int conteoPrio = 0;
+                    int conteo = 0;
+                    #region agregarDatosLista
                     foreach (DataRow dr in consultado.Rows)
                     {
                         switch (Convert.ToInt32(dr["ubicacion"]))
@@ -397,264 +409,398 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                             case 1:
                                 solicitudMaquina itemU1 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    
                                 };
                                 this.U1.Add(itemU1);
+                                conteo = conteo = 1;
                                 break;
                             case 2:
                                 solicitudMaquina itemU2 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U2.Add(itemU2);
                                 break;
                             case 3:
                                 solicitudMaquina itemU3 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U3.Add(itemU3);
                                 break;
                             case 4:
                                 solicitudMaquina itemU4 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U4.Add(itemU4);
                                 break;
                             case 5:
                                 solicitudMaquina itemU5 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U5.Add(itemU5);
                                 break;
                             case 6:
                                 solicitudMaquina itemU6 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U6.Add(itemU6);
                                 break;
                             case 7:
                                 solicitudMaquina itemU7 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U7.Add(itemU7);
                                 break;
                             case 8:
                                 solicitudMaquina itemU8 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U8.Add(itemU8);
                                 break;
                             case 9:
                                 solicitudMaquina itemU9 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U9.Add(itemU9);
                                 break;
                             case 10:
                                 solicitudMaquina itemU10 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U10.Add(itemU10);
                                 break;
                             case 11:
                                 solicitudMaquina itemU11 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U11.Add(itemU11);
                                 break;
                             case 12:
                                 solicitudMaquina itemU12 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U12.Add(itemU12);
                                 break;
                             case 13:
                                 solicitudMaquina itemU13 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U13.Add(itemU13);
                                 break;
                             case 14:
                                 solicitudMaquina itemU14 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U14.Add(itemU14);
                                 break;
                             case 15:
                                 solicitudMaquina itemU15 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U15.Add(itemU15);
                                 break;
                             case 16:
                                 solicitudMaquina itemU16 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U16.Add(itemU16);
                                 break;
                             case 17:
                                 solicitudMaquina itemU17 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U17.Add(itemU17);
                                 break;
                             case 18:
                                 solicitudMaquina itemU18 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U18.Add(itemU18);
                                 break;
                             case 19:
                                 solicitudMaquina itemU19 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U19.Add(itemU19);
                                 break;
                             case 20:
                                 solicitudMaquina itemU20 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U20.Add(itemU20);
                                 break;
                             case 21:
                                 solicitudMaquina itemU21 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U21.Add(itemU21);
                                 break;
                             case 22:
                                 solicitudMaquina itemU22 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U22.Add(itemU22);
                                 break;
                             case 23:
                                 solicitudMaquina itemU23 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U23.Add(itemU23);
                                 break;
                             case 24:
                                 solicitudMaquina itemU24 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U24.Add(itemU24);
                                 break;
                             case 25:
                                 solicitudMaquina itemU25 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U25.Add(itemU25);
                                 break;
                             case 26:
                                 solicitudMaquina itemU26 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U26.Add(itemU26);
                                 break;
                             case 27:
                                 solicitudMaquina itemU27 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U27.Add(itemU27);
                                 break;
                             case 28:
                                 solicitudMaquina itemU28 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U28.Add(itemU28);
                                 break;
                             case 29:
                                 solicitudMaquina itemU29 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U29.Add(itemU29);
                                 break;
                             case 30:
                                 solicitudMaquina itemU30 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U30.Add(itemU30);
                                 break;
                             case 31:
                                 solicitudMaquina itemU31 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U31.Add(itemU31);
                                 break;
                             case 32:
                                 solicitudMaquina itemU32 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U32.Add(itemU32);
                                 break;
                             case 33:
                                 solicitudMaquina itemU33 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U33.Add(itemU33);
 
@@ -662,13 +808,17 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                             case 34:
                                 solicitudMaquina itemU34 = new solicitudMaquina
                                 {
+                                    corresponde = dr["corresponde"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
-                                    problema_reportado = dr["problema_reportado"].ToString()
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
                                 this.U34.Add(itemU34);
                                 break;
                         }
-                    if (dr["corresponde"].ToString()=="MANTENIMIENTO" && String.IsNullOrEmpty(dr["hora_cierre"].ToString()))
+                        if (dr["corresponde"].ToString()=="MANTENIMIENTO" && String.IsNullOrEmpty(dr["hora_cierre"].ToString()))
                         {
                             conteoPrio = conteoPrio + 1;
                             solicitudMaquina prioridad = new solicitudMaquina
@@ -683,24 +833,39 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
 
                         }
                     }
+                    #endregion
+
+                    if (conteo > 0)
+                    {
+                        cf1 = "Green";
+                    }
+                    else
+                    {
+                        cf1 = "Red";
+                    }
+
+
+
+
                 }
-            });
+            });      
         }
+
         void notifier_NewMessage(object sender, SqlNotificationEventArgs e)
         {
             this.LoadMessage(this.Notifier.RegisterDependency());
         }
 
-        #region INotifyPropertyChanged Members
+        //#region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
+        //private void OnPropertyChanged(string propertyName)
+        //{
+        //    if (this.PropertyChanged != null)
+        //        this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //}
+        //#endregion
     }
 }
 
