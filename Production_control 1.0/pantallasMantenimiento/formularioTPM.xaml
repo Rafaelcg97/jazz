@@ -1,0 +1,211 @@
+﻿<Page x:Class="Production_control_1._0.pantallasMantenimiento.formularioTPM"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0.pantallasMantenimiento"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="formularioTPM" Background="#FF1B1A2C">
+
+    <Grid>
+        <!--#region control general del programa-->
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
+                        <materialDesign:PackIcon Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
+                        <materialDesign:PackIcon Kind="Close"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+        <Grid x:Name="areaDeTrabajo">
+            <!--#region filas/columans-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--#endregion-->
+            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
+                <Image Source="/imagenes/salir.png"/>
+            </Button>
+            <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="12" Margin="0,10,0,0" Padding="0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Formulario de Mantenimiento Preventivo</Label>
+            <Label Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="4" Margin="0,0,0,0" Padding="0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center" Content="Reportar Orden"/>
+            <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="15" BorderThickness="4" Background="Transparent"  BorderBrush="#FF978C27" CornerRadius="8">
+                <Grid>
+                    <!--#region filas/columans-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--#endregion-->
+                    <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="1" Content="Máquina:" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="textBoxMaquina" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="14" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="15" TextChanged="textBoxMaquina_TextChanged"/>
+                    <ListBox x:Name="listBoxMaquina" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="3" SelectionChanged="listBoxMaquina_SelectionChanged"/>
+                    <Label Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="1" Content="Tipo:" FontWeight="Bold" Foreground="White" Padding="0" VerticalAlignment="Bottom" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="16" Grid.RowSpan="2" HorizontalAlignment="Center">
+                        <RadioButton x:Name="radioButtonPreventivo" IsChecked="True" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                            <Label Content="Preventivo"  Foreground="White" FontSize="25" FontWeight="Bold" Margin="10,0,0,0"/>
+                        </RadioButton>
+                        <RadioButton x:Name="radioButtonCorrectivo" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="27,0,0,0">
+                            <Label Content="Correctivo"  Foreground="White" FontSize="25" FontWeight="Bold" Margin="10,0,0,0"/>
+                        </RadioButton>
+
+                    </StackPanel>
+                    <Label Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Problema:" FontWeight="Bold" Foreground="White"/>
+                    <TextBox x:Name="textBoxProblema" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="14" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="15"/>
+                    <Label Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="4" Grid.RowSpan="1" Content="Mecánico:" FontWeight="Bold" Foreground="White"  VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="textBoxMecanico" Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="14" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="15" TextChanged="textBoxMecanico_TextChanged"/>
+                    <ListBox x:Name="listBoxMecanico" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="4" SelectionChanged="listBoxMecanico_SelectionChanged"/>
+                    <Button x:Name="buttonEnviarSolicitud" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="17" Grid.RowSpan="3" Background="Transparent" BorderBrush="Transparent" Margin="0,5,0,5" Click="buttonEnviarSolicitud_Click">
+                        <Image x:Name="imagenButton" Source="/imagenes/enviar.png"/>
+                    </Button>
+                </Grid>
+            </Border>
+            <Button Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" x:Name="buttonActualizarLista" Click="buttonActualizarLista_Click">
+                <Image Source="/imagenes/actualizar.png"/>
+            </Button>
+            <ListView x:Name="listViewPendientes" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="9" Grid.RowSpan="15" Background="#FFCAD6DE">
+                <ListView.View>
+                    <GridView>
+                        <!--#region columna_solicitud-->
+                        <GridViewColumn Header="Número de Orden">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=id_solicitud}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region columna_maquina-->
+                        <GridViewColumn Header="Máquina">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=maquina}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region columna_inicio-->
+                        <GridViewColumn Header="Fecha de Inicio">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=hora_reportada}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region columna_mecanico-->
+                        <GridViewColumn Header="Mecánico">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=mecanico}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region columna_estado-->
+                        <GridViewColumn Header="Estado">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region columna_terminar-->
+                        <GridViewColumn Header="Terminar">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

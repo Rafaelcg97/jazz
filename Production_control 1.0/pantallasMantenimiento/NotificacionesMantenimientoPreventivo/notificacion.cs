@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows;
-using System.Windows.Media;
-using Production_control_1._0.clases;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL
+namespace Production_control_1._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo
 {
-    class SQLNotifierPlanta
+    class notificacion
     {
         public SqlCommand CurrentCommand { get; set; }
         private SqlConnection connection;
@@ -27,7 +28,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 return "Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"];
             }
         }
-        public SQLNotifierPlanta()
+        public notificacion()
         {
             SqlDependency.Start(this.ConnectionString);
         }
@@ -53,7 +54,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select [id_solicitud], [ubicacion], [modulo], [maquina], [hora_reportada], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudesDesperfectos where [hora_apertura] is null or [hora_cierre] is null", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [id_solicitud], [modulo], [maquina], [hora_reportada], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudes where ([hora_apertura] is null or [hora_cierre] is null) and [maquina]='manto'", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 

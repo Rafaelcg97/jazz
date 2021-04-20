@@ -17,6 +17,7 @@ namespace Production_control_1._0
         public estadoPlantaProduccion()
         {
             InitializeComponent();
+
             //se revisa cual es la distribucion de los modulos
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "select id, modulo from orden_modulos";
@@ -42,6 +43,12 @@ namespace Production_control_1._0
             this.CreatePermission();
             MessageModelPlanta model = new MessageModelPlanta(this.Dispatcher);
             this.DataContext = model;
+            UIGlobal.MainPage = this;
+        }
+
+        public static class UIGlobal
+        {
+            public static estadoPlantaProduccion MainPage { get; set; }
         }
 
         public void CreatePermission()
@@ -385,14 +392,11 @@ namespace Production_control_1._0
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 string sql = "update solicitudes set hora_apertura='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "'  where id_solicitud= '" + id_1.Content.ToString() + "'";
                 string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_1.Content.ToString() + "', '" + codigo_mec.Text.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
-                string sql3 = "insert into actualizacion(evento) values(1)";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlCommand cm2 = new SqlCommand(sql2, cn);
-                SqlCommand cm3 = new SqlCommand(sql3, cn);
                 cm.ExecuteNonQuery();
                 cm2.ExecuteNonQuery();
-                cm3.ExecuteNonQuery();
                 cn.Close();
                 codigo_mec.Text = "";
                 abrir_solicitud.IsOpen = false;
@@ -449,14 +453,11 @@ namespace Production_control_1._0
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', problema_real= '" + motivo_real.SelectedItem.ToString() + "', autoriza= '" + codigo_autoriza.Password.ToString() +"' where id_solicitud= '" + id_4.Content.ToString() + "'";
                 string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_4.Content.ToString() + "', '" + meca_2.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
-                string sql3 = "insert into actualizacion(evento) values(1)";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlCommand cm2 = new SqlCommand(sql2, cn);
-                SqlCommand cm3 = new SqlCommand(sql3, cn);
                 cm.ExecuteNonQuery();
                 cm2.ExecuteNonQuery();
-                cm3.ExecuteNonQuery();
                 cn.Close();
                 codigo_autoriza.Password = "";
                 nombre_autoriza.Content = "*";

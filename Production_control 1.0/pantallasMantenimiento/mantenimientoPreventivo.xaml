@@ -178,7 +178,7 @@
                 </Grid.RowDefinitions>
                 <!--#endregion-->
                 <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="16" Padding="0" SizeChanged="letra_grande" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" >Módulos en Mantenimiento Preventivo</Label>
-                <ListBox x:Name="abiertos" Grid.Row="5" Grid.ColumnSpan="14" Grid.Column="1" Grid.RowSpan="24" MouseUp="abiertos_MouseUp" Background="Transparent" Foreground="White" BorderThickness="0">
+                <ListBox x:Name="abiertos" ItemsSource="{Binding PREVENTIVO}" Grid.Row="5" Grid.ColumnSpan="14" Grid.Column="1" Grid.RowSpan="24" MouseUp="abiertos_MouseUp" Background="Transparent" Foreground="White" BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

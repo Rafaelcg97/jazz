@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Configuration;
 using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.EventArgs;
+using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
+using Production_control_1._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo;
+using Production_control_1._0.clases;
 
 namespace Production_control_1._0
 {
@@ -69,9 +72,22 @@ namespace Production_control_1._0
 
             //se habilita o ibhabilita el boton
             habilitar_boton();
-
-            //actualizar datos de los modulos en revision
-            datos_llamados();
+            this.CreatePermission();
+            mensaje model = new mensaje(this.Dispatcher);
+            this.DataContext = model;
+        }
+        public void CreatePermission()
+        {
+            // Make sure client has permissions 
+            try
+            {
+                SqlClientPermission perm = new SqlClientPermission(System.Security.Permissions.PermissionState.Unrestricted);
+                perm.Demand();
+            }
+            catch
+            {
+                throw new ApplicationException("No permission");
+            }
         }
 
         #endregion
@@ -246,59 +262,6 @@ namespace Production_control_1._0
 
         #endregion
 
-        #region actualizacion_planta()
-
-        public void monitorear_tabla()
-        {
-            try
-            {
-            var connectionString = cs;
-            var tableName = "actualizacion";
-            var tableDependency = new SqlTableDependency<item_actualizacion>(connectionString, tableName);
-            tableDependency.OnChanged += OnNotificationReceived;
-            tableDependency.Start();
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void OnNotificationReceived(object sender, RecordChangedEventArgs<item_actualizacion> e)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                datos_llamados();
-            });
-        }
-
-        private void datos_llamados()
-        {
-            try
-            {
-                abiertos.Items.Clear();
-                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "select id_solicitud, modulo, maquina, hora_reportada, hora_apertura, hora_cierre, problema_reportado, corresponde  from solicitudes where maquina='manto' and hora_cierre is null";
-                cn.Open();
-                SqlCommand cm = new SqlCommand(sql, cn);
-                SqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    abiertos.Items.Add(new item_solicitud { id_solicitud = Convert.ToInt32(dr["id_solicitud"]), modulo = dr["modulo"].ToString(), maquina = dr["maquina"].ToString(), hora_reportada = dr["hora_reportada"].ToString(), hora_apertura = dr["hora_apertura"].ToString(), hora_cierre = dr["hora_cierre"].ToString(), problema_reportado = dr["problema_reportado"].ToString(), corresponde = dr["corresponde"].ToString()});
-                };
-                dr.Close();
-
-                monitorear_tabla();
-            }
-            catch
-            {
-                monitorear_tabla();
-            }
-        }
-
-
-        #endregion
-
         #region pop_reportar_problema
 
         #region abrir_pop_prin
@@ -327,8 +290,8 @@ namespace Production_control_1._0
 
                 datos_solicitud.IsOpen = true;
                 //se evalua el problema seleccionado
-                foreach (item_solicitud item in abiertos.SelectedItems)
-                {
+                solicitudMaquina item = (solicitudMaquina)abiertos.SelectedItem;
+
                     // se agregan el problema, maquina, solicitud y la hora a la que se hizo del problema seleccionado
                     problema.Content = item.problema_reportado.ToString();
                     maquina.Content = item.maquina.ToString();
@@ -417,12 +380,6 @@ namespace Production_control_1._0
                         img_reanudar.Source = new BitmapImage(reanudar_inhabilitado);
                         img_terminar.Source = new BitmapImage(terminar_inhabilitado);
                     }
-                }
-
-
-
-
-
             }
         }
 

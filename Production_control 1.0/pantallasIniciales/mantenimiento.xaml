@@ -86,7 +86,7 @@
                 <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Mantenimiento Preventivo" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
             </Grid>
         </Border>
-        <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp">
+        <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp" Margin="50,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -113,7 +113,37 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/estadoPlantaProduccion.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
-                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Estado de Planta de Producción" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom"/>
+                <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Estado de Planta de Producción" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderReporteTPM" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5"  Margin="50,0,0,0" MouseUp="BorderReporteTPM_MouseUp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirTPM.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Formulario TPM" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>

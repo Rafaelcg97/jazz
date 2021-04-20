@@ -46,7 +46,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
         private ObservableCollection<solicitudMaquina> u33 = null;
         private ObservableCollection<solicitudMaquina> u34 = null;
         private ObservableCollection<solicitudMaquina> p = null;
-        private string cf1 = null;
         #endregion
         #region coleccionesObservablesPub
         public ObservableCollection<solicitudMaquina> U1
@@ -329,13 +328,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 return p;
             }
         }
-        public string CF1
-        {
-            get
-            {
-                return cf1;
-            }
-        }
         #endregion
 
 
@@ -348,14 +340,10 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
 
             this.Notifier.NewMessage += new EventHandler<SqlNotificationEventArgs>(notifier_NewMessage);
             DataTable dt = this.Notifier.RegisterDependency();
-
-
             this.LoadMessage(dt);
         }
-
         private void LoadMessage(DataTable consultado)
         {
-
             _ = this.UIDispatcher.BeginInvoke((Action)delegate ()
             {
                 if (consultado != null)
@@ -395,12 +383,10 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                     this.U32.Clear();
                     this.U33.Clear();
                     this.U34.Clear();
-                    this.P.Clear();
-                    
+                    this.P.Clear();                    
                     #endregion
 
                     int conteoPrio = 0;
-                    int conteo = 0;
                     #region agregarDatosLista
                     foreach (DataRow dr in consultado.Rows)
                     {
@@ -418,7 +404,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                     
                                 };
                                 this.U1.Add(itemU1);
-                                conteo = conteo = 1;
                                 break;
                             case 2:
                                 solicitudMaquina itemU2 = new solicitudMaquina
@@ -830,42 +815,18 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 prioridad = conteoPrio
                             };
                             this.P.Add(prioridad);
-
                         }
                     }
                     #endregion
-
-                    if (conteo > 0)
-                    {
-                        cf1 = "Green";
-                    }
-                    else
-                    {
-                        cf1 = "Red";
-                    }
-
-
-
-
+                    coloresModulo.VerificarColor(U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34);
                 }
-            });      
+            });
         }
 
         void notifier_NewMessage(object sender, SqlNotificationEventArgs e)
         {
             this.LoadMessage(this.Notifier.RegisterDependency());
         }
-
-        //#region INotifyPropertyChanged Members
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void OnPropertyChanged(string propertyName)
-        //{
-        //    if (this.PropertyChanged != null)
-        //        this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //}
-        //#endregion
     }
 }
 

@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Production_control_1._0.pantallasMantenimiento;
 
 namespace Production_control_1._0.pantallasIniciales
 {
@@ -45,6 +37,14 @@ namespace Production_control_1._0.pantallasIniciales
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = estadoPlantaProduccion;
         }
+
+        private void BorderReporteTPM_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            formularioTPM formularioTPM = new formularioTPM();
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = formularioTPM;
+
+        }
         #endregion
 
         #region calculos_generals
@@ -63,5 +63,7 @@ namespace Production_control_1._0.pantallasIniciales
         }
 
         #endregion
+
+
     }
 }

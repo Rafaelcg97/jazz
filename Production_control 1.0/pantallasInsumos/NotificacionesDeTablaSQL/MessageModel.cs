@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Data.SqlClient;
 using Production_control_1._0.NotificacionesDeTablaSQL;
 using Production_control_1._0.clases;
+using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
 
 namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
 {

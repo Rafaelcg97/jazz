@@ -211,6 +211,7 @@ namespace Production_control_1._0
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "'";
             string sql2 = "select top 25 maquina, problema_reportado, hora_reportada from solicitudes where modulo='" + modulo_reporte.SelectedItem.ToString() + "' order by hora_reportada desc";
+            String sql3 = "select id from orden_modulos where modulo='"+ modulo_reporte.SelectedItem.ToString() +"'";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
@@ -230,6 +231,13 @@ namespace Production_control_1._0
                 lista_reportes.Add(new elementos { problema_reportado=dr2["problema_reportado"].ToString(), hora_reportada=Convert.ToDateTime(dr2["hora_reportada"]), maquina=dr2["maquina"].ToString() });
             };
             dr2.Close();
+
+            //agregar ubicacion
+            SqlCommand cm3 = new SqlCommand(sql3, cn);
+            SqlDataReader dr3 = cm3.ExecuteReader();
+            dr3.Read();
+            labelUbicacion.Content = dr3["id"].ToString();
+            dr3.Close();
             cn.Close();
             problemas_modulo.ItemsSource = lista_reportes;
             //habilitar o inhabilitar boton de envio
@@ -335,19 +343,14 @@ namespace Production_control_1._0
 
         private void enviar_reporte_Click(object sender, RoutedEventArgs e)
         {
-
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudes (modulo, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
-            string sql2 = "insert into actualizacion(evento) values(1)";
+            string sql = "insert into solicitudes (modulo, ubicacion, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + labelUbicacion.Content.ToString() +"', '"+ maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
-            SqlCommand cm2 = new SqlCommand(sql2, cn);
             cm.ExecuteNonQuery();
-            cm2.ExecuteNonQuery();
             cn.Close();
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new estadoPlantaProduccion();
-
         }
 
         #endregion

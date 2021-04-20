@@ -236,8 +236,14 @@
     <Compile Include="pantallasInsumos\validacionUsuario.xaml.cs">
       <DependentUpon>validacionUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasMantenimiento\formularioTPM.xaml.cs">
+      <DependentUpon>formularioTPM.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasMantenimiento\NotificacionesDeTablaSQL\coloresModulo.cs" />
     <Compile Include="pantallasMantenimiento\NotificacionesDeTablaSQL\MessageModelPlanta.cs" />
     <Compile Include="pantallasMantenimiento\NotificacionesDeTablaSQL\SQLNotifierPlanta.cs" />
+    <Compile Include="pantallasMantenimiento\NotificacionesMantenimientoPreventivo\mensaje.cs" />
+    <Compile Include="pantallasMantenimiento\NotificacionesMantenimientoPreventivo\notificacion.cs" />
     <Compile Include="pantallasProduccion\abrir.xaml.cs">
       <DependentUpon>abrir.xaml</DependentUpon>
     </Compile>
@@ -300,6 +306,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasInsumos\validacionUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasMantenimiento\formularioTPM.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -563,6 +573,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\actualizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\abrirTpm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\enviar_in.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    class solicitudMaquina
+    public class solicitudMaquina
     {
         public int id_solicitud { get; set; }
         public string modulo { get; set; }
@@ -18,5 +18,7 @@ namespace Production_control_1._0.clases
         public string hora_cierre { get; set; }
         public string corresponde { get; set; }
         public int prioridad { get; set; }
+        public string color { get; set; }
+        public string mecanico { get; set; }
     }
 }
