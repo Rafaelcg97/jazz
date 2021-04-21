@@ -131,7 +131,6 @@
                         <RadioButton x:Name="radioButtonCorrectivo" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="27,0,0,0">
                             <Label Content="Correctivo"  Foreground="White" FontSize="25" FontWeight="Bold" Margin="10,0,0,0"/>
                         </RadioButton>
-
                     </StackPanel>
                     <Label Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Problema:" FontWeight="Bold" Foreground="White"/>
                     <TextBox x:Name="textBoxProblema" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="14" Grid.RowSpan="1" VerticalContentAlignment="Center" FontSize="15"/>
@@ -146,14 +145,14 @@
             <Button Grid.Column="6" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" x:Name="buttonActualizarLista" Click="buttonActualizarLista_Click">
                 <Image Source="/imagenes/actualizar.png"/>
             </Button>
-            <ListView x:Name="listViewPendientes" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="9" Grid.RowSpan="15" Background="#FFCAD6DE">
+            <ListView x:Name="listViewPendientes" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="9" Grid.RowSpan="15" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" SelectionChanged="listViewPendientes_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <!--#region columna_solicitud-->
                         <GridViewColumn Header="Número de Orden">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding Path=id_solicitud}"/>
+                                    <Label Content="{Binding Path=id}" FontSize="25" Foreground="DarkRed"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -162,7 +161,7 @@
                         <GridViewColumn Header="Máquina">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label  Content="{Binding Path=maquina}"/>
+                                    <Label  Content="{Binding Path=maquina}" FontSize="25" Foreground="DarkGray"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -171,7 +170,7 @@
                         <GridViewColumn Header="Fecha de Inicio">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label  Content="{Binding Path=hora_reportada}"/>
+                                    <Label  Content="{Binding Path=fechaInicio}" FontSize="25" Foreground="DarkGray"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -180,7 +179,7 @@
                         <GridViewColumn Header="Mecánico">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label  Content="{Binding Path=mecanico}"/>
+                                    <Label  Content="{Binding Path=nombreMecanico}" FontSize="25" Foreground="#FF939348"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -189,16 +188,7 @@
                         <GridViewColumn Header="Estado">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <!--#endregion-->
-                        <!--#region columna_terminar-->
-                        <GridViewColumn Header="Terminar">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button/>
+                                    <Image Source="{Binding imagen}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -207,5 +197,82 @@
                 </ListView.View>
             </ListView>
         </Grid>
+        <!--#region pop_verificar_estado-->
+        <Popup x:Name="popEstadoSoli" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center" AllowsTransparency="True">
+            <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
+                <Grid>
+                    <!--#region filas/columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--#endregion-->
+                    <!--#region logo_de_encabezado-->
+                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/imagenes/engine.ico"/>
+                    <Button Grid.Column="9" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
+                        <Image Source="/imagenes/cerrar.png"/>
+                    </Button>
+
+                    <!--#endregion-->
+                    <!--#region  Nombre de etiquetas-->
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,2,0,0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Problema</Label>
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Maquina</Label>
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Estado</Label>
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Solicitud</Label>
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="9" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Mecánico</Label>
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="11" Grid.RowSpan="2" Grid.ColumnSpan="3" SizeChanged="letra_pop_cerrar">Código Mec</Label>
+                    <Label FontFamily="calibri" FontWeight="Bold" Margin="10,0,0,0" Grid.Column="0" Grid.Row="14" Grid.RowSpan="1" Grid.ColumnSpan="2" SizeChanged="letra_pop_cerrar">Hora de Inicio</Label>
+                    <!--#endregion-->
+                    <!--#region  Datos etiquetas-->
+                    <Label x:Name="problema" FontFamily="calibri" FontWeight="Medium"  Margin="10,2,0,0" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                    <Label x:Name="maquina"  FontFamily="calibri" FontWeight="Medium"   Margin="10,0,0,0" Grid.Column="3" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="4" SizeChanged="letra_pop_cerrar">----</Label>
+                    <Label x:Name="estado" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="4" SizeChanged="letra_pop_cerrar">----</Label>
+                    <Label x:Name="solicitud" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="4" SizeChanged="letra_pop_cerrar">----</Label>
+                    <Label x:Name="mecanico" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="9" Grid.RowSpan="2" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                    <Label x:Name="codigo_mecanico" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="3" Grid.Row="11" Grid.RowSpan="2" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                    <Label x:Name="horaInicio" FontFamily="calibri" FontWeight="Medium"  Margin="10,0,0,0" Grid.Column="2" Grid.Row="14" Grid.RowSpan="1" Grid.ColumnSpan="5" SizeChanged="letra_pop_cerrar">----</Label>
+                    <!--#endregion-->
+                    <!--#region botones-->
+                    <Button Grid.Column="8" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="pausar" Click="pausar_Click" >
+                        <Image x:Name="img_pausar" Source="/imagenes/pausa.png"/>
+                    </Button>
+                    <Button Grid.Column="8" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="reanudar" Click="reanudar_Click" >
+                        <Image x:Name="img_reanudar" Source="/imagenes/reanudar.png"/>
+                    </Button>
+                    <Button Grid.Column="8" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10"  Background="Transparent" BorderBrush="Transparent" x:Name="terminar" Click="terminar_Click" >
+                        <Image x:Name="img_terminar" Source="/imagenes/terminar.png"/>
+                    </Button>
+                    <!--#endregion-->
+                </Grid>
+            </Border>
+        </Popup>
+        <!--#endregion-->
     </Grid>
 </Page>
