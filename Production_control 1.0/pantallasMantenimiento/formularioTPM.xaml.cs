@@ -319,14 +319,6 @@ namespace Production_control_1._0.pantallasMantenimiento
 
         private void terminar_Click(object sender, RoutedEventArgs e)
         {
-            //string sql = "update solicitudesTPM set fechaFin='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where id='"+ solicitud.Content.ToString() +"'";
-            //cnMantenimiento.Open();
-            //SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
-            //cm.ExecuteNonQuery();
-            //cnMantenimiento.Close();
-            //popEstadoSoli.IsOpen = false;
-            //consultarReportes();
-
             reporteFinalTPM reporteFinalTPM = new reporteFinalTPM(Convert.ToInt32(solicitud.Content));
             this.NavigationService.Navigate(reporteFinalTPM);
         }

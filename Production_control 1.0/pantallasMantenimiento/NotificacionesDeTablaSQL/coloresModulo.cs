@@ -55,7 +55,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int am32 = 0;
             int am33 = 0;
             int am34 = 0;
-            int am35 = 0;
             int as1 = 0;
             int as2 = 0;
             int as3 = 0;
@@ -90,7 +89,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int as32 = 0;
             int as33 = 0;
             int as34 = 0;
-            int as35 = 0;
             int pm1 = 0;
             int pm2 = 0;
             int pm3 = 0;
@@ -125,7 +123,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int pm32 = 0;
             int pm33 = 0;
             int pm34 = 0;
-            int pm35 = 0;
             int ps1 = 0;
             int ps2 = 0;
             int ps3 = 0;
@@ -160,7 +157,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int ps32 = 0;
             int ps33 = 0;
             int ps34 = 0;
-            int ps35 = 0;
             int c1 = 0;
             int c2 = 0;
             int c3 = 0;
