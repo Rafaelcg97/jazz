@@ -70,161 +70,171 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <!--#endregion-->
+            <!--#region encabezado-->
             <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
                 <Image Source="/imagenes/salir.png"/>
             </Button>
+            <Button x:Name="buttonGuardar" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="0,28,0,19" VerticalAlignment="Bottom">
+                <Image Source="/imagenes/disquete.png"/>
+            </Button>
+            <Image x:Name="imageTurno" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,28,0,19" Source="/imagenes/sol.png"/>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Reporte Hora a Hora</Label>
-            <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Módulo" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <Label Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Arteria" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <Label Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Hora" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold" SizeChanged="Control_SizeChanged"  />
-            <ComboBox x:Name="comboBoxModulo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15" IsTextSearchEnabled="True">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding modulo}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <ComboBox x:Name="comboBoxArteria" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15" IsTextSearchEnabled="True">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding arteria}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <ComboBox x:Name="comboBoxHora" Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15" IsTextSearchEnabled="True">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding hora}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Op. Costura" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <Label Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Op. Manuales" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <Label Grid.Row="6" Grid.Column="7" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Incapacitados" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <TextBox x:Name="TextBoxCostura" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15"/>
-            <TextBox x:Name="TextBoxManuales" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15"/>
-            <TextBox x:Name="TextBoxIncapacitados" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15"/>
-            <Label Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Permisos" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <Label Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Cita ISSS" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <Label Grid.Row="9" Grid.Column="7" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Inasistencia" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-            <TextBox x:Name="TextBoxPermisos" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15"/>
-            <TextBox x:Name="TextBoxCita" Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15"/>
-            <TextBox x:Name="TextBoxInasistencia" Grid.Row="10" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="15"/>
-            <CheckBox x:Name="checkBoxCustom" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="3" Content="     Custom" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold" VerticalContentAlignment="Center"/>
-            <CheckBox x:Name="checkBoxCambio" Grid.Row="12" Grid.Column="4" Grid.ColumnSpan="3" Content="     Cambio" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold" VerticalContentAlignment="Center"/>
-            <CheckBox x:Name="checkBoxExtra" Grid.Row="12" Grid.Column="7" Grid.ColumnSpan="3" Content="     Extra" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold" VerticalContentAlignment="Center"/>
-            <ListView  x:Name="listViewLotes" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="5" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Extended">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Lote" Width="200">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox x:Name="ComboBoxListaDeLotes" IsTextSearchEnabled="True" ItemsSource="{Binding Path=lote}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Codigo" Width="100">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox x:Name="ComboBoxListaDeEmpaques" IsTextSearchEnabled="True" ItemsSource="{Binding Path=lote}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=tituloOperacion}" Width="100" />
-                        <GridViewColumn Header="Paro" Width="100">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBoxParo" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Motivo" Width="250">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox x:Name="ComboBoxMotivo" IsTextSearchEnabled="True" ItemsSource="{Binding Path=lote}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="2XS" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBox2XS" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="XS" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBoxXS" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="S" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBoxXS" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="M" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBoxM" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="L" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBoxL" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="XL" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBoxXL" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="2XL" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBox2XL" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="1X" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBox1X" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="2X" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBox2X" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="3X" Width="75">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox x:Name="TextBox3X" Text=""/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+            <!--#endregion-->
 
-                    </GridView>
-                </ListView.View>
-            </ListView>
+
+            <StackPanel  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="0,0,15,0">
+                <Label Content="Módulo" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
+                <ComboBox x:Name="comboBoxModulo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" SelectionChanged="comboBoxModulo_SelectionChanged"/>
+                <Label Content="Op. Costura" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="TextBoxCostura" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <Label Content="Permisos" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
+                <TextBox x:Name="TextBoxPermisos" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <CheckBox x:Name="checkBoxCustom" VerticalContentAlignment="Center">
+                    <Label Content="Custom" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
+                </CheckBox>
+            </StackPanel>
+
+            <StackPanel  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="15,0,0,0">
+                <Label Content="Arteria" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
+                <ComboBox x:Name="comboBoxArteria" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45"/>
+                <Label Content="Op. Manuales" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="TextBoxManuales" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <Label Content="Cita ISSS" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
+                <TextBox x:Name="TextBoxCita" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <CheckBox x:Name="checkBoxCambio" VerticalContentAlignment="Center">
+                    <Label Content="Cambio" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
+                </CheckBox>
+            </StackPanel>
+
+            <StackPanel  Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="30,0,0,0">
+                <Label Content="Hora" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
+                <ComboBox x:Name="comboBoxHora" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45"/>
+                <Label Content="Incapacitados" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="TextBoxIncapacitado" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <Label Content="Inasistencia" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
+                <TextBox x:Name="TextBoxInasistencia" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <CheckBox x:Name="checkBoxExtra" VerticalContentAlignment="Center" Checked="checkBoxExtra_Checked" Unchecked="checkBoxExtra_Unchecked">
+                    <Label Content="Extra" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
+                </CheckBox>
+            </StackPanel>
+
+            <Border Grid.Column="7" Grid.Row="3" BorderBrush="AliceBlue" BorderThickness="4" Grid.ColumnSpan="5" Grid.RowSpan="8" CornerRadius="9" Margin="57,0,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="Fecha:" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="Turno:" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="Coordinador:" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="Min. Totales:" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+
+                    <Label x:Name="labelFecha" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label x:Name="labelTurno" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label x:Name="labelCoordinador" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label x:Name="labelMinutos" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="12" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="8"  Margin="40,0,0,0" BorderBrush="AliceBlue" BorderThickness="4" CornerRadius="9" >
+                <Image  Source="/imagenes/ini.jpg" Margin="10,0,10,0"/>
+            </Border>
+
+
+            <Label Grid.Row="12" Grid.Column="1" Content="Lotes:" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="White" FontWeight="Bold" />
+            <Button x:Name="buttonAgregarLote" Grid.Column="14" Grid.Row="12" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Margin="0,5,0,5" HorizontalContentAlignment="Right" Click="buttonAgregarLote_Click">
+                <Image Source="/imagenes/mas.png"/>
+            </Button>
+            <DataGrid x:Name="dataGridLotes" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="6" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Lote">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label x:Name="labelLote" Content="{Binding Path=lote}" Width="160"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Piezas">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label x:Name="labelLote" Content="{Binding Path=piezas}" Width="160"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Terminadas">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label x:Name="labelLote" Content="{Binding Path=terminadas}" Width="160"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                </DataGrid.Columns>
+                
+            </DataGrid>
+        
         </Grid>
+        <!--#region popUp lote-->
+        <Popup x:Name="popUpLote" Height="300" Width="500" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center" AllowsTransparency="True">
+            <Border Background="White" CornerRadius="4">
+                <Grid>
+                    <!--#region filas/columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!--#endregion-->
+                    <Button x:Name="ButtonCerrarPopup" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="50,0,0,15" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Click="ButtonCerrarPopup_Click" >
+                        <Image Source="/imagenes/cerrar.png"/>
+                    </Button>
+                    <Label FontSize="20" Grid.RowSpan="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Content="Lotes Disponibles" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="1" x:Name="textBoxLote" TextChanged="textBoxLote_TextChanged"/>
+                    <ListBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="3" x:Name="listBoxLote" Margin="0,0,0,10" SelectionChanged="listBoxLote_SelectionChanged"/>
+                    <Button x:Name="ButtonIngresarContrasena" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonIngresarContrasena_Click" >
+                        <Image Source="/imagenes/aceptarAmarillo.png"/>
+                    </Button>
+
+                </Grid>
+            </Border>
+        </Popup>
+        <!--#endregion-->
+
+
     </Grid>
 </Page>
