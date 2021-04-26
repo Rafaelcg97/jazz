@@ -165,37 +165,164 @@
             <Button x:Name="buttonAgregarLote" Grid.Column="14" Grid.Row="12" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Margin="0,5,0,5" HorizontalContentAlignment="Right" Click="buttonAgregarLote_Click">
                 <Image Source="/imagenes/mas.png"/>
             </Button>
-            <DataGrid x:Name="dataGridLotes" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="6" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Lote">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label x:Name="labelLote" Content="{Binding Path=lote}" Width="160"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="Piezas">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label x:Name="labelLote" Content="{Binding Path=piezas}" Width="160"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="Terminadas">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label x:Name="labelLote" Content="{Binding Path=terminadas}" Width="160"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-
-                </DataGrid.Columns>
-                
-            </DataGrid>
-        
+            <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="6">
+                <ListView x:Name="listViewLotes" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <!--#region lote-->
+                        <GridViewColumn Header="Lote" Width="170">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=lote}" Width="150"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region codigo-->
+                            <GridViewColumn Header="Código">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=codigo}" Width="125" TextChanged="TextBox_TextChanged" LostFocus="TextBox_LostFocus" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region paro-->
+                            <GridViewColumn Header="Paro" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=tiempoParo}" Width="80"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region motivo-->
+                            <GridViewColumn Header="Motivo" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedItem="{Binding Path=terminadas}" ItemsSource="{Binding listaParos}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region xxs-->
+                            <GridViewColumn Header="2XS" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=xxs}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region xs-->
+                            <GridViewColumn Header="XS" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=xs}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region s-->
+                            <GridViewColumn Header="S" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=s}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region m-->
+                            <GridViewColumn Header="M" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=m}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region l-->
+                            <GridViewColumn Header="L" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=l}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region xl-->
+                            <GridViewColumn Header="XL" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=xl}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region xxl-->
+                            <GridViewColumn Header="2XL" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=xxl}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region xxxl-->
+                            <GridViewColumn Header="3XL" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path=xxxl}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        </GridView>
+                </ListView.View>
+            </ListView>
+                <ListView x:Name="listViewPiezas" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
+                        <!--#region terminadas-->
+                            <GridViewColumn Header="Terminadas" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label  Content="{Binding Path=terminadas}" Width="60"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region piezas-->
+                            <GridViewColumn Header="Piezas" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label  Content="{Binding Path=piezas}" Width="60"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region sam-->
+                            <GridViewColumn Header="SAM" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=sam}" Width="60"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                        <!--#region minutos-->
+                            <GridViewColumn Header="Minutos" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label  Content="{Binding Path=minutosEfectivos}" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            </StackPanel>
         </Grid>
         <!--#region popUp lote-->
         <Popup x:Name="popUpLote" Height="300" Width="500" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center" AllowsTransparency="True">

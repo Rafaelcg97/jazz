@@ -23,9 +23,8 @@ namespace Production_control_1._0.pantallasProduccion
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        public int piezasLote=0;
+        public int piezasLote = 0;
         public int piezasReportadas = 0;
-        public List<horaProduccion> lotes = new List<horaProduccion>();
         #endregion
 
         #region datosInciales
@@ -81,7 +80,7 @@ namespace Production_control_1._0.pantallasProduccion
 
             //Determinar el turno
             string turno = "Diurno";
-            if(DateTime.Now< fechaSieteAM || DateTime.Now> fechaCincoTreintaPM)
+            if (DateTime.Now < fechaSieteAM || DateTime.Now > fechaCincoTreintaPM)
             {
                 turno = "Nocturno";
                 imageTurno.Source = new BitmapImage(luna);
@@ -95,7 +94,7 @@ namespace Production_control_1._0.pantallasProduccion
 
             //Determinar la fecha
             string fecha = "Diurno";
-            if (DateTime.Now<fechaSieteAM)
+            if (DateTime.Now < fechaSieteAM)
             {
                 fecha = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
             }
@@ -105,7 +104,6 @@ namespace Production_control_1._0.pantallasProduccion
             }
 
             labelFecha.Content = fecha;
-            dataGridLotes.ItemsSource = lotes;
         }
 
         #endregion
@@ -174,6 +172,7 @@ namespace Production_control_1._0.pantallasProduccion
         }
         #endregion
 
+        #region formularioGener
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string sql;
@@ -182,11 +181,11 @@ namespace Production_control_1._0.pantallasProduccion
 
             //colocar coordinador
             cnProduccion.Open();
-            sql = "select coordinador from modulosProduccion where modulo='"+comboBoxModulo.SelectedItem.ToString() +"'";
+            sql = "select coordinador from modulosProduccion where modulo='" + comboBoxModulo.SelectedItem.ToString() + "'";
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             dr.Read();
-            labelCoordinador.Content=dr["coordinador"].ToString();
+            labelCoordinador.Content = dr["coordinador"].ToString();
             dr.Close();
             cnProduccion.Close();
         }
@@ -217,6 +216,9 @@ namespace Production_control_1._0.pantallasProduccion
 
         }
 
+        #endregion
+
+        #region FomrularioPop
         private void ButtonCerrarPopup_Click(object sender, RoutedEventArgs e)
         {
             popUpLote.IsOpen = false;
@@ -236,7 +238,7 @@ namespace Production_control_1._0.pantallasProduccion
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                 listBoxLote.Items.Add(dr["lote"].ToString());
+                listBoxLote.Items.Add(dr["lote"].ToString());
             };
             dr.Close();
             cnIngenieria.Close();
@@ -251,7 +253,7 @@ namespace Production_control_1._0.pantallasProduccion
             SqlDataReader dr;
             //llenar lista de lotes
             cnIngenieria.Open();
-            sql = "select top 10 lote from lotes_unicos_poly where lote like '"+textBoxLote.Text+"%'";
+            sql = "select top 10 lote from lotes_unicos_poly where lote like '" + textBoxLote.Text + "%'";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())
@@ -267,9 +269,8 @@ namespace Production_control_1._0.pantallasProduccion
             //agregar registro uno de lote
             if (listBoxLote.SelectedIndex > -1)
             {
-                lotes.Clear();
-                lotes.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas=piezasLote, terminadas=piezasReportadas });
-                dataGridLotes.ItemsSource = lotes;
+                listViewLotes.Items.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas = piezasLote, terminadas = piezasReportadas });
+                listViewPiezas.Items.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas = piezasLote, terminadas = piezasReportadas });
                 popUpLote.IsOpen = false;
             }
             else
@@ -288,11 +289,11 @@ namespace Production_control_1._0.pantallasProduccion
                 SqlDataReader dr;
                 //llenar lista de lotes
                 cnIngenieria.Open();
-                sql = "select sum (cantidad) from lotespoly where lote='"+listBoxLote.SelectedItem.ToString()+"'";
+                sql = "select sum (cantidad) from lotespoly where lote='" + listBoxLote.SelectedItem.ToString() + "'";
                 cm = new SqlCommand(sql, cnIngenieria);
                 dr = cm.ExecuteReader();
                 dr.Read();
-                piezasLote =Convert.ToInt32(dr[0]);
+                piezasLote = Convert.ToInt32(dr[0]);
                 dr.Close();
                 cnIngenieria.Close();
 
@@ -301,13 +302,64 @@ namespace Production_control_1._0.pantallasProduccion
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 dr.Read();
-                piezasReportadas = Convert.ToInt32(dr[0] is DBNull ? 0: dr[0]);
+                piezasReportadas = Convert.ToInt32(dr[0] is DBNull ? 0 : dr[0]);
                 dr.Close();
                 cnProduccion.Close();
             }
         }
 
- 
+        #endregion
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            calculosLotes();
+        }
+        private void calculosLotes()
+        {
+            List<horaProduccion> listaCalculada = new List<horaProduccion>();
+            double minutosLote = 0;
+            double minutosHora = 0;
+            string _color = "";
+            int piezasLote = 0;
+            int totalPiezasTerminadas = 0;
+            double _sam = 0;
+            foreach(horaProduccion item in listViewLotes.Items)
+            {
+                #region consultaSAM
+                string sql;
+                SqlCommand cm;
+                SqlDataReader dr;
+                //consultar
+                cnProduccion.Open();
+                sql = "select sam from sam where codigo='" + item.codigo + "'";
+                cm = new SqlCommand(sql, cnProduccion);
+                dr = cm.ExecuteReader();
+                if (dr.Read())
+                {
+                    _sam = Convert.ToDouble(dr["sam"]);
+                }
+                dr.Close();
+                cnProduccion.Close();
+                #endregion
+                piezasLote= item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl;
+                totalPiezasTerminadas = item.terminadas + piezasLote;
+                if (totalPiezasTerminadas > item.piezas) { _color = "Red"; } else { _color = "Green"; }
+                minutosLote = _sam * piezasLote;
+                minutosHora = minutosHora + minutosLote;
+                listaCalculada.Add(new horaProduccion {lote=item.lote, colorLote=_color, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, tiempoParo=item.tiempoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
+            }
+            listViewPiezas.Items.Clear();
+            foreach(horaProduccion item2 in listaCalculada)
+            {
+                listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = (60*(item2.minutosEfectivos/minutosHora))-item2.tiempoParo, sam=item2.sam });
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            calculosLotes();
+        }
     }
+
 }
+
