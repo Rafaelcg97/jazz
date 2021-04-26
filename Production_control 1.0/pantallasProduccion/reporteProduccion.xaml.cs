@@ -104,6 +104,7 @@ namespace Production_control_1._0.pantallasProduccion
             }
 
             labelFecha.Content = fecha;
+            buttonGuardar.IsEnabled = false;
         }
 
         #endregion
@@ -151,7 +152,7 @@ namespace Production_control_1._0.pantallasProduccion
 
         private void solo_numeros(object sender, KeyEventArgs e)
         {
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key==Key.Tab)
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -159,7 +160,7 @@ namespace Production_control_1._0.pantallasProduccion
 
         private void soloNumerosDecimales(object sender, KeyEventArgs e)
         {
-            if ((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key == Key.Decimal))
+            if ((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key == Key.Decimal) || (e.Key == Key.Tab))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -194,6 +195,7 @@ namespace Production_control_1._0.pantallasProduccion
         {
             Uri cometa = new Uri("/imagenes/cometa.png", UriKind.RelativeOrAbsolute);
             imageTurno.Source = new BitmapImage(cometa);
+            labelTurno.Content = "Extra";
 
         }
 
@@ -208,10 +210,12 @@ namespace Production_control_1._0.pantallasProduccion
             if (DateTime.Now < fechaSieteAM || DateTime.Now > fechaCincoTreintaPM)
             {
                 imageTurno.Source = new BitmapImage(luna);
+                labelTurno.Content = "Nocturno";
             }
             else
             {
                 imageTurno.Source = new BitmapImage(sol);
+                labelTurno.Content = "Diurno";
             }
 
         }
@@ -269,9 +273,8 @@ namespace Production_control_1._0.pantallasProduccion
             //agregar registro uno de lote
             if (listBoxLote.SelectedIndex > -1)
             {
-                listViewLotes.Items.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas = piezasLote, terminadas = piezasReportadas });
-                listViewPiezas.Items.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas = piezasLote, terminadas = piezasReportadas });
-                popUpLote.IsOpen = false;
+                listViewLotes.Items.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas = piezasLote, terminadas = piezasReportadas, motivoParo=0 });
+                calculosLotes();
             }
             else
             {
@@ -310,16 +313,16 @@ namespace Production_control_1._0.pantallasProduccion
 
         #endregion
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            calculosLotes();
-        }
+        #region calculosGenerales
+
         private void calculosLotes()
         {
             List<horaProduccion> listaCalculada = new List<horaProduccion>();
             double minutosLote = 0;
+            int conteoLote = 0;
             double minutosHora = 0;
-            string _color = "";
+            double minutosHoraEfectivos = 0;
+            string _color = "Transparent";
             int piezasLote = 0;
             int totalPiezasTerminadas = 0;
             double _sam = 0;
@@ -341,25 +344,190 @@ namespace Production_control_1._0.pantallasProduccion
                 dr.Close();
                 cnProduccion.Close();
                 #endregion
+                conteoLote = conteoLote + 1;
                 piezasLote= item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl;
                 totalPiezasTerminadas = item.terminadas + piezasLote;
-                if (totalPiezasTerminadas > item.piezas) { _color = "Red"; } else { _color = "Green"; }
                 minutosLote = _sam * piezasLote;
                 minutosHora = minutosHora + minutosLote;
-                listaCalculada.Add(new horaProduccion {lote=item.lote, colorLote=_color, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, tiempoParo=item.tiempoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
+                listaCalculada.Add(new horaProduccion {lote=item.lote, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, tiempoParo=item.tiempoParo, motivoParo=item.motivoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
             }
             listViewPiezas.Items.Clear();
             foreach(horaProduccion item2 in listaCalculada)
             {
-                listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = (60*(item2.minutosEfectivos/minutosHora))-item2.tiempoParo, sam=item2.sam });
+                if (minutosHora > 0) { minutosLote = (60 * (item2.minutosEfectivos / minutosHora)) - item2.tiempoParo; } else {  minutosLote= (60 / conteoLote); };
+                if (item2.terminadas > item2.piezas) { _color = "Red"; } else { _color = "Transparent"; }
+                minutosHoraEfectivos = minutosHoraEfectivos + minutosLote;
+                listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, codigo=item2.codigo, tiempoParo=item2.tiempoParo, motivoParo=item2.motivoParo, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = minutosLote, sam=item2.sam, xxs=item2.xxs, xs=item2.xs, s=item2.s, m=item2.m, l=item2.l, xl=item2.xl, xxl=item2.xxl, xxxl=item2.xxxl });
             }
+            labelMinutos.Content =Math.Round(minutosHoraEfectivos,2);
         }
 
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void verificarImagen(int codigo)
+        {
+            #region consultaSAM
+            string sql;
+            string temporada = "";
+            SqlCommand cm;
+            SqlDataReader dr;
+            //consultar
+            sql = "select temporada, estilo, empaque, descripcion from sam ";
+            sql = sql + "left join ingenieria.dbo.empaques on sam.CLIENTE=empaques.cliente and sam.EMPAQUE=empaques.tipo_empaque and sam.TIPO=empaques.tipo ";
+            sql = sql + "where CODIGO=" + codigo;
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                labelEstilo.Content = dr["estilo"].ToString();
+                temporada = dr["temporada"].ToString();
+                labelEmpaque.Content = dr["empaque"].ToString();
+                textBlockElementos.Text = dr["descripcion"].ToString();
+            }
+            dr.Close();
+            cnProduccion.Close();
+            #endregion
+            try
+            {
+                Uri fileUri = new Uri(ConfigurationManager.AppSettings["imagenes"] + temporada + "/" + labelEstilo.Content.ToString() + ".jpg");
+                imageEsti.Source = new BitmapImage(fileUri);
+            }
+
+            // si no encuentra la imagen del estilo carga la imagen inicial
+            catch
+            {
+                Uri fileUri = new Uri("/imagenes/ini.jpg", UriKind.RelativeOrAbsolute);
+                imageEsti.Source = new BitmapImage(fileUri);
+            }
+
+        }
+
+        private void LostFocusElemento(object sender, RoutedEventArgs e)
         {
             calculosLotes();
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //calculosLotes();
+        }
+
+        private void LostFocusElementoCompleto(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            calculosLotes();
+            verificarImagen(Convert.ToInt32(textBox.Text));
+        }
+
+        private void listViewLotes_KeyDown(object sender, KeyEventArgs e)
+        {
+            // eliminar el repuesto solicitado al presionar la tecla d
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
+            {
+                int elementoSeleccionado = listViewLotes.SelectedIndex + 1;
+                List<horaProduccion> items = new List<horaProduccion>();
+                int conteo = 0;
+                foreach (horaProduccion item in listViewLotes.Items)
+                {
+                    conteo = conteo + 1;
+                    if (conteo == elementoSeleccionado)
+                    {
+                    }
+                    else
+                    {
+                        items.Add(new horaProduccion { lote = item.lote, codigo = item.codigo, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl });
+                    }
+                }
+
+                listViewLotes.Items.Clear();
+                foreach (horaProduccion item2 in items)
+                {
+                    listViewLotes.Items.Add(new horaProduccion { lote = item2.lote, codigo = item2.codigo, tiempoParo = item2.tiempoParo, motivoParo = item2.motivoParo, xxs = item2.xxs, xs = item2.xs, s = item2.s, m = item2.m, l = item2.l, xl = item2.xl, xxl = item2.xxl, xxxl = item2.xxxl });
+                }
+
+                calculosLotes();
+            }
+        }
+
+        #endregion
+
+        #region ingresoDatosHora
+
+        private void passwordBoxIngreso_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            #region consultaIngenier
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            //consultar
+            sql = "select codigo from usuarios where produccion=1 and contrasena='"+ passwordBoxIngreso.Password +"'";
+            cnIngenieria.Open();
+            cm = new SqlCommand(sql, cnIngenieria);
+            dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                labelIngen.Content = dr["codigo"].ToString();
+                buttonGuardar.IsEnabled = true;
+            }
+            else
+            {
+                labelIngen.Content = "----";
+                buttonGuardar.IsEnabled = false;
+            }
+            dr.Close();
+            cnIngenieria.Close();
+            #endregion
+
+        }
+
+        private void buttonGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            int totalOperarios = Convert.ToInt32(TextBoxManuales.Text) + Convert.ToInt32(TextBoxManuales.Text);
+            if(comboBoxModulo.SelectedIndex<0 || comboBoxArteria.SelectedIndex<0 || comboBoxHora.SelectedIndex<0 || totalOperarios <= 0)
+            {
+                MessageBox.Show("!Ups Parece que no haz ingresado algunos datos Importantes");
+            }
+            else
+            {
+                string sql;
+                SqlCommand cm;
+                string fecha = labelFecha.Content.ToString();
+                string turno = labelTurno.Content.ToString();
+                int hora = Convert.ToInt32(comboBoxHora.SelectedItem);
+                string modulo = comboBoxModulo.SelectedItem.ToString();
+                int arteria = Convert.ToInt32(comboBoxArteria.SelectedItem);
+                string coordinador = labelCoordinador.Content.ToString();
+                int incapacitados = Convert.ToInt32(string.IsNullOrEmpty(TextBoxIncapacitado.Text) ? "0" : TextBoxIncapacitado.Text);
+                int permisos = Convert.ToInt32(string.IsNullOrEmpty(TextBoxPermisos.Text) ? "0" : TextBoxPermisos.Text);
+                int cita = Convert.ToInt32(string.IsNullOrEmpty(TextBoxCita.Text) ? "0" : TextBoxCita.Text);
+                int inasistencia = Convert.ToInt32(string.IsNullOrEmpty(TextBoxInasistencia.Text) ? "0" : TextBoxInasistencia.Text);
+                double costura = Convert.ToDouble(string.IsNullOrEmpty(TextBoxCostura.Text) ? "0" : TextBoxCostura.Text);
+                double manuales = Convert.ToDouble(string.IsNullOrEmpty(TextBoxManuales.Text) ? "0" : TextBoxManuales.Text);
+
+                string custom_ = "NO";
+                string cambioEstilo = "NO";
+                if (checkBoxCustom.IsChecked == true) { custom_ = "SI"; }
+                if(checkBoxCambio.IsChecked == true) { cambioEstilo = "SI"; }
+                //consultar
+                cnProduccion.Open();
+                foreach (horaProduccion item in listViewPiezas.Items)
+                {
+                    sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, [Cod Info Estilo], SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo]) ";
+                    sql = sql + "values('" + fecha + "', '" + turno + "', " + hora + ", '" + modulo + "', " + arteria + ", '" + coordinador + "', " + item.codigo + ", ";
+                    sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', 1, '";
+                    sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "')";
+                    cm = new SqlCommand(sql, cnProduccion);
+                    cm.ExecuteNonQuery();
+                }
+                cnProduccion.Close();
+                MessageBox.Show("Datos Ingresados");
+            }
+        }
+
+        #endregion
+
     }
 
 }
+
+
 

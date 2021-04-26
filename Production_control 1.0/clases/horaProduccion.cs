@@ -35,7 +35,7 @@ namespace Production_control_1._0.clases
         public int xxl { get; set; }
         public int xxxl { get; set; }
         public double tiempoParo { get; set; }
-        public string motivoParo { get; set; }
+        public int motivoParo { get; set; }
         public string custom { get; set; }
         public double minutosEfectivos { get; set; }
         public string cambioEstilo { get; set; }

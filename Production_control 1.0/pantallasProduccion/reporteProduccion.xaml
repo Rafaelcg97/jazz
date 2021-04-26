@@ -74,10 +74,13 @@
             <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
                 <Image Source="/imagenes/salir.png"/>
             </Button>
-            <Button x:Name="buttonGuardar" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="0,28,0,19" VerticalAlignment="Bottom">
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="10,20,0,0" >
+            <PasswordBox x:Name="passwordBoxIngreso" Margin="0,0,0,0" VerticalAlignment="Center" PasswordChanged="passwordBoxIngreso_PasswordChanged"/>
+            <Button x:Name="buttonGuardar"  Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Bottom" Width="80" Height="50" Margin="0,5,0,0" Click="buttonGuardar_Click">
                 <Image Source="/imagenes/disquete.png"/>
             </Button>
-            <Image x:Name="imageTurno" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,28,0,19" Source="/imagenes/sol.png"/>
+            <Label x:Name="labelIngen" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="8" Foreground="White" Content="----" HorizontalAlignment="Center"/>
+            </StackPanel>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Reporte Hora a Hora</Label>
             <!--#endregion-->
 
@@ -150,14 +153,21 @@
                     <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="Min. Totales:" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
 
                     <Label x:Name="labelFecha" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
-                    <Label x:Name="labelTurno" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Label x:Name="labelTurno" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
+                    <Image x:Name="imageTurno" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="1"  Source="/imagenes/sol.png"/>
                     <Label x:Name="labelCoordinador" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
                     <Label x:Name="labelMinutos" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
                 </Grid>
             </Border>
 
             <Border Grid.Column="12" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="8"  Margin="40,0,0,0" BorderBrush="AliceBlue" BorderThickness="4" CornerRadius="9" >
-                <Image  Source="/imagenes/ini.jpg" Margin="10,0,10,0"/>
+                <StackPanel Margin="10,20,10,0">
+                    <Image x:Name="imageEsti"  Source="/imagenes/ini.jpg" Margin="0,0,0,10" MaxHeight="200"/>
+                    <Label x:Name="labelEstilo" Foreground="White" FontWeight="Bold" FontSize="29" Content="----" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <Label x:Name="labelEmpaque" Foreground="White" FontWeight="Bold" FontSize="29" Content="----" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="textBlockElementos" TextWrapping="Wrap" Foreground="White" FontWeight="Bold" FontSize="20" Text="----" HorizontalAlignment="Center"/>
+                </StackPanel>
+
             </Border>
 
 
@@ -166,14 +176,14 @@
                 <Image Source="/imagenes/mas.png"/>
             </Button>
             <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="6">
-                <ListView x:Name="listViewLotes" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single">
+                <ListView x:Name="listViewLotes" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" KeyDown="listViewLotes_KeyDown" >
                 <ListView.View>
                     <GridView>
                         <!--#region lote-->
                         <GridViewColumn Header="Lote" Width="170">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding Path=lote}" Width="150"/>
+                                    <Label Content="{Binding Path=lote}" Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="25"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -182,7 +192,7 @@
                             <GridViewColumn Header="Código">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=codigo}" Width="125" TextChanged="TextBox_TextChanged" LostFocus="TextBox_LostFocus" />
+                                        <TextBox  Text="{Binding Path=codigo}" Width="125"  LostFocus="LostFocusElementoCompleto"  KeyDown="solo_numeros" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -191,16 +201,25 @@
                             <GridViewColumn Header="Paro" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=tiempoParo}" Width="80"/>
+                                        <TextBox  Text="{Binding Path=tiempoParo}" Width="80" KeyDown="soloNumerosDecimales" LostFocus="LostFocusElemento"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                         <!--#region motivo-->
-                            <GridViewColumn Header="Motivo" Width="120">
+                            <GridViewColumn Header="Motivo" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox SelectedItem="{Binding Path=terminadas}" ItemsSource="{Binding listaParos}" Width="100"/>
+                                        <ComboBox SelectedIndex="{Binding motivoParo}"  Width="130" SelectionChanged="ComboBox_SelectionChanged">
+                                            <ComboBoxItem>-</ComboBoxItem>
+                                            <ComboBoxItem>Apagón</ComboBoxItem>
+                                            <ComboBoxItem>Falta de Accesorios</ComboBoxItem>
+                                            <ComboBoxItem>Capacitación</ComboBoxItem>
+                                            <ComboBoxItem>Sublimado</ComboBoxItem>
+                                            <ComboBoxItem>Máquina Mala</ComboBoxItem>
+                                            <ComboBoxItem>Reunión</ComboBoxItem>
+                                            <ComboBoxItem>Falta de Tela</ComboBoxItem>
+                                        </ComboBox>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -209,7 +228,7 @@
                             <GridViewColumn Header="2XS" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xxs}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=xxs}" Width="40" KeyDown="solo_numeros" LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -218,7 +237,7 @@
                             <GridViewColumn Header="XS" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xs}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=xs}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -227,7 +246,7 @@
                             <GridViewColumn Header="S" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=s}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=s}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -236,7 +255,7 @@
                             <GridViewColumn Header="M" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=m}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=m}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -245,7 +264,7 @@
                             <GridViewColumn Header="L" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=l}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=l}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -254,7 +273,7 @@
                             <GridViewColumn Header="XL" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xl}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=xl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -263,7 +282,7 @@
                             <GridViewColumn Header="2XL" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xxl}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=xxl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -272,7 +291,7 @@
                             <GridViewColumn Header="3XL" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xxxl}" Width="40"/>
+                                        <TextBox  Text="{Binding Path=xxxl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -280,14 +299,14 @@
                         </GridView>
                 </ListView.View>
             </ListView>
-                <ListView x:Name="listViewPiezas" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single">
+                <ListView x:Name="listViewPiezas" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Extended"  Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
                     <ListView.View>
                         <GridView>
                         <!--#region terminadas-->
-                            <GridViewColumn Header="Terminadas" Width="80">
+                            <GridViewColumn Header="Terminadas" Width="110">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label  Content="{Binding Path=terminadas}" Width="60"/>
+                                        <Label  Content="{Binding Path=terminadas}" Background="{Binding colorLote}" Width="100" HorizontalContentAlignment="Center" Foreground="#FF4E7495" FontSize="25" FontWeight="Bold"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -296,25 +315,25 @@
                             <GridViewColumn Header="Piezas" Width="80">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label  Content="{Binding Path=piezas}" Width="60"/>
+                                        <Label  Content="{Binding Path=piezas}" Width="60" HorizontalContentAlignment="Center" Foreground="#FF4E7495" FontSize="25" FontWeight="Bold" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                         <!--#region sam-->
-                            <GridViewColumn Header="SAM" Width="80">
+                            <GridViewColumn Header="SAM" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="{Binding Path=sam}" Width="60"/>
+                                        <Label Content="{Binding Path=sam}" Width="100" HorizontalContentAlignment="Center" Foreground="#FF4E7495" FontSize="25" FontWeight="Bold"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                         <!--#region minutos-->
-                            <GridViewColumn Header="Minutos" Width="60">
+                            <GridViewColumn Header="Minutos" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label  Content="{Binding Path=minutosEfectivos}" Width="40"/>
+                                        <Label  Content="{Binding Path=minutosEfectivos}" Width="80" HorizontalContentAlignment="Center" Foreground="#FF4E7495" FontSize="25" FontWeight="Bold"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
