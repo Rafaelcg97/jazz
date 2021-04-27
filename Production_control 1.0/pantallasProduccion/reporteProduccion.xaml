@@ -87,36 +87,36 @@
 
             <StackPanel  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="0,0,15,0">
                 <Label Content="Módulo" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
-                <ComboBox x:Name="comboBoxModulo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" SelectionChanged="comboBoxModulo_SelectionChanged"/>
+                <ComboBox x:Name="comboBoxModulo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" SelectionChanged="comboBoxModulo_SelectionChanged" TabIndex="0"/>
                 <Label Content="Op. Costura" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="TextBoxCostura" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <TextBox x:Name="TextBoxCostura" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="3"/>
                 <Label Content="Permisos" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-                <TextBox x:Name="TextBoxPermisos" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
-                <CheckBox x:Name="checkBoxCustom" VerticalContentAlignment="Center">
+                <TextBox x:Name="TextBoxPermisos" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="6"/>
+                <CheckBox x:Name="checkBoxCustom" VerticalContentAlignment="Center" TabIndex="9">
                     <Label Content="Custom" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
             </StackPanel>
 
             <StackPanel  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="15,0,0,0">
                 <Label Content="Arteria" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
-                <ComboBox x:Name="comboBoxArteria" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45"/>
+                <ComboBox x:Name="comboBoxArteria" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" TabIndex="1"/>
                 <Label Content="Op. Manuales" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="TextBoxManuales" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <TextBox x:Name="TextBoxManuales" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="4"/>
                 <Label Content="Cita ISSS" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-                <TextBox x:Name="TextBoxCita" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
-                <CheckBox x:Name="checkBoxCambio" VerticalContentAlignment="Center">
+                <TextBox x:Name="TextBoxCita" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="7"/>
+                <CheckBox x:Name="checkBoxCambio" VerticalContentAlignment="Center" TabIndex="10">
                     <Label Content="Cambio" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
             </StackPanel>
 
             <StackPanel  Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="30,0,0,0">
                 <Label Content="Hora" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
-                <ComboBox x:Name="comboBoxHora" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45"/>
+                <ComboBox x:Name="comboBoxHora" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" TabIndex="2"/>
                 <Label Content="Incapacitados" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="TextBoxIncapacitado" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
+                <TextBox x:Name="TextBoxIncapacitado" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="5"/>
                 <Label Content="Inasistencia" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-                <TextBox x:Name="TextBoxInasistencia" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45"/>
-                <CheckBox x:Name="checkBoxExtra" VerticalContentAlignment="Center" Checked="checkBoxExtra_Checked" Unchecked="checkBoxExtra_Unchecked">
+                <TextBox x:Name="TextBoxInasistencia" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="8"/>
+                <CheckBox x:Name="checkBoxExtra" VerticalContentAlignment="Center" Checked="checkBoxExtra_Checked" Unchecked="checkBoxExtra_Unchecked" TabIndex="11">
                     <Label Content="Extra" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
             </StackPanel>
@@ -172,7 +172,7 @@
 
 
             <Label Grid.Row="12" Grid.Column="1" Content="Lotes:" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="White" FontWeight="Bold" />
-            <Button x:Name="buttonAgregarLote" Grid.Column="14" Grid.Row="12" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Margin="0,5,0,5" HorizontalContentAlignment="Right" Click="buttonAgregarLote_Click">
+            <Button x:Name="buttonAgregarLote" Grid.Column="14" Grid.Row="12" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Margin="0,5,0,5" HorizontalContentAlignment="Right" Click="buttonAgregarLote_Click" TabIndex="12">
                 <Image Source="/imagenes/mas.png"/>
             </Button>
             <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="6">
@@ -192,7 +192,7 @@
                             <GridViewColumn Header="Código">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=codigo}" Width="125"  LostFocus="LostFocusElementoCompleto"  KeyDown="solo_numeros" />
+                                        <TextBox  Text="{Binding Path=codigo}" Width="125"  LostFocus="LostFocusElementoCompleto"  KeyDown="solo_numeros" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -210,7 +210,7 @@
                             <GridViewColumn Header="Motivo" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox SelectedIndex="{Binding motivoParo}"  Width="130" SelectionChanged="ComboBox_SelectionChanged">
+                                        <ComboBox SelectedIndex="{Binding motivoParo}"  Width="130">
                                             <ComboBoxItem>-</ComboBoxItem>
                                             <ComboBoxItem>Apagón</ComboBoxItem>
                                             <ComboBoxItem>Falta de Accesorios</ComboBoxItem>
@@ -228,7 +228,7 @@
                             <GridViewColumn Header="2XS" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xxs}" Width="40" KeyDown="solo_numeros" LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=xxs}" Width="40" KeyDown="solo_numeros" LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -237,7 +237,7 @@
                             <GridViewColumn Header="XS" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xs}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=xs}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -246,7 +246,7 @@
                             <GridViewColumn Header="S" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=s}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=s}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -255,7 +255,7 @@
                             <GridViewColumn Header="M" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=m}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=m}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -264,7 +264,7 @@
                             <GridViewColumn Header="L" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=l}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=l}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -273,7 +273,7 @@
                             <GridViewColumn Header="XL" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=xl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -282,7 +282,7 @@
                             <GridViewColumn Header="2XL" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xxl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=xxl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -291,7 +291,7 @@
                             <GridViewColumn Header="3XL" Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=xxxl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" />
+                                        <TextBox  Text="{Binding Path=xxxl}" Width="40" KeyDown="solo_numeros"  LostFocus="LostFocusElemento" GotFocus="TextBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -370,9 +370,9 @@
                         <Image Source="/imagenes/cerrar.png"/>
                     </Button>
                     <Label FontSize="20" Grid.RowSpan="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Content="Lotes Disponibles" HorizontalAlignment="Center" FontWeight="Bold"/>
-                    <TextBox FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="1" x:Name="textBoxLote" TextChanged="textBoxLote_TextChanged"/>
-                    <ListBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="3" x:Name="listBoxLote" Margin="0,0,0,10" SelectionChanged="listBoxLote_SelectionChanged"/>
-                    <Button x:Name="ButtonIngresarContrasena" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonIngresarContrasena_Click" >
+                    <TextBox FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="1" x:Name="textBoxLote" TextChanged="textBoxLote_TextChanged" TabIndex="13"/>
+                    <ListBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="3" x:Name="listBoxLote" Margin="0,0,0,10" SelectionChanged="listBoxLote_SelectionChanged" TabIndex="14"/>
+                    <Button x:Name="ButtonIngresarContrasena" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonIngresarContrasena_Click" TabIndex="15" >
                         <Image Source="/imagenes/aceptarAmarillo.png"/>
                     </Button>
 

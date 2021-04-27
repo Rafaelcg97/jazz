@@ -325,6 +325,7 @@ namespace Production_control_1._0.pantallasProduccion
             string _color = "Transparent";
             int piezasLote = 0;
             int totalPiezasTerminadas = 0;
+            double minutosParoHora = 0;
             double _sam = 0;
             foreach(horaProduccion item in listViewLotes.Items)
             {
@@ -349,12 +350,13 @@ namespace Production_control_1._0.pantallasProduccion
                 totalPiezasTerminadas = item.terminadas + piezasLote;
                 minutosLote = _sam * piezasLote;
                 minutosHora = minutosHora + minutosLote;
-                listaCalculada.Add(new horaProduccion {lote=item.lote, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, tiempoParo=item.tiempoParo, motivoParo=item.motivoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
+                minutosParoHora = minutosParoHora + item.tiempoParo;
+                listaCalculada.Add(new horaProduccion {lote=item.lote, codigo=item.codigo, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, tiempoParo=item.tiempoParo, motivoParo=item.motivoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
             }
             listViewPiezas.Items.Clear();
             foreach(horaProduccion item2 in listaCalculada)
             {
-                if (minutosHora > 0) { minutosLote = (60 * (item2.minutosEfectivos / minutosHora)) - item2.tiempoParo; } else {  minutosLote= (60 / conteoLote); };
+                if (minutosHora > 0) { minutosLote = (60-minutosParoHora) * (item2.minutosEfectivos / minutosHora); } else {  minutosLote= ((60 - minutosParoHora) / conteoLote); };
                 if (item2.terminadas > item2.piezas) { _color = "Red"; } else { _color = "Transparent"; }
                 minutosHoraEfectivos = minutosHoraEfectivos + minutosLote;
                 listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, codigo=item2.codigo, tiempoParo=item2.tiempoParo, motivoParo=item2.motivoParo, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = minutosLote, sam=item2.sam, xxs=item2.xxs, xs=item2.xs, s=item2.s, m=item2.m, l=item2.l, xl=item2.xl, xxl=item2.xxl, xxxl=item2.xxxl });
@@ -403,19 +405,43 @@ namespace Production_control_1._0.pantallasProduccion
 
         private void LostFocusElemento(object sender, RoutedEventArgs e)
         {
+            TextBox textBox = (TextBox)sender;
             calculosLotes();
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //calculosLotes();
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                textBox.Clear();
+                textBox.Text = "0";
+            }
+            calculosLotes();
         }
 
         private void LostFocusElementoCompleto(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                textBox.Clear();
+                textBox.Text = "0";
+            }
+            else
+            {
+                verificarImagen(Convert.ToInt32(textBox.Text));
+            }
             calculosLotes();
-            verificarImagen(Convert.ToInt32(textBox.Text));
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == "0")
+            {
+                textBox.Clear();
+            }
+            else
+            {
+
+            }
+
         }
 
         private void listViewLotes_KeyDown(object sender, KeyEventArgs e)
@@ -481,7 +507,11 @@ namespace Production_control_1._0.pantallasProduccion
 
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
-            int totalOperarios = Convert.ToInt32(TextBoxManuales.Text) + Convert.ToInt32(TextBoxManuales.Text);
+            int operariosMaquina = 0;
+            int operariosManuqles = 0;
+            if (string.IsNullOrEmpty(TextBoxCostura.Text)) { operariosMaquina = 0; } else { operariosMaquina = Convert.ToInt32(TextBoxCostura.Text); }
+            if (string.IsNullOrEmpty(TextBoxManuales.Text)) { operariosManuqles = 0; } else { operariosManuqles = Convert.ToInt32(TextBoxManuales.Text); }
+            int totalOperarios = operariosMaquina + operariosMaquina;
             if(comboBoxModulo.SelectedIndex<0 || comboBoxArteria.SelectedIndex<0 || comboBoxHora.SelectedIndex<0 || totalOperarios <= 0)
             {
                 MessageBox.Show("!Ups Parece que no haz ingresado algunos datos Importantes");
@@ -511,20 +541,24 @@ namespace Production_control_1._0.pantallasProduccion
                 cnProduccion.Open();
                 foreach (horaProduccion item in listViewPiezas.Items)
                 {
-                    sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, [Cod Info Estilo], SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo]) ";
+                    sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, [Cod Info Estilo], SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo], ingresadoPor) ";
                     sql = sql + "values('" + fecha + "', '" + turno + "', " + hora + ", '" + modulo + "', " + arteria + ", '" + coordinador + "', " + item.codigo + ", ";
-                    sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', 1, '";
-                    sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "')";
+                    sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', "+ item.tiempoParo +", '";
+                    sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "', '"+ labelIngen.Content.ToString() + "')";
                     cm = new SqlCommand(sql, cnProduccion);
                     cm.ExecuteNonQuery();
                 }
                 cnProduccion.Close();
-                MessageBox.Show("Datos Ingresados");
+
+                PagePrincipal pagePrincipal = new PagePrincipal();
+                NavigationService.Navigate(pagePrincipal);
+
+
+
             }
         }
 
         #endregion
-
     }
 
 }
