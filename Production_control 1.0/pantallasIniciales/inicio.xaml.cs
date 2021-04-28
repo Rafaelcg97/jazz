@@ -2,18 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 
@@ -175,15 +167,21 @@ namespace Production_control_1._0.pantallasIniciales
         {
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
             List<string> modulos = new List<string>();
+            int totalPiezas = 0;
+            double trabajado = 0;
+            double disponible=0;
             List<elemento_grafica> modulosProduccionEficiencia = new List<elemento_grafica>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, eficiencia from vistaKPI where fecha='"+fecha+"' and turno='"+turno+"' order by coordinador";
+            string sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='"+fecha+"' and turno='"+turno+"' order by coordinador";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 modulos.Add(dr["modart"].ToString());
+                totalPiezas = totalPiezas + Convert.ToInt32(dr["totalDePiezas"]);
+                trabajado = trabajado + Convert.ToDouble(dr["minutosTrabajados"]);
+                disponible = disponible + Convert.ToDouble(dr["minutosDisponibles"]);
                 modulosProduccionEficiencia.Add(new elemento_grafica { modulo = dr["modart"].ToString(), eficiencia = Convert.ToDouble(dr["eficiencia"]), piezas = Convert.ToInt32(dr["totalDePiezas"]), coordinador = dr["coordinador"].ToString(), h1 = Convert.ToInt32(dr["H1"]), h2 = Convert.ToInt32(dr["H2"]), h3 = Convert.ToInt32(dr["H3"]), h4 = Convert.ToInt32(dr["H4"]), h5 = Convert.ToInt32(dr["H5"]), h6 = Convert.ToInt32(dr["H6"]), h7 = Convert.ToInt32(dr["H7"]), h8 = Convert.ToInt32(dr["H8"]), h9 = Convert.ToInt32(dr["H9"]), h10 = Convert.ToInt32(dr["H10"]), h11 = Convert.ToInt32(dr["H11"]), h12 = Convert.ToInt32(dr["H12"])});
             };
             dr.Close();
@@ -199,6 +197,9 @@ namespace Production_control_1._0.pantallasIniciales
                 SeriesCollection[1].Values.Add(item.eficiencia);
             };
             listViewProduccionHora.ItemsSource = modulosProduccionEficiencia;
+            labelTotalPiezas.Content = totalPiezas;
+            labelTotalEficiencia.Content = (trabajado / disponible).ToString("P");
+
         }
 
         #endregion

@@ -1,0 +1,365 @@
+﻿<Page x:Class="Production_control_1._0.pantallasProduccion.editarRegistrosProduccion"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0.pantallasProduccion"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="editarRegistrosProduccion"
+      Background="White">
+
+    <Grid>
+        <!--#region control general del programa-->
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
+                        <materialDesign:PackIcon Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
+                        <materialDesign:PackIcon Kind="Close"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+        <Grid x:Name="areaDeTrabajo">
+            <!--#region filas/columans-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--#endregion-->
+            <!--#region encabezado-->
+            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
+                <Image Source="/imagenes/salir.png"/>
+            </Button>
+            <!--#endregion-->
+
+            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="Módulo:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="comboBoxModulo" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Height="35" FontSize="25" SelectionChanged="comboBoxModulo_SelectionChanged" />
+            <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Arteria:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20,0,5,0"/>
+            <ComboBox x:Name="comboBoxArteria" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="1" Grid.RowSpan="1" Height="35" FontSize="25" SelectionChanged="comboBoxArteria_SelectionChanged"/>
+            <Label Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Usuario:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20,0,5,0" HorizontalContentAlignment="Right" Padding="0"/>
+            <Label x:Name="labelUsuario" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="1" Height="35" FontSize="25" Content="----" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            <Calendar x:Name="calendarFecha" Grid.Column="14" Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="2"  Margin="0,25,0,0" SelectedDatesChanged="calendarFecha_SelectedDatesChanged"/>
+            <Button Grid.Column="14" Grid.Row="6" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
+                <Image Source="/imagenes/disquete.png"/>
+            </Button>
+            <ListView x:Name="listViewRegistros" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="14" Grid.RowSpan="17" Margin="20,25,0,0">
+                <ListView.View>
+                    <GridView>
+                        <!--#region fecha-->
+                        <GridViewColumn Header="Fecha" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=fecha}" Width="85" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region turno-->
+                        <GridViewColumn Header="Turno" Width="105">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox Width="85" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding turnos}" SelectedItem="{Binding turno}">
+                                    </ComboBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region hora-->
+                        <GridViewColumn Header="Hora" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox Width="50" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding horas}" SelectedItem="{Binding hora}">
+                                    </ComboBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region modulo-->
+                        <GridViewColumn Header="Módulo" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox Width="125" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding modulos}" SelectedItem="{Binding modulo}">
+                                    </ComboBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region arteria-->
+                        <GridViewColumn Header="Arteria" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox Width="50" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding arterias}" SelectedItem="{Binding arteria}">
+                                    </ComboBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region codigo-->
+                        <GridViewColumn Header="Código" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=codigo}" Width="45" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region sam-->
+                        <GridViewColumn Header="SAM" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=sam}" Width="65" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region incapacitados-->
+                        <GridViewColumn Header="Incap" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=incapacitados}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region permisos-->
+                        <GridViewColumn Header="Perm" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=permisos}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region cita-->
+                        <GridViewColumn Header="Cita" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=cita}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region inasistencia-->
+                        <GridViewColumn Header="Inas" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=inasistencia}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region operaros costura-->
+                        <GridViewColumn Header="Costura" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=opeCostura}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region operarios manuales-->
+                        <GridViewColumn Header="Manuales" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=opeManuales}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region lote-->
+                        <GridViewColumn Header="Lote" Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=lote}" Width="95" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region xxs-->
+                        <GridViewColumn Header="2XS" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=xxs}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region xs-->
+                        <GridViewColumn Header="XS" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=xs}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region s-->
+                        <GridViewColumn Header="S" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=s}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region M-->
+                        <GridViewColumn Header="M" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=m}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region L-->
+                        <GridViewColumn Header="L" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=l}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region XL-->
+                        <GridViewColumn Header="XL" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=xl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region XXL-->
+                        <GridViewColumn Header="2XL" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=xxl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region XXXL-->
+                        <GridViewColumn Header="3XL" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=xxxl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region Paro-->
+                        <GridViewColumn Header="Paro" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=tiempoParo}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region motivos-->
+                        <GridViewColumn Header="Motivo" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding Path=motivoParo}" ItemsSource="{Binding motivos}" Width="85" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region custom-->
+                        <GridViewColumn Header="Custom" Width="65">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding Path=custom}" ItemsSource="{Binding eleccion}" Width="50" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region efectivo-->
+                        <GridViewColumn Header="Efectivo" Width="55">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=minutosEfectivos}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region cambio-->
+                        <GridViewColumn Header="Cambio" Width="65">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding Path=cambioEstilo}" ItemsSource="{Binding eleccion}" Width="50" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region Ing-->
+                        <GridViewColumn Header="Ing" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=ingresadoPor}" Width="40" Foreground="#FF4E7495" FontSize="10"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region numHH-->
+                        <GridViewColumn Header="nhh" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=num_hh}" Width="40" Foreground="#FF4E7495" FontSize="8"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+    </Grid>
+</Page>

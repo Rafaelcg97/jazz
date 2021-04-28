@@ -255,6 +255,9 @@
     <Compile Include="pantallasProduccion\balance.xaml.cs">
       <DependentUpon>balance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasProduccion\editarRegistrosProduccion.xaml.cs">
+      <DependentUpon>editarRegistrosProduccion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasProduccion\impresion.xaml.cs">
       <DependentUpon>impresion.xaml</DependentUpon>
     </Compile>
@@ -278,6 +281,9 @@
     </Compile>
     <Compile Include="pantallasProduccion\reporteProduccion.xaml.cs">
       <DependentUpon>reporteProduccion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasProduccion\validacionUsuarioProduccion.xaml.cs">
+      <DependentUpon>validacionUsuarioProduccion.xaml</DependentUpon>
     </Compile>
     <Compile Include="pantallasSmedIngenieria\smed.xaml.cs">
       <DependentUpon>smed.xaml</DependentUpon>
@@ -327,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasProduccion\balance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\editarRegistrosProduccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,6 +398,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="pantallasProduccion\validacionUsuarioProduccion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="pantallasSmedIngenieria\smed.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

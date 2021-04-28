@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
-    <Grid Height="auto" Width="auto" >
+    <Grid Height="auto" Width="auto" Margin="10,0,10,0">
         <!--#region filas/columnas-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <!--#endregion-->
         <!--#region bordes-->
-        <Border x:Name="BorderConsultaSam" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderConsultaSam_MouseUp">
+        <Border x:Name="BorderConsultaSam" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderConsultaSam_MouseUp">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -59,10 +59,38 @@
                 <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Consulta de Estilo" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
             </Grid>
         </Border>
-        <Border x:Name="BorderReporteProduccion" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderReporteProduccion_MouseUp">
- 
+        <Border x:Name="BorderReporteProduccion" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderReporteProduccion_MouseUp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/consultaDeEstilo.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Ingresar Producción" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+
         </Border>
-        <Border x:Name="BorderAbrirBalance" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="5"  Background="#FF222222" CornerRadius="5" MouseUp="BorderAbrirBalance_MouseUp" >
+        <Border x:Name="BorderAbrirBalance" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderAbrirBalance_MouseUp" Margin="20,0,0,0" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -90,6 +118,156 @@
                 </Grid.RowDefinitions>
                 <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirBalance.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
                 <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Abrir Balance" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderEditarProduccion" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderEditarProduccion_MouseUp" Margin="20,0,0,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirBalance.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Editar Registros" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderBonos" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderEditarProduccion_MouseUp" Margin="20,0,0,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirBalance.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Bonificación" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderAistencia" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderEditarProduccion_MouseUp" Margin="20,0,0,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirBalance.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Asistencia" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderLotes" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderEditarProduccion_MouseUp" Margin="20,0,0,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirBalance.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Cuadratura Lotes" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            </Grid>
+        </Border>
+        <Border x:Name="Border5s" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderEditarProduccion_MouseUp" Margin="20,0,0,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirBalance.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Resultados 5S" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
             </Grid>
         </Border>
         <!--#endregion-->

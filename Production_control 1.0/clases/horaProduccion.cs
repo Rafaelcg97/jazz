@@ -8,8 +8,9 @@ namespace Production_control_1._0.clases
 {
     public class horaProduccion
     {
+        public int num_hh { get; set; }
         public string fecha { get; set; }
-        public double turno { get; set; }
+        public string turno { get; set; }
         public int hora { get; set; }
         public string modulo { get; set; }
         public int arteria { get; set; }
@@ -35,10 +36,17 @@ namespace Production_control_1._0.clases
         public int xxl { get; set; }
         public int xxxl { get; set; }
         public double tiempoParo { get; set; }
-        public int motivoParo { get; set; }
+        public string motivoParo { get; set; }
         public string custom { get; set; }
         public double minutosEfectivos { get; set; }
+        public string ingresadoPor { get; set;}
         public string cambioEstilo { get; set; }
+        public string[] turnos { get; set; }
+        public int[] horas { get; set; }
+        public string[] modulos { get; set; }
+        public string[] eleccion { get; set; }
+        public int[] arterias { get; set; }
+        public string[] motivos { get; set; }
     }
 }
 

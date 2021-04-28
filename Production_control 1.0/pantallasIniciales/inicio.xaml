@@ -78,6 +78,9 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisY> 
         </lvc:CartesianChart>
+        <Label Content="Total de Piezas:" Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="2" VerticalContentAlignment="Bottom" Margin="20,0,0,0" FontSize="25" FontWeight="Bold" />
+        <Label x:Name="labelTotalPiezas" Content="----" Grid.Row="2" Grid.Column="11" Grid.ColumnSpan="1" VerticalContentAlignment="Bottom" Margin="20,0,0,0" FontSize="25" />
+        <Label x:Name="labelTotalEficiencia" Content="----" Grid.Row="2" Grid.Column="12" Grid.ColumnSpan="1" VerticalContentAlignment="Bottom" Margin="20,0,0,0" FontSize="25" />
         <ListView Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="6" Margin="20,0,20,0" Grid.RowSpan="10" x:Name="listViewProduccionHora">
             <ListView.View>
                 <GridView>
