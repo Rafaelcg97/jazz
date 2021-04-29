@@ -326,7 +326,6 @@ namespace Production_control_1._0.pantallasProduccion
         #endregion
 
         #region calculosGenerales
-
         private void calculosLotes()
         {
             List<horaProduccion> listaCalculada = new List<horaProduccion>();
@@ -379,7 +378,6 @@ namespace Production_control_1._0.pantallasProduccion
             }
             labelMinutos.Content =Math.Round(minutosHoraEfectivos,2);
         }
-
         private void verificarImagen(int codigo)
         {
             #region consultaSAM
@@ -425,7 +423,6 @@ namespace Production_control_1._0.pantallasProduccion
             }
 
         }
-
         private void LostFocusElemento(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -437,7 +434,6 @@ namespace Production_control_1._0.pantallasProduccion
             }
             calculosLotes();
         }
-
         private void LostFocusElementoCompleto(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -452,7 +448,6 @@ namespace Production_control_1._0.pantallasProduccion
             }
             calculosLotes();
         }
-
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -466,7 +461,6 @@ namespace Production_control_1._0.pantallasProduccion
             }
 
         }
-
         private void listViewLotes_KeyDown(object sender, KeyEventArgs e)
         {
             // eliminar el repuesto solicitado al presionar la tecla d
@@ -496,11 +490,9 @@ namespace Production_control_1._0.pantallasProduccion
                 calculosLotes();
             }
         }
-
         #endregion
 
         #region ingresoDatosHora
-
         private void passwordBoxIngreso_PasswordChanged(object sender, RoutedEventArgs e)
         {
             #region consultaIngenier
@@ -527,7 +519,6 @@ namespace Production_control_1._0.pantallasProduccion
             #endregion
 
         }
-
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
             int operariosMaquina = 0;
@@ -580,7 +571,6 @@ namespace Production_control_1._0.pantallasProduccion
                 NavigationService.Navigate(pagePrincipal);
             }
         }
-
         #endregion
     }
 

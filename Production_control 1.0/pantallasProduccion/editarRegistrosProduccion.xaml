@@ -88,7 +88,10 @@
             <Button Grid.Column="14" Grid.Row="6" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
                 <Image Source="/imagenes/disquete.png"/>
             </Button>
-            <ListView x:Name="listViewRegistros" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="14" Grid.RowSpan="17" Margin="20,25,0,0">
+            <Button x:Name="buttonActualizarSam" Grid.Column="14" Grid.Row="8" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Background="Transparent" BorderBrush="Transparent" Click="buttonActualizarSam_Click">
+                <Image Source="/imagenes/actualizar.png"/>
+            </Button>
+            <ListView x:Name="listViewRegistros" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="14" Grid.RowSpan="17" Margin="20,25,0,0" KeyDown="listViewRegistros_KeyDown">
                 <ListView.View>
                     <GridView>
                         <!--#region fecha-->
