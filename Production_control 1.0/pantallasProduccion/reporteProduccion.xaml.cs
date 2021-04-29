@@ -28,7 +28,6 @@ namespace Production_control_1._0.pantallasProduccion
         public int piezasLote = 0;
         public int piezasReportadas = 0;
         #endregion
-
         #region datosInciales
         public reporteProduccion()
         {
@@ -37,18 +36,6 @@ namespace Production_control_1._0.pantallasProduccion
             SqlCommand cm;
             SqlDataReader dr;
             #region datosDeCombBox
-            //llenar lista de modulos
-            cnProduccion.Open();
-            sql = "select modulo from modulosProduccion where coordinador<>'-'";
-            cm = new SqlCommand(sql, cnProduccion);
-            dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                comboBoxModulo.Items.Add(dr["modulo"].ToString());
-            };
-            dr.Close();
-            cnProduccion.Close();
-
             //llenar lista de horas
             cnProduccion.Open();
             sql = "select hora from horas";
@@ -110,7 +97,6 @@ namespace Production_control_1._0.pantallasProduccion
         }
 
         #endregion
-
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
@@ -143,7 +129,6 @@ namespace Production_control_1._0.pantallasProduccion
             Application.Current.MainWindow.DragMove();
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -174,23 +159,71 @@ namespace Production_control_1._0.pantallasProduccion
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
         #endregion
-
         #region formularioGener
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string sql;
-            SqlCommand cm;
-            SqlDataReader dr;
+            if (comboBoxModulo.SelectedIndex > -1)
+            {
+                string sql;
+                SqlCommand cm;
+                SqlDataReader dr;
+                string arteria = "1";
+                if (comboBoxArteria.SelectedIndex > -1)
+                {
+                    arteria = comboBoxArteria.SelectedItem.ToString();
+                }
+                else
+                {
+                    comboBoxArteria.SelectedIndex = 0;
+                    arteria = "1";
+                }
 
-            //colocar coordinador
-            cnProduccion.Open();
-            sql = "select coordinador from modulosProduccion where modulo='" + comboBoxModulo.SelectedItem.ToString() + "'";
-            cm = new SqlCommand(sql, cnProduccion);
-            dr = cm.ExecuteReader();
-            dr.Read();
-            labelCoordinador.Content = dr["coordinador"].ToString();
-            dr.Close();
-            cnProduccion.Close();
+                //colocar coordinador
+                cnProduccion.Open();
+                sql = "select coordinadorNombre from modulosProduccion where modulo='" + comboBoxModulo.SelectedItem.ToString() + "'";
+                cm = new SqlCommand(sql, cnProduccion);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                labelCoordinador.Content = dr["coordinadorNombre"].ToString();
+                dr.Close();
+                cnProduccion.Close();
+
+                //colocar datosHoraAnterior
+                cnProduccion.Open();
+                sql = "select top 1 Turno, Fecha, Hora, Incapacitados, Permisos, [Cita ISSS] as cita, Inasistencia, [Ope Costura] as costura, [Ope Manuales] as manuales from horahora where Modulo='"+comboBoxModulo.SelectedItem.ToString() +"' and arterias='"+arteria+"' order by Fecha desc, hora desc";
+                cm = new SqlCommand(sql, cnProduccion);
+                dr = cm.ExecuteReader();
+                if (dr.Read())
+                {
+                    if (dr["Fecha"].ToString() == DateTime.Now.ToString("yyyy-MM-dd") && Convert.ToInt32(dr["Hora"]) < 12)
+                    {
+                        comboBoxHora.SelectedItem = (Convert.ToInt32(dr["Hora"]) + 1).ToString();
+                    }
+                    else
+                    {
+                        comboBoxHora.SelectedItem = "1";
+                    }
+                    TextBoxCostura.Text = dr["costura"].ToString();
+                    TextBoxManuales.Text = dr["manuales"].ToString();
+                    TextBoxIncapacitado.Text = dr["Incapacitados"].ToString();
+                    TextBoxPermisos.Text = dr["Permisos"].ToString();
+                    TextBoxCita.Text = dr["cita"].ToString();
+                    TextBoxInasistencia.Text = dr["Inasistencia"].ToString();
+                    dr.Close();
+                }
+                else
+                {
+                    comboBoxHora.SelectedItem = "1";
+                    TextBoxCostura.Text="";
+                    TextBoxManuales.Text = "";
+                    TextBoxIncapacitado.Text = "";
+                    TextBoxPermisos.Text = "";
+                    TextBoxCita.Text = "";
+                    TextBoxInasistencia.Text = "";
+                    dr.Close();
+                }
+                cnProduccion.Close();
+            }
         }
 
         private void checkBoxExtra_Checked(object sender, RoutedEventArgs e)
@@ -223,7 +256,6 @@ namespace Production_control_1._0.pantallasProduccion
         }
 
         #endregion
-
         #region FomrularioPop
         private void ButtonCerrarPopup_Click(object sender, RoutedEventArgs e)
         {
@@ -324,7 +356,6 @@ namespace Production_control_1._0.pantallasProduccion
         }
 
         #endregion
-
         #region calculosGenerales
         private void calculosLotes()
         {
@@ -491,32 +522,34 @@ namespace Production_control_1._0.pantallasProduccion
             }
         }
         #endregion
-
         #region ingresoDatosHora
         private void passwordBoxIngreso_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            #region consultaIngenier
+            buttonGuardar.IsEnabled = false;
+            comboBoxModulo.Items.Clear();
+            #region variablesDeConexionn
             string sql;
             SqlCommand cm;
             SqlDataReader dr;
+            #endregion
+            #region consultarUsuario
             //consultar
-            sql = "select codigo from usuarios where produccion=1 and contrasena='"+ passwordBoxIngreso.Password +"'";
-            cnIngenieria.Open();
-            cm = new SqlCommand(sql, cnIngenieria);
+            sql = "select modulosProduccion.modulo as modulo, usuarios.codigo as codigo from modulosProduccion left join ingenieria.dbo.usuarios on ";
+            sql = sql + "modulosProduccion.ingenieroProcesosCodigo= usuarios.codigo or modulosProduccion.coordinadorCodigo= usuarios.codigo ";
+            sql = sql + "where produccion=1 and contrasena='" + passwordBoxIngreso.Password + "'";
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
-            if (dr.Read())
+            while (dr.Read())
             {
+                comboBoxModulo.Items.Add(dr["modulo"].ToString());
                 labelIngen.Content = dr["codigo"].ToString();
                 buttonGuardar.IsEnabled = true;
             }
-            else
-            {
-                labelIngen.Content = "----";
-                buttonGuardar.IsEnabled = false;
-            }
             dr.Close();
-            cnIngenieria.Close();
+            cnProduccion.Close();
             #endregion
+
 
         }
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)

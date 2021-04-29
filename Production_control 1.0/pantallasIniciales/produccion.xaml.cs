@@ -71,5 +71,11 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new pantallasProduccion.validacionUsuarioProduccion());
         }
+
+        private void BorderBonos_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = new pantallasProduccion.bonos();
+        }
     }
 }

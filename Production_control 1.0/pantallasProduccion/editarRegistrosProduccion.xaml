@@ -147,7 +147,7 @@
                         <GridViewColumn Header="Código" Width="60">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=codigo}" Width="45" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                    <TextBox Text="{Binding Path=codigo}" Width="45" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -165,7 +165,7 @@
                         <GridViewColumn Header="Incap" Width="40">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=incapacitados}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                    <TextBox Text="{Binding Path=incapacitados}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -174,7 +174,7 @@
                         <GridViewColumn Header="Perm" Width="40">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=permisos}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                    <TextBox Text="{Binding Path=permisos}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -183,7 +183,7 @@
                         <GridViewColumn Header="Cita" Width="40">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=cita}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                    <TextBox Text="{Binding Path=cita}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -192,7 +192,7 @@
                         <GridViewColumn Header="Inas" Width="40">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=inasistencia}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=inasistencia}" Width="20" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -201,7 +201,7 @@
                         <GridViewColumn Header="Costura" Width="60">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=opeCostura}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=opeCostura}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="soloNumerosDecimales"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -210,7 +210,7 @@
                         <GridViewColumn Header="Manuales" Width="60">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=opeManuales}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=opeManuales}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="soloNumerosDecimales"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -228,7 +228,7 @@
                         <GridViewColumn Header="2XS" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=xxs}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=xxs}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -237,7 +237,7 @@
                         <GridViewColumn Header="XS" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=xs}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=xs}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -246,7 +246,7 @@
                         <GridViewColumn Header="S" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=s}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=s}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -255,7 +255,7 @@
                         <GridViewColumn Header="M" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=m}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=m}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -264,7 +264,7 @@
                         <GridViewColumn Header="L" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=l}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=l}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -273,7 +273,7 @@
                         <GridViewColumn Header="XL" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=xl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=xl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -282,7 +282,7 @@
                         <GridViewColumn Header="2XL" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=xxl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=xxl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -291,7 +291,7 @@
                         <GridViewColumn Header="3XL" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=xxxl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=xxxl}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -300,7 +300,7 @@
                         <GridViewColumn Header="Paro" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=tiempoParo}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=tiempoParo}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="soloNumerosDecimales"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -327,7 +327,7 @@
                         <GridViewColumn Header="Efectivo" Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=minutosEfectivos}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                    <TextBox Text="{Binding Path=minutosEfectivos}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="soloNumerosDecimales"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

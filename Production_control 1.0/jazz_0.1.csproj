@@ -205,6 +205,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="clases\balance.cs" />
+    <Compile Include="clases\bonoPorOperario.cs" />
     <Compile Include="clases\elementoListBox.cs" />
     <Compile Include="clases\elementoRebalance.cs" />
     <Compile Include="clases\estilo.cs" />
@@ -254,6 +255,9 @@
     </Compile>
     <Compile Include="pantallasProduccion\balance.xaml.cs">
       <DependentUpon>balance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasProduccion\bonos.xaml.cs">
+      <DependentUpon>bonos.xaml</DependentUpon>
     </Compile>
     <Compile Include="pantallasProduccion\editarRegistrosProduccion.xaml.cs">
       <DependentUpon>editarRegistrosProduccion.xaml</DependentUpon>
@@ -333,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasProduccion\balance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\bonos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

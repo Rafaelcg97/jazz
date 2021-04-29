@@ -46,14 +46,17 @@ namespace Production_control_1._0.pantallasProduccion
             SqlDataReader dr;
             #region datosDeCombBox
             //llenar lista de modulos
+            //consultar
+            sql = "select modulosProduccion.modulo as modulo from modulosProduccion left join ingenieria.dbo.usuarios on ";
+            sql = sql + "modulosProduccion.ingenieroProcesosCodigo= usuarios.codigo or modulosProduccion.coordinadorCodigo= usuarios.codigo ";
+            sql = sql + "where produccion=1 and usuarios.codigo='" + codigo + "'";
             cnProduccion.Open();
-            sql = "select modulo from modulosProduccion where coordinador<>'-'";
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 comboBoxModulo.Items.Add(dr["modulo"].ToString());
-            };
+            }
             dr.Close();
             cnProduccion.Close();
 
@@ -102,6 +105,36 @@ namespace Production_control_1._0.pantallasProduccion
         private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.DragMove();
+        }
+        #endregion
+        #region tamanos_de_letra_/_tipo_de_texto
+
+        private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Control tmp = sender as Control;
+            tmp.FontSize = e.NewSize.Height / tmp.FontFamily.LineSpacing;
+        }
+
+        private void solo_numeros(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key == Key.Tab)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void soloNumerosDecimales(object sender, KeyEventArgs e)
+        {
+            if ((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key == Key.Decimal) || (e.Key == Key.Tab))
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void letra_pop_cerrar(object sender, SizeChangedEventArgs e)
+        {
+            Control tmp = sender as Control;
+            tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
         #endregion
         #region consultarRegistros
@@ -179,7 +212,7 @@ namespace Production_control_1._0.pantallasProduccion
             #endregion
             #region agregarModulos
             cnProduccion.Open();
-            sql = "select modulo from modulosProduccion where coordinador<>'-'";
+            sql = "select modulo from modulosProduccion where coordinadorNombre<>'-'";
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             int conteoModulo = 0;
@@ -297,15 +330,24 @@ namespace Production_control_1._0.pantallasProduccion
             // eliminar el registro seleccionado con ctrl y d
             if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
             {
-                cnProduccion.Open();
-                foreach(horaProduccion item in listViewRegistros.SelectedItems)
+                MessageBoxResult result = MessageBox.Show("¿Desea Eliminar los Registros Seleccionados?", "Jazz-CCO", MessageBoxButton.YesNo);
+                switch (result)
                 {
-                    sql = "delete from horahora where num_hh='"+item.num_hh+"'";
-                    cm = new SqlCommand(sql, cnProduccion);
-                    cm.ExecuteNonQuery();
+                    case MessageBoxResult.Yes:
+                        cnProduccion.Open();
+                        foreach (horaProduccion item in listViewRegistros.SelectedItems)
+                        {
+                            sql = "delete from horahora where num_hh='" + item.num_hh + "'";
+                            cm = new SqlCommand(sql, cnProduccion);
+                            cm.ExecuteNonQuery();
+                        }
+                        cnProduccion.Close();
+                        consultarRegistros();
+
+                        break;
+                    case MessageBoxResult.No:
+                        break;
                 }
-                cnProduccion.Close();
-                consultarRegistros();
             }
         }
         #endregion
