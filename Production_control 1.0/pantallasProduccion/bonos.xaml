@@ -79,22 +79,384 @@
             <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="1" Content="Resultados de Bonificación" SizeChanged="Control_SizeChanged" Padding="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
             <Calendar x:Name="calendarFecha" Grid.Column="14" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" SelectedDatesChanged="calendarFecha_SelectedDatesChanged"/>
             <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="1" Orientation="Horizontal" VerticalAlignment="Top">
-                <ComboBox x:Name="comboBoxModulo" Width="200" Margin="25,0,0,0"/>
-                <RadioButton x:Name="radioButtomDiurno" VerticalContentAlignment="Center"  Margin="20,0,0,0">
-                    <Label Content="Diurno" FontSize="20" FontWeight="Bold"/>
-                </RadioButton>
-                <RadioButton x:Name="radioButtomNocturno" VerticalContentAlignment="Center" IsChecked="False" Margin="20,0,0,0">
-                    <Label Content="Nocturno" FontSize="20" FontWeight="Bold"/>
-                </RadioButton>
-                <RadioButton x:Name="radioButtomExtra" VerticalContentAlignment="Center" IsChecked="False" Margin="20,0,0,0">
-                    <Label Content="Extra" FontSize="20" FontWeight="Bold"/>
-                </RadioButton>
+                <ComboBox x:Name="comboBoxModulo" Width="200" Margin="25,0,0,0" Height="30"/>
             </StackPanel>
             <TabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="16" Margin="25,0,25,10" Grid.RowSpan="16">
                 <TabItem Header="Bonificación Por Módulo" FontSize="15" FontWeight="Bold">
-                    <ListView>
-
+                    <ListView x:Name="listViewBomoPorModulo">
+                        <ListView.View>
+                            <GridView>
+                                <!--#region turno-->
+                                <GridViewColumn Header="Turno" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=turno}" Width="100"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region modulo-->
+                                <GridViewColumn Header="Módulo" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=modart}" Width="140"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezasLunes-->
+                                <GridViewColumn Header="Piezas Lu" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=piezasLunes}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region eficienciaLunes-->
+                                <GridViewColumn Header="% Lu" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=eficienciaLunes}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region BonoLunes-->
+                                <GridViewColumn Header="$ Lu" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bonoLunes}" Width="100" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezasMartes-->
+                                <GridViewColumn Header="Piezas Ma" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=piezasMartes}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region eficienciaMartes-->
+                                <GridViewColumn Header="% Ma" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=eficienciaMartes}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region BonoMartes-->
+                                <GridViewColumn Header="$ Ma" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bonoMartes}" Width="100" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezasMiercoles-->
+                                <GridViewColumn Header="Piezas Mi" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=piezasMiercoles}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region eficienciaMiercoles-->
+                                <GridViewColumn Header="% Mi" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=eficienciaMiercoles}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region BonoMiercoles-->
+                                <GridViewColumn Header="$ Mi" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bonoMiercoles}" Width="100" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezasJueves-->
+                                <GridViewColumn Header="Piezas Ju" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=piezasJueves}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region eficienciaJueves-->
+                                <GridViewColumn Header="% Ju" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=eficienciaJueves}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region BonoJueves-->
+                                <GridViewColumn Header="$ Ju" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bonoJueves}" Width="100" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezasViernes-->
+                                <GridViewColumn Header="Piezas Vi" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=piezasViernes}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region eficienciaViernes-->
+                                <GridViewColumn Header="% Vi" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=eficienciaViernes}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region BonoViernes-->
+                                <GridViewColumn Header="$ Vi" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bonoViernes}" Width="100" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezasSabado-->
+                                <GridViewColumn Header="Piezas Sa" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=piezasSabado}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region eficienciaSabado-->
+                                <GridViewColumn Header="% Sa" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=eficienciaSabado}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region BonoSabado-->
+                                <GridViewColumn Header="$ Sa" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bonoSabado}" Width="100" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region piezas-->
+                                <GridViewColumn Header="Total Piezas" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=totalDePiezas}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region bono-->
+                                <GridViewColumn Header="Bono" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label  Content="{Binding Path=bono}" Width="80" Foreground="DarkRed" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                            </GridView>
+                        </ListView.View>
                     </ListView>
+                </TabItem>
+                <TabItem Header="Asistencia Por Colaborador" FontSize="15" FontWeight="Bold">
+                    <ListView x:Name="listViewAsitenciaPorColaborador">
+                            <ListView.View>
+                                <GridView>
+                                    <!--#region modulo-->
+                                    <GridViewColumn Header="Módulo" Width="150">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=modulo}" Width="140"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region semana-->
+                                    <GridViewColumn Header="Semana" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=semana}" Width="90"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region codigo-->
+                                    <GridViewColumn Header="Código" Width="120">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=codigo}" Width="120"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region nombre-->
+                                    <GridViewColumn Header="Nombre" Width="400">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=nombre}" Width="400"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas Lunes-->
+                                    <GridViewColumn Header="Hrs Lu" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horasLunes}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bono Lunes-->
+                                    <GridViewColumn Header="$ Lu" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bonoBrutoLunes}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas Martes-->
+                                    <GridViewColumn Header="Hrs Ma" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horasMartes}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bono Martes-->
+                                    <GridViewColumn Header="$ Ma" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bonoBrutoMartes}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas Miercoles-->
+                                    <GridViewColumn Header="Hrs Mi" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horasMiercoles}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bono Miercoles-->
+                                    <GridViewColumn Header="$ Mi" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bonoBrutoMiercoles}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas Jueves-->
+                                    <GridViewColumn Header="Hrs Ju" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horasJueves}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bono Jueves-->
+                                    <GridViewColumn Header="$ Ju" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bonoBrutoJueves}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas Viernes-->
+                                    <GridViewColumn Header="Hrs Vi" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horasViernes}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bono Viernes-->
+                                    <GridViewColumn Header="$ Vi" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bonoBrutoViernes}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas Sabado-->
+                                    <GridViewColumn Header="Hrs Sa" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horasSabado}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bono Sabado-->
+                                    <GridViewColumn Header="$ Sa" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bonoBrutoSabado}" Width="70"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region horas-->
+                                    <GridViewColumn Header="Total Hrs" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=horas}" Width="90"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region bon-->
+                                    <GridViewColumn Header="Total $" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=bono}" Width="90"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                 </TabItem>
                 <TabItem Header="Bonificación Por Colaborador" FontSize="15" FontWeight="Bold">
                     <ListView x:Name="listViewBomoPorOperariio">

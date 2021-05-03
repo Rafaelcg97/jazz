@@ -24,10 +24,28 @@ namespace Production_control_1._0.pantallasProduccion
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
+        #region datosIniciales
         public bonos()
         {
             InitializeComponent();
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            sql = "select modulo from modulosProduccion where coordinadorNombre<>'-'";
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                comboBoxModulo.Items.Add(dr["modulo"].ToString());                
+            }
+            dr.Close();
+            cnProduccion.Close();
+            int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            int anio = DateTime.Now.Year;
+            consultarBonoPorModoulo(anio, semana, "0");
         }
+        #endregion
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
@@ -96,21 +114,94 @@ namespace Production_control_1._0.pantallasProduccion
             DateTime v2 = (DateTime)calendarFecha.SelectedDate;
             int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(v2, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             int anio = v2.Year;
+            string modulo = "0";
+            if (comboBoxModulo.SelectedIndex == -1)
+            {
+                modulo = "0";
+            }
+            else
+            {
+                modulo = comboBoxModulo.SelectedItem.ToString();
+            }
+
+            consultarBonoPorModoulo(anio, semana, modulo);
+            consultarBonoPorOperario(anio, semana, modulo);
+            consultarHorasPorOperario(anio, semana, modulo);
+            MessageBox.Show("Datos Cargados");
+        }
+        #region calculosGenerales
+        private void consultarBonoPorModoulo(int anio, int semana, string modulo)
+        {
+            listViewBomoPorModulo.Items.Clear();
             string sql;
             SqlCommand cm;
             SqlDataReader dr;
-            //llenar lista de modulos
-            //consultar
-            sql = "select*from asistencia_3 where semana_b='" + semana + "' and year_b='" + anio + "'";
+            if (modulo == "0")
+            {
+                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
+            }
+            else
+            {
+                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' and modart like'" + comboBoxModulo.SelectedItem.ToString()+"%' order by turno"; 
+            }
             cnProduccion.Open();
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                listViewBomoPorOperariio.Items.Add(new bonoPorOperario {modulo=dr["modulo_b"].ToString(), codigo=Convert.ToInt32(dr["codigo_b"]), nombre=dr["nombre_b"].ToString(), bonoBruto= Convert.ToDouble(dr["bono_total"] is DBNull ? 0 : dr["bono_total"]).ToString("C"), eficienciaG= Convert.ToDouble(dr["efi_$"] is DBNull ? 0 : dr["efi_$"]).ToString("C"), aqlGP= Convert.ToDouble(dr["ganado_aql"] is DBNull ? 0 : dr["ganado_aql"]).ToString("P"), aqlGD= Convert.ToDouble(dr["aql_$"] is DBNull ? 0 : dr["aql_$"]).ToString("C"), aqlIP= Convert.ToDouble(dr["ganado_aqli"] is DBNull ? 0 : dr["ganado_aqli"]).ToString("P"), aqlID= Convert.ToDouble(dr["aqli_$"] is DBNull ? 0 : dr["aqli_$"]).ToString("C"), bpD= Convert.ToDouble(dr["bp_$"] is DBNull ? 0 : dr["bp_$"]).ToString("C"), bpP= Convert.ToDouble(dr["ganado_bp"] is DBNull ? 0 : dr["ganado_bp"]).ToString("P"), asistenciaD= Convert.ToDouble(dr["faltas_$"] is DBNull ? 0 : dr["faltas_$"]).ToString("C"), asistenciaP= Convert.ToDouble(dr["ganado_faltas"] is DBNull ? 0 : dr["ganado_faltas"]).ToString("P"), conductaP= Convert.ToDouble(dr["ganado_amt"] is DBNull ? 0 : dr["ganado_amt"]).ToString("P"), conductaD= Convert.ToDouble(dr["amt_$"] is DBNull ? 0 : dr["amt_$"]).ToString("C"), bonoNeto= Convert.ToDouble(dr["total"] is DBNull ? 0 : dr["total"]).ToString("C") });
+                listViewBomoPorModulo.Items.Add(new bonoPorModulo { turno=dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"]).ToString("P"), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"]), bono = Convert.ToDouble(dr["bono"]).ToString("C") });
             }
             dr.Close();
             cnProduccion.Close();
         }
+        private void consultarBonoPorOperario(int anio, int semana, string modulo)
+        {
+            listViewBomoPorOperariio.Items.Clear();
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            if (modulo == "0")
+            {
+                sql = "select*from asistencia_3 where semana_b='" + semana + "' and year_b='" + anio + "' order by modulo_b";
+            }
+            else
+            {
+                sql = "select*from asistencia_3 where semana_b='" + semana + "' and year_b='" + anio + "' and modulo_b='"+comboBoxModulo.SelectedItem.ToString()+"' order by modulo_b";
+            }
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                listViewBomoPorOperariio.Items.Add(new bonoPorOperario { modulo = dr["modulo_b"].ToString(), codigo = Convert.ToInt32(dr["codigo_b"]), nombre = dr["nombre_b"].ToString(), bonoBruto = Convert.ToDouble(dr["bono_total"] is DBNull ? 0 : dr["bono_total"]).ToString("C"), eficienciaG = Convert.ToDouble(dr["efi_$"] is DBNull ? 0 : dr["efi_$"]).ToString("C"), aqlGP = Convert.ToDouble(dr["ganado_aql"] is DBNull ? 0 : dr["ganado_aql"]).ToString("P"), aqlGD = Convert.ToDouble(dr["aql_$"] is DBNull ? 0 : dr["aql_$"]).ToString("C"), aqlIP = Convert.ToDouble(dr["ganado_aqli"] is DBNull ? 0 : dr["ganado_aqli"]).ToString("P"), aqlID = Convert.ToDouble(dr["aqli_$"] is DBNull ? 0 : dr["aqli_$"]).ToString("C"), bpD = Convert.ToDouble(dr["bp_$"] is DBNull ? 0 : dr["bp_$"]).ToString("C"), bpP = Convert.ToDouble(dr["ganado_bp"] is DBNull ? 0 : dr["ganado_bp"]).ToString("P"), asistenciaD = Convert.ToDouble(dr["faltas_$"] is DBNull ? 0 : dr["faltas_$"]).ToString("C"), asistenciaP = Convert.ToDouble(dr["ganado_faltas"] is DBNull ? 0 : dr["ganado_faltas"]).ToString("P"), conductaP = Convert.ToDouble(dr["ganado_amt"] is DBNull ? 0 : dr["ganado_amt"]).ToString("P"), conductaD = Convert.ToDouble(dr["amt_$"] is DBNull ? 0 : dr["amt_$"]).ToString("C"), bonoNeto = Convert.ToDouble(dr["total"] is DBNull ? 0 : dr["total"]).ToString("C") });
+            }
+            dr.Close();
+            cnProduccion.Close();
+        }
+        private void consultarHorasPorOperario(int anio, int semana, string modulo)
+        {
+            listViewAsitenciaPorColaborador.Items.Clear();
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            if (modulo == "0")
+            {
+                sql = "SELECT [semana],[asignado],[codigo],[nombre],[bonoBrutoLunes],[horasLunes],[bonoBrutoMartes],[horasMartes],[bonoBrutoMiercoles],[horasMiercoles],[bonoBrutoJueves],[horasJueves] ,[bonoBrutoViernes],[horasViernes],[bonoBrutoSabado],[horasSabado],[bonoBruto],[horas] FROM [produccion].[dbo].[bonoPorDiaOperario] where semana='"+semana+"' and anio='"+anio+"' order by asignado";
+            }
+            else
+            {
+                sql = "SELECT [semana],[asignado],[codigo],[nombre],[bonoBrutoLunes],[horasLunes],[bonoBrutoMartes],[horasMartes],[bonoBrutoMiercoles],[horasMiercoles],[bonoBrutoJueves],[horasJueves] ,[bonoBrutoViernes],[horasViernes],[bonoBrutoSabado],[horasSabado],[bonoBruto],[horas] FROM [produccion].[dbo].[bonoPorDiaOperario] where semana='"+semana+"' and anio='"+anio+"'and asignado='"+comboBoxModulo.SelectedItem.ToString()+"' order by asignado";
+            }
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                listViewAsitenciaPorColaborador.Items.Add(new horasPorOperario {semana=Convert.ToInt32(dr["semana"]), modulo=dr["asignado"].ToString(), codigo=Convert.ToInt32(dr["codigo"]), nombre=dr["nombre"].ToString(), bonoBrutoLunes=Convert.ToDouble(dr["bonoBrutoLunes"]).ToString("C"), bonoBrutoMartes = Convert.ToDouble(dr["bonoBrutoMartes"]).ToString("C"), bonoBrutoMiercoles = Convert.ToDouble(dr["bonoBrutoMiercoles"]).ToString("C"), bonoBrutoJueves = Convert.ToDouble(dr["bonoBrutoJueves"]).ToString("C"), bonoBrutoViernes = Convert.ToDouble(dr["bonoBrutoViernes"]).ToString("C"), bonoBrutoSabado = Convert.ToDouble(dr["bonoBrutoSabado"]).ToString("C"),  horasLunes=Convert.ToInt64(dr["horasLunes"]), horasMartes = Convert.ToInt64(dr["horasMartes"]), horasMiercoles= Convert.ToInt64(dr["horasMiercoles"]), horasJueves= Convert.ToInt64(dr["horasJueves"]), horasViernes= Convert.ToInt64(dr["horasViernes"]), horasSabado= Convert.ToInt64(dr["horasSabado"]), horas= Convert.ToInt64(dr["horas"]), bono=Convert.ToDouble(dr["bonoBruto"]).ToString("C") }); 
+            }
+            dr.Close();
+            cnProduccion.Close();
+        }
+        #endregion
     }
 }
