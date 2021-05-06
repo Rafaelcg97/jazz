@@ -28,7 +28,6 @@ namespace Production_control_1._0
 
 
         #endregion
-
         #region datos_iniciales()
         public balance(clases.balance datosBalance)
         {
@@ -557,8 +556,7 @@ namespace Production_control_1._0
                 #endregion
             }
         }
-        #endregion
-         
+        #endregion        
         #region zoom()
 
         private void UpdateViewBox(int newValue)
@@ -581,7 +579,6 @@ namespace Production_control_1._0
 
 
         #endregion
-
         #region contro_general_programa
         #region accionesBarraDeTitulo
         private void ButtonSalir(object sender, RoutedEventArgs e)
@@ -1561,7 +1558,6 @@ namespace Production_control_1._0
         }
         #endregion
         #endregion
-
         #region encabezado()
         #region calculoDeRequerimientoDeMaquinasEficiencia
         private void maquinaRequerimiento(object sender, TextChangedEventArgs e)
@@ -1786,7 +1782,6 @@ namespace Production_control_1._0
 
         #endregion
         #endregion
-
         #region ListViewEmisorDeData
 
         #region GetDataFromListView
@@ -1832,7 +1827,6 @@ namespace Production_control_1._0
             }
         }
         #endregion
-
         #region rebalance()
         private void generarListaDeOperacionesRebalance()
         {
@@ -2103,7 +2097,6 @@ namespace Production_control_1._0
             MessageBox.Show("La Toma de Tiempos ha sido Cargada");
         }
         #endregion
-
         #region listBoxReceptorDeDatos
         private void receptor(object sender, DragEventArgs e)
         {
@@ -2137,7 +2130,6 @@ namespace Production_control_1._0
 
         }
         #endregion
-
         #region coloresDeEstacion
         private void colorVerde(object sender, RoutedEventArgs e)
         {
@@ -2190,7 +2182,6 @@ namespace Production_control_1._0
         }
 
         #endregion
-
         #region coloresBarraAsignado
         private void progressBarAsignado_Loaded(object sender, RoutedEventArgs e)
         {
@@ -2209,7 +2200,6 @@ namespace Production_control_1._0
             }
         }
         #endregion
-
         #region calculosGenerales
         #region soloIngresarNumerosenTextBox
         private void solo_numeros(object sender, KeyEventArgs e)

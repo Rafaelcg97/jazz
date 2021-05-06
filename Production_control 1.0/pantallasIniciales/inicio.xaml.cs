@@ -34,7 +34,6 @@ namespace Production_control_1._0.pantallasIniciales
             public int h12 { get; set; }
         }
         #endregion
-
         #region clases_especiales_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -42,7 +41,6 @@ namespace Production_control_1._0.pantallasIniciales
         public Func<double, string> Formatter2 { get; set; }
 
         #endregion
-
         #region datosIniciales
         public inicio()
         {
@@ -77,7 +75,6 @@ namespace Production_control_1._0.pantallasIniciales
             radioButtomDiurno.IsChecked = true;
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -108,9 +105,7 @@ namespace Production_control_1._0.pantallasIniciales
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
         #endregion
-
         #region actualizarGrafica
-
         private void calendarFecha_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             string fecha = Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd");
@@ -130,7 +125,6 @@ namespace Production_control_1._0.pantallasIniciales
             actualizarGrafica(turno, fecha);
 
         }
-
         private void radioButtomDiurno_Checked(object sender, RoutedEventArgs e)
         {
             string fecha = Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd");
@@ -140,7 +134,6 @@ namespace Production_control_1._0.pantallasIniciales
             }
             actualizarGrafica("Diurno", fecha);
         }
-
         private void radioButtomNocturno_Checked(object sender, RoutedEventArgs e)
         {
             string fecha = Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd");
@@ -151,7 +144,6 @@ namespace Production_control_1._0.pantallasIniciales
             actualizarGrafica("Nocturno", fecha);
 
         }
-
         private void radioButtomExtra_Checked(object sender, RoutedEventArgs e)
         {
             string fecha = Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd");
@@ -162,7 +154,6 @@ namespace Production_control_1._0.pantallasIniciales
             actualizarGrafica("Extra", fecha);
 
         }
-
         private void actualizarGrafica(string turno, string fecha)
         {
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
@@ -201,7 +192,6 @@ namespace Production_control_1._0.pantallasIniciales
             labelTotalEficiencia.Content = (trabajado / disponible).ToString("P");
 
         }
-
         #endregion
     }
 }

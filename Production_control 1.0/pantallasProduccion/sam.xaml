@@ -26,106 +26,107 @@
             </Grid>
         </StackPanel>
         <!--#endregion-->
-        <Grid Background="#FFF1F1F1" Margin="0 55 0 0">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Image x:Name="s1"  Source="/imagenes/ball_red.ico" Grid.Column="0" MaxHeight="10" MaxWidth="10"/>
-        <Label x:Name="temporadal" Content="Temporada" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <ListBox x:Name="temporada"  Grid.RowSpan="5" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Margin="5,0,5,5" SelectionChanged="temporada_SelectionChanged"/>
-        <Image x:Name="s2"  Source="/imagenes/ball_red.ico" Grid.Column="4" MaxHeight="10" MaxWidth="10"/>
-        <Label x:Name="clientel" Content="Cliente" Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="0" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Image x:Name="s3"  Source="/imagenes/ball_red.ico" Grid.Column="9" MaxHeight="10" MaxWidth="10"/>
-        <ListBox x:Name="cliente"  Grid.RowSpan="5"  Grid.ColumnSpan="4"  Grid.Column="5" Grid.Row="1"  Margin="5,0,5,5" SelectionChanged="cliente_SelectionChanged"/>
-        <Label x:Name="tipol" Content="Tipo" Grid.Column="10" Grid.ColumnSpan="3" Grid.Row="0" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <ListBox x:Name="tipo" Grid.RowSpan="5"  Grid.ColumnSpan="3"  Grid.Column="10" Grid.Row="1"  Margin="5,0,5,5" SelectionChanged="tipo_SelectionChanged"/>
-        <Image x:Name="s4"  Source="/imagenes/ball_red.ico" Grid.Column="13" MaxHeight="10" MaxWidth="10"/>
-        <Label x:Name="empaquel" Content="Empaque" Grid.Column="14" Grid.ColumnSpan="3" Grid.Row="0" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <ListBox x:Name="empaque" Grid.RowSpan="5"  Grid.ColumnSpan="5"  Grid.Column="14" Grid.Row="1"  Margin="5,0,5,5" SelectionChanged="empaque_SelectionChanged"/>
-        <ListView x:Name="operaciones" Grid.Row="1" Grid.RowSpan="12" Grid.Column="20" Grid.ColumnSpan="11">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Path=nombreOperacion}"/>
-                    <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}"/>
-                    <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Image x:Name="foto"  Grid.RowSpan="4"  Grid.ColumnSpan="7"  Grid.Column="32" Grid.Row="1"  Margin="5" Stretch="Fill"/>
-        <Image x:Name="s5"  Source="/imagenes/ball_red.ico" Grid.Column="0" Grid.Row="7" MaxHeight="10" MaxWidth="10"/>
-        <Label x:Name="buscarl" Content="Buscar Estilo" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <TextBox x:Name="buscar"  Grid.Column="3" Grid.ColumnSpan="10" Grid.Row="7" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center" VerticalAlignment="Center" TextChanged="buscar_TextChanged"/>
-        <ListBox x:Name="estilo" Grid.RowSpan="5"  Grid.ColumnSpan="18"  Grid.Column="1" Grid.Row="8"  Margin="5,0,5,5" SelectionChanged="estilo_SelectionChanged"/>
-        <Label x:Name="estatusl" Content="Estatus:" Grid.Column="32" Grid.ColumnSpan="3" Grid.Row="5" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="estatus" Content="----" Grid.Column="36" Grid.ColumnSpan="3" Grid.Row="5" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Medium"  VerticalContentAlignment="Bottom"/>
-        <Label x:Name="muestral" Content="Muestra:" Grid.Column="32" Grid.ColumnSpan="3" Grid.Row="6" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="muestra" Content="----" Grid.Column="36" Grid.ColumnSpan="3" Grid.Row="6" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Medium" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="empaql" Content="SAM Empaque:" Grid.Column="32" Grid.ColumnSpan="3" Grid.Row="7" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="empaque_s" Content="----" Grid.Column="36" Grid.ColumnSpan="3" Grid.Row="7" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Medium" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="operacionesl" Content="SAM Costura:" Grid.Column="32" Grid.ColumnSpan="3" Grid.Row="8" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="sam_op" Content="----" Grid.Column="36" Grid.ColumnSpan="3" Grid.Row="8" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Medium" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="elementosl" Content="Elementos Empaque:" Grid.Column="32" Grid.ColumnSpan="3" Grid.Row="9" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Grid Grid.Column="36" Grid.ColumnSpan="3" Grid.Row="9" Grid.RowSpan="1">
-            <TextBlock x:Name="elementos" Text="  ----" TextWrapping="WrapWithOverflow" FontFamily="calibri" FontSize="12" FontWeight="Medium" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <Grid Background="White" Margin="0 55 0 0">
+            <!--#region filas/columnas-->
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--#endregion-->
+            <Button x:Name="buttonSalir" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="35,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent" BorderBrush="Transparent" Click="buttonSalir_Click">
+                <Image Source="/imagenes/salir.png"/>
+            </Button>
+            <!--#region labels de-->
+            <Label Content="Temporada" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
+            <Label Content="Cliente" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
+            <Label Content="Tipo" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
+            <Label Content="Empaque" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
+            <Label Content="Buscar Estilo" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
+            <!--#endregion-->
+            <ListBox x:Name="listBoxTemporada" Grid.Row="2" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxTemporada_SelectionChanged"/>
+            <ListBox x:Name="listBoxCliente" Grid.Row="2" Grid.RowSpan="7" Grid.Column="2" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxCliente_SelectionChanged"/>
+            <ListBox x:Name="listBoxTipo" Grid.Row="2" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="2" Margin="35,0,0,5"/>
+            <ListBox x:Name="listBoxEmpaque" Grid.Row="2" Grid.RowSpan="7" Grid.Column="6" Grid.ColumnSpan="3" Margin="35,0,0,5"/>
+            <Border Grid.RowSpan="7"  Grid.ColumnSpan="4"  Grid.Column="9" Grid.Row="2"  Margin="35,0,0,5" BorderBrush="Black" BorderThickness="2" >
+                <Image x:Name="imageEstilo" />
+            </Border>
+            <ListView x:Name="ListViewOperaciones" Grid.Row="2" Grid.RowSpan="20" Grid.Column="13" Grid.ColumnSpan="7" Margin="35,0,40,20" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Path=nombreOperacion}"/>
+                        <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}"/>
+                        <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBox x:Name="textBoxBuscar" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5" VerticalAlignment="Bottom" MinHeight="25"/>
+            <ListView x:Name="ListViewEstilos" Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" >
+            </ListView>
+            <StackPanel Orientation="Horizontal"  Grid.Column="6" Grid.ColumnSpan="5" Grid.Row="10" Grid.RowSpan="8" >
+                <StackPanel>
+                    <Label Content="Estado:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,0,0,5"/>
+                    <Label Content="Etapa:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label Content="Muestra:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label Content="SAM Costura:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label Content="SAM Empaque:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label Content="SAM Total:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label x:Name="labelEstado" Content="----" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,0,0,5"/>
+                    <Label x:Name="labelEtapa" Content="----" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label x:Name="labelMuestra" Content="----" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label x:Name="labelSamCostura" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label x:Name="labelSamEmpaque" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label x:Name="labelSamTota" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock x:Name="textBlockElementosEmpaques" Grid.Column="6" Grid.Row="18" Grid.ColumnSpan="5" Grid.RowSpan="3"  Margin="35,20,0,20" TextWrapping="Wrap" Text="----" Background="AliceBlue"  FontFamily="calibri" FontSize="20" Padding="10" />
+            <Button x:Name="buttonCrearPlantilla" Grid.Column="11" Grid.Row="18" Grid.ColumnSpan="2" Grid.RowSpan="3"  Margin="35,20,0,20" Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/imagenes/mas.png"/>
+            </Button>
+
+
         </Grid>
-        <Label x:Name="totall" Content="SAM Total:" Grid.Column="32" Grid.ColumnSpan="3" Grid.Row="10" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-        <Label x:Name="total" Content="----" Grid.Column="36" Grid.ColumnSpan="3" Grid.Row="10" Height="30" FontFamily="calibri" FontSize="15" FontWeight="Medium" VerticalContentAlignment="Bottom"/>
-        <Button x:Name="nueva_plantilla" Content="Generar Balance" Grid.Column="32" Grid.ColumnSpan="7" Grid.Row="12" Grid.RowSpan="1" Click="nueva_plantilla_Click"/>
-    </Grid>
     </Grid>
 </Page>
