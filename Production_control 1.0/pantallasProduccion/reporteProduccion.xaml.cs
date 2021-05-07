@@ -21,11 +21,9 @@ namespace Production_control_1._0.pantallasProduccion
     public partial class reporteProduccion : Page
     {
         public string[] _motivos = new string[8];
-
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        public int piezasLote = 0;
         public int piezasReportadas = 0;
         #endregion
         #region datosInciales
@@ -261,7 +259,6 @@ namespace Production_control_1._0.pantallasProduccion
         {
             popUpLote.IsOpen = false;
         }
-
         private void buttonAgregarLote_Click(object sender, RoutedEventArgs e)
         {
             listBoxLote.Items.Clear();
@@ -271,18 +268,17 @@ namespace Production_control_1._0.pantallasProduccion
             SqlDataReader dr;
             //llenar lista de lotes
             cnIngenieria.Open();
-            sql = "select top 10 lote from lotes_unicos_poly";
+            sql = "select top 10 lote, estilo, piezas, temporada, sam, tipo, cliente from lotesconSam";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                listBoxLote.Items.Add(dr["lote"].ToString());
+                listBoxLote.Items.Add( new lote { numeroLote = dr["lote"].ToString(), estilo = dr["estilo"].ToString(), temporada = dr["temporada"].ToString(), sam = Convert.ToDouble(dr["sam"] is DBNull ? 0: dr["sam"] ), piezas=Convert.ToInt32(dr["piezas"]), cliente=dr["cliente"].ToString(), tipo=dr["tipo"].ToString()});
             };
             dr.Close();
             cnIngenieria.Close();
             popUpLote.IsOpen = true;
         }
-
         private void textBoxLote_TextChanged(object sender, TextChangedEventArgs e)
         {
             listBoxLote.Items.Clear();
@@ -291,18 +287,17 @@ namespace Production_control_1._0.pantallasProduccion
             SqlDataReader dr;
             //llenar lista de lotes
             cnIngenieria.Open();
-            sql = "select top 10 lote from lotes_unicos_poly where lote like '" + textBoxLote.Text + "%'";
+            sql = "select top 10 lote, estilo, temporada, piezas, sam from lotesconSam where lote like '" + textBoxLote.Text + "%'";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                listBoxLote.Items.Add(dr["lote"].ToString());
+                listBoxLote.Items.Add(new lote { numeroLote = dr["lote"].ToString(), estilo = dr["estilo"].ToString(), temporada = dr["temporada"].ToString(), sam = Convert.ToDouble(dr["sam"] is DBNull ? 0 : dr["sam"]), piezas = Convert.ToInt32(dr["piezas"]), cliente = dr["cliente"].ToString(), tipo = dr["tipo"].ToString() });
             };
             dr.Close();
             cnIngenieria.Close();
         }
-
-        private void ButtonIngresarContrasena_Click(object sender, RoutedEventArgs e)
+        private void ButtonAgregarLoteSeleccionado_Click(object sender, RoutedEventArgs e)
         {
             #region agregarMotivos
             _motivos[0] = "-";
@@ -317,44 +312,36 @@ namespace Production_control_1._0.pantallasProduccion
             //agregar registro uno de lote
             if (listBoxLote.SelectedIndex > -1)
             {
-                listViewLotes.Items.Add(new horaProduccion { lote = listBoxLote.SelectedItem.ToString(), piezas = piezasLote, terminadas = piezasReportadas, motivoParo="-", motivos=_motivos });
+                lote item = (lote)listBoxLote.SelectedItem;
+                listViewLotes.Items.Add(new horaProduccion { lote = item.numeroLote, piezas = item.piezas, terminadas = piezasReportadas, motivoParo = "-", motivos = _motivos });
                 calculosLotes();
             }
             else
             {
                 MessageBox.Show("No seleccionaste ningun lote");
             }
-
         }
-
         private void listBoxLote_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listBoxLote.SelectedIndex > -1)
             {
+                lote item = (lote)listBoxLote.SelectedItem;
+                popUpLabelEstilo.Content = item.estilo;
+                popUpLabelTemporada.Content = item.temporada;
+                popUpLabelSam.Content = Math.Round(item.sam,4);
                 string sql;
                 SqlCommand cm;
                 SqlDataReader dr;
                 //llenar lista de lotes
-                cnIngenieria.Open();
-                sql = "select sum (cantidad) from lotespoly where lote='" + listBoxLote.SelectedItem.ToString() + "'";
-                cm = new SqlCommand(sql, cnIngenieria);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                piezasLote = Convert.ToInt32(dr[0]);
-                dr.Close();
-                cnIngenieria.Close();
-
                 cnProduccion.Open();
-                sql = "select sum(totalDePiezas) from horahora where lote='" + listBoxLote.SelectedItem.ToString() + "'";
+                sql = "select sum(totalDePiezas) as totalDePiezas from horahora where lote='" + item.numeroLote + "'";
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 dr.Read();
-                piezasReportadas = Convert.ToInt32(dr[0] is DBNull ? 0 : dr[0]);
-                dr.Close();
+                piezasReportadas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]);
                 cnProduccion.Close();
             }
         }
-
         #endregion
         #region calculosGenerales
         private void calculosLotes()

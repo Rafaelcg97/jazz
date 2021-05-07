@@ -213,6 +213,7 @@
     <Compile Include="clases\estilo.cs" />
     <Compile Include="clases\horaProduccion.cs" />
     <Compile Include="clases\horasPorOperario.cs" />
+    <Compile Include="clases\lote.cs" />
     <Compile Include="clases\maquina.cs" />
     <Compile Include="clases\operacion.cs" />
     <Compile Include="clases\operario.cs" />
@@ -628,6 +629,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\boton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\nuevo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

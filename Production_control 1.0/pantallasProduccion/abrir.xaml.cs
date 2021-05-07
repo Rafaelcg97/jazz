@@ -51,7 +51,6 @@ namespace Production_control_1._0
         }
         #endregion
         #endregion
-
         #region datos_iniciales()
         public abrir()
         {
@@ -76,9 +75,7 @@ namespace Production_control_1._0
         }
 
         #endregion
-
         #region filtros_de_list_box
-
         private void modulo__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // se limpian los datos cargados en temporada estilo y versiones
@@ -110,7 +107,6 @@ namespace Production_control_1._0
             dr.Close();
             cn.Close();
         }
-
         private void temporada__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // se limpian los datos cargados en estilo y versiones
@@ -148,7 +144,6 @@ namespace Production_control_1._0
 
             }
         }
-
         private void estilo__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // se limpian los datos cargados de las versiones
@@ -197,7 +192,6 @@ namespace Production_control_1._0
 
             }
         }
-
         private void vers__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // se limipian los datos de las versiones consultadas
@@ -232,9 +226,7 @@ namespace Production_control_1._0
 
 
         }
-
         #endregion
-
         #region abrir_balance
         private void abrir_c_Click(object sender, RoutedEventArgs e)
         { 

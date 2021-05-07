@@ -7,6 +7,33 @@
       xmlns:local="clr-namespace:Production_control_1._0"
       mc:Ignorable="d"
       Title="sam" Height="auto" Width="auto">
+    <Page.Resources>
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="1" Height="50" Background="#FF0069C0" CornerRadius="8">
+                            <StackPanel>
+                                <Label FontWeight="Bold" Content="{Binding nombre}" Padding="5,0,5,0" Margin="0,15,0,15" FontSize="12" VerticalContentAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- para que no muestre el scroll horizontal -->
+            <Setter 
+        Property="ScrollViewer.HorizontalScrollBarVisibility" 
+        Value="Disabled" 
+        />
+        </Style>
+    </Page.Resources>
     <Grid Background="#FFEEEEEE" x:Name="GridInicio">
         <!--#region  region control general del programa-->
         <StackPanel VerticalAlignment="Top">
@@ -86,23 +113,22 @@
             <!--#endregion-->
             <ListBox x:Name="listBoxTemporada" Grid.Row="2" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxTemporada_SelectionChanged"/>
             <ListBox x:Name="listBoxCliente" Grid.Row="2" Grid.RowSpan="7" Grid.Column="2" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxCliente_SelectionChanged"/>
-            <ListBox x:Name="listBoxTipo" Grid.Row="2" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="2" Margin="35,0,0,5"/>
-            <ListBox x:Name="listBoxEmpaque" Grid.Row="2" Grid.RowSpan="7" Grid.Column="6" Grid.ColumnSpan="3" Margin="35,0,0,5"/>
+            <ListBox x:Name="listBoxTipo" Grid.Row="2" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxTipo_SelectionChanged"/>
+            <ListBox x:Name="listBoxEmpaque" Grid.Row="2" Grid.RowSpan="7" Grid.Column="6" Grid.ColumnSpan="3" Margin="35,0,0,5" SelectionChanged="listBoxEmpaque_SelectionChanged"/>
             <Border Grid.RowSpan="7"  Grid.ColumnSpan="4"  Grid.Column="9" Grid.Row="2"  Margin="35,0,0,5" BorderBrush="Black" BorderThickness="2" >
                 <Image x:Name="imageEstilo" />
             </Border>
             <ListView x:Name="ListViewOperaciones" Grid.Row="2" Grid.RowSpan="20" Grid.Column="13" Grid.ColumnSpan="7" Margin="35,0,40,20" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Path=nombreOperacion}"/>
-                        <GridViewColumn Header="Operacion" DisplayMemberBinding="{Binding Path=tituloOperacion}"/>
+                        <GridViewColumn Header="Operación" DisplayMemberBinding="{Binding Path=tituloOperacion}"/>
+                        <GridViewColumn Header="Máquina" DisplayMemberBinding="{Binding Path=ajusteMaquina}"/>
                         <GridViewColumn Header="SAM" DisplayMemberBinding="{Binding Path=samOperacion}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TextBox x:Name="textBoxBuscar" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5" VerticalAlignment="Bottom" MinHeight="25"/>
-            <ListView x:Name="ListViewEstilos" Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" >
-            </ListView>
+            <TextBox x:Name="textBoxBuscar" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5" VerticalAlignment="Bottom" MinHeight="25" TextChanged="textBoxBuscar_TextChanged"/>
+            <ListView x:Name="ListViewEstilos" Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" SelectionChanged="ListViewEstilos_SelectionChanged"/>
             <StackPanel Orientation="Horizontal"  Grid.Column="6" Grid.ColumnSpan="5" Grid.Row="10" Grid.RowSpan="8" >
                 <StackPanel>
                     <Label Content="Estado:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,0,0,5"/>
@@ -121,12 +147,10 @@
                     <Label x:Name="labelSamTota" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                 </StackPanel>
             </StackPanel>
-            <TextBlock x:Name="textBlockElementosEmpaques" Grid.Column="6" Grid.Row="18" Grid.ColumnSpan="5" Grid.RowSpan="3"  Margin="35,20,0,20" TextWrapping="Wrap" Text="----" Background="AliceBlue"  FontFamily="calibri" FontSize="20" Padding="10" />
-            <Button x:Name="buttonCrearPlantilla" Grid.Column="11" Grid.Row="18" Grid.ColumnSpan="2" Grid.RowSpan="3"  Margin="35,20,0,20" Background="Transparent" BorderBrush="Transparent">
-                <Image Source="/imagenes/mas.png"/>
+            <TextBlock x:Name="textBlockElementosEmpaques" Grid.Column="6" Grid.Row="18" Grid.ColumnSpan="5" Grid.RowSpan="3"  Margin="35,20,0,20" TextWrapping="Wrap" Text="----" Background="#FF7DAFDA"  FontFamily="calibri" FontSize="20" Padding="10" />
+            <Button x:Name="buttonCrearPlantilla" Grid.Column="11" Grid.Row="18" Grid.ColumnSpan="2" Grid.RowSpan="3"  Margin="35,20,0,20" Background="Transparent" BorderBrush="Transparent" Click="buttonCrearPlantilla_Click">
+                <Image Source="/imagenes/nuevo.png"/>
             </Button>
-
-
         </Grid>
     </Grid>
 </Page>
