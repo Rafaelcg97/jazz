@@ -74,7 +74,6 @@ namespace Production_control_1._0.pantallasProduccion
 
             #endregion
         }
-
         #endregion
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
@@ -138,9 +137,11 @@ namespace Production_control_1._0.pantallasProduccion
         }
         #endregion
         #region consultarRegistros
-
         private void consultarRegistros()
         {
+            List<horaProduccion> lista = new List<horaProduccion>();
+            List<string> lotes = new List<string>();
+            List<string> empaques = new List<string>();
             //limpiar consulta anterior
             listViewRegistros.Items.Clear();
             //variables de conexion
@@ -241,28 +242,41 @@ namespace Production_control_1._0.pantallasProduccion
 
             //llenar lista de modulos
             cnProduccion.Open();
-            sql = "select num_hh, Fecha, Turno, Hora, Modulo, arterias, [Cod Info Estilo] as codigo, sam, Incapacitados, Permisos, [Cita ISSS] as cita, Inasistencia, [Ope Costura] as costura, [Ope Manuales] as manuales, ";
+            sql = "select num_hh, Fecha, Turno, Hora, Modulo, arterias, estilo, temporada, empaque, sam, Incapacitados, Permisos, [Cita ISSS] as cita, Inasistencia, [Ope Costura] as costura, [Ope Manuales] as manuales, ";
             sql = sql + "Lote, [2XS] as xxs, XS, S, M, L, XL, [2XL] as xxl, [3XL] as xxxl, [Tiempo de Paro] as tiempoParo, [Motivo de Paro] as motivoParo, [Custom], [Minutos efectivos] as minutosEfectivos, [Cambio de Estilo] as cambioEstilo, ingresadoPor from horahora where fecha='" + fecha + "' and modulo='" + modulo + "' and arterias='" + arteria + "'" ;
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-            listViewRegistros.Items.Add(new horaProduccion { num_hh = Convert.ToInt32(dr["num_hh"]), fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), turno = dr["Turno"].ToString(), turnos = _turnos, hora = Convert.ToInt32(dr["hora"]), horas = _horas, modulo = dr["Modulo"].ToString(), modulos = _modulos, arteria = Convert.ToInt32(dr["arterias"]), arterias = _arterias, codigo = Convert.ToInt32(dr["codigo"]), sam = Convert.ToDouble(dr["sam"]), incapacitados=Convert.ToInt32(dr["incapacitados"]), permisos=Convert.ToInt32(dr["Permisos"]), cita=Convert.ToInt32(dr["cita"]), inasistencia=Convert.ToInt32(dr["Inasistencia"]), opeCostura= Convert.ToInt32(dr["costura"]), opeManuales=Convert.ToInt32(dr["manuales"]),lote=dr["lote"].ToString(), xxs=Convert.ToInt32(dr["xxs"]), xs=Convert.ToInt32(dr["xs"]), s=Convert.ToInt32(dr["s"]), m=Convert.ToInt32(dr["m"]), l=Convert.ToInt32(dr["l"]), xl=Convert.ToInt32(dr["xl"]), xxl=Convert.ToInt32(dr["xxl"]), xxxl=Convert.ToInt32(dr["xxxl"]), tiempoParo=Convert.ToDouble(dr["tiempoParo"]), motivoParo=dr["motivoParo"].ToString() , motivos=_motivos, custom=dr["custom"].ToString(), eleccion=_eleccion, cambioEstilo=dr["cambioEstilo"].ToString(), minutosEfectivos=Convert.ToDouble(dr["minutosEfectivos"]), ingresadoPor=dr["ingresadoPor"].ToString()  });
+                lista.Add(new horaProduccion { num_hh = Convert.ToInt32(dr["num_hh"]), fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), turno = dr["Turno"].ToString(), turnos = _turnos, hora = Convert.ToInt32(dr["hora"]), horas = _horas, modulo = dr["Modulo"].ToString(), modulos = _modulos, arteria = Convert.ToInt32(dr["arterias"]), arterias = _arterias, estilo=dr["estilo"].ToString(), temporada=dr["temporada"].ToString(), empaque=dr["empaque"].ToString(), sam = Convert.ToDouble(dr["sam"]), incapacitados=Convert.ToInt32(dr["incapacitados"]), permisos=Convert.ToInt32(dr["Permisos"]), cita=Convert.ToInt32(dr["cita"]), inasistencia=Convert.ToInt32(dr["Inasistencia"]), opeCostura= Convert.ToInt32(dr["costura"]), opeManuales=Convert.ToInt32(dr["manuales"]),lote=dr["lote"].ToString(), xxs=Convert.ToInt32(dr["xxs"]), xs=Convert.ToInt32(dr["xs"]), s=Convert.ToInt32(dr["s"]), m=Convert.ToInt32(dr["m"]), l=Convert.ToInt32(dr["l"]), xl=Convert.ToInt32(dr["xl"]), xxl=Convert.ToInt32(dr["xxl"]), xxxl=Convert.ToInt32(dr["xxxl"]), tiempoParo=Convert.ToDouble(dr["tiempoParo"]), motivoParo=dr["motivoParo"].ToString() , motivos=_motivos, custom=dr["custom"].ToString(), eleccion=_eleccion, cambioEstilo=dr["cambioEstilo"].ToString(), minutosEfectivos=Convert.ToDouble(dr["minutosEfectivos"]), ingresadoPor=dr["ingresadoPor"].ToString()  });
             };
             dr.Close();
             cnProduccion.Close();
-        }
 
+            cnIngenieria.Open();
+            foreach (horaProduccion item in lista)
+            {
+                empaques.Clear();
+                sql = "select tipo_empaque from lotesconsamempaque where lote='" + item.lote + "'";
+                cm = new SqlCommand(sql, cnIngenieria);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    empaques.Add(dr["tipo_empaque"].ToString());
+                };
+                dr.Close();
+                listViewRegistros.Items.Add(new horaProduccion {fecha=item.fecha, turno=item.turno, hora=item.hora, modulo=item.modulo, arteria=item.arteria, lote=item.lote, empaque=item.empaque, empaques=empaques, estilo=item.estilo, temporada=item.temporada, sam=item.sam, incapacitados=item.incapacitados, permisos=item.permisos, cita=item.cita, inasistencia=item.inasistencia, opeCostura=item.opeCostura, opeManuales=item.opeManuales, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl, motivoParo=item.motivoParo, tiempoParo=item.tiempoParo, custom=item.custom, minutosEfectivos=item.minutosEfectivos, cambioEstilo=item.cambioEstilo, ingresadoPor=item.ingresadoPor, num_hh=item.num_hh, arterias=item.arterias, turnos=item.turnos, modulos=item.modulos, horas=item.horas});
+            }
+            cnIngenieria.Close();
+        }
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             consultarRegistros();
         }
-
         private void calendarFecha_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             consultarRegistros();
         }
-
         private void comboBoxArteria_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             consultarRegistros();
@@ -279,7 +293,7 @@ namespace Production_control_1._0.pantallasProduccion
             cnProduccion.Open();
             foreach (horaProduccion item in listViewRegistros.Items)
             {
-                sql = "update horahora set turno='" + item.turno + "', Fecha='"+ item.fecha +"', Hora= '"+ item.hora +"', Modulo='"+ item.modulo + "', arterias='"+ item.arteria +"', [Cod Info Estilo]='"+ item.codigo + "', incapacitados='"+ item.incapacitados +"', Permisos='"+item.permisos+"', [Cita ISSS]= '"+ item.cita + "', Inasistencia= '"+item.inasistencia+"', [Ope Costura]= '"+item.opeCostura+"', [Ope Manuales]='"+item.opeCostura +"', Lote='"+item.lote+"', [2XS]='"+item.xxs+"', XS='"+item.xs +"', S='"+item.s+"', M='"+item.m +"', L='"+item.l+"', XL='"+item.xl+"', [2XL]='"+item.xxl+"', [3XL]='"+item.xxxl+"', [Tiempo de Paro]='"+item.tiempoParo+"', [Motivo de Paro]='"+item.motivoParo+"', [custom]='"+item.custom+"', [Minutos Efectivos]='"+item.minutosEfectivos+"', [Cambio de Estilo]='"+item.cambioEstilo+"', ingresadoPor='"+labelUsuario.Content.ToString()+"'  where num_hh='"+item.num_hh+"'";
+                sql = "update horahora set turno='" + item.turno + "', Fecha='"+ item.fecha +"', Hora= '"+ item.hora +"', Modulo='"+ item.modulo + "', arterias='"+ item.arteria +"', estilo='"+ item.estilo + "', temporada='"+item.temporada+"', empaque='"+item.empaque+"', incapacitados='"+ item.incapacitados +"', Permisos='"+item.permisos+"', [Cita ISSS]= '"+ item.cita + "', Inasistencia= '"+item.inasistencia+"', [Ope Costura]= '"+item.opeCostura+"', [Ope Manuales]='"+item.opeCostura +"', Lote='"+item.lote+"', [2XS]='"+item.xxs+"', XS='"+item.xs +"', S='"+item.s+"', M='"+item.m +"', L='"+item.l+"', XL='"+item.xl+"', [2XL]='"+item.xxl+"', [3XL]='"+item.xxxl+"', [Tiempo de Paro]='"+item.tiempoParo+"', [Motivo de Paro]='"+item.motivoParo+"', [custom]='"+item.custom+"', [Minutos Efectivos]='"+item.minutosEfectivos+"', [Cambio de Estilo]='"+item.cambioEstilo+"', ingresadoPor='"+labelUsuario.Content.ToString()+"'  where num_hh='"+item.num_hh+"'";
                 cm = new SqlCommand(sql, cnProduccion);
                 cm.ExecuteNonQuery();
             }
@@ -295,25 +309,25 @@ namespace Production_control_1._0.pantallasProduccion
             double _sam = 0;
             #endregion
             List<horaProduccion> listaAuxiliar = new  List<horaProduccion>();
-            cnProduccion.Open();
+            cnIngenieria.Open();
             foreach (horaProduccion item in listViewRegistros.Items)
             {
-                sql = "select SAM from sam where CODIGO='"+item.codigo+"'";
-                cm = new SqlCommand(sql, cnProduccion);
+                sql = "select sam from lotesconsamempaque where lote='" + item.lote+"' and tipo_empaque='"+item.empaque+"'";
+                cm = new SqlCommand(sql, cnIngenieria);
                 dr = cm.ExecuteReader();
                 if (dr.Read())
                 {
-                    _sam = Convert.ToDouble(dr["SAM"]);
+                    _sam = Convert.ToDouble(dr["sam"]);
                 }
                 dr.Close();
-                listaAuxiliar.Add(new horaProduccion { num_hh = item.num_hh, fecha = item.fecha, turno = item.turno, turnos = item.turnos, hora = item.hora, horas = item.horas, modulo = item.modulo, modulos = item.modulos, arteria = item.arteria, arterias = item.arterias, codigo = item.codigo, sam = _sam, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos = item.motivos, custom = item.custom, eleccion = item.eleccion, cambioEstilo = item.cambioEstilo, minutosEfectivos = item.minutosEfectivos, ingresadoPor = item.ingresadoPor });
+                listaAuxiliar.Add(new horaProduccion { num_hh = item.num_hh, fecha = item.fecha, turno = item.turno, turnos = item.turnos, hora = item.hora, horas = item.horas, modulo = item.modulo, modulos = item.modulos, arteria = item.arteria, arterias = item.arterias, estilo=item.estilo, empaque=item.empaque, temporada=item.temporada, sam = _sam, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos = item.motivos, custom = item.custom, eleccion = item.eleccion, cambioEstilo = item.cambioEstilo, minutosEfectivos = item.minutosEfectivos, ingresadoPor = item.ingresadoPor });
             }
-            cnProduccion.Close();
+            cnIngenieria.Close();
             //limpiar listVien y agregar nuevos
             listViewRegistros.Items.Clear();
             foreach(horaProduccion item2 in listaAuxiliar)
             {
-                listViewRegistros.Items.Add(new horaProduccion { num_hh = item2.num_hh, fecha = item2.fecha, turno = item2.turno, turnos = item2.turnos, hora = item2.hora, horas = item2.horas, modulo = item2.modulo, modulos = item2.modulos, arteria = item2.arteria, arterias = item2.arterias, codigo = item2.codigo, sam = item2.sam, incapacitados = item2.incapacitados, permisos = item2.permisos, cita = item2.cita, inasistencia = item2.inasistencia, opeCostura = item2.opeCostura, opeManuales = item2.opeManuales, lote = item2.lote, xxs = item2.xxs, xs = item2.xs, s = item2.s, m = item2.m, l = item2.l, xl = item2.xl, xxl = item2.xxl, xxxl = item2.xxxl, tiempoParo = item2.tiempoParo, motivoParo = item2.motivoParo, motivos = item2.motivos, custom = item2.custom, eleccion = item2.eleccion, cambioEstilo = item2.cambioEstilo, minutosEfectivos = item2.minutosEfectivos, ingresadoPor = item2.ingresadoPor });
+                listViewRegistros.Items.Add(new horaProduccion { num_hh = item2.num_hh, fecha = item2.fecha, turno = item2.turno, turnos = item2.turnos, hora = item2.hora, horas = item2.horas, modulo = item2.modulo, modulos = item2.modulos, arteria = item2.arteria, arterias = item2.arterias, estilo=item2.estilo, temporada=item2.temporada, empaque=item2.empaque, sam = item2.sam, incapacitados = item2.incapacitados, permisos = item2.permisos, cita = item2.cita, inasistencia = item2.inasistencia, opeCostura = item2.opeCostura, opeManuales = item2.opeManuales, lote = item2.lote, xxs = item2.xxs, xs = item2.xs, s = item2.s, m = item2.m, l = item2.l, xl = item2.xl, xxl = item2.xxl, xxxl = item2.xxxl, tiempoParo = item2.tiempoParo, motivoParo = item2.motivoParo, motivos = item2.motivos, custom = item2.custom, eleccion = item2.eleccion, cambioEstilo = item2.cambioEstilo, minutosEfectivos = item2.minutosEfectivos, ingresadoPor = item2.ingresadoPor });
             }
             MessageBox.Show("SAM Actualizado");
 

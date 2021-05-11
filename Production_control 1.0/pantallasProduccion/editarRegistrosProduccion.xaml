@@ -143,11 +143,38 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <!--#endregion-->
-                        <!--#region codigo-->
-                        <GridViewColumn Header="Código" Width="60">
+                        <!--#region lote-->
+                        <GridViewColumn Header="Lote" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=codigo}" Width="45" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" KeyDown="solo_numeros"/>
+                                    <TextBox Text="{Binding Path=lote}" Width="95" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region empaque-->
+                        <GridViewColumn Header="Empaque" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding Path=empaque}" ItemsSource="{Binding Path=empaques}" Width="138" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" MinHeight="23" VerticalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region estilo-->
+                        <GridViewColumn Header="Estilo" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=estilo}" Width="120" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region temporada-->
+                        <GridViewColumn Header="Temporada" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=temporada}" Width="55" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -211,15 +238,6 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Text="{Binding Path=opeManuales}" Width="40" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center" KeyDown="soloNumerosDecimales"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <!--#endregion-->
-                        <!--#region lote-->
-                        <GridViewColumn Header="Lote" Width="110">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding Path=lote}" Width="95" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" HorizontalContentAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

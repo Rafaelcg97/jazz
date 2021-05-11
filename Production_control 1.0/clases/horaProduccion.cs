@@ -15,7 +15,10 @@ namespace Production_control_1._0.clases
         public string modulo { get; set; }
         public int arteria { get; set; }
         public int coordinador { get; set; }
-        public int codigo { get; set; }
+        public string estilo { get; set; }
+        public string temporada { get; set; }
+        public string empaque { get; set; }
+        public string descripcion { get; set; }
         public double sam { get; set; }
         public double opeCostura { get; set; }
         public double opeManuales { get; set; }
@@ -47,6 +50,7 @@ namespace Production_control_1._0.clases
         public string[] eleccion { get; set; }
         public int[] arterias { get; set; }
         public string[] motivos { get; set; }
+        public List<string> empaques { get; set; }
     }
 }
 

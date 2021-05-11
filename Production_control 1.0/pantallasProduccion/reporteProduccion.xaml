@@ -177,7 +177,7 @@
             </Button>
             <ScrollViewer Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="7">
                 <StackPanel Orientation="Horizontal">
-                    <ListView x:Name="listViewLotes" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" KeyDown="listViewLotes_KeyDown" >
+                    <ListView x:Name="listViewLotes" HorizontalAlignment="Stretch" FontSize="20" SelectionMode="Single" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" KeyDown="listViewLotes_KeyDown" SelectionChanged="listViewLotes_SelectionChanged" >
                 <ListView.View>
                     <GridView>
                         <!--#region lote-->
@@ -190,10 +190,10 @@
                         </GridViewColumn>
                         <!--#endregion-->
                         <!--#region codigo-->
-                            <GridViewColumn Header="Código">
+                            <GridViewColumn Header="Empaque">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox  Text="{Binding Path=codigo}" Width="125"  LostFocus="LostFocusElementoCompleto"  KeyDown="solo_numeros" GotFocus="TextBox_GotFocus" />
+                                            <Label Content="{Binding Path=empaque}" Width="125" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"  />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -337,11 +337,17 @@
             </ScrollViewer>
         </Grid>
         <!--#region popUp lote-->
-        <Popup x:Name="popUpLote" Height="300" Width="400" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center" AllowsTransparency="True">
+        <Popup x:Name="popUpLote" Height="300" Width="600" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center" AllowsTransparency="True">
             <Border Background="White" CornerRadius="4">
                 <Grid>
                     <!--#region filas/columnas-->
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -363,25 +369,44 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <!--#endregion-->
-                    <Button x:Name="ButtonCerrarPopup" Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="0,0,0,15" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Click="ButtonCerrarPopup_Click" >
+                    <Button x:Name="ButtonCerrarPopup" Grid.Row="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="0,0,0,15" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Click="ButtonCerrarPopup_Click" >
                         <Image Source="/imagenes/cerrar.png"/>
                     </Button>
-                    <Label FontSize="20" Grid.RowSpan="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="9" Content="Lotes Disponibles" HorizontalAlignment="Center" FontWeight="Bold"/>
-                    <TextBox FontSize="12" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="1" x:Name="textBoxLote" TextChanged="textBoxLote_TextChanged" TabIndex="13" MaxHeight="20"/>
-                    <ListBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="3" x:Name="listBoxLote" Margin="0,0,0,10" SelectionChanged="listBoxLote_SelectionChanged" TabIndex="14">
+                    <Label FontSize="20" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Content="Lotes Disponibles" HorizontalAlignment="Center" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                    <TextBox FontSize="12" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Grid.RowSpan="1" x:Name="textBoxLote" TextChanged="textBoxLote_TextChanged" TabIndex="13" MaxHeight="20"/>
+                    <Label FontSize="15" Grid.RowSpan="2" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="4" Content="Empaques" HorizontalAlignment="Left" FontWeight="Bold" Margin="10,0,0,10"/>
+                    <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="3" x:Name="listBoxLote" Margin="0,0,0,10" SelectionChanged="listBoxLote_SelectionChanged" TabIndex="14">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding numeroLote}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Label FontSize="17" Grid.RowSpan="2" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Content="Estilo:" HorizontalAlignment="Left" FontWeight="Bold" Margin="5,0,0,0" VerticalContentAlignment="Center"/>
-                    <Label FontSize="17" Grid.RowSpan="2" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Content="Temp:" HorizontalAlignment="Left" FontWeight="Bold" Margin="5,0,0,0" VerticalContentAlignment="Center"/>
-                    <Label FontSize="17" Grid.RowSpan="2" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Content="SAM:" HorizontalAlignment="Left" FontWeight="Bold" Margin="5,0,0,0" VerticalContentAlignment="Center"/>
-                    <Label FontSize="12" Grid.RowSpan="2" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Content="----" HorizontalAlignment="Left" FontWeight="Bold" Margin="5,0,0,0" x:Name="popUpLabelEstilo" VerticalContentAlignment="Center"/>
-                    <Label FontSize="12" Grid.RowSpan="2" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Content="----" HorizontalAlignment="Left" FontWeight="Bold" Margin="5,0,0,0" x:Name="popUpLabelTemporada" VerticalContentAlignment="Center"/>
-                    <Label FontSize="12" Grid.RowSpan="2" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Content="0" HorizontalAlignment="Left" FontWeight="Bold" Margin="5,0,0,0" x:Name="popUpLabelSam" VerticalContentAlignment="Center"/>
-                    <Button x:Name="ButtonAgregarLoteSeleccionado" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent"  TabIndex="15" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="ButtonAgregarLoteSeleccionado_Click">
+                    <ListBox Grid.Column="5" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="3" x:Name="listBoxEmpaqueLo" Margin="10,0,0,10" TabIndex="14" SelectionChanged="listBoxEmpaqueLo_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding empaque}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="6" Grid.RowSpan="5" Margin="10,0,0,0">
+                        <StackPanel>
+                            <Label FontSize="17" Content="Estilo:" HorizontalAlignment="Left" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="Temp:" HorizontalAlignment="Left" FontWeight="Bold"  VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="SAM Op:" HorizontalAlignment="Left" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="SAM Emp:" HorizontalAlignment="Left" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="SAM To:" HorizontalAlignment="Left" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Margin="5,0,0,0">
+                            <Label FontSize="17" Content="----" HorizontalAlignment="Left" FontWeight="SemiBold" x:Name="popUpLabelEstilo" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="----" HorizontalAlignment="Left" FontWeight="SemiBold" x:Name="popUpLabelTemporada" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="0" HorizontalAlignment="Left" FontWeight="SemiBold" x:Name="popUpLabelSamO" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="0" HorizontalAlignment="Left" FontWeight="SemiBold" x:Name="popUpLabelSamE" VerticalContentAlignment="Center"/>
+                            <Label FontSize="17" Content="0" HorizontalAlignment="Left" FontWeight="SemiBold" x:Name="popUpLabelSamT" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock FontSize="8" Grid.RowSpan="2" Grid.Row="7" Grid.Column="9" Grid.ColumnSpan="4" Text="----" HorizontalAlignment="Center" FontWeight="Bold" Margin="5,0,0,0" x:Name="popUpTextBlockEmpaque" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    <Button x:Name="ButtonAgregarLoteSeleccionado" Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent"  TabIndex="15" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="ButtonAgregarLoteSeleccionado_Click">
                         <Image Source="/imagenes/aceptarAmarillo.png"/>
                     </Button>
                 </Grid>
