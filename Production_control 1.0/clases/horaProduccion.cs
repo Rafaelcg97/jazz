@@ -38,6 +38,7 @@ namespace Production_control_1._0.clases
         public int xl { get; set; }
         public int xxl { get; set; }
         public int xxxl { get; set; }
+        public int totalDePiezas { get; set; }
         public double tiempoParo { get; set; }
         public string motivoParo { get; set; }
         public string custom { get; set; }

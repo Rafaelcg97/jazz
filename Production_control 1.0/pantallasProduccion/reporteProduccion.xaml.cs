@@ -282,6 +282,7 @@ namespace Production_control_1._0.pantallasProduccion
         private void buttonAgregarLote_Click(object sender, RoutedEventArgs e)
         {
             //listBoxLote.Items.Clear();
+            listaDeLotes.Clear();
             textBoxLote.Clear();
             listBoxLote.Items.Clear();
             string sql;
@@ -572,12 +573,17 @@ namespace Production_control_1._0.pantallasProduccion
                         sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "', '"+ labelIngen.Content.ToString() + "')";
                         cm = new SqlCommand(sql, cnProduccion);
                         cm.ExecuteNonQuery();
+                        PagePrincipal pagePrincipal = new PagePrincipal();
+                        NavigationService.Navigate(pagePrincipal);
+                    }
+                    else
+                    {
+                        popUpValidarUsuario.IsOpen = true;
                     }
                 }
                 cnProduccion.Close();
 
-                PagePrincipal pagePrincipal = new PagePrincipal();
-                NavigationService.Navigate(pagePrincipal);
+
             }
         }
         #endregion
