@@ -94,7 +94,6 @@ namespace Production_control_1._0.pantallasProduccion
             labelFecha.Content = fecha;
             buttonGuardar.IsEnabled = false;
         }
-
         #endregion
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
@@ -485,14 +484,14 @@ namespace Production_control_1._0.pantallasProduccion
                     }
                     else
                     {
-                        items.Add(new horaProduccion { lote = item.lote, piezas=item.piezas, terminadas=item.terminadas, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos=item.motivos, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl });
+                        items.Add(item);
                     }
                 }
 
                 listViewLotes.Items.Clear();
                 foreach (horaProduccion item2 in items)
                 {
-                    listViewLotes.Items.Add(new horaProduccion { lote = item2.lote, piezas=item2.piezas, terminadas=item2.terminadas, tiempoParo = item2.tiempoParo, motivoParo = item2.motivoParo, motivos=item2.motivos, xxs = item2.xxs, xs = item2.xs, s = item2.s, m = item2.m, l = item2.l, xl = item2.xl, xxl = item2.xxl, xxxl = item2.xxxl });
+                    listViewLotes.Items.Add(item2);
                 }
 
                 calculosLotes();
@@ -526,8 +525,6 @@ namespace Production_control_1._0.pantallasProduccion
             dr.Close();
             cnProduccion.Close();
             #endregion
-
-
         }
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
@@ -561,30 +558,114 @@ namespace Production_control_1._0.pantallasProduccion
                 string cambioEstilo = "No";
                 if (checkBoxCustom.IsChecked == true) { custom_ = "Si"; }
                 if(checkBoxCambio.IsChecked == true) { cambioEstilo = "Si"; }
-                //consultar
-                cnProduccion.Open();
+                //consultar si todos los lotes son validos
+                int conteoLotesInvalidos = 0;
                 foreach (horaProduccion item in listViewPiezas.Items)
                 {
-                    if(item.colorLote != "Red")
+                    if (item.colorLote == "Red")
                     {
-                        sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, estilo, temporada, empaque, SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo], ingresadoPor) ";
-                        sql = sql + "values('" + fecha + "', '" + turno + "', " + hora + ", '" + modulo + "', " + arteria + ", '" + coordinador + "', '" + item.estilo + "', '"+item.temporada + "', '"+item.empaque+"', ";
-                        sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', "+ item.tiempoParo +", '";
-                        sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "', '"+ labelIngen.Content.ToString() + "')";
-                        cm = new SqlCommand(sql, cnProduccion);
-                        cm.ExecuteNonQuery();
-                        PagePrincipal pagePrincipal = new PagePrincipal();
-                        NavigationService.Navigate(pagePrincipal);
-                    }
-                    else
-                    {
-                        popUpValidarUsuario.IsOpen = true;
+                        conteoLotesInvalidos = conteoLotesInvalidos + 1;
                     }
                 }
-                cnProduccion.Close();
-
-
+                if (conteoLotesInvalidos > 0)
+                {
+                    buttonIngresarLotesRojos.IsEnabled = false;
+                    passWordBoxValidarUsuario.Password = "";
+                    labelNombreAutoriza.Content = "----";
+                    popUpValidarUsuario.IsOpen = true;
+                }
+                else
+                {
+                    cnProduccion.Open();
+                    foreach (horaProduccion item in listViewPiezas.Items)
+                    {
+                        if (item.colorLote != "Red")
+                        {
+                            sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, estilo, temporada, empaque, SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo], ingresadoPor) ";
+                            sql = sql + "values('" + fecha + "', '" + turno + "', " + hora + ", '" + modulo + "', " + arteria + ", '" + coordinador + "', '" + item.estilo + "', '" + item.temporada + "', '" + item.empaque + "', ";
+                            sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', " + item.tiempoParo + ", '";
+                            sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "', '" + labelIngen.Content.ToString() + "')";
+                            cm = new SqlCommand(sql, cnProduccion);
+                            cm.ExecuteNonQuery();
+                        }
+                    }
+                    cnProduccion.Close();
+                    PagePrincipal pagePrincipal = new PagePrincipal();
+                    NavigationService.Navigate(pagePrincipal);
+                }
             }
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            buttonIngresarLotesRojos.IsEnabled = false;
+            #region variablesDeConexionn
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            #endregion
+            #region consultarUsuario
+            //consultar
+            sql = "select codigo from usuarios where contrasena='" + passWordBoxValidarUsuario.Password + "' and nivel='1' and produccion='1'";
+            cnIngenieria.Open();
+            cm = new SqlCommand(sql, cnIngenieria);
+            dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                labelNombreAutoriza.Content = dr["codigo"].ToString();
+                buttonIngresarLotesRojos.IsEnabled = true;
+            }
+            dr.Close();
+            cnIngenieria.Close();
+            #endregion
+
+        }
+        private void buttonIngresarLotesRojos_Click(object sender, RoutedEventArgs e)
+        {
+            string sql;
+            SqlCommand cm;
+            string fecha = labelFecha.Content.ToString();
+            string turno = labelTurno.Content.ToString();
+            int hora = Convert.ToInt32(comboBoxHora.SelectedItem);
+            string modulo = comboBoxModulo.SelectedItem.ToString();
+            int arteria = Convert.ToInt32(comboBoxArteria.SelectedItem);
+            string coordinador = labelCoordinador.Content.ToString();
+            int incapacitados = Convert.ToInt32(string.IsNullOrEmpty(TextBoxIncapacitado.Text) ? "0" : TextBoxIncapacitado.Text);
+            int permisos = Convert.ToInt32(string.IsNullOrEmpty(TextBoxPermisos.Text) ? "0" : TextBoxPermisos.Text);
+            int cita = Convert.ToInt32(string.IsNullOrEmpty(TextBoxCita.Text) ? "0" : TextBoxCita.Text);
+            int inasistencia = Convert.ToInt32(string.IsNullOrEmpty(TextBoxInasistencia.Text) ? "0" : TextBoxInasistencia.Text);
+            double costura = Convert.ToDouble(string.IsNullOrEmpty(TextBoxCostura.Text) ? "0" : TextBoxCostura.Text);
+            double manuales = Convert.ToDouble(string.IsNullOrEmpty(TextBoxManuales.Text) ? "0" : TextBoxManuales.Text);
+
+            string custom_ = "No";
+            string cambioEstilo = "No";
+            if (checkBoxCustom.IsChecked == true) { custom_ = "Si"; }
+            if (checkBoxCambio.IsChecked == true) { cambioEstilo = "Si"; }
+
+            cnProduccion.Open();
+            foreach (horaProduccion item in listViewPiezas.Items)
+            {
+                if (item.colorLote != "Red")
+                {
+                    sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, estilo, temporada, empaque, SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo], ingresadoPor) ";
+                    sql = sql + "values('" + fecha + "', '" + turno + "', " + hora + ", '" + modulo + "', " + arteria + ", '" + coordinador + "', '" + item.estilo + "', '" + item.temporada + "', '" + item.empaque + "', ";
+                    sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', " + item.tiempoParo + ", '";
+                    sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "', '" + labelIngen.Content.ToString() + "')";
+                    cm = new SqlCommand(sql, cnProduccion);
+                    cm.ExecuteNonQuery();
+                }
+                else
+                {
+                    sql = "insert into horahora(Fecha, Turno, Hora, Modulo, Arterias, Coordinador, estilo, temporada, empaque, SAM, Incapacitados, Permisos, [Cita ISSS], Inasistencia, [Ope Costura], [Ope Manuales], Lote, [2XS], XS,S, M, L, XL, [2XL], [3XL], [Tiempo de Paro], [Motivo de Paro], [Custom], [Minutos efectivos], [Cambio de Estilo], ingresadoPor, autorizoSobreProduccion) ";
+                    sql = sql + "values('" + fecha + "', '" + turno + "', " + hora + ", '" + modulo + "', " + arteria + ", '" + coordinador + "', '" + item.estilo + "', '" + item.temporada + "', '" + item.empaque + "', ";
+                    sql = sql + item.sam + ", " + incapacitados + ", " + permisos + ", " + cita + ", " + inasistencia + ", " + costura + ", " + manuales + ", '" + item.lote + "', '" + item.xxs + "', '" + item.xs + "', '" + item.s + "', '" + item.m + "', '" + item.l + "', '" + item.xl + "', '" + item.xxl + "', '" + item.xxxl + "', " + item.tiempoParo + ", '";
+                    sql = sql + item.motivoParo + "', '" + custom_ + "', " + item.minutosEfectivos + ", '" + cambioEstilo + "', '" + labelIngen.Content.ToString() + "', '" + labelNombreAutoriza.Content.ToString() + "')";
+                    cm = new SqlCommand(sql, cnProduccion);
+                    cm.ExecuteNonQuery();
+                }
+            }
+            cnProduccion.Close();
+            PagePrincipal pagePrincipal = new PagePrincipal();
+            NavigationService.Navigate(pagePrincipal);
         }
         #endregion
     }

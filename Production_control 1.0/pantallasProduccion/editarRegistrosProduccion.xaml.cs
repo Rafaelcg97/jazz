@@ -250,6 +250,7 @@ namespace Production_control_1._0.pantallasProduccion
                 listViewRegistros.Items.Add(new horaProduccion {fecha=item.fecha, turno=item.turno, hora=item.hora, modulo=item.modulo, arteria=item.arteria, lote=item.lote, empaque=item.empaque, empaques=empaques, estilo=item.estilo, temporada=item.temporada, sam=item.sam, incapacitados=item.incapacitados, permisos=item.permisos, cita=item.cita, inasistencia=item.inasistencia, opeCostura=item.opeCostura, opeManuales=item.opeManuales, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl, totalDePiezas=item.totalDePiezas, motivoParo=item.motivoParo, tiempoParo=item.tiempoParo, custom=item.custom, minutosEfectivos=item.minutosEfectivos, cambioEstilo=item.cambioEstilo, ingresadoPor=item.ingresadoPor, num_hh=item.num_hh, arterias=item.arterias, turnos=item.turnos, modulos=item.modulos, horas=item.horas, eleccion=item.eleccion, motivos=item.motivos});
             }
             cnIngenieria.Close();
+            MessageBox.Show("Datos Cargados");
         }
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -267,54 +268,99 @@ namespace Production_control_1._0.pantallasProduccion
         #region guardarRegistros
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //se pasan todos los registros del listview a una lista
+            List<string> listaLotesTotales = new List<string>();
+            List<string> listaLotesUnicos= new List<string>();
+            string concatenadoDeLotes = "lote='";
+            foreach (horaProduccion item in listViewRegistros.Items)
+            {
+                listaLotesTotales.Add(item.lote);            
+            }
+            listaLotesUnicos = listaLotesTotales.Distinct().ToList();
+            foreach(string item in listaLotesUnicos)
+            {
+                concatenadoDeLotes = concatenadoDeLotes + item + "' or lote='";
+            }
+
+            // se consulta si son validos los lotes de la lista de lotes unicos y se agregan a una lista con sus datos
             #region variablesConexion
             string sql;
             SqlCommand cm;
             SqlDataReader dr;
             #endregion
-
+            List<horaProduccion> registrosDeLotesValidos = new List<horaProduccion>();
             cnProduccion.Open();
-            foreach (horaProduccion item in listViewRegistros.Items)
+            sql = "select lote, valido, diferencia from validacionLotes where " + concatenadoDeLotes;
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            while (dr.Read())
             {
-                int diferenciaPiezas = (item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl)-item.totalDePiezas;
-                sql = "select valido, diferencia from validacionLotes  where lote='"+item.lote+"'";
-                cm = new SqlCommand(sql, cnProduccion);
-                dr=cm.ExecuteReader();
-                dr.Read();
-                int valido = Convert.ToInt32(dr["valido"]);
-                int diferenciaPiezasIngresadas = Convert.ToInt32(dr["diferencia"]);
-                dr.Close();
-                //validar si el lote existe
-                if (valido == 0)
-                {
-                    MessageBox.Show("Lote No valido");
-                }
-                else
-                {
-                    //validar el numero de piezas a ingresar
-                    int resultadoValidacion = diferenciaPiezasIngresadas + diferenciaPiezas;
-                    if (resultadoValidacion >= 0)
-                    {
-                        if (item.sam > 0)
-                        {
-                            sql = "update horahora set turno='" + item.turno + "', Fecha='" + item.fecha + "', Hora= '" + item.hora + "', Modulo='" + item.modulo + "', arterias='" + item.arteria + "', estilo='" + item.estilo + "', temporada='" + item.temporada + "', sam='" + item.sam + "', empaque='" + item.empaque + "', incapacitados='" + item.incapacitados + "', Permisos='" + item.permisos + "', [Cita ISSS]= '" + item.cita + "', Inasistencia= '" + item.inasistencia + "', [Ope Costura]= '" + item.opeCostura + "', [Ope Manuales]='" + item.opeCostura + "', Lote='" + item.lote + "', [2XS]='" + item.xxs + "', XS='" + item.xs + "', S='" + item.s + "', M='" + item.m + "', L='" + item.l + "', XL='" + item.xl + "', [2XL]='" + item.xxl + "', [3XL]='" + item.xxxl + "', [Tiempo de Paro]='" + item.tiempoParo + "', [Motivo de Paro]='" + item.motivoParo + "', [custom]='" + item.custom + "', [Minutos Efectivos]='" + item.minutosEfectivos + "', [Cambio de Estilo]='" + item.cambioEstilo + "', ingresadoPor='" + labelUsuario.Content.ToString() + "'  where num_hh='" + item.num_hh + "'";
-                            cm = new SqlCommand(sql, cnProduccion);
-                            cm.ExecuteNonQuery();
-                        }
-                        else
-                        {
-                            MessageBox.Show("El registro numero " + item.num_hh + " tiene SAM de 0 por lo que no fue actualizado");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro numero " + item.num_hh + " no fue actualizado porque se superara el numero de piezas del lote");
-                    }
-                }
+                registrosDeLotesValidos.Add(new horaProduccion { lote = dr["lote"].ToString(), diferencia = Convert.ToInt32(dr["diferencia"]), valido= Convert.ToInt32(dr["valido"])});
             }
-            cnProduccion.Close();
-            MessageBox.Show("Accion Terminada");
-        }
+
+
+
+
+
+                //     dr.Close();
+                //     if (valido == 0 && item.sam > 0)
+                //     {
+                //         listaRegistros.Add(new horaProduccion { turno = item.turno, fecha = item.fecha, hora = item.hora, modulo = item.modulo, arteria = item.arteria, estilo = item.estilo, temporada = item.temporada, sam = item.sam, empaque = item.empaque, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xxl = item.xxl, xxxl = item.xxxl, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, custom = item.custom, minutosEfectivos = item.minutosEfectivos, cambioEstilo = item.cambioEstilo, ingresadoPor = item.ingresadoPor, num_hh = item.num_hh, diferencia = diferenciaPiezasIngresadas });
+                //     }
+                //     else if (valido != 0)
+                //     {
+                //         itemsNovalidos = itemsNovalidos + item.num_hh + ", ";
+                //         conteoInvalidos = conteoInvalidos + 1;
+                //     }
+                //     else if (item.sam <= 0)
+                //     {
+                //         itemsSinSam = itemsSinSam + item.num_hh + ", ";
+                //         conteoSamMalo = conteoSamMalo + 1;
+                //     }
+
+                // }
+
+                //foreach (horaProduccion item in listViewRegistros.Items)
+                // {
+                //     int diferenciaPiezas = (item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl)-item.totalDePiezas;
+                //     sql = "select valido, diferencia from validacionLotes  where lote='"+item.lote+"'";
+                //     cm = new SqlCommand(sql, cnProduccion);
+                //     dr=cm.ExecuteReader();
+                //     dr.Read();
+                //     int valido = Convert.ToInt32(dr["valido"]);
+                //     int diferenciaPiezasIngresadas = Convert.ToInt32(dr["diferencia"]);
+                //     dr.Close();
+                //     //validar si el lote existe
+                //     if (valido == 0)
+                //     {
+                //         MessageBox.Show("Lote No valido");
+                //     }
+                //     else
+                //     {
+                //         //validar el numero de piezas a ingresar
+                //         int resultadoValidacion = diferenciaPiezasIngresadas + diferenciaPiezas;
+                //         if (resultadoValidacion >= 0)
+                //         {
+                //             if (item.sam > 0)
+                //             {
+                //                 sql = "update horahora set turno='" + item.turno + "', Fecha='" + item.fecha + "', Hora= '" + item.hora + "', Modulo='" + item.modulo + "', arterias='" + item.arteria + "', estilo='" + item.estilo + "', temporada='" + item.temporada + "', sam='" + item.sam + "', empaque='" + item.empaque + "', incapacitados='" + item.incapacitados + "', Permisos='" + item.permisos + "', [Cita ISSS]= '" + item.cita + "', Inasistencia= '" + item.inasistencia + "', [Ope Costura]= '" + item.opeCostura + "', [Ope Manuales]='" + item.opeManuales + "', Lote='" + item.lote + "', [2XS]='" + item.xxs + "', XS='" + item.xs + "', S='" + item.s + "', M='" + item.m + "', L='" + item.l + "', XL='" + item.xl + "', [2XL]='" + item.xxl + "', [3XL]='" + item.xxxl + "', [Tiempo de Paro]='" + item.tiempoParo + "', [Motivo de Paro]='" + item.motivoParo + "', [custom]='" + item.custom + "', [Minutos Efectivos]='" + item.minutosEfectivos + "', [Cambio de Estilo]='" + item.cambioEstilo + "', ingresadoPor='" + labelUsuario.Content.ToString() + "'  where num_hh='" + item.num_hh + "'";
+                //                 cm = new SqlCommand(sql, cnProduccion);
+                //                 cm.ExecuteNonQuery();
+                //             }
+                //             else
+                //             {
+                //                 MessageBox.Show("El registro numero " + item.num_hh + " tiene SAM de 0 por lo que no fue actualizado");
+                //             }
+                //         }
+                //         else
+                //         {
+                //             MessageBox.Show("El registro numero " + item.num_hh + " no fue actualizado porque se superara el numero de piezas del lote");
+                //         }
+                //     }
+                // }
+                // cnProduccion.Close();
+                // MessageBox.Show("Accion Terminada");
+            }
         private void buttonActualizarEmpaques_Click(object sender, RoutedEventArgs e)
         {
             #region variablesConexion

@@ -52,6 +52,8 @@ namespace Production_control_1._0.clases
         public int[] arterias { get; set; }
         public string[] motivos { get; set; }
         public List<string> empaques { get; set; }
+        public int valido { get; set; }
+        public int diferencia { get; set; }
     }
 }
 
