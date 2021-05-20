@@ -667,6 +667,10 @@ namespace Production_control_1._0.pantallasProduccion
             PagePrincipal pagePrincipal = new PagePrincipal();
             NavigationService.Navigate(pagePrincipal);
         }
+        private void ButtonCerrarPopup2_Click_1(object sender, RoutedEventArgs e)
+        {
+            popUpValidarUsuario.IsOpen = false;
+        }
         #endregion
     }
 }

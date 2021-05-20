@@ -33,6 +33,7 @@ namespace Production_control_1._0.pantallasProduccion
         public int[] _horas = new int[12];
         public string[] _eleccion = new string[2];
         public string[] _motivos = new string[8];
+        public List<String> lotesConMasPiezas = new List<string>();
         #endregion
         #region datosIniciales
         public editarRegistrosProduccion(int codigo)
@@ -324,19 +325,54 @@ namespace Production_control_1._0.pantallasProduccion
                     }
                 }
 
+                //si los lotes son validos se valida la nueva cantidad de Piezas a ingresar
                 if (conteoLoteNoValido == 0)
                 {
+                    List<horaProduccion> listaDeDiferenciadePiezas = new List<horaProduccion>();
                     foreach(horaProduccion item in registrosDeLotesValidos)
                     {
-                        foreach(horaProduccion subitem in listViewRegistros.Items)
+                        int nuevaDiferencia = 0;
+                        foreach (horaProduccion subitem in listViewRegistros.Items)
                         {
                             if(item.lote == subitem.lote)
                             {
-
+                                nuevaDiferencia = nuevaDiferencia+((subitem.xxs + subitem.xs + subitem.s + subitem.m + subitem.l + subitem.xl + subitem.xxl + subitem.xxxl)- subitem.totalDePiezas);
                             }
-
                         }
+                        listaDeDiferenciadePiezas.Add(new horaProduccion { lote = item.lote, diferencia = item.diferencia+nuevaDiferencia });
+                    }
+                    int conteoLotesConMasPiezas = 0;
+                    lotesConMasPiezas.Clear();
+                    string stringDeLotes = "";
+                    foreach(horaProduccion item in listaDeDiferenciadePiezas)
+                    {
+                        if (item.diferencia > 0)
+                        {
+                            lotesConMasPiezas.Add(item.lote);
+                            stringDeLotes = stringDeLotes + item.lote+ " ► " + item.diferencia + "\n";
+                            conteoLotesConMasPiezas = conteoLotesConMasPiezas + 1;
+                        }
+                    }
+                    if (conteoLotesConMasPiezas > 0)
+                    {
+                        buttonIngresarLotesRojos.IsEnabled = false;
+                        passWordBoxValidarUsuario.Password = "";
+                        labelNombreAutoriza.Content = "----";
+                        popUpValidarUsuario.IsOpen = true;
+                        labelListDeLotesConMasPiezas.Content = stringDeLotes;
 
+                    }
+                    else
+                    {
+                        cnProduccion.Open();
+                        foreach(horaProduccion item in listViewRegistros.Items)
+                        {
+                            sql = "update horahora set turno='" + item.turno + "', Fecha='" + item.fecha + "', Hora= '" + item.hora + "', Modulo='" + item.modulo + "', arterias='" + item.arteria + "', estilo='" + item.estilo + "', temporada='" + item.temporada + "', sam='" + item.sam + "', empaque='" + item.empaque + "', incapacitados='" + item.incapacitados + "', Permisos='" + item.permisos + "', [Cita ISSS]= '" + item.cita + "', Inasistencia= '" + item.inasistencia + "', [Ope Costura]= '" + item.opeCostura + "', [Ope Manuales]='" + item.opeManuales + "', Lote='" + item.lote + "', [2XS]='" + item.xxs + "', XS='" + item.xs + "', S='" + item.s + "', M='" + item.m + "', L='" + item.l + "', XL='" + item.xl + "', [2XL]='" + item.xxl + "', [3XL]='" + item.xxxl + "', [Tiempo de Paro]='" + item.tiempoParo + "', [Motivo de Paro]='" + item.motivoParo + "', [custom]='" + item.custom + "', [Minutos Efectivos]='" + item.minutosEfectivos + "', [Cambio de Estilo]='" + item.cambioEstilo + "', ingresadoPor='" + labelUsuario.Content.ToString() + "'  where num_hh='" + item.num_hh + "'";
+                            cm = new SqlCommand(sql, cnProduccion);
+                            cm.ExecuteNonQuery();
+                        }
+                        cnProduccion.Close();
+                        MessageBox.Show("Datos Guardados");
                     }
 
                 }
@@ -350,70 +386,6 @@ namespace Production_control_1._0.pantallasProduccion
             {
                 MessageBox.Show("Actualiza los SAM antes de guardar");
             }
-
-
-
-
-
-
-            //     dr.Close();
-            //     if (valido == 0 && item.sam > 0)
-            //     {
-            //         listaRegistros.Add(new horaProduccion { turno = item.turno, fecha = item.fecha, hora = item.hora, modulo = item.modulo, arteria = item.arteria, estilo = item.estilo, temporada = item.temporada, sam = item.sam, empaque = item.empaque, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xxl = item.xxl, xxxl = item.xxxl, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, custom = item.custom, minutosEfectivos = item.minutosEfectivos, cambioEstilo = item.cambioEstilo, ingresadoPor = item.ingresadoPor, num_hh = item.num_hh, diferencia = diferenciaPiezasIngresadas });
-            //     }
-            //     else if (valido != 0)
-            //     {
-            //         itemsNovalidos = itemsNovalidos + item.num_hh + ", ";
-            //         conteoInvalidos = conteoInvalidos + 1;
-            //     }
-            //     else if (item.sam <= 0)
-            //     {
-            //         itemsSinSam = itemsSinSam + item.num_hh + ", ";
-            //         conteoSamMalo = conteoSamMalo + 1;
-            //     }
-
-            // }
-
-            //foreach (horaProduccion item in listViewRegistros.Items)
-            // {
-            //     int diferenciaPiezas = (item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl)-item.totalDePiezas;
-            //     sql = "select valido, diferencia from validacionLotes  where lote='"+item.lote+"'";
-            //     cm = new SqlCommand(sql, cnProduccion);
-            //     dr=cm.ExecuteReader();
-            //     dr.Read();
-            //     int valido = Convert.ToInt32(dr["valido"]);
-            //     int diferenciaPiezasIngresadas = Convert.ToInt32(dr["diferencia"]);
-            //     dr.Close();
-            //     //validar si el lote existe
-            //     if (valido == 0)
-            //     {
-            //         MessageBox.Show("Lote No valido");
-            //     }
-            //     else
-            //     {
-            //         //validar el numero de piezas a ingresar
-            //         int resultadoValidacion = diferenciaPiezasIngresadas + diferenciaPiezas;
-            //         if (resultadoValidacion >= 0)
-            //         {
-            //             if (item.sam > 0)
-            //             {
-            //                 sql = "update horahora set turno='" + item.turno + "', Fecha='" + item.fecha + "', Hora= '" + item.hora + "', Modulo='" + item.modulo + "', arterias='" + item.arteria + "', estilo='" + item.estilo + "', temporada='" + item.temporada + "', sam='" + item.sam + "', empaque='" + item.empaque + "', incapacitados='" + item.incapacitados + "', Permisos='" + item.permisos + "', [Cita ISSS]= '" + item.cita + "', Inasistencia= '" + item.inasistencia + "', [Ope Costura]= '" + item.opeCostura + "', [Ope Manuales]='" + item.opeManuales + "', Lote='" + item.lote + "', [2XS]='" + item.xxs + "', XS='" + item.xs + "', S='" + item.s + "', M='" + item.m + "', L='" + item.l + "', XL='" + item.xl + "', [2XL]='" + item.xxl + "', [3XL]='" + item.xxxl + "', [Tiempo de Paro]='" + item.tiempoParo + "', [Motivo de Paro]='" + item.motivoParo + "', [custom]='" + item.custom + "', [Minutos Efectivos]='" + item.minutosEfectivos + "', [Cambio de Estilo]='" + item.cambioEstilo + "', ingresadoPor='" + labelUsuario.Content.ToString() + "'  where num_hh='" + item.num_hh + "'";
-            //                 cm = new SqlCommand(sql, cnProduccion);
-            //                 cm.ExecuteNonQuery();
-            //             }
-            //             else
-            //             {
-            //                 MessageBox.Show("El registro numero " + item.num_hh + " tiene SAM de 0 por lo que no fue actualizado");
-            //             }
-            //         }
-            //         else
-            //         {
-            //             MessageBox.Show("El registro numero " + item.num_hh + " no fue actualizado porque se superara el numero de piezas del lote");
-            //         }
-            //     }
-            // }
-            // cnProduccion.Close();
-            // MessageBox.Show("Accion Terminada");
         }
         private void buttonActualizarEmpaques_Click(object sender, RoutedEventArgs e)
         {
@@ -480,6 +452,72 @@ namespace Production_control_1._0.pantallasProduccion
                 listViewRegistros.Items.Add(item2);
             }
             MessageBox.Show("SAM Actualizado");
+        }
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            List<horaProduccion> listaSinEmpaques = new List<horaProduccion>();
+            foreach (horaProduccion item in listViewRegistros.Items)
+            {
+                listaSinEmpaques.Add(new horaProduccion { num_hh = item.num_hh, fecha = item.fecha, turno = item.turno, turnos = item.turnos, hora = item.hora, horas = item.horas, modulo = item.modulo, modulos = item.modulos, arteria = item.arteria, arterias = item.arterias, estilo = item.estilo, temporada = item.temporada, empaque = "", sam = 0, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl, totalDePiezas = item.totalDePiezas, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos = item.motivos, custom = item.custom, eleccion = item.eleccion, cambioEstilo = item.cambioEstilo, minutosEfectivos = item.minutosEfectivos, ingresadoPor = item.ingresadoPor });
+            }
+            listViewRegistros.Items.Clear();
+            foreach (horaProduccion item in listaSinEmpaques)
+            {
+                listViewRegistros.Items.Add(item);
+            }
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            buttonIngresarLotesRojos.IsEnabled = false;
+            #region variablesDeConexionn
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            #endregion
+            #region consultarUsuario
+            //consultar
+            sql = "select codigo from usuarios where contrasena='" + passWordBoxValidarUsuario.Password + "' and nivel='1' and produccion='1'";
+            cnIngenieria.Open();
+            cm = new SqlCommand(sql, cnIngenieria);
+            dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                labelNombreAutoriza.Content = dr["codigo"].ToString();
+                buttonIngresarLotesRojos.IsEnabled = true;
+            }
+            dr.Close();
+            cnIngenieria.Close();
+            #endregion
+
+        }
+        private void buttonIngresarLotesRojos_Click(object sender, RoutedEventArgs e)
+        {
+            #region variablesConexion
+            string sql;
+            SqlCommand cm;
+            #endregion
+            cnProduccion.Open();
+            foreach (horaProduccion item in listViewRegistros.Items)
+            {
+                if(lotesConMasPiezas.Exists(x => x == item.lote))
+                {
+                    sql = "update horahora set turno='" + item.turno + "', Fecha='" + item.fecha + "', Hora= '" + item.hora + "', Modulo='" + item.modulo + "', arterias='" + item.arteria + "', estilo='" + item.estilo + "', temporada='" + item.temporada + "', sam='" + item.sam + "', empaque='" + item.empaque + "', incapacitados='" + item.incapacitados + "', Permisos='" + item.permisos + "', [Cita ISSS]= '" + item.cita + "', Inasistencia= '" + item.inasistencia + "', [Ope Costura]= '" + item.opeCostura + "', [Ope Manuales]='" + item.opeManuales + "', Lote='" + item.lote + "', [2XS]='" + item.xxs + "', XS='" + item.xs + "', S='" + item.s + "', M='" + item.m + "', L='" + item.l + "', XL='" + item.xl + "', [2XL]='" + item.xxl + "', [3XL]='" + item.xxxl + "', [Tiempo de Paro]='" + item.tiempoParo + "', [Motivo de Paro]='" + item.motivoParo + "', [custom]='" + item.custom + "', [Minutos Efectivos]='" + item.minutosEfectivos + "', [Cambio de Estilo]='" + item.cambioEstilo + "', ingresadoPor='" + labelUsuario.Content.ToString() + "', autorizoSobreProduccion='" + labelNombreAutoriza.Content.ToString() + "'  where num_hh='" + item.num_hh + "'";
+                    cm = new SqlCommand(sql, cnProduccion);
+                    cm.ExecuteNonQuery();
+                }
+                else
+                {
+                    sql = "update horahora set turno='" + item.turno + "', Fecha='" + item.fecha + "', Hora= '" + item.hora + "', Modulo='" + item.modulo + "', arterias='" + item.arteria + "', estilo='" + item.estilo + "', temporada='" + item.temporada + "', sam='" + item.sam + "', empaque='" + item.empaque + "', incapacitados='" + item.incapacitados + "', Permisos='" + item.permisos + "', [Cita ISSS]= '" + item.cita + "', Inasistencia= '" + item.inasistencia + "', [Ope Costura]= '" + item.opeCostura + "', [Ope Manuales]='" + item.opeManuales + "', Lote='" + item.lote + "', [2XS]='" + item.xxs + "', XS='" + item.xs + "', S='" + item.s + "', M='" + item.m + "', L='" + item.l + "', XL='" + item.xl + "', [2XL]='" + item.xxl + "', [3XL]='" + item.xxxl + "', [Tiempo de Paro]='" + item.tiempoParo + "', [Motivo de Paro]='" + item.motivoParo + "', [custom]='" + item.custom + "', [Minutos Efectivos]='" + item.minutosEfectivos + "', [Cambio de Estilo]='" + item.cambioEstilo + "', ingresadoPor='" + labelUsuario.Content.ToString() + "'  where num_hh='" + item.num_hh + "'";
+                    cm = new SqlCommand(sql, cnProduccion);
+                    cm.ExecuteNonQuery();
+                }
+            }
+            cnProduccion.Close();
+            MessageBox.Show("Datos Guardados");
+        }
+        private void ButtonCerrarPopup2_Click(object sender, RoutedEventArgs e)
+        {
+            popUpValidarUsuario.IsOpen = false;
         }
         #endregion
         #region eliminarRegistrosSeleccionados
