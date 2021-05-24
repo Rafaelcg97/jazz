@@ -77,5 +77,11 @@ namespace Production_control_1._0.pantallasIniciales
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new pantallasProduccion.bonos();
         }
+
+        private void BorderLotes_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = new pantallasProduccion.cuadrarLotes();
+        }
     }
 }

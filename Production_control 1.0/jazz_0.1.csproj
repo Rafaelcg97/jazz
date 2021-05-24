@@ -263,6 +263,9 @@
     <Compile Include="pantallasProduccion\bonos.xaml.cs">
       <DependentUpon>bonos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasProduccion\cuadrarLotes.xaml.cs">
+      <DependentUpon>cuadrarLotes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasProduccion\editarRegistrosProduccion.xaml.cs">
       <DependentUpon>editarRegistrosProduccion.xaml</DependentUpon>
     </Compile>
@@ -345,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasProduccion\bonos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\cuadrarLotes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -638,6 +645,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\descargar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\limpiar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

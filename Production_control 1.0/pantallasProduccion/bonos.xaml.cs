@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,9 @@ namespace Production_control_1._0.pantallasProduccion
 {
     public partial class bonos : Page
     {
+        List<bonoPorOperario> bonoPorOperario = new List<bonoPorOperario>();
+        List<bonoPorModulo> bonoPorModulo= new List<bonoPorModulo>();
+        int conteo = 0;
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
@@ -104,12 +109,12 @@ namespace Production_control_1._0.pantallasProduccion
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
         #endregion
+        #region consultaDeRegistros
         private void calendarFecha_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             //definir variables de la consulta
             int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             int anio = DateTime.Now.Year;
-            string modulo = "0";
             if (Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd") == "0001-01-01")
             {
                 semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
@@ -121,53 +126,51 @@ namespace Production_control_1._0.pantallasProduccion
                 anio = Convert.ToDateTime(calendarFecha.SelectedDate).Year;
 
             }
-            if (comboBoxModulo.SelectedIndex == -1)
-            {
-                modulo = "0";
-            }
-            else
-            {
-                modulo = comboBoxModulo.SelectedItem.ToString();
-            }
             // revisar que bono se va a consultar
             if (tabControlListBono.SelectedIndex == 0)
             {
-                listViewBomoPorModulo.Items.Clear();
+                bonoPorModulo.Clear();
                 string sql;
                 SqlCommand cm;
                 SqlDataReader dr;
-                if (modulo == "0")
-                {
-                    sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
-                }
-                else
-                {
-                    sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' and (modart='" + comboBoxModulo.SelectedItem.ToString() + "-1' or modart='" + comboBoxModulo.SelectedItem.ToString() + "-2') order by turno";
-                }
+                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    listViewBomoPorModulo.Items.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"]).ToString("P"), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"]), bono = Convert.ToDouble(dr["bono"]).ToString("C") });
+                    bonoPorModulo.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"]).ToString("P"), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"]), bono = Convert.ToDouble(dr["bono"]).ToString("C") });
                 }
                 dr.Close();
                 cnProduccion.Close();
-            }
-            else if (tabControlListBono.SelectedIndex == 1)
-            {
-                listViewBomoPorOperariio.Items.Clear();
-                string sql;
-                SqlCommand cm;
-                SqlDataReader dr;
-                if (modulo == "0")
+                listViewBomoPorModulo.Items.Clear();
+                if (comboBoxModulo.SelectedIndex == -1)
                 {
-                    sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' order by asignado";
+                    foreach (bonoPorModulo item in bonoPorModulo)
+                    {
+                        listViewBomoPorModulo.Items.Add(item);
+                    }
                 }
                 else
                 {
-                    sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' and asignado='" + comboBoxModulo.SelectedItem.ToString() + "' order by codigo";
+                    foreach (bonoPorModulo item in bonoPorModulo)
+                    {
+                        if (item.modart == comboBoxModulo.SelectedItem.ToString() + "-1" || item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
+                        {
+                            listViewBomoPorModulo.Items.Add(item);
+                        }
+                    }
+
                 }
+
+            }
+            else if (tabControlListBono.SelectedIndex == 1)
+            {
+                bonoPorOperario.Clear();
+                string sql;
+                SqlCommand cm;
+                SqlDataReader dr;
+                sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' order by asignado";
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
@@ -175,22 +178,37 @@ namespace Production_control_1._0.pantallasProduccion
                 {
                     if (Convert.ToInt16(dr["semana"]) == semana)
                     {
-                        listViewBomoPorOperariio.Items.Add(new bonoPorOperario { modulo = dr["asignado"].ToString(), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), bonoBruto = Convert.ToDouble(dr["bonoBruto"] is DBNull ? 0 : dr["bonoBruto"]).ToString("C") });
+                        bonoPorOperario.Add(new bonoPorOperario { asignado = dr["asignado"].ToString(), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), bonoLunes = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"), bonoBruto = Convert.ToDouble(dr["bonoBruto"] is DBNull ? 0 : dr["bonoBruto"]).ToString("C"), tiempoLunes = Convert.ToDouble(dr["tiempoLunes"]), tiempoMartes = Convert.ToDouble(dr["tiempoMartes"]), tiempoMiercoles = Convert.ToDouble(dr["tiempoMiercoles"]), tiempoJueves = Convert.ToDouble(dr["tiempoJueves"]), tiempoViernes = Convert.ToDouble(dr["tiempoViernes"]), tiempoSabado = Convert.ToDouble(dr["tiempoSabado"]), bp = Convert.ToDouble(dr["bp"]).ToString("P"), aqlG = Convert.ToDouble(dr["aqlG"]).ToString("P"), aqlI = Convert.ToDouble(dr["aqlI"]).ToString("P"), inasistencias = Convert.ToDouble(dr["inasistencias"]).ToString("P"), amonestaciones = Convert.ToDouble(dr["amonestaciones"]).ToString("P"), bonoNeto = Convert.ToDouble(dr["bonoNeto"]).ToString("C") });
                     }
-
                 }
                 dr.Close();
                 cnProduccion.Close();
+                listViewBomoPorOperariio.Items.Clear();
+                if (comboBoxModulo.SelectedIndex == -1)
+                {
+                    foreach (bonoPorOperario item in bonoPorOperario)
+                    {
+                        listViewBomoPorOperariio.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    foreach (bonoPorOperario item in bonoPorOperario)
+                    {
+                        if (item.asignado == comboBoxModulo.SelectedItem.ToString())
+                        {
+                            listViewBomoPorOperariio.Items.Add(item);
+                        }
+                    }
+                }
 
             }
-
         }
         private void tabControlListBono_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             //definir variables de la consulta
             int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             int anio = DateTime.Now.Year;
-            string modulo = "0";
             if (Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd") == "0001-01-01")
             {
                 semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
@@ -202,53 +220,53 @@ namespace Production_control_1._0.pantallasProduccion
                 anio = Convert.ToDateTime(calendarFecha.SelectedDate).Year;
 
             }
-            if (comboBoxModulo.SelectedIndex == -1)
-            {
-                modulo = "0";
-            }
-            else
-            {
-                modulo = comboBoxModulo.SelectedItem.ToString();
-            }
             // revisar que bono se va a consultar
             if (tabControlListBono.SelectedIndex == 0)
             {
-                listViewBomoPorModulo.Items.Clear();
+                bonoPorModulo.Clear();
+                textBoxBuscarOperario.IsEnabled = false;
                 string sql;
                 SqlCommand cm;
                 SqlDataReader dr;
-                if (modulo == "0")
-                {
-                    sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
-                }
-                else
-                {
-                    sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' and (modart='" + comboBoxModulo.SelectedItem.ToString() + "-1' or modart='" + comboBoxModulo.SelectedItem.ToString() + "-2') order by turno";
-                }
+                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    listViewBomoPorModulo.Items.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"]).ToString("P"), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"]), bono = Convert.ToDouble(dr["bono"]).ToString("C") });
+                    bonoPorModulo.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"]).ToString("P"), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"]), bono = Convert.ToDouble(dr["bono"]).ToString("C") });
                 }
                 dr.Close();
                 cnProduccion.Close();
-            }
-            else if (tabControlListBono.SelectedIndex == 1)
-            {
-                listViewBomoPorOperariio.Items.Clear();
-                string sql;
-                SqlCommand cm;
-                SqlDataReader dr;
-                if (modulo == "0")
+                listViewBomoPorModulo.Items.Clear();
+                if (comboBoxModulo.SelectedIndex == -1)
                 {
-                    sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' order by asignado";
+                    foreach (bonoPorModulo item in bonoPorModulo)
+                    {
+                        listViewBomoPorModulo.Items.Add(item);
+                    }
                 }
                 else
                 {
-                    sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' and asignado='" + comboBoxModulo.SelectedItem.ToString() + "' order by codigo";
+                    foreach (bonoPorModulo item in bonoPorModulo)
+                    {
+                        if(item.modart==comboBoxModulo.SelectedItem.ToString()+"-1"|| item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
+                        {
+                            listViewBomoPorModulo.Items.Add(item);
+                        }
+                    }
+
                 }
+
+            }
+            else if (tabControlListBono.SelectedIndex == 1)
+            {
+                bonoPorOperario.Clear();
+                textBoxBuscarOperario.IsEnabled = true;
+                string sql;
+                SqlCommand cm;
+                SqlDataReader dr;
+                sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' order by asignado";
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
@@ -256,94 +274,421 @@ namespace Production_control_1._0.pantallasProduccion
                 {
                     if (Convert.ToInt16(dr["semana"]) == semana)
                     {
-                        listViewBomoPorOperariio.Items.Add(new bonoPorOperario { modulo = dr["asignado"].ToString(), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), bonoBruto = Convert.ToDouble(dr["bonoBruto"] is DBNull ? 0 : dr["bonoBruto"]).ToString("C") });
+                        bonoPorOperario.Add(new bonoPorOperario { asignado = dr["asignado"].ToString(), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), bonoLunes = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"), bonoBruto = Convert.ToDouble(dr["bonoBruto"] is DBNull ? 0 : dr["bonoBruto"]).ToString("C"), tiempoLunes = Convert.ToDouble(dr["tiempoLunes"]), tiempoMartes = Convert.ToDouble(dr["tiempoMartes"]), tiempoMiercoles = Convert.ToDouble(dr["tiempoMiercoles"]), tiempoJueves = Convert.ToDouble(dr["tiempoJueves"]), tiempoViernes = Convert.ToDouble(dr["tiempoViernes"]), tiempoSabado = Convert.ToDouble(dr["tiempoSabado"]), bp = Convert.ToDouble(dr["bp"]).ToString("P"), aqlG = Convert.ToDouble(dr["aqlG"]).ToString("P"), aqlI = Convert.ToDouble(dr["aqlI"]).ToString("P"), inasistencias = Convert.ToDouble(dr["inasistencias"]).ToString("P"), amonestaciones = Convert.ToDouble(dr["amonestaciones"]).ToString("P"), bonoNeto = Convert.ToDouble(dr["bonoNeto"]).ToString("C") });
                     }
-                    
                 }
                 dr.Close();
                 cnProduccion.Close();
+                listViewBomoPorOperariio.Items.Clear();
+                if (comboBoxModulo.SelectedIndex== -1)
+                {
+                    foreach (bonoPorOperario item in bonoPorOperario)
+                    {
+                        listViewBomoPorOperariio.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    foreach (bonoPorOperario item in bonoPorOperario)
+                    {
+                        if (item.asignado == comboBoxModulo.SelectedItem.ToString())
+                        {
+                            listViewBomoPorOperariio.Items.Add(item);
+                        }
+                    }
+                }
 
             }
         }
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //definir variables de la consulta
-            int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-            int anio = DateTime.Now.Year;
-            string modulo = "0";
-            if (Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd") == "0001-01-01")
-            {
-                semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-                anio = DateTime.Now.Year;
-            }
-            else
-            {
-                semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(Convert.ToDateTime(calendarFecha.SelectedDate), CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-                anio = Convert.ToDateTime(calendarFecha.SelectedDate).Year;
-
-            }
-            if (comboBoxModulo.SelectedIndex == -1)
-            {
-                modulo = "0";
-            }
-            else
-            {
-                modulo = comboBoxModulo.SelectedItem.ToString();
-            }
-            // revisar que bono se va a consultar
             if (tabControlListBono.SelectedIndex == 0)
             {
-                listViewBomoPorModulo.Items.Clear();
-                string sql;
-                SqlCommand cm;
-                SqlDataReader dr;
-                if (modulo == "0")
+                if (comboBoxModulo.SelectedIndex > -1)
                 {
-                    sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
+                    listViewBomoPorModulo.Items.Clear();
+                    foreach (bonoPorModulo item in bonoPorModulo)
+                    {
+                        if (item.modart == comboBoxModulo.SelectedItem.ToString()+"-1"|| item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
+
+                        {
+                            listViewBomoPorModulo.Items.Add(item);
+                        }
+                    }
                 }
-                else
+
+                else if (comboBoxModulo.SelectedIndex == -1)
                 {
-                    sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes],[piezasMartes],[eficienciaMartes],[bonoMartes],[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles],[piezasJueves],[eficienciaJueves],[bonoJueves],[piezasViernes],[eficienciaViernes],[bonoViernes],[piezasSabado],[eficienciaSabado],[bonoSabado],[totalDePiezas],[bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' and (modart='" + comboBoxModulo.SelectedItem.ToString() + "-1' or modart='" + comboBoxModulo.SelectedItem.ToString() + "-2') order by turno";
+                    listViewBomoPorModulo.Items.Clear();
+                    foreach (bonoPorModulo item in bonoPorModulo)
+                    {
+                        listViewBomoPorModulo.Items.Add(item);
+                    }
                 }
-                cnProduccion.Open();
-                cm = new SqlCommand(sql, cnProduccion);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    listViewBomoPorModulo.Items.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"]).ToString("P"), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"]), bono = Convert.ToDouble(dr["bono"]).ToString("C") });
-                }
-                dr.Close();
-                cnProduccion.Close();
+
             }
             else if (tabControlListBono.SelectedIndex == 1)
             {
-                listViewBomoPorOperariio.Items.Clear();
-                string sql;
-                SqlCommand cm;
-                SqlDataReader dr;
-                if (modulo == "0")
+                if (comboBoxModulo.SelectedIndex > -1)
                 {
-                    sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' order by asignado";
+                    listViewBomoPorOperariio.Items.Clear();
+                    foreach (bonoPorOperario item in bonoPorOperario)
+                    {
+                        if (item.asignado == comboBoxModulo.SelectedItem.ToString())
+
+                        {
+                            listViewBomoPorOperariio.Items.Add(item);
+                        }
+                    }
                 }
+
+                else if (comboBoxModulo.SelectedIndex == -1)
+                {
+                    listViewBomoPorOperariio.Items.Clear();
+                    foreach (bonoPorOperario item in bonoPorOperario)
+                    {
+                        listViewBomoPorOperariio.Items.Add(item);
+                    }
+                }
+            }
+        }
+        private void buttonLimipiar_Click(object sender, RoutedEventArgs e)
+        {
+            comboBoxModulo.SelectedIndex = -1;
+        }
+        private void textBoxBuscarOperario_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //buscar por codigo
+            if (checkBoxOpcionDeBusqueda.IsChecked == true)
+            {
+                //si no hay modulo seleccionado
+                if (comboBoxModulo.SelectedIndex == -1)
+                {
+                    if (String.IsNullOrEmpty(textBoxBuscarOperario.Text.Trim()) == false)
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            if (item.codigo.ToString().StartsWith(textBoxBuscarOperario.Text.Trim()))
+                            {
+                                listViewBomoPorOperariio.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (textBoxBuscarOperario.Text.Trim() == "")
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            listViewBomoPorOperariio.Items.Add(item);
+                        }
+                    }
+                }
+                //si hay modulo seleccionado
                 else
                 {
-                    sql = "select anio, semana, asignado, codigo, nombre, bonoLunes, bonoMartes, bonoMiercoles, bonoJueves, bonoViernes, bonoSabado, tiempoLunes, tiempoMartes, tiempoMiercoles, tiempoJueves, tiempoViernes, tiempoSabado, BonoBruto, bp, aqlG, aqlI, inasistencias, amonestaciones, bonoNeto from bonoPorOperario where semana>='" + semana + "' and anio='" + anio + "' and asignado='" + comboBoxModulo.SelectedItem.ToString() + "' order by codigo";
-                }
-                cnProduccion.Open();
-                cm = new SqlCommand(sql, cnProduccion);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    if (Convert.ToInt16(dr["semana"]) == semana)
+                    if (String.IsNullOrEmpty(textBoxBuscarOperario.Text.Trim()) == false)
                     {
-                        listViewBomoPorOperariio.Items.Add(new bonoPorOperario { modulo = dr["asignado"].ToString(), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), bonoBruto = Convert.ToDouble(dr["bonoBruto"] is DBNull ? 0 : dr["bonoBruto"]).ToString("C") });
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            if (item.codigo.ToString().StartsWith(textBoxBuscarOperario.Text.Trim()) && item.asignado==comboBoxModulo.SelectedItem.ToString())
+                            {
+                                listViewBomoPorOperariio.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (textBoxBuscarOperario.Text.Trim() == "")
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            if (item.asignado == comboBoxModulo.SelectedItem.ToString())
+                            {
+                                listViewBomoPorOperariio.Items.Add(item);
+                            }
+                        }
                     }
 
                 }
-                dr.Close();
-                cnProduccion.Close();
+            }
+            //buscar por nombre de persona
+            else if (checkBoxOpcionDeBusqueda.IsChecked == false)
+            {
+                //si no hay modulo seleccionado
+                if (comboBoxModulo.SelectedIndex == -1)
+                {
+                    if (String.IsNullOrEmpty(textBoxBuscarOperario.Text.Trim()) == false)
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            if (item.nombre.StartsWith(textBoxBuscarOperario.Text.Trim()))
+                            {
+                                listViewBomoPorOperariio.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (textBoxBuscarOperario.Text.Trim() == "")
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            listViewBomoPorOperariio.Items.Add(item);
+                        }
+                    }
+                }
+                //si hay modulo seleccionado
+                else
+                {
+                    if (String.IsNullOrEmpty(textBoxBuscarOperario.Text.Trim()) == false)
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            if (item.nombre.StartsWith(textBoxBuscarOperario.Text.Trim()) && item.asignado == comboBoxModulo.SelectedItem.ToString())
+                            {
+                                listViewBomoPorOperariio.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (textBoxBuscarOperario.Text.Trim() == "")
+                    {
+                        listViewBomoPorOperariio.Items.Clear();
+                        foreach (bonoPorOperario item in bonoPorOperario)
+                        {
+                            if (item.asignado == comboBoxModulo.SelectedItem.ToString())
+                            {
+                                listViewBomoPorOperariio.Items.Add(item);
+                            }
+                        }
+                    }
+
+                }
 
             }
+
         }
+        private void buttonDescargar_Click(object sender, RoutedEventArgs e)
+        {
+            if (tabControlListBono.SelectedIndex == 0)
+            {
+                StringBuilder buffer = new StringBuilder();
+                #region encabezados
+                buffer.Append("TURNO");
+                buffer.Append(",");
+                buffer.Append("MODULO");
+                buffer.Append(",");
+                buffer.Append("PIEZAS LU");
+                buffer.Append(",");
+                buffer.Append("% LU");
+                buffer.Append(",");
+                buffer.Append("$ LU");
+                buffer.Append(",");
+                buffer.Append("PIEZAS MA");
+                buffer.Append(",");
+                buffer.Append("% MA");
+                buffer.Append(",");
+                buffer.Append("$ MA");
+                buffer.Append(",");
+                buffer.Append("PIEZAS MI");
+                buffer.Append(",");
+                buffer.Append("% MI");
+                buffer.Append(",");
+                buffer.Append("$ MI");
+                buffer.Append(",");
+                buffer.Append("PIEZAS JU");
+                buffer.Append(",");
+                buffer.Append("% JU");
+                buffer.Append(",");
+                buffer.Append("$ JU");
+                buffer.Append(",");
+                buffer.Append("PIEZAS VI");
+                buffer.Append(",");
+                buffer.Append("% VI");
+                buffer.Append(",");
+                buffer.Append("$ VI");
+                buffer.Append(",");
+                buffer.Append("PIEZAS SA");
+                buffer.Append(",");
+                buffer.Append("% SA");
+                buffer.Append(",");
+                buffer.Append("$ SA");
+                buffer.Append(",");
+                buffer.Append("TOTAL PIEZAS");
+                buffer.Append(",");
+                buffer.Append("TOTAL BONO");
+                buffer.Append("\n");
+                #endregion
+                foreach (bonoPorModulo item in listViewBomoPorModulo.Items)
+                {
+                    buffer.Append(item.turno);
+                    buffer.Append(",");
+                    buffer.Append(item.modart);
+                    buffer.Append(",");
+                    buffer.Append(item.piezasLunes);
+                    buffer.Append(",");
+                    buffer.Append(item.eficienciaLunes);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoLunes);
+                    buffer.Append(",");
+                    buffer.Append(item.piezasMartes);
+                    buffer.Append(",");
+                    buffer.Append(item.eficienciaMartes);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoMartes);
+                    buffer.Append(",");
+                    buffer.Append(item.piezasMiercoles);
+                    buffer.Append(",");
+                    buffer.Append(item.eficienciaMiercoles);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoMiercoles);
+                    buffer.Append(",");
+                    buffer.Append(item.piezasJueves);
+                    buffer.Append(",");
+                    buffer.Append(item.eficienciaJueves);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoJueves);
+                    buffer.Append(",");
+                    buffer.Append(item.piezasViernes);
+                    buffer.Append(",");
+                    buffer.Append(item.eficienciaViernes);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoViernes);
+                    buffer.Append(",");
+                    buffer.Append(item.piezasSabado);
+                    buffer.Append(",");
+                    buffer.Append(item.eficienciaSabado);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoSabado);
+                    buffer.Append(",");
+                    buffer.Append(item.totalDePiezas);
+                    buffer.Append(",");
+                    buffer.Append(item.bono);
+                    buffer.Append("\n");
+                }
+                String result = buffer.ToString();
+                try
+                {
+                    StreamWriter sw = new StreamWriter("export" + conteo + ".csv");
+                    sw.WriteLine(result);
+                    sw.Close();
+                    Process.Start("export" + conteo + ".csv");
+                }
+                catch (Exception ex)
+                { }
+                conteo = conteo + 1;
+
+            }
+            else if (tabControlListBono.SelectedIndex == 1)
+            {
+                StringBuilder buffer = new StringBuilder();
+                #region encabezados
+                buffer.Append("MODULO");
+                buffer.Append(",");
+                buffer.Append("CODIGO");
+                buffer.Append(",");
+                buffer.Append("NOMBRE");
+                buffer.Append(",");
+                buffer.Append("LU H");
+                buffer.Append(",");
+                buffer.Append("LU $");
+                buffer.Append(",");
+                buffer.Append("MA H");
+                buffer.Append(",");
+                buffer.Append("MA $");
+                buffer.Append(",");
+                buffer.Append("MI H");
+                buffer.Append(",");
+                buffer.Append("MI $");
+                buffer.Append(",");
+                buffer.Append("JU H");
+                buffer.Append(",");
+                buffer.Append("JU $");
+                buffer.Append(",");
+                buffer.Append("VI H");
+                buffer.Append(",");
+                buffer.Append("VI $");
+                buffer.Append(",");
+                buffer.Append("SA H");
+                buffer.Append(",");
+                buffer.Append("SA $");
+                buffer.Append(",");
+                buffer.Append("BONO BRUTO");
+                buffer.Append(",");
+                buffer.Append("BP");
+                buffer.Append(",");
+                buffer.Append("AQL G");
+                buffer.Append(",");
+                buffer.Append("AQL I");
+                buffer.Append(",");
+                buffer.Append("INASISTENCIA");
+                buffer.Append(",");
+                buffer.Append("AMONESTACIONES");
+                buffer.Append(",");
+                buffer.Append("BONO NETO");
+                buffer.Append("\n");
+                #endregion
+                foreach (bonoPorOperario item in listViewBomoPorOperariio.Items)
+                {
+                    buffer.Append(item.asignado);
+                    buffer.Append(",");
+                    buffer.Append(item.codigo);
+                    buffer.Append(",");
+                    buffer.Append(item.nombre);
+                    buffer.Append(",");
+                    buffer.Append(item.tiempoLunes);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoLunes);
+                    buffer.Append(",");
+                    buffer.Append(item.tiempoMartes);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoMartes);
+                    buffer.Append(",");
+                    buffer.Append(item.tiempoMiercoles);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoMiercoles);
+                    buffer.Append(",");
+                    buffer.Append(item.tiempoJueves);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoJueves);
+                    buffer.Append(",");
+                    buffer.Append(item.tiempoViernes);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoViernes);
+                    buffer.Append(",");
+                    buffer.Append(item.tiempoSabado);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoSabado);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoBruto);
+                    buffer.Append(",");
+                    buffer.Append(item.bp);
+                    buffer.Append(",");
+                    buffer.Append(item.aqlG);
+                    buffer.Append(",");
+                    buffer.Append(item.aqlI);
+                    buffer.Append(",");
+                    buffer.Append(item.inasistencias);
+                    buffer.Append(",");
+                    buffer.Append(item.amonestaciones);
+                    buffer.Append(",");
+                    buffer.Append(item.bonoNeto);
+                    buffer.Append("\n");
+                }
+                String result = buffer.ToString();
+                try
+                {
+                    StreamWriter sw = new StreamWriter("export" + conteo + ".csv");
+                    sw.WriteLine(result);
+                    sw.Close();
+                    Process.Start("export" + conteo + ".csv");
+                }
+                catch (Exception ex)
+                { }
+                conteo = conteo + 1;
+            }
+        }
+        #endregion
     }
 }

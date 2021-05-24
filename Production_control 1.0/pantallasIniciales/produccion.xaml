@@ -210,7 +210,7 @@
                 <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Asistencia" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
             </Grid>
         </Border>
-        <Border x:Name="BorderLotes" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5" MouseUp="BorderEditarProduccion_MouseUp" Margin="20,0,0,0" >
+        <Border x:Name="BorderLotes" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"  Background="#FF222222" CornerRadius="5"  Margin="20,0,0,0" MouseUp="BorderLotes_MouseUp" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
