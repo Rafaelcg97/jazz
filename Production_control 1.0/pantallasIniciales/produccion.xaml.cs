@@ -24,7 +24,6 @@ namespace Production_control_1._0.pantallasIniciales
         }
 
         #endregion
-
         #region entrar_a_pantallas
 
         private void BorderConsultaSam_MouseUp(object sender, MouseButtonEventArgs e)
@@ -41,7 +40,6 @@ namespace Production_control_1._0.pantallasIniciales
         }
 
         #endregion
-
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
@@ -64,24 +62,27 @@ namespace Production_control_1._0.pantallasIniciales
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new pantallasProduccion.reporteProduccion();
         }
-
         private void BorderEditarProduccion_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new pantallasProduccion.validacionUsuarioProduccion());
         }
-
         private void BorderBonos_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new pantallasProduccion.bonos();
         }
-
         private void BorderLotes_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new pantallasProduccion.cuadrarLotes();
+        }
+        private void Border5s_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasProduccion.resultadosBuenasPracticas());
         }
     }
 }

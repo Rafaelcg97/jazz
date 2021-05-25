@@ -25,7 +25,6 @@ namespace Production_control_1._0.pantallasProduccion
             InitializeComponent();
         }
         #endregion
-
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
@@ -40,14 +39,12 @@ namespace Production_control_1._0.pantallasProduccion
             }
             return parent;
         }
-
         private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
         {
             Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new pantallasIniciales.produccion());
         }
-
         private void solo_numeros(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key==Key.Tab)
@@ -55,9 +52,7 @@ namespace Production_control_1._0.pantallasProduccion
             else
                 e.Handled = true;
         }
-
         #endregion
-
         #region ingreso
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
