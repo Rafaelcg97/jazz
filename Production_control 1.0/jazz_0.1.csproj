@@ -219,6 +219,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="clases\asistencia.cs" />
     <Compile Include="clases\asistenciaPorColaborador.cs" />
     <Compile Include="clases\balance.cs" />
     <Compile Include="clases\bonoPorModulo.cs" />
@@ -305,6 +306,9 @@
     </Compile>
     <Compile Include="pantallasMantenimiento\mantenimientoPreventivo.xaml.cs">
       <DependentUpon>mantenimientoPreventivo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasProduccion\reporteAsistencia.xaml.cs">
+      <DependentUpon>reporteAsistencia.xaml</DependentUpon>
     </Compile>
     <Compile Include="pantallasProduccion\reporteProduccion.xaml.cs">
       <DependentUpon>reporteProduccion.xaml</DependentUpon>
@@ -407,6 +411,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasMantenimiento\mantenimientoPreventivo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\reporteAsistencia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

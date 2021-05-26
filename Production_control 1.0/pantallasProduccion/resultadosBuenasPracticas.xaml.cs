@@ -51,22 +51,10 @@ namespace Production_control_1._0.pantallasProduccion
             arterias_[0] = 1;
             arterias_[1] = 2;
             arterias_[2] = 3;
-            string sql = "select num_auditoria, fecha, hora, modulo, arteria, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, observaciones, resultado from buenaspracticas where semana_bpi ='" + semana + "' and ano_bpi ='" + anio + "'";
             cnProduccion.Open();
+            string sql = "select modulo from modulosProduccion where coordinadorNombre<>'-'";
             SqlCommand cm = new SqlCommand(sql, cnProduccion);
             SqlDataReader dr = cm.ExecuteReader();
-
-            // se llenan la lista de modulos con los datos de la consulta
-            while (dr.Read())
-            {
-                listViewResultadosModulo.Items.Add(new bp {fecha=Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), arteria=Convert.ToInt32(dr["arteria"]), arterias = arterias_, modulos = modulos_.ToArray(), opciones2 = opciones2_, opciones3 = opciones3_, opciones4 = opciones4_, p1 =Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3= Convert.ToInt32(dr["p3"]), p4= Convert.ToInt32(dr["p4"]), p5= Convert.ToInt32(dr["p5"]), p6= Convert.ToInt32(dr["p6"]), p7= Convert.ToInt32(dr["p7"]), p8= Convert.ToInt32(dr["p8"]), p9= Convert.ToInt32(dr["p9"]), p10= Convert.ToInt32(dr["p10"]), p11= Convert.ToInt32(dr["p11"]), p12= Convert.ToInt32(dr["p12"]), p13= Convert.ToInt32(dr["p13"]), p14= Convert.ToInt32(dr["p14"]), p15= Convert.ToInt32(dr["p15"]), p16= Convert.ToInt32(dr["p16"]), p17= Convert.ToInt32(dr["p17"]), p18= Convert.ToInt32(dr["p18"]), p19= Convert.ToInt32(dr["p19"]), p20= Convert.ToInt32(dr["p20"]), comentario=dr["observaciones"].ToString(), resultado= Convert.ToDouble(dr["resultado"]), num_auditoria= Convert.ToInt32(dr["num_auditoria"]), });
-            };
-            //se termina la conexion a la base
-            dr.Close();
-
-            sql = "select modulo from modulosProduccion where coordinadorNombre<>'-'";
-            cm = new SqlCommand(sql, cnProduccion);
-            dr = cm.ExecuteReader();
             // se llenan la lista de modulos con los datos de la consulta
             while (dr.Read())
             {
@@ -75,6 +63,7 @@ namespace Production_control_1._0.pantallasProduccion
             //se termina la conexion a la base
             dr.Close();
             cnProduccion.Close();
+            consultarDatos();
         }
         #endregion
         #region calculos_generals
@@ -108,23 +97,7 @@ namespace Production_control_1._0.pantallasProduccion
         #region controlModificaciones
         private void calendarFecha_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime fecha = Convert.ToDateTime(calendarFecha.SelectedDate);
-            int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(fecha, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-            int anio = fecha.Year;
-            listViewResultadosModulo.Items.Clear();
-            string sql = "select num_auditoria, fecha, hora, modulo, arteria, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, observaciones, resultado from buenaspracticas where semana_bpi ='" + semana + "' and ano_bpi ='" + anio + "'";
-            cnProduccion.Open();
-            SqlCommand cm = new SqlCommand(sql, cnProduccion);
-            SqlDataReader dr = cm.ExecuteReader();
-            // se llenan la lista de modulos con los datos de la consulta
-            while (dr.Read())
-            {
-                listViewResultadosModulo.Items.Add(new bp { fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo = dr["modulo"].ToString(), arteria = Convert.ToInt32(dr["arteria"]), arterias=arterias_, modulos=modulos_.ToArray(), opciones2=opciones2_, opciones3=opciones3_, opciones4=opciones4_, p1 = Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3 = Convert.ToInt32(dr["p3"]), p4 = Convert.ToInt32(dr["p4"]), p5 = Convert.ToInt32(dr["p5"]), p6 = Convert.ToInt32(dr["p6"]), p7 = Convert.ToInt32(dr["p7"]), p8 = Convert.ToInt32(dr["p8"]), p9 = Convert.ToInt32(dr["p9"]), p10 = Convert.ToInt32(dr["p10"]), p11 = Convert.ToInt32(dr["p11"]), p12 = Convert.ToInt32(dr["p12"]), p13 = Convert.ToInt32(dr["p13"]), p14 = Convert.ToInt32(dr["p14"]), p15 = Convert.ToInt32(dr["p15"]), p16 = Convert.ToInt32(dr["p16"]), p17 = Convert.ToInt32(dr["p17"]), p18 = Convert.ToInt32(dr["p18"]), p19 = Convert.ToInt32(dr["p19"]), p20 = Convert.ToInt32(dr["p20"]), comentario = dr["observaciones"].ToString(), resultado = Convert.ToDouble(dr["resultado"]), num_auditoria = Convert.ToInt32(dr["num_auditoria"]), });
-            };
-            //se termina la conexion a la base
-            dr.Close();
-            cnProduccion.Close();
-
+            consultarDatos();
         }
         private void buttonDescargar_Click(object sender, RoutedEventArgs e)
         {
@@ -336,12 +309,57 @@ namespace Production_control_1._0.pantallasProduccion
             }
             cnProduccion.Close();
             MessageBox.Show("Acción Terminada");
+            consultarDatos();
         }
-        #endregion
-
         private void listViewResultadosModulo_KeyDown(object sender, KeyEventArgs e)
         {
-
+            #region variablesConexion
+            string sql;
+            SqlCommand cm;
+            #endregion
+            // eliminar el registro seleccionado con ctrl y d
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
+            {
+                MessageBoxResult result = MessageBox.Show("¿Desea Eliminar los Registros Seleccionados?", "Jazz-CCO", MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        cnProduccion.Open();
+                        foreach (bp item in listViewResultadosModulo.SelectedItems)
+                        {
+                            sql = "delete from buenaspracticas where num_auditoria='" + item.num_auditoria + "'";
+                            cm = new SqlCommand(sql, cnProduccion);
+                            cm.ExecuteNonQuery();
+                        }
+                        cnProduccion.Close();
+                        consultarDatos();
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
         }
+        #endregion
+        #region calculosGenerales
+        private void consultarDatos()
+        {
+            DateTime fecha = Convert.ToDateTime(calendarFecha.SelectedDate);
+            int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(fecha, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            int anio = fecha.Year;
+            listViewResultadosModulo.Items.Clear();
+            string sql = "select num_auditoria, fecha, hora, modulo, arteria, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, observaciones, resultado from buenaspracticas where semana_bpi ='" + semana + "' and ano_bpi ='" + anio + "'";
+            cnProduccion.Open();
+            SqlCommand cm = new SqlCommand(sql, cnProduccion);
+            SqlDataReader dr = cm.ExecuteReader();
+            // se llenan la lista de modulos con los datos de la consulta
+            while (dr.Read())
+            {
+                listViewResultadosModulo.Items.Add(new bp { fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo = dr["modulo"].ToString(), arteria = Convert.ToInt32(dr["arteria"]), arterias = arterias_, modulos = modulos_.ToArray(), opciones2 = opciones2_, opciones3 = opciones3_, opciones4 = opciones4_, p1 = Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3 = Convert.ToInt32(dr["p3"]), p4 = Convert.ToInt32(dr["p4"]), p5 = Convert.ToInt32(dr["p5"]), p6 = Convert.ToInt32(dr["p6"]), p7 = Convert.ToInt32(dr["p7"]), p8 = Convert.ToInt32(dr["p8"]), p9 = Convert.ToInt32(dr["p9"]), p10 = Convert.ToInt32(dr["p10"]), p11 = Convert.ToInt32(dr["p11"]), p12 = Convert.ToInt32(dr["p12"]), p13 = Convert.ToInt32(dr["p13"]), p14 = Convert.ToInt32(dr["p14"]), p15 = Convert.ToInt32(dr["p15"]), p16 = Convert.ToInt32(dr["p16"]), p17 = Convert.ToInt32(dr["p17"]), p18 = Convert.ToInt32(dr["p18"]), p19 = Convert.ToInt32(dr["p19"]), p20 = Convert.ToInt32(dr["p20"]), comentario = dr["observaciones"].ToString(), resultado = Convert.ToDouble(dr["resultado"]), num_auditoria = Convert.ToInt32(dr["num_auditoria"]), });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnProduccion.Close();
+        }
+        #endregion
     }
 }

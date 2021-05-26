@@ -56,7 +56,7 @@ namespace Production_control_1._0.pantallasIniciales
         }
 
         #endregion
-
+        #region cuadrosDeArea
         private void BorderReporteProduccion_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
@@ -84,5 +84,11 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new pantallasProduccion.resultadosBuenasPracticas());
         }
+        private void BorderAistencia_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = new pantallasProduccion.reporteAsistencia();
+        }
+        #endregion
     }
 }
