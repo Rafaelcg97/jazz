@@ -470,7 +470,7 @@ namespace Production_control_1._0.pantallasProduccion
         }
         private void listViewLotes_KeyDown(object sender, KeyEventArgs e)
         {
-            // eliminar el repuesto solicitado al presionar la tecla d
+            // eliminar el lote con ctrl y d
             if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
             {
                 int elementoSeleccionado = listViewLotes.SelectedIndex + 1;
@@ -617,7 +617,6 @@ namespace Production_control_1._0.pantallasProduccion
             dr.Close();
             cnIngenieria.Close();
             #endregion
-
         }
         private void buttonIngresarLotesRojos_Click(object sender, RoutedEventArgs e)
         {

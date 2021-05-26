@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasProduccion
@@ -25,7 +26,12 @@ namespace Production_control_1._0.pantallasProduccion
     {
         #region stringsGenerales
         SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        int conteo = 0;
+        SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+        int[] opciones2_ = new int[2];
+        int[] opciones3_ = new int[3];
+        int[] opciones4_ = new int[4];
+        int[] arterias_ = new int[3];
+        List<string> modulos_ = new List<string>();
         #endregion
         #region datosInciales
         public resultadosBuenasPracticas()
@@ -33,6 +39,18 @@ namespace Production_control_1._0.pantallasProduccion
             InitializeComponent();
             int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             int anio = DateTime.Now.Year;
+            opciones2_[0] = 25;
+            opciones2_[1] = 100;
+            opciones3_[0] = 25;
+            opciones3_[1] = 50;
+            opciones3_[2] = 100;
+            opciones4_[0] = 25;
+            opciones4_[1] = 50;
+            opciones4_[2] = 75;
+            opciones4_[3] = 100;
+            arterias_[0] = 1;
+            arterias_[1] = 2;
+            arterias_[2] = 3;
             string sql = "select num_auditoria, fecha, hora, modulo, arteria, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, observaciones, resultado from buenaspracticas where semana_bpi ='" + semana + "' and ano_bpi ='" + anio + "'";
             cnProduccion.Open();
             SqlCommand cm = new SqlCommand(sql, cnProduccion);
@@ -41,7 +59,18 @@ namespace Production_control_1._0.pantallasProduccion
             // se llenan la lista de modulos con los datos de la consulta
             while (dr.Read())
             {
-                listViewResultadosModulo.Items.Add(new bp {fecha=Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), arteria=Convert.ToInt32(dr["arteria"]), p1=Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3= Convert.ToInt32(dr["p3"]), p4= Convert.ToInt32(dr["p4"]), p5= Convert.ToInt32(dr["p5"]), p6= Convert.ToInt32(dr["p6"]), p7= Convert.ToInt32(dr["p7"]), p8= Convert.ToInt32(dr["p8"]), p9= Convert.ToInt32(dr["p9"]), p10= Convert.ToInt32(dr["p10"]), p11= Convert.ToInt32(dr["p11"]), p12= Convert.ToInt32(dr["p12"]), p13= Convert.ToInt32(dr["p13"]), p14= Convert.ToInt32(dr["p14"]), p15= Convert.ToInt32(dr["p15"]), p16= Convert.ToInt32(dr["p16"]), p17= Convert.ToInt32(dr["p17"]), p18= Convert.ToInt32(dr["p18"]), p19= Convert.ToInt32(dr["p19"]), p20= Convert.ToInt32(dr["p20"]), comentario=dr["observaciones"].ToString(), resultado= Convert.ToDouble(dr["resultado"]), num_auditoria= Convert.ToInt32(dr["num_auditoria"]), });
+                listViewResultadosModulo.Items.Add(new bp {fecha=Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), arteria=Convert.ToInt32(dr["arteria"]), arterias = arterias_, modulos = modulos_.ToArray(), opciones2 = opciones2_, opciones3 = opciones3_, opciones4 = opciones4_, p1 =Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3= Convert.ToInt32(dr["p3"]), p4= Convert.ToInt32(dr["p4"]), p5= Convert.ToInt32(dr["p5"]), p6= Convert.ToInt32(dr["p6"]), p7= Convert.ToInt32(dr["p7"]), p8= Convert.ToInt32(dr["p8"]), p9= Convert.ToInt32(dr["p9"]), p10= Convert.ToInt32(dr["p10"]), p11= Convert.ToInt32(dr["p11"]), p12= Convert.ToInt32(dr["p12"]), p13= Convert.ToInt32(dr["p13"]), p14= Convert.ToInt32(dr["p14"]), p15= Convert.ToInt32(dr["p15"]), p16= Convert.ToInt32(dr["p16"]), p17= Convert.ToInt32(dr["p17"]), p18= Convert.ToInt32(dr["p18"]), p19= Convert.ToInt32(dr["p19"]), p20= Convert.ToInt32(dr["p20"]), comentario=dr["observaciones"].ToString(), resultado= Convert.ToDouble(dr["resultado"]), num_auditoria= Convert.ToInt32(dr["num_auditoria"]), });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+
+            sql = "select modulo from modulosProduccion where coordinadorNombre<>'-'";
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            // se llenan la lista de modulos con los datos de la consulta
+            while (dr.Read())
+            {
+                modulos_.Add(dr["modulo"].ToString());
             };
             //se termina la conexion a la base
             dr.Close();
@@ -76,6 +105,7 @@ namespace Production_control_1._0.pantallasProduccion
                 e.Handled = true;
         }
         #endregion
+        #region controlModificaciones
         private void calendarFecha_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime fecha = Convert.ToDateTime(calendarFecha.SelectedDate);
@@ -89,7 +119,7 @@ namespace Production_control_1._0.pantallasProduccion
             // se llenan la lista de modulos con los datos de la consulta
             while (dr.Read())
             {
-                listViewResultadosModulo.Items.Add(new bp { fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo = dr["modulo"].ToString(), arteria = Convert.ToInt32(dr["arteria"]), p1 = Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3 = Convert.ToInt32(dr["p3"]), p4 = Convert.ToInt32(dr["p4"]), p5 = Convert.ToInt32(dr["p5"]), p6 = Convert.ToInt32(dr["p6"]), p7 = Convert.ToInt32(dr["p7"]), p8 = Convert.ToInt32(dr["p8"]), p9 = Convert.ToInt32(dr["p9"]), p10 = Convert.ToInt32(dr["p10"]), p11 = Convert.ToInt32(dr["p11"]), p12 = Convert.ToInt32(dr["p12"]), p13 = Convert.ToInt32(dr["p13"]), p14 = Convert.ToInt32(dr["p14"]), p15 = Convert.ToInt32(dr["p15"]), p16 = Convert.ToInt32(dr["p16"]), p17 = Convert.ToInt32(dr["p17"]), p18 = Convert.ToInt32(dr["p18"]), p19 = Convert.ToInt32(dr["p19"]), p20 = Convert.ToInt32(dr["p20"]), comentario = dr["observaciones"].ToString(), resultado = Convert.ToDouble(dr["resultado"]), num_auditoria = Convert.ToInt32(dr["num_auditoria"]), });
+                listViewResultadosModulo.Items.Add(new bp { fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo = dr["modulo"].ToString(), arteria = Convert.ToInt32(dr["arteria"]), arterias=arterias_, modulos=modulos_.ToArray(), opciones2=opciones2_, opciones3=opciones3_, opciones4=opciones4_, p1 = Convert.ToInt32(dr["p1"]), p2 = Convert.ToInt32(dr["p2"]), p3 = Convert.ToInt32(dr["p3"]), p4 = Convert.ToInt32(dr["p4"]), p5 = Convert.ToInt32(dr["p5"]), p6 = Convert.ToInt32(dr["p6"]), p7 = Convert.ToInt32(dr["p7"]), p8 = Convert.ToInt32(dr["p8"]), p9 = Convert.ToInt32(dr["p9"]), p10 = Convert.ToInt32(dr["p10"]), p11 = Convert.ToInt32(dr["p11"]), p12 = Convert.ToInt32(dr["p12"]), p13 = Convert.ToInt32(dr["p13"]), p14 = Convert.ToInt32(dr["p14"]), p15 = Convert.ToInt32(dr["p15"]), p16 = Convert.ToInt32(dr["p16"]), p17 = Convert.ToInt32(dr["p17"]), p18 = Convert.ToInt32(dr["p18"]), p19 = Convert.ToInt32(dr["p19"]), p20 = Convert.ToInt32(dr["p20"]), comentario = dr["observaciones"].ToString(), resultado = Convert.ToDouble(dr["resultado"]), num_auditoria = Convert.ToInt32(dr["num_auditoria"]), });
             };
             //se termina la conexion a la base
             dr.Close();
@@ -208,21 +238,28 @@ namespace Production_control_1._0.pantallasProduccion
             String result = buffer.ToString();
             try
             {
-                StreamWriter sw = new StreamWriter("export" + conteo + ".csv");
-                sw.WriteLine(result);
-                sw.Close();
-                Process.Start("export" + conteo + ".csv");
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+
+                }
+
+                Process.Start(fileName);
             }
             catch (Exception ex)
             { }
-            conteo = conteo + 1;
-
-
-
         }
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
             popUpValidarUsuario.IsOpen = true;
+            buttonModificar.IsEnabled = false;
+            passWordBoxValidarUsuario.Password = "";
         }
         private void buttonDetallesPreguntas_Click(object sender, RoutedEventArgs e)
         {
@@ -255,20 +292,56 @@ namespace Production_control_1._0.pantallasProduccion
         {
             popUpDetallesDePreguntas.IsOpen = false;
         }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void buttonIngresarLotesRojos_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ButtonCerrarPopup2_Click(object sender, RoutedEventArgs e)
         {
             popUpValidarUsuario.IsOpen = false;
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            #region variablesDeConexionn
+            string sql;
+            SqlCommand cm;
+            SqlDataReader dr;
+            #endregion
+            #region consultarUsuario
+            //consultar
+            sql = "select codigo from usuarios where contrasena='" + passWordBoxValidarUsuario.Password + "' and nivel='1' and cargo='LEAN'";
+            cnIngenieria.Open();
+            cm = new SqlCommand(sql, cnIngenieria);
+            dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                labelNombreAutoriza.Content = dr["codigo"].ToString();
+                buttonModificar.IsEnabled = true;
+            }
+            else
+            {
+                labelNombreAutoriza.Content = "----";
+                buttonModificar.IsEnabled = false;
+            }
+            dr.Close();
+            cnIngenieria.Close();
+            #endregion
+
+        }
+        private void buttonModificar_Click(object sender, RoutedEventArgs e)
+        {
+            cnProduccion.Open();
+            foreach(bp item in listViewResultadosModulo.Items)
+            {
+                string comentario = item.comentario.Replace("'", "");
+                string sql = "update buenaspracticas set fecha='" + item.fecha + "', modulo='" + item.modulo + "', arteria='" + item.arteria + "', p1=" + item.p1 + ", p2=" + item.p2 + ", p3=" + item.p3 + ", p4=" + item.p4 + ", p5=" + item.p5 + ", p6=" + item.p6 + ", p7=" + item.p7 + ", p8=" + item.p8 + ", p9=" + item.p9 + ", p10=" + item.p10 + ", p11=" + item.p11 + ", p12=" + item.p12 + ", p13=" + item.p13 + ", p14=" + item.p14 + ", p15=" + item.p15 + ", p16=" + item.p16 + ", p17=" + item.p17 +", p18="+item.p18+", p19="+item.p19+", p20="+item.p20+", observaciones='"+comentario+"' where num_auditoria="+item.num_auditoria ;
+                SqlCommand cm = new SqlCommand(sql, cnProduccion);
+                cm.ExecuteNonQuery();
+            }
+            cnProduccion.Close();
+            MessageBox.Show("Acción Terminada");
+        }
+        #endregion
+
+        private void listViewResultadosModulo_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

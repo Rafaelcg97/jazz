@@ -35,6 +35,11 @@ namespace Production_control_1._0.clases
         public int p21 { get; set; }
         public int p22 { get; set; }
         public int p23 { get; set; }
+        public int[] opciones2 { get; set; }
+        public int[] opciones3 { get; set; }
+        public int[] opciones4 { get; set; }
+        public int[] arterias { get; set; }
+        public string [] modulos { get; set; }
         public string comentario { get; set; }
         public double resultado { get; set; }
     }

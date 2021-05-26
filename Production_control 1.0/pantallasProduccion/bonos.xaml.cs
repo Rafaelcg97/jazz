@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasProduccion
@@ -25,7 +26,6 @@ namespace Production_control_1._0.pantallasProduccion
     {
         List<bonoPorOperario> bonoPorOperario = new List<bonoPorOperario>();
         List<bonoPorModulo> bonoPorModulo= new List<bonoPorModulo>();
-        int conteo = 0;
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
@@ -570,14 +570,21 @@ namespace Production_control_1._0.pantallasProduccion
                 String result = buffer.ToString();
                 try
                 {
-                    StreamWriter sw = new StreamWriter("export" + conteo + ".csv");
-                    sw.WriteLine(result);
-                    sw.Close();
-                    Process.Start("export" + conteo + ".csv");
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                    string fileName = "";
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        fileName = saveFileDialog.FileName;
+                        StreamWriter sw = new StreamWriter(fileName);
+                        sw.WriteLine(result);
+                        sw.Close();
+                    }
+
+                    Process.Start(fileName);
                 }
                 catch (Exception ex)
                 { }
-                conteo = conteo + 1;
 
             }
             else if (tabControlListBono.SelectedIndex == 1)
@@ -679,14 +686,20 @@ namespace Production_control_1._0.pantallasProduccion
                 String result = buffer.ToString();
                 try
                 {
-                    StreamWriter sw = new StreamWriter("export" + conteo + ".csv");
-                    sw.WriteLine(result);
-                    sw.Close();
-                    Process.Start("export" + conteo + ".csv");
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                    string fileName = "";
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        fileName = saveFileDialog.FileName;
+                        StreamWriter sw = new StreamWriter(fileName);
+                        sw.WriteLine(result);
+                        sw.Close();
+                    }
+                    Process.Start(fileName);
                 }
                 catch (Exception ex)
                 { }
-                conteo = conteo + 1;
             }
         }
         #endregion
