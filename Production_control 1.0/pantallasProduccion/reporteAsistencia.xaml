@@ -89,26 +89,28 @@
             <Border VerticalAlignment="Center" Margin="0,0,0,0" Grid.Row="2" Grid.Column="6" BorderBrush="Black" BorderThickness="1">
                 <Label Content="----" x:Name="labelFecha" FontWeight="Bold" FontSize="15" />
             </Border>
-            <Expander x:Name="expanderControl" VerticalAlignment="Top" Panel.ZIndex="1" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="0,15,0,0" >
-                <Calendar x:Name="calendarAsistenciaRetractil" SelectedDatesChanged="calendarAsistenciaRetractil_SelectedDatesChanged" />
+            <Expander x:Name="expanderControl" ExpandDirection="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="1" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="5">
+                <Viewbox>
+                    <Calendar x:Name="calendarAsistenciaRetractil" SelectedDatesChanged="calendarAsistenciaRetractil_SelectedDatesChanged" IsTodayHighlighted="False" />
+                </Viewbox>
             </Expander>
-            <ListView x:Name="listViewAsistencia" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="11" Grid.RowSpan="17" Margin="15,0,0,15">
+            <ListView x:Name="listViewAsistencia" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="11" Grid.RowSpan="17" Margin="15,0,0,15" KeyDown="listViewAsistencia_KeyDown">
                 <ListView.View>
                     <GridView>
                         <!--#region Codigo-->
                         <GridViewColumn Header="Codigo" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding Path=codigo}" Width="85" Background="Gray" KeyDown="solo_numeros"/>
+                                    <Label Content="{Binding Path=codigo}" Width="85" Background="DarkRed" Foreground="White" FontSize="15" FontWeight="Bold" KeyDown="solo_numeros"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <!--#endregion-->
                         <!--#region Nombre-->
-                        <GridViewColumn Header="Nombre" Width="350">
+                        <GridViewColumn Header="Nombre" Width="320">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label  Content="{Binding Path=nombre}" Width="350" Background="Gray"/>
+                                    <Label  Content="{Binding Path=nombre}" Width="350" Background="DarkGreen" Foreground="White"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -135,7 +137,7 @@
                         <GridViewColumn Header="Horas" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Path=horas}" Width="65" KeyDown="soloNumerosDecimales"/>
+                                    <TextBox Text="{Binding Path=tiempo}" Width="65" KeyDown="soloNumerosDecimales"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -153,7 +155,7 @@
                         <GridViewColumn Header="Observaciones" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox  Text="{Binding Path=observaciones}" Width="235" Background="Gray"/>
+                                    <TextBox  Text="{Binding Path=observaciones}" Width="235"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -170,13 +172,55 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <StackPanel Grid.Row="3" Grid.RowSpan="4" Grid.Column="11" Grid.ColumnSpan="2" Margin="20,0,0,0" >
-                <Label Content="Fecha:" FontWeight="Bold" FontSize="20" Margin="15,0,0,0"/>
-                <Calendar x:Name="calendarAsistencia"/>
-            </StackPanel>
-
-
-
+            <Border Grid.Column="11" Grid.Row="3" Grid.RowSpan="5" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1" Margin="5,0,5,0" Background="AliceBlue">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Asignado:" FontWeight="Bold" FontSize="17" Margin="15,0,0,0"/>
+                    <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Turno:" FontWeight="Bold" FontSize="17" Margin="15,0,0,0"/>
+                    <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Base:" FontWeight="Bold" FontSize="17" Margin="15,0,0,0"/>
+                    <Label Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Fecha:" FontWeight="Bold" FontSize="17" Margin="0,0,0,0"/>
+                    <ComboBox x:Name="comboBoxAsignado" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="1" FontWeight="Bold" FontSize="17" Margin="15,0,0,0" MaxHeight="25"/>
+                    <ComboBox x:Name="comboBoxTurnoLista" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="1" FontWeight="Bold" FontSize="17" Margin="15,0,0,0" MaxHeight="25"/>
+                    <ComboBox x:Name="comboBoxBase" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="1" FontWeight="Bold" FontSize="17" Margin="15,0,0,0" MaxHeight="25"/>
+                    <Calendar x:Name="calendarAsistencia" IsTodayHighlighted="False" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="5"/>
+                </Grid>
+            </Border>
+            <Border Grid.Row="9" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black">
+                <StackPanel>
+                    <Label Content="Agregar Colaborador:" FontWeight="Bold" FontSize="17" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="textBoxCodigo" Margin="10" MaxWidth="150" MinHeight="30" KeyDown="solo_numeros" FontSize="15" TextChanged="textBoxCodigo_TextChanged" />
+                    <Label Content="----" x:Name="labelNombre" FontWeight="DemiBold" FontSize="15" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+                    <Button HorizontalAlignment="Center" x:Name="buttonAgregarColaborador" MinHeight="35" MinWidth="75" MaxHeight="60" MaxWidth="80" Margin="0,20,0,0" Click="buttonAgregarColaborador_Click" IsEnabled="False" Background="Transparent">
+                        <StackPanel>
+                            <Image Source="/imagenes/desconocido.png" Width="30" Height="30"/>
+                            <Label Content="Agregar" FontSize="10"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Label Grid.Row="8" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="1" Content="Acciones" FontWeight="Bold" FontSize="22" Margin="0,0,0,0" HorizontalContentAlignment="Center"/>
+            <Button Grid.Row="16" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="1" x:Name="buttonGuardar" Content="Guardar" FontWeight="Bold" FontSize="17" Margin="0,0,0,0" Click="buttonGuardar_Click"/>
+            
         </Grid>
     </Grid>
 </Page>
