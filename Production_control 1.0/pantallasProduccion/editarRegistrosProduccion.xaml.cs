@@ -543,7 +543,6 @@ namespace Production_control_1._0.pantallasProduccion
                         }
                         cnProduccion.Close();
                         consultarRegistros();
-
                         break;
                     case MessageBoxResult.No:
                         break;

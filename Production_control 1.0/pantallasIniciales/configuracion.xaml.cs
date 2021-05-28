@@ -3,16 +3,25 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Configuration;
 using System.Xml;
+using System.Data.SqlClient;
+using Production_control_1._0.clases;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace Production_control_1._0.pantallasIniciales
 {
     public partial class configuracion : UserControl
     {
+        SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+        List<usuario> usuariosTotales = new List<usuario>();
+        List<string> cargos_ = new List<string>();
+        int[] niveles_ = new int[2];
+        string cargo_ = "";
         #region datos_iniciales
-        public configuracion()
+        public configuracion(string cargo)
         {
             InitializeComponent();
-
+            cargo_ = cargo;
             //rellenar los textbox con los datos de conexion configurados (actual estado)
             TextBoxServidor.Text = ConfigurationManager.AppSettings["servidor_ing"];
             TextBoxUsuario.Text = ConfigurationManager.AppSettings["usuario_ing"];
@@ -23,60 +32,21 @@ namespace Production_control_1._0.pantallasIniciales
             textBoxMantenimiento.Text = ConfigurationManager.AppSettings["base_manto"];
             textBoxBalance.Text = ConfigurationManager.AppSettings["base_balances"];
             textBoxGaleria.Text = ConfigurationManager.AppSettings["imagenes"];
-            passwordBoxAdministrador.Password = ConfigurationManager.AppSettings["administrador"];
+            niveles_[0] = 0;
+            niveles_[1] = 1;
+            cargos_.Add("SOPORTE");
+            cargos_.Add("MECANICO");
+            cargos_.Add("INGENIERO");
+            cargos_.Add("COORDINADOR");
+            cargos_.Add("LEAN");
+            cargos_.Add("ADMINISTRADOR");
 
-            //marcar los checkbox con los datos de permisos configurados (actual estado)
-            if (ConfigurationManager.AppSettings["areaProduccion"] == "1") { CheckBoxProduccion.IsChecked = true; } else { CheckBoxProduccion.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["areaMantenimiento"] == "1") { CheckBoxMantenimiento.IsChecked = true; } else { CheckBoxMantenimiento.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["areaIngenieria"] == "1") { CheckBoxIngenieria.IsChecked = true; } else { CheckBoxIngenieria.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["areaMateriales"] == "1") { CheckBoxMateriales.IsChecked = true; } else { CheckBoxMateriales.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria1"] == "1") { CheckBoxSubCategoria1.IsChecked = true; } else { CheckBoxSubCategoria1.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria2"] == "1") { CheckBoxSubCategoria2.IsChecked = true; } else { CheckBoxSubCategoria2.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria3"] == "1") { CheckBoxSubCategoria3.IsChecked = true; } else { CheckBoxSubCategoria3.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria4"] == "1") { CheckBoxSubCategoria4.IsChecked = true; } else { CheckBoxSubCategoria4.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria5"] == "1") { CheckBoxSubCategoria5.IsChecked = true; } else { CheckBoxSubCategoria5.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria6"] == "1") { CheckBoxSubCategoria6.IsChecked = true; } else { CheckBoxSubCategoria6.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria7"] == "1") { CheckBoxSubCategoria7.IsChecked = true; } else { CheckBoxSubCategoria7.IsChecked = false; }
-            if (ConfigurationManager.AppSettings["subCategoria8"] == "1") { CheckBoxSubCategoria8.IsChecked = true; } else { CheckBoxSubCategoria8.IsChecked = false; }
+            consultar(cargo);
         }
         #endregion
-
         #region guardar
         private void ButtonGuardar_Click(object sender, RoutedEventArgs e)
         {
-            //definir valores a gardar por los checks
-            string habilitarProduccion;
-            string habilitarMantenimiento;
-            string habilitarMateriales;
-            string habilitarSubCategoria1;
-            string habilitarSubCategoria2;
-            string habilitarSubCategoria3;
-            string habilitarSubCategoria4;
-            string habilitarSubCategoria5;
-            string habilitarSubCategoria6;
-            string habilitarSubCategoria7;
-            string habilitarSubCategoria8;
-            string habilitarIngenieria;
-
-
-            if (CheckBoxProduccion.IsChecked == true) { habilitarProduccion = "1"; } else { habilitarProduccion = "0"; }
-            if (CheckBoxMantenimiento.IsChecked == true) { habilitarMantenimiento = "1"; } else { habilitarMantenimiento = "0"; }
-            if (CheckBoxMateriales.IsChecked == true) { habilitarMateriales = "1"; } else { habilitarMateriales = "0"; }
-            if (CheckBoxIngenieria.IsChecked == true) { habilitarIngenieria = "1"; } else { habilitarIngenieria = "0"; }
-            if (CheckBoxSubCategoria1.IsChecked == true) { habilitarSubCategoria1 = "1"; } else { habilitarSubCategoria1 = "0"; }
-            if (CheckBoxSubCategoria2.IsChecked == true) { habilitarSubCategoria2 = "1"; } else { habilitarSubCategoria2 = "0"; }
-            if (CheckBoxSubCategoria3.IsChecked == true) { habilitarSubCategoria3 = "1"; } else { habilitarSubCategoria3 = "0"; }
-            if (CheckBoxSubCategoria4.IsChecked == true) { habilitarSubCategoria4 = "1"; } else { habilitarSubCategoria4 = "0"; }
-            if (CheckBoxSubCategoria5.IsChecked == true) { habilitarSubCategoria5 = "1"; } else { habilitarSubCategoria5 = "0"; }
-            if (CheckBoxSubCategoria6.IsChecked == true) { habilitarSubCategoria6 = "1"; } else { habilitarSubCategoria6 = "0"; }
-            if (CheckBoxSubCategoria7.IsChecked == true) { habilitarSubCategoria7 = "1"; } else { habilitarSubCategoria7 = "0"; }
-            if (CheckBoxSubCategoria8.IsChecked == true) { habilitarSubCategoria8 = "1"; } else { habilitarSubCategoria8 = "0"; }
-
-
-            //guardar datos en el archivo de configuraciones del programa
-
-
-
             XmlDocument xmldoc = new XmlDocument();
             xmldoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             foreach (XmlElement element in xmldoc.DocumentElement)
@@ -95,19 +65,6 @@ namespace Production_control_1._0.pantallasIniciales
                         if (node.Attributes[0].Value == "base_balances") { node.Attributes[1].Value = textBoxBalance.Text; }
                         if (node.Attributes[0].Value == "base_produccion") { node.Attributes[1].Value = textBoxProduccion.Text; }
                         if (node.Attributes[0].Value == "imagenes") { node.Attributes[1].Value = textBoxGaleria.Text; }
-                        if (node.Attributes[0].Value == "areaProduccion") { node.Attributes[1].Value = habilitarProduccion; }
-                        if (node.Attributes[0].Value == "areaMantenimiento") { node.Attributes[1].Value = habilitarMantenimiento; }
-                        if (node.Attributes[0].Value == "areaMateriales") { node.Attributes[1].Value = habilitarMateriales; }
-                        if (node.Attributes[0].Value == "areaIngenieria") { node.Attributes[1].Value = habilitarIngenieria; }
-                        if (node.Attributes[0].Value == "subCategoria1") { node.Attributes[1].Value = habilitarSubCategoria1; }
-                        if (node.Attributes[0].Value == "subCategoria2") { node.Attributes[1].Value = habilitarSubCategoria2; }
-                        if (node.Attributes[0].Value == "subCategoria3") { node.Attributes[1].Value = habilitarSubCategoria3; }
-                        if (node.Attributes[0].Value == "subCategoria4") { node.Attributes[1].Value = habilitarSubCategoria4; }
-                        if (node.Attributes[0].Value == "subCategoria5") { node.Attributes[1].Value = habilitarSubCategoria5; }
-                        if (node.Attributes[0].Value == "subCategoria6") { node.Attributes[1].Value = habilitarSubCategoria6; }
-                        if (node.Attributes[0].Value == "subCategoria7") { node.Attributes[1].Value = habilitarSubCategoria7; }
-                        if (node.Attributes[0].Value == "subCategoria8") { node.Attributes[1].Value = habilitarSubCategoria8; }
-                        if (node.Attributes[0].Value == "administrador") { node.Attributes[1].Value = passwordBoxAdministrador.Password; }
                     }
                 }
             }
@@ -118,6 +75,117 @@ namespace Production_control_1._0.pantallasIniciales
 
             MessageBox.Show("Datos Actualizados");
 
+        }
+        #endregion
+        #region asignarPermisos
+        private void buttonAgregar_Click(object sender, RoutedEventArgs e)
+        {
+            usuariosTotales.Add(new usuario {});
+            listViewAsignarUsuarios.Items.Add(new usuario {cargos=cargos_.ToArray(), niveles=niveles_ });
+        }
+        private void textBoxBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            listViewAsignarUsuarios.Items.Clear();
+            if (String.IsNullOrEmpty(textBoxBuscar.Text.Trim()) == false)
+            {
+                foreach (usuario item in usuariosTotales)
+                {
+                    if (item.nombre.StartsWith(textBoxBuscar.Text.Trim()))
+                    {
+                        listViewAsignarUsuarios.Items.Add(item);
+                    }
+                }
+            }
+            else if (textBoxBuscar.Text.Trim() == "")
+            {
+                foreach (usuario item in usuariosTotales)
+                {
+                   listViewAsignarUsuarios.Items.Add(item);
+                }
+            }
+
+        }
+        private void listViewAsignarUsuarios_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            // eliminar el operario con ctrl y d
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
+            {
+                MessageBoxResult result = MessageBox.Show("¿Desea Eliminar los Usuarios Seleccionados?", "Jazz-CCO", MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        cnIngenieria.Open();
+                        foreach (usuario item in listViewAsignarUsuarios.SelectedItems)
+                        {
+                            string sql = "delete from usuarios where id='" + item.id + "'";
+                            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+                            cm.ExecuteNonQuery();
+                        }
+                        cnIngenieria.Close();
+                        consultar(cargo_);
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
+        }
+        private void consultar(string cargo)
+        {
+            //dependiendo de quien sea el que entre se cargan las listas
+            string sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios";
+            if (cargo == "ADMINISTRADOR1")
+            {
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='INGENIERO' or cargo='SOPORTE' or cargo='COORDINADOR'";
+                cargos_.Clear();
+                cargos_.Add("MECANICO");
+            }
+            else if (cargo == "ADMINISTRADOR2")
+            {
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='MECANICO'";
+                cargos_.Clear();
+                cargos_.Add("SOPORTE");
+                cargos_.Add("INGENIERO");
+                cargos_.Add("COORDINADOR");
+            }
+            bool ingenieria_ = false;
+            bool produccion_ = false;
+            bool bodega_ = false;
+            bool mantenimiento_ = false;
+            usuariosTotales.Clear();
+            cnIngenieria.Open();
+            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+            SqlDataReader dr = cm.ExecuteReader();
+
+            // se llenan la lista de modulos con los datos de la consulta
+            while (dr.Read())
+            {
+                if (Convert.ToInt32(dr["ingenieria"]) == 1) { ingenieria_ = true; } else { ingenieria_ = false; }
+                if (Convert.ToInt32(dr["produccion"]) == 1) { produccion_ = true; } else { produccion_ = false; }
+                if (Convert.ToInt32(dr["bodega"]) == 1) { bodega_ = true; } else { bodega_ = false; }
+                if (Convert.ToInt32(dr["mantenimiento"]) == 1) { mantenimiento_ = true; } else { mantenimiento_ = false; }
+                usuariosTotales.Add(new usuario { id = Convert.ToInt32(dr["id"]), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), nivel = Convert.ToInt32(dr["nivel"]), cargo = dr["cargo"].ToString(), contrasenia = dr["contrasena"].ToString(), produccion = produccion_, mantenimiento = mantenimiento_, bodega = bodega_, ingenieria = ingenieria_, niveles = niveles_, cargos = cargos_.ToArray() });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnIngenieria.Close();
+            listViewAsignarUsuarios.Items.Clear();
+            foreach (usuario item in usuariosTotales)
+            {
+                listViewAsignarUsuarios.Items.Add(item);
+            }
+        }
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabControlRegistrosPermisos.SelectedIndex == 1 && cargo_=="ADMINISTRADOR1")
+            {
+                MessageBox.Show("Usted No tiene Permiso Para realiza Cambios en esta sección");
+                tabControlRegistrosPermisos.SelectedIndex = 0;
+            }
+            else if (tabControlRegistrosPermisos.SelectedIndex == 2 && cargo_ == "ADMINISTRADOR2")
+            {
+                MessageBox.Show("Usted No tiene Permiso Para realiza Cambios en esta sección");
+                tabControlRegistrosPermisos.SelectedIndex = 0;
+            }
         }
         #endregion
     }

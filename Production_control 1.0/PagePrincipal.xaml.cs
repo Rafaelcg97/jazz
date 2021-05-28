@@ -99,7 +99,7 @@ namespace Production_control_1._0
             {
                 popUpConfiguraciones.IsOpen = false;
                 GridPrincipal.Children.Clear();
-                GridPrincipal.Children.Add(new pantallasIniciales.configuracion());
+                GridPrincipal.Children.Add(new pantallasIniciales.configuracion("ADMINISTRADOR1"));
             }
             else
             {

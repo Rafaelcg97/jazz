@@ -231,12 +231,14 @@
     <Compile Include="clases\horaProduccion.cs" />
     <Compile Include="clases\horasPorOperario.cs" />
     <Compile Include="clases\lote.cs" />
+    <Compile Include="clases\loteConfirma.cs" />
     <Compile Include="clases\maquina.cs" />
     <Compile Include="clases\operacion.cs" />
     <Compile Include="clases\operario.cs" />
     <Compile Include="clases\solicitudInsumo.cs" />
     <Compile Include="clases\solicitudMaquina.cs" />
     <Compile Include="clases\solicitudTPM.cs" />
+    <Compile Include="clases\usuario.cs" />
     <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\MessageModel.cs" />
     <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\SQLNotifier.cs" />
     <Compile Include="pantallasIniciales\inicio.xaml.cs">

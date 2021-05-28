@@ -468,19 +468,49 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.Row="0" Margin="50,0,0,0" Grid.ColumnSpan="10">
                             <Label FontSize="20" FontWeight="Bold" Content="Año:" Height="40" Width="90"/>
-                            <ComboBox x:Name="comboBoxAnio" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" SelectionChanged="comboBoxModulo_SelectionChanged"/>
+                            <ComboBox x:Name="comboBoxAnio" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" SelectionChanged="comboBoxAnio_SelectionChanged"/>
                             <Label FontSize="20" FontWeight="Bold" Content="Semana:" Height="40" Width="90" Margin="35,0,0,0"/>
-                            <ComboBox x:Name="comboBoxSemana" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" SelectionChanged="comboBoxModulo_SelectionChanged"/>
+                            <ComboBox x:Name="comboBoxSemana" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" SelectionChanged="comboBoxSemana_SelectionChanged"/>
                             <Label FontSize="20" FontWeight="Bold" Content="Módulo:" Height="40" Width="90" Margin="35,0,0,0"/>
-                            <ComboBox x:Name="comboBoxModuloConfirm" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" SelectionChanged="comboBoxModulo_SelectionChanged"/>
+                            <ComboBox x:Name="comboBoxModuloConfirm" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" SelectionChanged="comboBoxModuloConfirm_SelectionChanged"/>
                             <Label FontSize="20" FontWeight="Bold" Content="Lote:" Height="40" Width="90" Margin="35,0,0,0"/>
-                            <TextBox x:Name="textBoxLoteConfirm" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxLoteConfirm" Height="30" Width="200" Padding="0" VerticalContentAlignment="Center" TextChanged="textBoxLoteConfirm_TextChanged" />
+                            <Button x:Name="buttonDescargarConfirm" Height="30" Width="90" Margin="35,0,0,0" Background="Transparent" Click="buttonDescargarConfirm_Click">
+                                <Image Source="/imagenes/descargar.png"/>
+                            </Button>
                         </StackPanel>
-                        <ListView x:Name="listViewLotesConfirmados" Grid.ColumnSpan="8" Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Margin="50,0,50,10" SelectionChanged="listViewLotesLista_SelectionChanged">
+                        <ListView x:Name="listViewLotesConfirmados" Grid.ColumnSpan="8" Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Margin="50,0,50,10">
                             <ListView.View>
                                 <GridView>
+                                    <!--#region anio-->
+                                    <GridViewColumn Header="Year" Width="60">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=anio}" Width="80" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region semana-->
+                                    <GridViewColumn Header="Wk" Width="50">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=semana}" Width="80" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region modulo-->
+                                    <GridViewColumn Header="Modulo" Width="125">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=modulo}" Width="170" Background="DarkGreen" Foreground="White"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
                                     <!--#region coordinador-->
-                                    <GridViewColumn Header="Coordinador" Width="185">
+                                    <GridViewColumn Header="Coordinador" Width="150">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Label  Content="{Binding Path=coordinador}" Width="170" Background="DarkRed" Foreground="White"/>
@@ -492,25 +522,16 @@
                                     <GridViewColumn Header="Lote" Width="150">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label  Content="{Binding Path=lote}" Width="135"/>
+                                                <Label  Content="{Binding Path=numeroLote}" Width="135"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <!--#endregion-->
                                     <!--#region Confirmacion-->
-                                    <GridViewColumn Header="Confirmación" Width="125">
+                                    <GridViewColumn Header="Confirmación" Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Label  Content="{Binding Path=confirmacion}" Width="125" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <!--#endregion-->
-                                    <!--#region #KanBan-->
-                                    <GridViewColumn Header="KanBan#" Width="125">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Label  Content="{Binding Path=s}" Width="125"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -524,7 +545,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <!--#endregion-->
-                                    <!--#region L-->
+                                    <!--#region poNumber-->
                                     <GridViewColumn Header="PO Number" Width="150">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -534,28 +555,37 @@
                                     </GridViewColumn>
                                     <!--#endregion-->
                                     <!--#region Customer-->
-                                    <GridViewColumn Header="Customer" Width="150">
+                                    <GridViewColumn Header="Customer" Width="130">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label  Content="{Binding Path=customer}" Width="150"/>
+                                                <Label  Content="{Binding Path=cliente}" Width="150"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <!--#endregion-->
                                     <!--#region seasonCode-->
-                                    <GridViewColumn Header="Season Code" Width="100">
+                                    <GridViewColumn Header="Season" Width="75">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label  Content="{Binding Path=season}" Width="100"/>
+                                                <Label  Content="{Binding Path=temporada}" Width="100"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region color-->
+                                    <GridViewColumn Header="Color" Width="170">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Content="{Binding Path=color}" Width="217"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <!--#endregion-->
                                     <!--#region make-->
-                                    <GridViewColumn Header="Make" Width="100">
+                                    <GridViewColumn Header="Make" Width="70">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label  Content="{Binding Path=make}" Width="100" Background="Gray"/>
+                                                <Label  Content="{Binding Path=piezas}" Width="100" Background="Gray"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

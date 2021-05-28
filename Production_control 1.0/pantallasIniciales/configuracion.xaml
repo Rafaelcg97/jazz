@@ -53,81 +53,148 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--#endregion-->
-
         <!--#region guardar-->
         <Button x:Name="ButtonGuardar" Grid.Row="1" Grid.Column="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="ButtonGuardar_Click">
-            <Image Source="imagenes/disquete.png"/>
+            <Image Source="/imagenes/disquete.png"/>
         </Button>
         <!--#endregion-->
-
         <!--#region conexio-->
         <Label Content="Panel de Control Jazz 1.0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="15" FontWeight="ExtraBold" FontSize="45" Padding="0" Foreground="#FFCFB681"/>
-        <Label Content="Conexión" Grid.Column="1" Grid.Row="3" Padding="0" Grid.ColumnSpan="10" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
-        <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="8" Grid.RowSpan="1" Background="#FFC76464" />
-        <Label Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Servidor:"/>
-        <Label Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Usuario:"/>
-        <Label Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Contraseña:"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="5" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="TextBoxServidor" FontSize="20"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="6" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="TextBoxUsuario" FontSize="20"/>
-        <PasswordBox Grid.Column="4" Margin="5" Grid.Row="7" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="PasswordBoxContrasena" FontSize="20"/>
+        <Label Content="Conexión" Grid.Column="1" Grid.Row="3" Padding="0" Grid.ColumnSpan="6" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
+        <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="1" Background="#FFC76464" />
+        <Label Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Servidor:"/>
+        <Label Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Usuario:"/>
+        <Label Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Contraseña:"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="5" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="TextBoxServidor" FontSize="20"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="TextBoxUsuario" FontSize="20"/>
+        <PasswordBox Grid.Column="3" Margin="5" Grid.Row="7" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="PasswordBoxContrasena" FontSize="20"/>
         <!--#endregion-->
-
         <!--#region bases-->
-        <Border Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="8" Grid.RowSpan="1" Background="#FFC76464" />
-        <Label Content="Bases de datos" Grid.Column="1" Grid.Row="9" Padding="0" Grid.ColumnSpan="10" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
-        <Label Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Mantenimiento:"/>
-        <Label Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Producción:"/>
-        <Label Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Ingenieria:"/>
-        <Label Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="SMED:"/>
-        <Label Grid.Column="1" Grid.Row="15" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Balances:"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="11" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="textBoxMantenimiento" FontSize="20"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="12" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="textBoxProduccion" FontSize="20"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="13" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="textBoxIngenieria" FontSize="20"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="14" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="textBoxSmed" FontSize="20"/>
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="15" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="textBoxBalance" FontSize="20"/>
+        <Border Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="6" Grid.RowSpan="1" Background="#FFC76464" />
+        <Label Content="Bases de datos" Grid.Column="1" Grid.Row="9" Padding="0" Grid.ColumnSpan="6" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
+        <Label Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Mantenimiento:"/>
+        <Label Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Producción:"/>
+        <Label Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Ingenieria:"/>
+        <Label Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="SMED:"/>
+        <Label Grid.Column="1" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Balances:"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="11" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="textBoxMantenimiento" FontSize="20"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="12" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="textBoxProduccion" FontSize="20"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="13" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="textBoxIngenieria" FontSize="20"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="14" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="textBoxSmed" FontSize="20"/>
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="15" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="textBoxBalance" FontSize="20"/>
         <!--#endregion-->
-
         <!--#region galeria-->
-        <Label Content="Galerias" Grid.Column="1" Grid.Row="17" Padding="0" Grid.ColumnSpan="10" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
-        <Border Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="8" Grid.RowSpan="1" Background="#FFC76464" />
-        <TextBox Grid.Column="4" Margin="5" Grid.Row="19" Grid.ColumnSpan="5" Grid.RowSpan="1" Padding="0" x:Name="textBoxGaleria" FontSize="20"/>
-        <Label Grid.Column="1" Grid.Row="19" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Estilos:"/>
+        <Label Content="Galerias" Grid.Column="1" Grid.Row="16" Padding="0" Grid.ColumnSpan="6" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
+        <Border Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="6" Grid.RowSpan="1" Background="#FFC76464" />
+        <TextBox Grid.Column="3" Margin="5" Grid.Row="18" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="textBoxGaleria" FontSize="20"/>
+        <Label Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Estilos:"/>
         <!--#endregion-->
-
-        <!--#region areas-->
-        <Label Content="Areas Habilitadas" Grid.Column="11" Grid.Row="3" Padding="0" Grid.ColumnSpan="10" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
-        <Border Grid.Column="11" Grid.Row="4" Grid.ColumnSpan="8" Grid.RowSpan="1" Background="#FFC76464" />
-        <Label Grid.Column="11" Grid.Row="5" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Producción:"/>
-        <Label Grid.Column="11" Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Mantenimiento:"/>
-        <Label Grid.Column="11" Grid.Row="7" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="S. Materiales:"/>
-        <Label Grid.Column="12" Grid.Row="8" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Repuestos:"/>
-        <Label Grid.Column="12" Grid.Row="9" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Papeleria:"/>
-        <Label Grid.Column="12" Grid.Row="10" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Categoria:"/>
-        <Label Grid.Column="12" Grid.Row="11" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Categoria:"/>
-        <Label Grid.Column="12" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Categoria:"/>
-        <Label Grid.Column="12" Grid.Row="13" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Categoria:"/>
-        <Label Grid.Column="12" Grid.Row="14" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Categoria:"/>
-        <Label Grid.Column="12" Grid.Row="15" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="12" FontWeight="Black" Foreground="White" Content="Categoria:"/>
-        <Label Grid.Column="11" Grid.Row="16" Grid.ColumnSpan="3" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Ingenieria:"/>
-        <CheckBox Grid.Row="5" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxProduccion"/>
-        <CheckBox Grid.Row="6" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxMantenimiento"/>
-        <CheckBox Grid.Row="7" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxMateriales"/>
-        <CheckBox Grid.Row="8" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria1"/>
-        <CheckBox Grid.Row="9" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria2"/>
-        <CheckBox Grid.Row="10" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria3"/>
-        <CheckBox Grid.Row="11" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria4"/>
-        <CheckBox Grid.Row="12" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria5"/>
-        <CheckBox Grid.Row="13" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria6"/>
-        <CheckBox Grid.Row="14" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria7"/>
-        <CheckBox Grid.Row="15" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxSubCategoria8"/>
-        <CheckBox Grid.Row="16" Grid.Column="15" IsChecked="True" Grid.ColumnSpan="2" Grid.RowSpan="1" x:Name="CheckBoxIngenieria"/>
-        <!--#endregion-->
-
-        <!--#region administrador-->
-        <Label Content="Administrador" Grid.Column="11" Grid.Row="17" Padding="0" Grid.ColumnSpan="10" Grid.RowSpan="1" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" />
-        <Border Grid.Column="11" Grid.Row="18" Grid.ColumnSpan="8" Grid.RowSpan="1" Background="#FFC76464" />
-        <PasswordBox Grid.Column="15" Margin="5" Grid.Row="19" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" x:Name="passwordBoxAdministrador" FontSize="20"/>
-        <Label Grid.Column="11" Grid.Row="19" Grid.ColumnSpan="4" Grid.RowSpan="1" Padding="0" FontSize="20" FontWeight="Black" Foreground="White" Content="Administrador"/>
-        <!--#endregion-->
+        <TabControl x:Name="tabControlRegistrosPermisos"  Grid.Column="8" Grid.Row="4" Grid.ColumnSpan="12" Grid.RowSpan="16" Margin="0,0,25,25" Background="Transparent" Height="790" SelectionChanged="TabControl_SelectionChanged" >
+            <TabItem Header="Usuarios">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Permisos de Usuarios" Padding="0" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" Margin="0,0,0,5" />
+                        <TextBox x:Name="textBoxBuscar" Width="200" Height="30" VerticalAlignment="Bottom" Margin="30,0,0,5" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" TextChanged="textBoxBuscar_TextChanged"/>
+                        <Button x:Name="buttonAgregar"  Height="30" VerticalAlignment="Bottom" Margin="30,0,0,5" Background="Transparent" BorderBrush="Transparent" Click="buttonAgregar_Click">
+                            <Image Source="/imagenes/mas.png" />
+                        </Button>
+                    </StackPanel>
+                    <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewAsignarUsuarios" MaxHeight="725" KeyDown="listViewAsignarUsuarios_KeyDown" >
+                        <ListView.View>
+                            <GridView>
+                                <!--#region codigo-->
+                                <GridViewColumn Header="Codigo" Width="85">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=codigo}" Width="85" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region nombre-->
+                                <GridViewColumn Header="Nombre" Width="250">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding nombre}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region nivel-->
+                                <GridViewColumn Header="Nivel" Width="60">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Width="45" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding niveles}" SelectedItem="{Binding nivel}">
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region cargo-->
+                                <GridViewColumn Header="Cargo" Width="140">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Width="125" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding cargos}" SelectedItem="{Binding cargo}">
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region Contrasenia-->
+                                <GridViewColumn Header="Contraseña" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Width="55" FontWeight="Bold" Foreground="#FF4E7495" FontSize="7" Height="25" Text="{Binding contrasenia}" FontFamily="BCW_Code128_6"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region produccion-->
+                                <GridViewColumn Header="Produccion" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding produccion}" HorizontalContentAlignment="Center" Margin="35,0,0,0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region mantenimiento-->
+                                <GridViewColumn Header="Mantenimiento" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding mantenimiento}" HorizontalContentAlignment="Center" Margin="35,0,0,0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region bodega-->
+                                <GridViewColumn Header="Bodega" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding bodega}" HorizontalContentAlignment="Center" Margin="35,0,0,0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region Ingenieria-->
+                                <GridViewColumn Header="Ingenieria" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ingenieria}" HorizontalContentAlignment="Center" Margin="35,0,0,0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Orden Módulos">
+            </TabItem>
+            <TabItem Header="Ingenieros">
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </UserControl>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasProduccion
@@ -261,21 +264,117 @@ namespace Production_control_1._0.pantallasProduccion
                         cm.ExecuteNonQuery();
                     }
                     cnProduccion.Close();
-                    listViewAsistencia.Items.Clear();
-                    comboBoxAsignado.SelectedIndex= -1;
-                    comboBoxModulo.SelectedIndex = -1;
-                    comboBoxTurno.SelectedIndex = -1;
-                    comboBoxTurnoLista.SelectedIndex = -1;
-                    comboBoxBase.SelectedIndex = -1;
-                    calendarAsistencia.SelectedDate = Convert.ToDateTime("0001-01-01");
-                    calendarAsistenciaRetractil.SelectedDate = Convert.ToDateTime("0001-01-01");
-                    labelNombre.Content = "----";
-                    labelFecha.Content = "----";
-                    textBoxCodigo.Clear();
-                    MessageBox.Show("Datos Ingresados");
+                    MessageBoxResult result = MessageBox.Show("¿Desea descargar la asistencia guardada?", "Jazz-CCO", MessageBoxButton.YesNo);
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            descargarAsistencia();
+                            listViewAsistencia.Items.Clear();
+                            comboBoxAsignado.SelectedIndex = -1;
+                            comboBoxModulo.SelectedIndex = -1;
+                            comboBoxTurno.SelectedIndex = -1;
+                            comboBoxTurnoLista.SelectedIndex = -1;
+                            comboBoxBase.SelectedIndex = -1;
+                            calendarAsistencia.SelectedDate = Convert.ToDateTime("0001-01-01");
+                            calendarAsistenciaRetractil.SelectedDate = Convert.ToDateTime("0001-01-01");
+                            labelNombre.Content = "----";
+                            labelFecha.Content = "----";
+                            textBoxCodigo.Clear();
+                            break;
+                        case MessageBoxResult.No:
+                            listViewAsistencia.Items.Clear();
+                            comboBoxAsignado.SelectedIndex = -1;
+                            comboBoxModulo.SelectedIndex = -1;
+                            comboBoxTurno.SelectedIndex = -1;
+                            comboBoxTurnoLista.SelectedIndex = -1;
+                            comboBoxBase.SelectedIndex = -1;
+                            calendarAsistencia.SelectedDate = Convert.ToDateTime("0001-01-01");
+                            calendarAsistenciaRetractil.SelectedDate = Convert.ToDateTime("0001-01-01");
+                            labelNombre.Content = "----";
+                            labelFecha.Content = "----";
+                            textBoxCodigo.Clear();
+                            break;
+                    }
 
                 }
             }
+        }
+        private void descargarAsistencia()
+        {
+            StringBuilder buffer = new StringBuilder();
+            #region encabezados
+            buffer.Append("FECHA");
+            buffer.Append(",");
+            buffer.Append("ASIGNADO");
+            buffer.Append(",");
+            buffer.Append("TURNO");
+            buffer.Append(",");
+            buffer.Append("BASE");
+            buffer.Append(",");
+            buffer.Append("CODIGO");
+            buffer.Append(",");
+            buffer.Append("NOMBRE");
+            buffer.Append(",");
+            buffer.Append("MODULO");
+            buffer.Append(",");
+            buffer.Append("ARTERIA");
+            buffer.Append(",");
+            buffer.Append("HORAS");
+            buffer.Append(",");
+            buffer.Append("PUESTO");
+            buffer.Append(",");
+            buffer.Append("OBSERVACIONES");
+            buffer.Append(",");
+            buffer.Append("MOVIMIENTO");
+            buffer.Append("\n");
+            #endregion
+            foreach (asistencia item in listViewAsistencia.Items)
+            {
+                buffer.Append(Convert.ToDateTime(calendarAsistencia.SelectedDate).ToString("yyyy-MM-dd"));
+                buffer.Append(",");
+                buffer.Append(comboBoxAsignado.SelectedItem.ToString());
+                buffer.Append(",");
+                buffer.Append(comboBoxTurnoLista.SelectedItem.ToString());
+                buffer.Append(",");
+                buffer.Append(comboBoxBase.SelectedItem.ToString());
+                buffer.Append(",");
+                buffer.Append(item.codigo);
+                buffer.Append(",");
+                buffer.Append(item.nombre);
+                buffer.Append(",");
+                buffer.Append(item.modulo);
+                buffer.Append(",");
+                buffer.Append(item.arteria);
+                buffer.Append(",");
+                buffer.Append(item.tiempo);
+                buffer.Append(",");
+                buffer.Append(item.puesto);
+                buffer.Append(",");
+                buffer.Append(item.observaciones);
+                buffer.Append(",");
+                buffer.Append(item.movimiento);
+                buffer.Append(",");
+                buffer.Append("\n");
+            }
+            String result = buffer.ToString();
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            { }
         }
         #endregion
     }

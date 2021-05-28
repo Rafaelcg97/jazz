@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasProduccion
@@ -23,6 +28,7 @@ namespace Production_control_1._0.pantallasProduccion
         #region stringsGenerales
         List<horaProduccion> listaTodosLotes = new List<horaProduccion>();
         List<horaProduccion> lotesPorModulo = new List<horaProduccion>();
+        List<loteConfirma> lotesConfirma = new List<loteConfirma>();
         SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
         #region datosIniciales
@@ -50,6 +56,19 @@ namespace Production_control_1._0.pantallasProduccion
             while (dr.Read())
             {
                 comboBoxModulo.Items.Add(dr["modulo"].ToString());
+                comboBoxModuloConfirm.Items.Add(dr["modulo"].ToString());
+            };
+            //se termina la conexion a la base
+            dr.Close();
+
+            sql = "select ano from semana_de_produccion";
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            List<int> anios = new List<int>();
+            // se llenan la lista de modulos con los datos de la consulta
+            while (dr.Read())
+            {
+                anios.Add(Convert.ToInt32(dr["ano"]));
             };
             //se termina la conexion a la base
             dr.Close();
@@ -57,6 +76,11 @@ namespace Production_control_1._0.pantallasProduccion
             foreach(horaProduccion item in listaTodosLotes)
             {
                 listViewLotesLista.Items.Add(item);
+            }
+            IEnumerable<int> aniosUnicos = anios.Distinct();
+            foreach(int item in aniosUnicos)
+            {
+                comboBoxAnio.Items.Add(item);
             }
         }
         #endregion
@@ -207,6 +231,265 @@ namespace Production_control_1._0.pantallasProduccion
                 }
             }
 
+        }
+        #endregion
+        #region lotesConfirmados
+        private void comboBoxAnio_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string sql = "select semana from semana_de_produccion where ano="+Convert.ToInt32(comboBoxAnio.SelectedItem)+" order by semana desc";
+            cnProduccion.Open();
+            SqlCommand cm = new SqlCommand(sql, cnProduccion);
+            SqlDataReader dr = cm.ExecuteReader();
+            comboBoxSemana.Items.Clear();
+            // se llena la semana de ese anio
+            while (dr.Read())
+            {
+                comboBoxSemana.Items.Add(Convert.ToInt32(dr["semana"]));
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnProduccion.Close();
+
+            consultarDatosDeConfirma();
+            listViewLotesConfirmados.Items.Clear();
+            textBoxLoteConfirm.Clear();
+            comboBoxModuloConfirm.SelectedIndex = -1;
+            foreach(loteConfirma item in lotesConfirma)
+            {
+                if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem))
+                {
+                    listViewLotesConfirmados.Items.Add(item);
+                }
+            }
+        }
+        private void consultarDatosDeConfirma()
+        {
+            lotesConfirma.Clear();
+            string sql = "select modulo, coordinadorNombre, lote, confirmacion, targetDate, poNumber, customer, seasonCode, styleColorName, make from confirmaPoly order by coordinadorNombre, modulo, confirmacion";
+            cnProduccion.Open();
+            SqlCommand cm = new SqlCommand(sql, cnProduccion);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                string fechaConfirm = Regex.Replace(dr["confirmacion"].ToString(), @"\s", "");
+                try
+                {
+                    int dia_ = (int)Convert.ToDateTime(fechaConfirm).DayOfWeek;
+                    int anio_ = Convert.ToDateTime(fechaConfirm).Year;
+                    int semana_ = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(Convert.ToDateTime(fechaConfirm), CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+                    if (dia_== 1 || dia_ == 2|| dia_ == 3) 
+                    {
+                        semana_ = semana_ - 1;
+                    }
+                    lotesConfirma.Add(new loteConfirma { modulo = dr["modulo"].ToString(), coordinador = dr["coordinadorNombre"].ToString(), numeroLote = dr["lote"].ToString(), anio=anio_, semana=semana_, confirmacion = Convert.ToDateTime(fechaConfirm).ToString("yyyy-MM-dd"), targetDate = Convert.ToDateTime(dr["targetDate"]).ToString("yyyy-MM-dd"), poNumber = dr["poNumber"].ToString(), cliente = dr["customer"].ToString(), temporada = dr["seasonCode"].ToString(), color = dr["styleColorName"].ToString(), piezas = Convert.ToInt32(dr["make"]) });
+                }
+                catch
+                {
+                }
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnProduccion.Close();
+        }
+        private void textBoxLoteConfirm_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            listViewLotesConfirmados.Items.Clear();
+            if(comboBoxAnio.SelectedIndex>-1 & comboBoxSemana.SelectedIndex>-1 & comboBoxModuloConfirm.SelectedIndex > -1)
+            {
+                if (String.IsNullOrEmpty(textBoxLoteConfirm.Text.Trim()) == false)
+                {
+                    foreach (loteConfirma item in lotesConfirma)
+                    {
+                        if (item.numeroLote.StartsWith(textBoxLoteConfirm.Text.Trim()) & item.anio==Convert.ToInt32(comboBoxAnio.SelectedItem) & item.semana==Convert.ToInt32(comboBoxSemana.SelectedItem) & item.modulo==comboBoxModuloConfirm.SelectedItem.ToString())
+                        {
+                            listViewLotesConfirmados.Items.Add(item);
+                        }
+                    }
+                }
+                else if (textBoxLoteConfirm.Text.Trim() == "")
+                {
+                    foreach (loteConfirma item in lotesConfirma)
+                    {
+                        if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) & item.semana == Convert.ToInt32(comboBoxSemana.SelectedItem) & item.modulo == comboBoxModuloConfirm.SelectedItem.ToString())
+                        {
+                            listViewLotesConfirmados.Items.Add(item);
+                        }
+                    }
+                }
+            }
+            else if(comboBoxAnio.SelectedIndex > -1 & comboBoxSemana.SelectedIndex > -1)
+            {
+                if (String.IsNullOrEmpty(textBoxLoteConfirm.Text.Trim()) == false)
+                {
+                    foreach (loteConfirma item in lotesConfirma)
+                    {
+                        if (item.numeroLote.StartsWith(textBoxLoteConfirm.Text.Trim()) & item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) & item.semana == Convert.ToInt32(comboBoxSemana.SelectedItem))
+                        {
+                            listViewLotesConfirmados.Items.Add(item);
+                        }
+                    }
+                }
+                else if (textBoxLoteConfirm.Text.Trim() == "")
+                {
+                    foreach (loteConfirma item in lotesConfirma)
+                    {
+                        if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) & item.semana == Convert.ToInt32(comboBoxSemana.SelectedItem))
+                        {
+                            listViewLotesConfirmados.Items.Add(item);
+                        }
+                    }
+                }
+            }
+            else if (comboBoxAnio.SelectedIndex > -1)
+            {
+                if (String.IsNullOrEmpty(textBoxLoteConfirm.Text.Trim()) == false)
+                {
+                    foreach (loteConfirma item in lotesConfirma)
+                    {
+                        if (item.numeroLote.StartsWith(textBoxLoteConfirm.Text.Trim()) & item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem))
+                        {
+                            listViewLotesConfirmados.Items.Add(item);
+                        }
+                    }
+                }
+                else if (textBoxLoteConfirm.Text.Trim() == "")
+                {
+                    foreach (loteConfirma item in lotesConfirma)
+                    {
+                        if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem))
+                        {
+                            listViewLotesConfirmados.Items.Add(item);
+                        }
+                    }
+                }
+            }
+        }
+        private void comboBoxSemana_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listViewLotesConfirmados.Items.Clear();
+            textBoxLoteConfirm.Clear();
+            if (comboBoxAnio.SelectedIndex > -1 && comboBoxSemana.SelectedIndex>-1 && comboBoxModuloConfirm.SelectedIndex==-1)
+            {
+                foreach (loteConfirma item in lotesConfirma)
+                {
+                    if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) && item.semana==Convert.ToInt32(comboBoxSemana.SelectedItem))
+                    {
+                        listViewLotesConfirmados.Items.Add(item);
+                    }
+                }
+            }
+            else if (comboBoxAnio.SelectedIndex > -1 && comboBoxSemana.SelectedIndex > -1 && comboBoxModuloConfirm.SelectedIndex>-1)
+            {
+                foreach (loteConfirma item in lotesConfirma)
+                {
+                    if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) && item.semana == Convert.ToInt32(comboBoxSemana.SelectedItem) && item.modulo == comboBoxModuloConfirm.SelectedItem.ToString())
+                    {
+                        listViewLotesConfirmados.Items.Add(item);
+                    }
+                }
+            }
+        }
+        private void comboBoxModuloConfirm_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listViewLotesConfirmados.Items.Clear();
+            textBoxLoteConfirm.Clear();
+            if (comboBoxAnio.SelectedIndex > -1 && comboBoxSemana.SelectedIndex > -1 && comboBoxModuloConfirm.SelectedIndex > -1)
+            {
+                foreach (loteConfirma item in lotesConfirma)
+                {
+                    if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) & item.semana == Convert.ToInt32(comboBoxSemana.SelectedItem) & item.modulo == comboBoxModuloConfirm.SelectedItem.ToString())
+                    {
+                        listViewLotesConfirmados.Items.Add(item);
+                    }
+                }
+            }
+            else if (comboBoxAnio.SelectedIndex > -1 && comboBoxSemana.SelectedIndex == -1 && comboBoxModuloConfirm.SelectedIndex> -1)
+            {
+                foreach (loteConfirma item in lotesConfirma)
+                {
+                    if (item.anio == Convert.ToInt32(comboBoxAnio.SelectedItem) & item.modulo == comboBoxModuloConfirm.SelectedItem.ToString())
+                    {
+                        listViewLotesConfirmados.Items.Add(item);
+                    }
+                }
+            }
+        }
+        private void buttonDescargarConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder buffer = new StringBuilder();
+            #region encabezados
+            buffer.Append("AÑO");
+            buffer.Append(",");
+            buffer.Append("SEMANA");
+            buffer.Append(",");
+            buffer.Append("MODULO");
+            buffer.Append(",");
+            buffer.Append("COORDINADOR");
+            buffer.Append(",");
+            buffer.Append("LOTE");
+            buffer.Append(",");
+            buffer.Append("CONFIRMACION");
+            buffer.Append(",");
+            buffer.Append("TARGET");
+            buffer.Append(",");
+            buffer.Append("PO NUMBER");
+            buffer.Append(",");
+            buffer.Append("CLIENTE");
+            buffer.Append(",");
+            buffer.Append("TEMPORADA");
+            buffer.Append(",");
+            buffer.Append("COLOR");
+            buffer.Append(",");
+            buffer.Append("MAKE");
+            buffer.Append("\n");
+            #endregion
+            foreach (loteConfirma item in listViewLotesConfirmados.Items)
+            {
+                buffer.Append(item.anio);
+                buffer.Append(",");
+                buffer.Append(item.semana);
+                buffer.Append(",");
+                buffer.Append(item.modulo);
+                buffer.Append(",");
+                buffer.Append(item.coordinador);
+                buffer.Append(",");
+                buffer.Append(item.numeroLote);
+                buffer.Append(",");
+                buffer.Append(item.confirmacion);
+                buffer.Append(",");
+                buffer.Append(item.targetDate);
+                buffer.Append(",");
+                buffer.Append(item.poNumber);
+                buffer.Append(",");
+                buffer.Append(item.cliente);
+                buffer.Append(",");
+                buffer.Append(item.temporada);
+                buffer.Append(",");
+                buffer.Append(item.color);
+                buffer.Append(",");
+                buffer.Append(item.piezas);
+                buffer.Append(",");
+                buffer.Append("\n");
+            }
+            String result = buffer.ToString();
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            { }
         }
         #endregion
     }
