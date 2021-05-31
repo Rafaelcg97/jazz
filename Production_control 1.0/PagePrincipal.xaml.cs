@@ -14,7 +14,6 @@ namespace Production_control_1._0
             InitializeComponent();
         }
         #endregion
-
         #region calculos_generales
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -43,9 +42,8 @@ namespace Production_control_1._0
                     GridPrincipal.Children.Clear();
                     break;
                 case 5:
-                    passwordBoxContrasenaAdministrador.Password = "";
                     GridPrincipal.Children.Clear();
-                    popUpConfiguraciones.IsOpen = true;
+                    GridPrincipal.Children.Add(new pantallasIniciales.validacionUsuarioConfiguraciones());
                     break;
                 default:
                     break;
@@ -56,9 +54,7 @@ namespace Production_control_1._0
             TrainsitionigContentSlide.OnApplyTemplate();
             GridCursor.Margin = new Thickness(0, (100 + (60 * index)), 0, 0);
         }
-
         #endregion
-
         #region control_general_del programa
         private void ButtonSalir(object sender, RoutedEventArgs e)
         {
@@ -85,32 +81,5 @@ namespace Production_control_1._0
             Application.Current.MainWindow.DragMove();
         }
         #endregion
-
-        #region pop_uo_administrador_a
-
-        private void ButtonCerrarPopup_Click(object sender, RoutedEventArgs e)
-        {
-            popUpConfiguraciones.IsOpen = false;
-        }
-
-        private void ButtonIngresarContrasena_Click(object sender, RoutedEventArgs e)
-        {
-            if (passwordBoxContrasenaAdministrador.Password == ConfigurationManager.AppSettings["administrador"])
-            {
-                popUpConfiguraciones.IsOpen = false;
-                GridPrincipal.Children.Clear();
-                GridPrincipal.Children.Add(new pantallasIniciales.configuracion("ADMINISTRADOR1"));
-            }
-            else
-            {
-                MessageBox.Show("Contraseña Incorrecta");
-                passwordBoxContrasenaAdministrador.Password = "";
-                popUpConfiguraciones.IsOpen = true;
-            }
-
-        }
-
-        #endregion
-
     }
 }

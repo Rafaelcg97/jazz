@@ -18,6 +18,7 @@ namespace Production_control_1._0.clases
         public string hora_cierre { get; set; }
         public string corresponde { get; set; }
         public int prioridad { get; set; }
+        public double tiempoPausa { get; set; }
         public string color { get; set; }
         public string mecanico { get; set; }
     }

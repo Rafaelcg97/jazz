@@ -12,11 +12,16 @@ namespace Production_control_1._0.pantallasIniciales
 {
     public partial class configuracion : UserControl
     {
+        #region variablesListas
         SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+        SqlConnection cnManto = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+        SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         List<usuario> usuariosTotales = new List<usuario>();
         List<string> cargos_ = new List<string>();
+        List<string> modulos_ = new List<string>();
         int[] niveles_ = new int[2];
         string cargo_ = "";
+        #endregion
         #region datos_iniciales
         public configuracion(string cargo)
         {
@@ -39,9 +44,13 @@ namespace Production_control_1._0.pantallasIniciales
             cargos_.Add("INGENIERO");
             cargos_.Add("COORDINADOR");
             cargos_.Add("LEAN");
-            cargos_.Add("ADMINISTRADOR");
-
+            cargos_.Add("ADMINISTRADOR1");
+            cargos_.Add("ADMINISTRADOR2");
+            cargos_.Add("ADMINISTRADORGENERAL");
+            consultarIngenieros();
+            consultarModulos();
             consultar(cargo);
+            consultarSolicitudes();
         }
         #endregion
         #region guardar
@@ -137,15 +146,17 @@ namespace Production_control_1._0.pantallasIniciales
             {
                 sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='INGENIERO' or cargo='SOPORTE' or cargo='COORDINADOR'";
                 cargos_.Clear();
-                cargos_.Add("MECANICO");
+                cargos_.Add("SOPORTE");
+                cargos_.Add("INGENIERO");
+                cargos_.Add("COORDINADOR");
+                ordenMoulos.IsEnabled = false;
             }
             else if (cargo == "ADMINISTRADOR2")
             {
                 sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='MECANICO'";
                 cargos_.Clear();
-                cargos_.Add("SOPORTE");
-                cargos_.Add("INGENIERO");
-                cargos_.Add("COORDINADOR");
+                cargos_.Add("MECANICO");
+                ordenIngenieros.IsEnabled = false;
             }
             bool ingenieria_ = false;
             bool produccion_ = false;
@@ -174,6 +185,41 @@ namespace Production_control_1._0.pantallasIniciales
                 listViewAsignarUsuarios.Items.Add(item);
             }
         }
+        private void consultarIngenieros()
+        {
+            string sql = "select modulo, coordinadorNombre, coordinadorCodigo, ingenieroProcesosNombre, ingenieroProcesosCodigo from modulosProduccion";
+            cnProduccion.Open();
+            SqlCommand cm = new SqlCommand(sql, cnProduccion);
+            SqlDataReader dr = cm.ExecuteReader();
+            // se llenan la lista de modulos con los datos de la consulta
+            listViewOrdenarIngenieros.Items.Clear();
+            modulos_.Clear();
+            while (dr.Read())
+            {
+                listViewOrdenarIngenieros.Items.Add(new moduloAdministrado { modulo = dr["modulo"].ToString(), coordinadorNombre = dr["coordinadorNombre"].ToString(), coordinadorCodigo = Convert.ToInt32(dr["coordinadorCodigo"] is DBNull ? 0 : dr["coordinadorCodigo"]), ingenieroNombre = dr["ingenieroProcesosNombre"].ToString(), ingenieroCodigo = Convert.ToInt32(dr["ingenieroProcesosCodigo"] is DBNull ? 0 : dr["ingenieroProcesosCodigo"]) });
+                modulos_.Add(dr["modulo"].ToString());
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnProduccion.Close();
+        }
+        private void consultarModulos()
+        {
+            string sql = "select id, modulo from orden_modulos";
+            cnManto.Open();
+            SqlCommand cm = new SqlCommand(sql, cnManto);
+            SqlDataReader dr = cm.ExecuteReader();
+            // se llenan la lista de modulos con los datos de la consulta
+            listViewOrdenarModulos.Items.Clear();
+            while (dr.Read())
+            {
+                listViewOrdenarModulos.Items.Add(new moduloAdministrado { id = Convert.ToInt32(dr["id"]), modulo = dr["modulo"].ToString(), modulos = modulos_ });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnManto.Close();
+
+        }
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tabControlRegistrosPermisos.SelectedIndex == 1 && cargo_=="ADMINISTRADOR1")
@@ -187,6 +233,24 @@ namespace Production_control_1._0.pantallasIniciales
                 tabControlRegistrosPermisos.SelectedIndex = 0;
             }
         }
+        private void consultarSolicitudes()
+        {
+            string sql = "select numero_solicitud, modulo, apertura, cierre, minutos_pausa from resumen_tiempos_por_solicitud where minutos_pausa<0";
+            cnManto.Open();
+            SqlCommand cm = new SqlCommand(sql, cnManto);
+            SqlDataReader dr = cm.ExecuteReader();
+            // se llenan la lista de modulos con los datos de la consulta
+            listViewSolicitudes.Items.Clear();
+            while (dr.Read())
+            {
+                listViewSolicitudes.Items.Add(new solicitudMaquina { id_solicitud = Convert.ToInt32(dr["numero_solicitud"]), modulo = dr["modulo"].ToString(), hora_apertura=dr["apertura"].ToString(), hora_cierre=dr["cierre"].ToString(), tiempoPausa=Convert.ToDouble(dr["minutos_pausa"]) });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnManto.Close();
+
+        }
+
         #endregion
     }
 }

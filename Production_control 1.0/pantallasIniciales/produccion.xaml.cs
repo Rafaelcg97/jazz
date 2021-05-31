@@ -25,20 +25,17 @@ namespace Production_control_1._0.pantallasIniciales
 
         #endregion
         #region entrar_a_pantallas
-
         private void BorderConsultaSam_MouseUp(object sender, MouseButtonEventArgs e)
         {
             estadoPlantaProduccion estadoPlantaProduccion = new estadoPlantaProduccion();
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new sam();
         }
-
         private void BorderAbrirBalance_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new abrir();
         }
-
         #endregion
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)

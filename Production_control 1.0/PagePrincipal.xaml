@@ -28,12 +28,10 @@
             </Grid>
         </StackPanel>
         <!--#endregion-->
-
         <!--#region area de trabajo-->
         <Grid Margin="250 55 0 0" x:Name="GridPrincipal">
         </Grid>
         <!--#endregion-->
-
         <!--#region menu general-->
         <Grid Width="250" HorizontalAlignment="Left" Background="#FF222222">
             <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
@@ -78,43 +76,6 @@
                 </ListViewItem>
             </ListView>
         </Grid>
-        <!--#endregion-->
-
-        <!--#region popUp configuraciones-->
-        <Popup x:Name="popUpConfiguraciones" Height="300" Width="500" StaysOpen="False" PlacementTarget="{Binding ElementName=GridInicio}" Placement="Center" AllowsTransparency="True">
-            <Border Background="White" CornerRadius="4">
-                <Grid>
-                    <!--#region filas/columnas-->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <!--#endregion-->
-                    <Button x:Name="ButtonCerrarPopup" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="50,0,0,15" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Click="ButtonCerrarPopup_Click" >
-                        <Image Source="imagenes/cerrar.png"/>
-                    </Button>
-                    <Label FontSize="20" Grid.RowSpan="2" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Content="Credenciales de Administrador" HorizontalAlignment="Center" FontWeight="Bold"/>
-                    <PasswordBox FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Grid.RowSpan="1" x:Name="passwordBoxContrasenaAdministrador"/>
-                    <Button x:Name="ButtonIngresarContrasena" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonIngresarContrasena_Click">
-                        <Image Source="imagenes/cerradura.png"/>
-                    </Button>
-
-                </Grid>
-            </Border>
-        </Popup>
         <!--#endregion-->
     </Grid>
 </Page>

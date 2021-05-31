@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Production_control_1._0.pantallasIniciales.validacionUsuarioConfiguraciones"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <Grid>
+        <!--#region filas/columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!--#endregion-->
+                    <Label FontSize="40" Grid.RowSpan="2" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Content="Credenciales de Administrador" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <PasswordBox FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Grid.RowSpan="1" x:Name="passwordBoxContrasenaAdministrador" MaxHeight="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button x:Name="ButtonIngresarContrasena" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonIngresarContrasena_Click" HorizontalAlignment="Center">
+            <Image Source="/imagenes/cerradura.png"/>
+        </Button>
+    </Grid>
+</UserControl>

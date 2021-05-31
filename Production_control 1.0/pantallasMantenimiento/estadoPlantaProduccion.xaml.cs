@@ -65,7 +65,6 @@ namespace Production_control_1._0
             }
         }
             #endregion
-
         #region control_general_del_programa()
 
         private void salir__Click(object sender, RoutedEventArgs e)
@@ -100,7 +99,6 @@ namespace Production_control_1._0
         }
 
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -147,7 +145,6 @@ namespace Production_control_1._0
                 e.Handled = true;
         }
         #endregion
-
         #region abrir_pop_up_con_datos_de_modulo
         private void mostrarPopUp(object sender, MouseButtonEventArgs e)
         {
@@ -270,7 +267,6 @@ namespace Production_control_1._0
             }
         }
         #endregion
-
         #region botones_pop_uo
 
         #region botones_pop_principal

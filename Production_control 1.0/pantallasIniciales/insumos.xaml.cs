@@ -23,7 +23,6 @@ namespace Production_control_1._0.pantallasIniciales
             InitializeComponent();
         }
         #endregion
-
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
@@ -39,7 +38,6 @@ namespace Production_control_1._0.pantallasIniciales
             return parent;
         }
         #endregion
-
         #region entrar
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -67,7 +65,5 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Children.Add(new pantallasInsumos.validacionUsuario(areaSeleccionada));
         }
         #endregion
-
-
     }
 }

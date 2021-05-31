@@ -233,12 +233,16 @@
     <Compile Include="clases\lote.cs" />
     <Compile Include="clases\loteConfirma.cs" />
     <Compile Include="clases\maquina.cs" />
+    <Compile Include="clases\moduloAdministrado.cs" />
     <Compile Include="clases\operacion.cs" />
     <Compile Include="clases\operario.cs" />
     <Compile Include="clases\solicitudInsumo.cs" />
     <Compile Include="clases\solicitudMaquina.cs" />
     <Compile Include="clases\solicitudTPM.cs" />
     <Compile Include="clases\usuario.cs" />
+    <Compile Include="pantallasIniciales\validacionUsuarioConfiguraciones.xaml.cs">
+      <DependentUpon>validacionUsuarioConfiguraciones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\MessageModel.cs" />
     <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\SQLNotifier.cs" />
     <Compile Include="pantallasIniciales\inicio.xaml.cs">
@@ -337,6 +341,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasIniciales\produccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasIniciales\validacionUsuarioConfiguraciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
