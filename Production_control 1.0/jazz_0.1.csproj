@@ -219,6 +219,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="clases\accionSolicitud.cs" />
     <Compile Include="clases\asistencia.cs" />
     <Compile Include="clases\asistenciaPorColaborador.cs" />
     <Compile Include="clases\balance.cs" />

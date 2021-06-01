@@ -107,13 +107,11 @@ namespace Production_control_1._0.pantallasProduccion
         }
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
-
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height / tmp.FontFamily.LineSpacing;
         }
-
         private void solo_numeros(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key == Key.Tab)
@@ -121,7 +119,6 @@ namespace Production_control_1._0.pantallasProduccion
             else
                 e.Handled = true;
         }
-
         private void soloNumerosDecimales(object sender, KeyEventArgs e)
         {
             if ((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key == Key.Decimal) || (e.Key == Key.Tab))
@@ -129,7 +126,6 @@ namespace Production_control_1._0.pantallasProduccion
             else
                 e.Handled = true;
         }
-
         private void letra_pop_cerrar(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;

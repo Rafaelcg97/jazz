@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
+             xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales" xmlns:wpfx1="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="#FF33383E">
     <Grid Height="auto" Width="auto" >
@@ -99,14 +99,14 @@
                             <Image Source="/imagenes/mas.png" />
                         </Button>
                     </StackPanel>
-                    <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewAsignarUsuarios" MaxHeight="725" KeyDown="listViewAsignarUsuarios_KeyDown" >
+                    <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewAsignarUsuarios" MaxHeight="725" KeyDown="listViewAsignarUsuarios_KeyDown">
                         <ListView.View>
                             <GridView>
                                 <!--#region codigo-->
                                 <GridViewColumn Header="Codigo" Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBox Text="{Binding Path=codigo}" Width="85" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                            <TextBox Text="{Binding Path=codigo}" Width="85" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" KeyDown="solo_numeros"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -115,7 +115,7 @@
                                 <GridViewColumn Header="Nombre" Width="250">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding nombre}"/>
+                                            <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding nombre}" LostFocus="TextBox_LostFocus"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -134,7 +134,7 @@
                                 <GridViewColumn Header="Cargo" Width="150">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <ComboBox Width="227" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding cargos}" SelectedItem="{Binding cargo}">
+                                            <ComboBox Width="227" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" ItemsSource="{Binding cargos}" SelectedItem="{Binding cargo}" LostFocus="ComboBox_LostFocus">
                                             </ComboBox>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -224,43 +224,43 @@
                             <GridViewColumn Header="Modulo" Width="185">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding modulo}"/>
+                                        <Label Width="400" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="15" Content="{Binding modulo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                             <!--#region coordinadorNombre-->
-                            <GridViewColumn Header="Nombre de Coordinador" Width="200">
+                            <GridViewColumn Header="Nombre de Coordinador" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding coordinadorNombre}"/>
+                                        <ComboBox Width="195" ItemsSource="{Binding coordinadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" SelectedItem="{Binding coordinadorNombre}" SelectionChanged="ComboBox_SelectionChanged"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                             <!--#region coordinadorCodigo-->
-                            <GridViewColumn Header="Codigo de Coordinador" Width="200">
+                            <GridViewColumn Header="Codigo de Coordinador" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding coordinadorCodigo}"/>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="15" Content="{Binding coordinadorCodigo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
-                            <!--#region ingenierosNombre-->
-                            <GridViewColumn Header="Nombre de Ingeniero" Width="200">
+                            <!--#region ingenieroNombre-->
+                            <GridViewColumn Header="Nombre de Ingeniero" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding ingenieroNombre}"/>
+                                        <ComboBox Width="195" ItemsSource="{Binding ingenieros}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" SelectedItem="{Binding ingenieroNombre}" SelectionChanged="ComboBox_SelectionChanged_1"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
-                            <!--#region coordinadorCodigo-->
-                            <GridViewColumn Header="Codigo de Ingeniero" Width="200">
+                            <!--#region ingenieroCodigo-->
+                            <GridViewColumn Header="Codigo de Ingeniero" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding ingenieroCodigo}"/>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="15" Content="{Binding ingenieroCodigo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -270,33 +270,42 @@
                 </ListView>
             </TabItem>
             <TabItem Header="Corregir Tiempo Solicitudes" x:Name="arreglarSolicitudes">
-                <StackPanel Orientation="Horizontal">
-                <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewSolicitudes">
+                <StackPanel>
+                    <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewSolicitudes" SelectionChanged="listViewSolicitudes_SelectionChanged" MinHeight="200">
                     <ListView.View>
                         <GridView>
                             <!--#region id-->
                             <GridViewColumn Header="id" Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding id_solicitud}"/>
+                                            <Label Width="400" FontWeight="Bold" Foreground="DarkRed"  FontSize="15" Content="{Binding id_solicitud}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                             <!--#region modulo-->
-                            <GridViewColumn Header="Modulo" Width="150">
+                            <GridViewColumn Header="Modulo" Width="115">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding modulo}"/>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding modulo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
+                            <!--#region problema-->
+                                <GridViewColumn Header="Problema Reportado" Width="250">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Width="250" FontWeight="Bold" Foreground="DarkGreen"  FontSize="15" Content="{Binding problema_reportado}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
                             <!--#region horaApertura-->
-                            <GridViewColumn Header="Hora de Apertura" Width="150">
+                            <GridViewColumn Header="Hora de Apertura" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding hora_apertura}"/>
+                                        <Label Width="200" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding hora_apertura}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -305,13 +314,13 @@
                             <GridViewColumn Header="Hora de Cierre" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding hora_cierre}"/>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding hora_cierre}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                             <!--#region pausa-->
-                            <GridViewColumn Header="Pausa" Width="100">
+                            <GridViewColumn Header="Pausa" Width="80">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Width="150" FontWeight="Bold" Foreground="DarkKhaki"  FontSize="10" Content="{Binding tiempoPausa}"/>
@@ -321,103 +330,21 @@
                             <!--#endregion-->
                         </GridView>
                     </ListView.View>
-                </ListView>
-                    <ListView Margin="20,0,0,0">
-                        <ListView.View>
-                            <GridView>
-                                <!--#region id-->
-                                <GridViewColumn Header="id" Width="70">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding id}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                                <!--#region hora-->
-                                <GridViewColumn Header="Hora" Width="175">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding hora}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                                <!--#region accion-->
-                                <GridViewColumn Header="Accion" Width="80">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding accion}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-              </StackPanel>
-            </TabItem>
-            <TabItem Header="Corregir Tiempo Mecanicos" x:Name="arreglarSolicitudesMecanicos">
-                <StackPanel Orientation="Horizontal">
-                    <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewSolicitudesMecanicos">
+                   </ListView>
+                    <StackPanel Orientation="Horizontal">
+                    <Label Content="Agregar Accion" Padding="0" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" Margin="25,0,0,5" />
+                    <Button x:Name="buttonAgregarAccionSolicitud"  Height="30" VerticalAlignment="Bottom" Margin="30,0,0,5" Background="Transparent" BorderBrush="Transparent" Click="buttonAgregarAccionSolicitud_Click">
+                        <Image Source="/imagenes/mas.png" />
+                    </Button>
+                    </StackPanel>
+                    <ListView x:Name="listViewAccionesSolicitudes" MinHeight="500" KeyDown="listViewAccionesSolicitudes_KeyDown">
                         <ListView.View>
                             <GridView>
                                 <!--#region id-->
                                 <GridViewColumn Header="id" Width="50">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding id_solicitud}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                                <!--#region modulo-->
-                                <GridViewColumn Header="Modulo" Width="150">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding modulo}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                                <!--#region horaApertura-->
-                                <GridViewColumn Header="Hora de Apertura" Width="150">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding apertura}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                                <!--#region horaCierre-->
-                                <GridViewColumn Header="Hora de Cierre" Width="150">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding cierre}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                                <!--#region pausa-->
-                                <GridViewColumn Header="Pausa" Width="100">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Width="150" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Text="{Binding pausa}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--#endregion-->
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <ListView Margin="20,0,0,0">
-                        <ListView.View>
-                            <GridView>
-                                <!--#region id-->
-                                <GridViewColumn Header="id" Width="70">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding id}"/>
+                                            <Label Width="100" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" Content="{Binding num_solicitud}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -426,16 +353,16 @@
                                 <GridViewColumn Header="Hora" Width="175">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding hora}"/>
+                                            <wpfx1:MaskedTextBox Width="160" FontSize="12" Foreground="#FF4E7495" Text="{Binding hora}" Mask="0000-00-00 00:00:00.000"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <!--#endregion-->
                                 <!--#region accion-->
-                                <GridViewColumn Header="Accion" Width="80">
+                                <GridViewColumn Header="Accion" Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding accion}"/>
+                                            <ComboBox Width="50" ItemsSource="{Binding acciones}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" SelectedItem="{Binding tipo}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -444,6 +371,100 @@
                         </ListView.View>
                     </ListView>
                 </StackPanel>
+            </TabItem>
+            <TabItem Header="Corregir Tiempo Mecanicos" x:Name="arreglarSolicitudesMecanicos">
+                <StackPanel>
+                        <ListView Background="Transparent" BorderThickness="2" BorderBrush="#FFCFB681" x:Name="listViewSolicitudesMecanicos" MinHeight="200" SelectionChanged="listViewSolicitudesMecanicos_SelectionChanged">
+                            <ListView.View>
+                                <GridView>
+                                    <!--#region numSolicitud-->
+                                    <GridViewColumn Header="Num Solicitud" Width="50">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding num_solicitud}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region Codigo-->
+                                    <GridViewColumn Header="Codigo" Width="75">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Width="75" FontWeight="Bold" Foreground="DarkGoldenrod"  FontSize="15" Content="{Binding codigo}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region nombre-->
+                                    <GridViewColumn Header="Nombre" Width="250">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Width="250" FontWeight="Bold" Foreground="#FF4E7495" FontSize="12" Content="{Binding nombre}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region tiempo-->
+                                    <GridViewColumn Header="Tiempo de la Solicitud" Width="150">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Width="150" FontWeight="Bold" Foreground="DarkRed"  FontSize="15" Content="{Binding tiempor_por_solicitud}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Agregar Accion" Padding="0" FontSize="25" Foreground="#FF898383" VerticalAlignment="Bottom" Margin="25,0,0,5" />
+                            <Button x:Name="buttonAgregarAccionSolicitudMeca"  Height="30" VerticalAlignment="Bottom" Margin="30,0,0,5" Background="Transparent" BorderBrush="Transparent" Click="buttonAgregarAccionSolicitudMeca_Click">
+                                <Image Source="/imagenes/mas.png" />
+                            </Button>
+                        </StackPanel>
+                    <ListView x:Name="listViewAccionesMecanico" MinHeight="500" KeyDown="listViewAccionesMecanico_KeyDown">
+                        <ListView.View>
+                                <GridView>
+                                    <!--#region id-->
+                                    <GridViewColumn Header="id" Width="50">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Width="100" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" Content="{Binding num_solicitud}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                <!--#region mecanico-->
+                                <GridViewColumn Header="Mecanico" Width="105">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Width="105" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" Content="{Binding codigo}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--#endregion-->
+                                <!--#region hora-->
+                                    <GridViewColumn Header="Hora" Width="175">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <wpfx1:MaskedTextBox Width="160" FontSize="12" Foreground="#FF4E7495" Text="{Binding hora}" Mask="0000-00-00 00:00:00.000"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                    <!--#region accion-->
+                                    <GridViewColumn Header="Accion" Width="85">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox Width="50" ItemsSource="{Binding acciones}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" SelectedItem="{Binding tipo}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--#endregion-->
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
             </TabItem>
         </TabControl>
         
