@@ -26,6 +26,7 @@ namespace Production_control_1._0
         public Func<double, string> FormatterRebalance { get; set; }
         public List<string> ListaDeOperarios { get; private set; }
 
+        int codigoUsuario = 0;
 
         #endregion
         #region datos_iniciales()
@@ -655,6 +656,26 @@ namespace Production_control_1._0
         }
         #endregion
         #region ElementosPanelLateral
+        private void passWordBoxUsuario_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            SqlDataReader dr;
+            cn.Open();
+            string sql = "select codigo from usuarios where produccion=1 and contrasena='" + passWordBoxUsuario.Password + "'";
+            SqlCommand cm = new SqlCommand(sql, cn);
+            dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                codigoUsuario = Convert.ToInt32(dr["codigo"]);
+                ButtonGuardarBalance.IsEnabled = true;
+            }
+            else
+            {
+                ButtonGuardarBalance.IsEnabled = false;
+            }
+            dr.Close();
+            cn.Close();
+        }
         private void ButtonCerrarBalance_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("¿Está seguro que desea salir?", "Jazz-CCO", MessageBoxButton.YesNo);
@@ -683,8 +704,8 @@ namespace Production_control_1._0
             cn.Close();
 
             //se carga los datos de la nueva version
-            string sql2 = "insert into lista_balances(identificador, fecha_creacion, estilo, temporada, sam, modulo, corrida, horas, operarios, piezash, ingeniero, fecha_modificacion, version)" +
-                            "values('" + llave + "','" + fecha_.Content + "', '" + LabelEstiloGuardar.Content.ToString() + "', '" + LabelTemporadaGuardar.Content.ToString() + "', '" + sam_.Content.ToString() + "', '" + LabelModuloGuardar.Content.ToString() + "', '" + piezas_de_corrida.Text + "', '" + horas_de_corrida.Text + "', '" + operarios_.Content.ToString() + "', '" + piezas_por_hora.Content.ToString() + "', '" + ingeniero_.Text + "', '" + DateTime.Now.ToString() + "', '" + LabelVersionGuardar.Content.ToString() + "')";
+            string sql2 = "insert into lista_balances(identificador, fecha_creacion, estilo, temporada, sam, modulo, corrida, horas, operarios, piezash, ingeniero, fecha_modificacion, version, usuario)" +
+                            "values('" + llave + "','" + fecha_.Content + "', '" + LabelEstiloGuardar.Content.ToString() + "', '" + LabelTemporadaGuardar.Content.ToString() + "', '" + sam_.Content.ToString() + "', '" + LabelModuloGuardar.Content.ToString() + "', '" + piezas_de_corrida.Text + "', '" + horas_de_corrida.Text + "', '" + operarios_.Content.ToString() + "', '" + piezas_por_hora.Content.ToString() + "', '" + ingeniero_.Text + "', '" + DateTime.Now.ToString() + "', '" + LabelVersionGuardar.Content.ToString() + "', '"+codigoUsuario+"')";
             cn.Open();
             SqlCommand cm2 = new SqlCommand(sql2, cn);
             cm2.ExecuteNonQuery();

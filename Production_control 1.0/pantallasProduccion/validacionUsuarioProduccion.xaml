@@ -33,8 +33,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--#endregion-->
-        <Button x:Name="ButtonRegresar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonRegresar_Click">
-            <Image Source="/imagenes/salir.png"/>
+        <Button x:Name="ButtonRegresar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Click="ButtonRegresar_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Image Source="/imagenes/atras.png" MaxHeight="50" MaxWidth="50"/>
         </Button>
         <Label Content="Por favor confirma tu identidad" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="10" HorizontalAlignment="Center" FontSize="47" FontWeight="Bold" Foreground="#FF743737" Padding="0"/>
         <Border Grid.Column="2" Grid.Row="2" BorderThickness="4" BorderBrush="Black" Grid.ColumnSpan="6" Grid.RowSpan="7" CornerRadius="8">

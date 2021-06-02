@@ -52,8 +52,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/reportarMaquinaMala.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
-                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Máquina Mala" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/reporteMaquinaMala.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Máquina Mala" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,15,0,0"/>
             </Grid>
         </Border>
         <Border x:Name="BorderMantenimientoPreventivo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderMantenimientoPreventivo_MouseUp">
@@ -82,8 +82,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/mantenimientoPreventivo.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
-                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Mantenimiento Preventivo" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/reporteMantenimiento.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Mantenimiento Preventivo" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,15,0,0"/>
             </Grid>
         </Border>
         <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp" Margin="50,0,0,0">
@@ -112,7 +112,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/estadoPlantaProduccion.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/estadoPlanta.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
                 <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Estado de Planta de Producción" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
@@ -142,7 +142,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/abrirTPM.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/formularioTPM.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
                 <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Formulario TPM" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             </Grid>
         </Border>

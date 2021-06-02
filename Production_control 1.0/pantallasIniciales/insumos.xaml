@@ -36,7 +36,7 @@
         </Grid.RowDefinitions>
         <!--#endregion-->
         <!--#region encabezado-->
-        <Label Grid.Column="1" Grid.Row="0" FontSize="34" FontWeight="Bold" Content="Solicitud De Bodega De Insumos" Grid.RowSpan="2" Grid.ColumnSpan="8" VerticalContentAlignment="Center" HorizontalAlignment="Center" Padding="0" Foreground="#FF2F315F"/>
+        <Label Grid.Column="1" Grid.Row="0" FontSize="50" FontWeight="Bold" Content="Solicitud De Bodega De Insumos" Grid.RowSpan="2" Grid.ColumnSpan="8" VerticalContentAlignment="Center" HorizontalAlignment="Center" Padding="0" Foreground="#FF2F315F"/>
         <Button x:Name="IngresarEstadoDeSolicitudes" Grid.Column="8" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Margin="25,10,20,10" Background="Transparent" BorderBrush="Transparent" Click="IngresarEstadoDeSolicitudes_Click" >
             <Image Source="/imagenes/estadoPlantaProduccionAzul.png"/>
         </Button>
@@ -66,6 +66,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/agujas.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Agujas" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left" Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -93,6 +94,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/limpieza.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Artículos de Limpieza" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -120,6 +122,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/oficina.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Artículos de Oficina" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -147,6 +150,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/consumibles.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="32" Grid.ColumnSpan="8" Content="Consumibles de Producción" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -174,6 +178,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/herramientas.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Herramientas y Materiales" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -201,6 +206,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/quimicos.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Químicos" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -228,6 +234,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/costura.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Repuestos Costura" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold" />
             </Grid>
         </Border>
@@ -255,6 +262,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/repuestosMaquinas.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Repuestos de Maquinas" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left" Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>
@@ -282,6 +290,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="8" Source="/imagenes/otros.png"/>
                 <Label Grid.Row="5" Grid.Column="0" FontSize="15" Grid.RowSpan="3" Grid.ColumnSpan="8" Content="Otros" Foreground="AliceBlue" Padding="0" HorizontalAlignment="Left"  Margin="5,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </Border>

@@ -71,8 +71,8 @@
             </Grid.RowDefinitions>
             <!--#endregion-->
             <!--#region encabezado-->
-            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
-                <Image Source="/imagenes/salir.png"/>
+            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                <Image Source="/imagenes/atras.png" MaxHeight="50" MaxWidth="50"/>
             </Button>
             <!--#endregion-->
             <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="1" Content="Avance Por Lote" SizeChanged="Control_SizeChanged" Padding="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>

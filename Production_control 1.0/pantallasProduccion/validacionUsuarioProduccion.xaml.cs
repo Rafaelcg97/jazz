@@ -19,10 +19,12 @@ namespace Production_control_1._0.pantallasProduccion
 {
     public partial class validacionUsuarioProduccion : UserControl
     {
+        string area_ = "";
         #region datosIniciales
-        public validacionUsuarioProduccion()
+        public validacionUsuarioProduccion(string area)
         {
             InitializeComponent();
+            area_ = area;
         }
         #endregion
         #region calculos_generals
@@ -56,30 +58,58 @@ namespace Production_control_1._0.pantallasProduccion
         #region ingreso
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
-            //datos para realizar conexion
-            SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select*from usuarios where produccion=1 and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
-            cnIngenieria.Open();
-            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
-            SqlDataReader dr = cm.ExecuteReader();
-            //se hace un conteo para ver si existe ese usuario con esa contrasena
-            int conteoVerificacion = 0;
-            while (dr.Read())
+            if (area_ == "registros")
             {
-                conteoVerificacion = conteoVerificacion + 1;
-            };
-            dr.Close();
-            cnIngenieria.Close();
-            if (conteoVerificacion == 1)
-            {
-                Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
-                GridPrincipal.Content = new pantallasProduccion.editarRegistrosProduccion(Convert.ToInt32(textBoxUsuario.Text));
+                //datos para realizar conexion
+                SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "select*from usuarios where produccion=1 and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
+                cnIngenieria.Open();
+                SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+                SqlDataReader dr = cm.ExecuteReader();
+                //se hace un conteo para ver si existe ese usuario con esa contrasena
+                bool verificacion = false;
+                if (dr.Read())
+                {
+                    verificacion = true;
+                };
+                dr.Close();
+                cnIngenieria.Close();
+                if (verificacion==true)
+                {
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = new pantallasProduccion.editarRegistrosProduccion(Convert.ToInt32(textBoxUsuario.Text));
+                }
+                else
+                {
+                    MessageBox.Show("La contrasña es incorrecta o el usuario no tiene permiso para hacer solicitudes a bodega");
+                }
             }
-            else
+            else if (area_ == "asistencia")
             {
-                MessageBox.Show("La contrasña es incorrecta o el usuario no tiene permiso para hacer solicitudes a bodega");
+                //datos para realizar conexion
+                SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "select*from usuarios where produccion=1 and cargo='COORDINADOR' and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
+                cnIngenieria.Open();
+                SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+                SqlDataReader dr = cm.ExecuteReader();
+                //se hace un conteo para ver si existe ese usuario con esa contrasena
+                bool verificacion = false;
+                if(dr.Read())
+                {
+                    verificacion = true;
+                };
+                dr.Close();
+                cnIngenieria.Close();
+                if (verificacion==true)
+                {
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = new pantallasProduccion.reporteAsistencia();
+                }
+                else
+                {
+                    MessageBox.Show("La contrasña es incorrecta o el usuario no tiene permiso para hacer solicitudes a bodega");
+                }
             }
-
         }
         #endregion
     }

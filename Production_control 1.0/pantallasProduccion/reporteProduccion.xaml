@@ -71,8 +71,8 @@
             </Grid.RowDefinitions>
             <!--#endregion-->
             <!--#region encabezado-->
-            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" >
-                <Image Source="/imagenes/salir.png"/>
+            <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/imagenes/atras.png" MaxHeight="50" MaxWidth="50"/>
             </Button>
             <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="10,20,0,0" >
             <PasswordBox x:Name="passwordBoxIngreso" Margin="0,0,0,0" VerticalAlignment="Center" PasswordChanged="passwordBoxIngreso_PasswordChanged"/>
@@ -83,8 +83,6 @@
             </StackPanel>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Reporte Hora a Hora</Label>
             <!--#endregion-->
-
-
             <StackPanel  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="0,0,15,0">
                 <Label Content="Módulo" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
                 <ComboBox x:Name="comboBoxModulo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" SelectionChanged="comboBoxModulo_SelectionChanged" TabIndex="0"/>
@@ -96,7 +94,6 @@
                     <Label Content="Custom" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
             </StackPanel>
-
             <StackPanel  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="15,0,0,0">
                 <Label Content="Arteria" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
                 <ComboBox x:Name="comboBoxArteria" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" TabIndex="1"/>
@@ -108,7 +105,6 @@
                     <Label Content="Cambio" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
             </StackPanel>
-
             <StackPanel  Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="10" Margin="30,0,0,0">
                 <Label Content="Hora" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
                 <ComboBox x:Name="comboBoxHora" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" TabIndex="2"/>
@@ -120,7 +116,6 @@
                     <Label Content="Extra" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
             </StackPanel>
-
             <Border Grid.Column="7" Grid.Row="3" BorderBrush="AliceBlue" BorderThickness="4" Grid.ColumnSpan="5" Grid.RowSpan="8" CornerRadius="9" Margin="57,0,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -159,7 +154,6 @@
                     <Label x:Name="labelMinutos" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="1"  Content="----" FontSize="15" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" Margin="10,0,0,0" />
                 </Grid>
             </Border>
-
             <Border Grid.Column="12" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="8"  Margin="40,0,0,0" BorderBrush="AliceBlue" BorderThickness="4" CornerRadius="9" >
                 <StackPanel Margin="10,20,10,0">
                     <Image x:Name="imageEsti"  Source="/imagenes/ini.jpg" Margin="0,0,0,10" MaxHeight="200"/>
@@ -169,8 +163,6 @@
                 </StackPanel>
 
             </Border>
-
-
             <Label Grid.Row="12" Grid.Column="1" Content="Lotes:" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="White" FontWeight="Bold" />
             <Button x:Name="buttonAgregarLote" Grid.Column="14" Grid.Row="12" Grid.ColumnSpan="1" Grid.RowSpan="1" Background="Transparent" BorderBrush="Transparent" Margin="0,5,0,5" HorizontalContentAlignment="Right" Click="buttonAgregarLote_Click" TabIndex="12">
                 <Image Source="/imagenes/mas.png"/>
@@ -444,7 +436,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <!--#endregion-->
-                    <Button x:Name="ButtonCerrarPopup2" Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,0,0,15" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
+                    <Button x:Name="ButtonCerrarPopup2" Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="0,0,0,15" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Click="ButtonCerrarPopup2_Click">
                         <Image Source="/imagenes/cerrar.png"/>
                     </Button>
                     <Label FontSize="20" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Content="Validación de Usuario" HorizontalAlignment="Center" FontWeight="Bold" VerticalContentAlignment="Center"/>

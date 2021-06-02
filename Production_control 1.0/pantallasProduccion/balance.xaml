@@ -98,13 +98,14 @@
                     <Label  x:Name="LabelVersionGuardar"  FontSize="15"  Content="----" FontWeight="Bold" Foreground="White"/>
                 </StackPanel>
             </StackPanel>
-            <Button x:Name="ButtonGuardarBalance" Margin="0,0,0,10" Grid.Row="6" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" Click="ButtonGuardarBalance_Click" >
+            <PasswordBox x:Name="passWordBoxUsuario" Grid.Row="6" Grid.ColumnSpan="4" VerticalAlignment="Center" MaxHeight="30" MinHeight="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" PasswordChanged="passWordBoxUsuario_PasswordChanged"/>
+            <Button x:Name="ButtonGuardarBalance" Margin="0,0,0,10" Grid.Row="7" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" Click="ButtonGuardarBalance_Click" IsEnabled="False" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/PantallasProduccion/imagenes/disquete.png" Height="40" Margin="0,0,35,0"/>
                     <Label FontSize="20" Foreground="White" Content="Guardar" VerticalAlignment="Center" Padding="0"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="ButtonImprimirBalance" Margin="0,10,0,0" Grid.Row="7" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" Click="ButtonImprimirBalance_Click">
+            <Button x:Name="ButtonImprimirBalance" Margin="0,10,0,0" Grid.Row="8" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" Grid.RowSpan="1" Click="ButtonImprimirBalance_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/PantallasProduccion/imagenes/impresora.png" Height="50" Margin="0,0,35,0"/>
                     <Label FontSize="20" Foreground="White" Content="Imprimir" VerticalAlignment="Center" Padding="0"/>
@@ -244,7 +245,7 @@
                                             <Label FontWeight="Bold" Background="#F9FAFA" Width="150" Margin="0,5,0,25">Código de Operario:</Label>
                                             <TextBox x:Name="codigo_op" Width="200" Margin="10,5,0,25" TextChanged="codigo_op_TextChanged" ></TextBox>
                                             <Button x:Name="revision" Width="30" Height="30" Margin="0,5,0,25" Background="Transparent" BorderBrush="Transparent" IsEnabled="False" Visibility="Hidden">
-                                                <Image Source="/imagenes/marca.png"></Image>
+                                                <Image Source="/imagenes/apply.ico"></Image>
                                             </Button>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">

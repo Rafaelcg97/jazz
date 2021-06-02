@@ -509,9 +509,6 @@
     <Resource Include="imagenes\ini.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\ball_red.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\mantenimiento.png" />
   </ItemGroup>
   <ItemGroup>
@@ -535,16 +532,10 @@
     <Resource Include="imagenes\notas.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\atras.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\verificacion.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\expediente.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\casa.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\terminar.png" />
@@ -589,9 +580,6 @@
     <Resource Include="imagenes\add.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\configuracion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\tocar.png" />
   </ItemGroup>
   <ItemGroup>
@@ -619,9 +607,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\salir.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\reportarMaquinaMala.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\mantenimientoPreventivo.png" />
@@ -652,9 +637,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\actualizar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\abrirTpm.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\enviar_in.png" />
@@ -693,6 +675,72 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\lupa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\consultarBono.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\editarProduccion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\reportarAsistencia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\reportarProduccion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\consultaSam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\cuadrarLote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\buenasPracticas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\estadoPlanta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\formularioTPM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\reporteMaquinaMala.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\reporteMantenimiento.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\agujas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\limpieza.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\oficina.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\herramientas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\quimicos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\costura.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\repuestosMaquinas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\otros.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\consumibles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\atras.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\abrir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

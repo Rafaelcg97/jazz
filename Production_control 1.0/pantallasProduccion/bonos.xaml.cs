@@ -51,8 +51,7 @@ namespace Production_control_1._0.pantallasProduccion
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new PagePrincipal());
-
+            this.NavigationService.GoBack();
         }
         private void ButtonSalir(object sender, RoutedEventArgs e)
         {

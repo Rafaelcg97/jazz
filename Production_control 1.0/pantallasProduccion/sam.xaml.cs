@@ -102,7 +102,7 @@ namespace Production_control_1._0
         }
         private void buttonSalir_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new PagePrincipal());
+            this.NavigationService.GoBack();
         }
         #endregion
         #region formularioConsultSam

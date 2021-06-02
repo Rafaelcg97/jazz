@@ -98,9 +98,7 @@ namespace Production_control_1._0.pantallasProduccion
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
-            PagePrincipal PagePrincipal = new PagePrincipal();
-            this.NavigationService.Navigate(PagePrincipal);
-
+            this.NavigationService.GoBack();
         }
         private void ButtonSalir(object sender, RoutedEventArgs e)
         {
@@ -667,6 +665,10 @@ namespace Production_control_1._0.pantallasProduccion
             NavigationService.Navigate(pagePrincipal);
         }
         private void ButtonCerrarPopup2_Click_1(object sender, RoutedEventArgs e)
+        {
+            popUpValidarUsuario.IsOpen = false;
+        }
+        private void ButtonCerrarPopup2_Click(object sender, RoutedEventArgs e)
         {
             popUpValidarUsuario.IsOpen = false;
         }
