@@ -28,22 +28,19 @@ namespace Production_control_1._0
             public string hora_cierre { get; set; }
             public string corresponde { get; set; }
         }
-
         public class item_actualizacion
         {
             public int id { get; set; }
         }
-
         public string cs = "Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"];
         #endregion
-
         #region datos_iniciales()
         public mantenimientoPreventivo()
         {
             InitializeComponent();
             //se cargan los datos de las listas de modulos y de problemas
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modulo from modulos";
+            string sql = "select modulo from orden_modulos";
             string sql2 = "select codigo from mecanicos order by codigo";
             string sql3 = "select falla from defectos_totales where categoria='MANTENIMIENTO PREVENTIVO'";
             cn.Open();
@@ -89,11 +86,8 @@ namespace Production_control_1._0
                 throw new ApplicationException("No permission");
             }
         }
-
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
-
         private void letra_grande(object sender, SizeChangedEventArgs e)
         {
             try
@@ -107,7 +101,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void letra_grande_2(object sender, SizeChangedEventArgs e)
         {
             try
@@ -121,7 +114,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void letra_pequena(object sender, SizeChangedEventArgs e)
         {
             try
@@ -135,7 +127,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void letra_pequena_2(object sender, SizeChangedEventArgs e)
         {
             try
@@ -149,7 +140,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void letra_pequena_3(object sender, SizeChangedEventArgs e)
         {
             try
@@ -163,7 +153,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void letra_mediana(object sender, SizeChangedEventArgs e)
         {
             try
@@ -177,7 +166,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void letra_pop_cerrar(object sender, SizeChangedEventArgs e)
         {
             try
@@ -191,7 +179,6 @@ namespace Production_control_1._0
                 tmp.FontSize = 2;
             }
         }
-
         private void solo_numeros(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
@@ -199,16 +186,12 @@ namespace Production_control_1._0
             else
                 e.Handled = true;
         }
-
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height * 0.8 / tmp.FontFamily.LineSpacing;
         }
-
-
         #endregion
-
         #region calculos_generales
         private void habilitar_boton()
         {
@@ -227,10 +210,22 @@ namespace Production_control_1._0
             }
         }
         #endregion
-
         #region control_de_formulario
         private void modulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //revisar la ubicacion
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            String sql = "select id from orden_modulos where modulo='" + modulo.SelectedItem.ToString() + "'";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+            if (dr.Read())
+            {
+                labelUbicacion.Content = dr["id"].ToString();
+            };
+            dr.Close();
+            cn.Close();
             habilitar_boton();
         }
         private void codigo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -244,26 +239,20 @@ namespace Production_control_1._0
         private void enviar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudes (modulo, maquina, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO')  SELECT SCOPE_IDENTITY()";
-            string sql2 = "insert into actualizacion(evento) values(1)";
+            string sql = "insert into solicitudes (modulo, ubicacion, maquina, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content.ToString() +"', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO')  SELECT SCOPE_IDENTITY()";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
             dr.Read();
             int id_ingresado = Convert.ToInt32(dr[0]);
             dr.Close();
-            SqlCommand cm2 = new SqlCommand(sql2, cn);
-            cm2.ExecuteNonQuery();
             string sql3 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_ingresado + "', '" + codigo.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
             SqlCommand cm3 = new SqlCommand(sql3, cn);
             cm3.ExecuteNonQuery();
             cn.Close();
         }
-
         #endregion
-
         #region pop_reportar_problema
-
         #region abrir_pop_prin
         private void abiertos_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -382,16 +371,12 @@ namespace Production_control_1._0
                     }
             }
         }
-
         #endregion
-
         #region botones_pop_principal
-
         private void iniciar_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void pausar_Click(object sender, RoutedEventArgs e)
         {
             #region tamano_de_pop
@@ -421,9 +406,7 @@ namespace Production_control_1._0
             //se abre el pop_up para reportar motivo de pausa
             pausar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
-
         }
-
         private void reanudar_Click(object sender, RoutedEventArgs e)
         {
             #region tamano_de_pop
@@ -443,26 +426,20 @@ namespace Production_control_1._0
             reanudar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
-
         private void terminar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "' where id_solicitud= '" + solicitud.Content.ToString() + "'";
             string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + solicitud.Content.ToString() + "', '" + codigo_mecanico.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +"', '1')";
-            string sql3 = "insert into actualizacion(evento) values(1)";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlCommand cm2 = new SqlCommand(sql2, cn);
-            SqlCommand cm3 = new SqlCommand(sql3, cn);
             cm.ExecuteNonQuery();
             cm2.ExecuteNonQuery();
-            cm3.ExecuteNonQuery();
             cn.Close();
             datos_solicitud.IsOpen = false;
         }
-
         #endregion
-
         #region botones_por_pop_up
         private void motivo_de_pausa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -484,7 +461,6 @@ namespace Production_control_1._0
 
             }
         }
-
         private void btn_reanudar_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(codigo_mec_re.Text))
@@ -506,9 +482,7 @@ namespace Production_control_1._0
                 reanudar_solicitud.IsOpen = false;
             }
         }
-
         #endregion
-
         #endregion
     }
 }

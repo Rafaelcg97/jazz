@@ -28,21 +28,21 @@ namespace Production_control_1._0
             public double conteo { get; set; }
         }
         #endregion
-
         #region clases_especiales_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
 
         #endregion
-
         #region datos_iniciales
         public reporteMaquinaMala()
         {
             InitializeComponent();
+            comboBoxArteria.Items.Add(1);
+            comboBoxArteria.Items.Add(2);
             //se cargan los datos de las listas de modulos y de problemas
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modulo from modulos";
+            string sql = "select modulo from orden_modulos";
             string sql2 = "select codigo from inventario_maquinas";
             string sql3 = "select falla from defectos_linea";
             cn.Open();
@@ -85,10 +85,8 @@ namespace Production_control_1._0
             };
             Formatter = value => value.ToString("N");
             DataContext = this;
-
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void letra_tamano__total(object sender, SizeChangedEventArgs e)
@@ -183,7 +181,6 @@ namespace Production_control_1._0
                 e.Handled = true;
         }
         #endregion
-
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
@@ -198,29 +195,34 @@ namespace Production_control_1._0
             }
             return parent;
         }
-
         #endregion
-
         #region controles_formulario_de_enviar
         private void modulo_reporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //por defecto los reportes se le asignan a mantenimiento
             corresponde_reporte.Content = "MANTENIMIENTO";
-
             //se consulta si ha avido un cambio y se consultan los ultimos problemas reportados
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "'";
             string sql2 = "select top 25 maquina, problema_reportado, hora_reportada from solicitudes where modulo='" + modulo_reporte.SelectedItem.ToString() + "' order by hora_reportada desc";
             String sql3 = "select id from orden_modulos where modulo='"+ modulo_reporte.SelectedItem.ToString() +"'";
             cn.Open();
-            SqlCommand cm = new SqlCommand(sql, cn);
-            SqlDataReader dr = cm.ExecuteReader();
-            //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
-            while (dr.Read())
+            if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
             {
-                corresponde_reporte.Content = "SMED";
-            };
-            dr.Close();
+                string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "' and arteria='" + comboBoxArteria.SelectedItem.ToString() + "'";
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+                if (dr.Read())
+                {
+                    corresponde_reporte.Content = "SMED";
+                }
+                else
+                {
+                    corresponde_reporte.Content = "MANTENIMIENTO";
+                }
+                ;
+                dr.Close();
+            }
 
             //se agregan los ultimos problemas del modulo
             SqlCommand cm2 = new SqlCommand(sql2, cn);
@@ -243,7 +245,6 @@ namespace Production_control_1._0
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
-
         private void buscar_maquina_Reporte_TextChanged(object sender, TextChangedEventArgs e)
         {
             //se limpian los items cargados en la lista de maquinas
@@ -267,7 +268,6 @@ namespace Production_control_1._0
             grafico.AxisX.Clear();
             SeriesCollection[0].Values.Clear();
         }
-
         private void buscar_problema_reporte_TextChanged(object sender, TextChangedEventArgs e)
         {
             //se limpian los items cargados en la lista de maquinas
@@ -286,7 +286,6 @@ namespace Production_control_1._0
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
-
         private void maquina_reporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tipo_maquina.Content = "----";
@@ -315,7 +314,6 @@ namespace Production_control_1._0
 
             actualizar_grafica();
         }
-
         private void codigo_reporte_TextChanged(object sender, TextChangedEventArgs e)
         {
             operario.Content = "----";
@@ -334,17 +332,15 @@ namespace Production_control_1._0
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
-
         private void problema_reporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
-
         private void enviar_reporte_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudes (modulo, ubicacion, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + labelUbicacion.Content.ToString() +"', '"+ maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
+            string sql = "insert into solicitudes (modulo, arteria, ubicacion, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + comboBoxArteria.SelectedItem.ToString()+"', '" + labelUbicacion.Content.ToString() +"', '"+ maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             cm.ExecuteNonQuery();
@@ -352,16 +348,14 @@ namespace Production_control_1._0
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new estadoPlantaProduccion();
         }
-
         #endregion
-
         #region calculos_generales
         private void habilitar_boton()
         {
             Uri habilitado = new Uri("/imagenes/flecha.png", UriKind.RelativeOrAbsolute);
             Uri inhabilitado = new Uri("/imagenes/flecha_in.png", UriKind.RelativeOrAbsolute);
 
-            if (modulo_reporte.SelectedIndex>-1 & maquina_reporte.SelectedIndex>-1 & problema_reporte.SelectedIndex>-1 & codigo_reporte.Text.ToString() != "" )
+            if (modulo_reporte.SelectedIndex>-1 & comboBoxArteria.SelectedIndex>-1 & maquina_reporte.SelectedIndex>-1 & problema_reporte.SelectedIndex>-1 & codigo_reporte.Text.ToString() != "" )
             {
                 enviar_reporte.IsEnabled = true;
                 img_enviar.Source = new BitmapImage(habilitado);
@@ -372,7 +366,6 @@ namespace Production_control_1._0
                 img_enviar.Source = new BitmapImage(inhabilitado);
             }
         }
-
         private void actualizar_grafica()
         {
             if (maquina_reporte.SelectedIndex > -1)
@@ -405,5 +398,26 @@ namespace Production_control_1._0
             }
         }
         #endregion
+        private void comboBoxArteria_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
+            {
+                cn.Open();
+                string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "' and arteria='" + comboBoxArteria.SelectedItem.ToString() + "'";
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+                if (dr.Read())
+                {
+                    corresponde_reporte.Content = "SMED";
+                }
+                else 
+                {
+                    corresponde_reporte.Content = "MANTENIMIENTO";
+                };
+                dr.Close();
+            }
+        }
     }
 }

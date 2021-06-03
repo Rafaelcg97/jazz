@@ -103,8 +103,8 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <!--#endregion-->
-            <Button x:Name="ButtonRegresar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="regresar" >
-                <Image Source="/imagenes/salirAmarillo.png"/>
+            <Button x:Name="ButtonRegresar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="regresar" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
             </Button>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="tamanoLetrAutomatico" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Solicitudes De Bodega de Insumos</Label>
             <!--#endregion-->

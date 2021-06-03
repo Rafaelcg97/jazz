@@ -266,10 +266,10 @@ namespace Production_control_1._0.pantallasIniciales
             // se llenan la lista de modulos con los datos de la consulta
             while (dr.Read())
             {
-                if (Convert.ToInt32(dr["ingenieria"]) == 1) { ingenieria_ = true; } else { ingenieria_ = false; }
-                if (Convert.ToInt32(dr["produccion"]) == 1) { produccion_ = true; } else { produccion_ = false; }
-                if (Convert.ToInt32(dr["bodega"]) == 1) { bodega_ = true; } else { bodega_ = false; }
-                if (Convert.ToInt32(dr["mantenimiento"]) == 1) { mantenimiento_ = true; } else { mantenimiento_ = false; }
+                if (Convert.ToInt32(dr["ingenieria"] is DBNull ? 0 : dr["ingenieria"]) == 1) { ingenieria_ = true; } else { ingenieria_ = false; }
+                if (Convert.ToInt32(dr["produccion"] is DBNull ? 0 : dr["produccion"]) == 1) { produccion_ = true; } else { produccion_ = false; }
+                if (Convert.ToInt32(dr["bodega"] is DBNull ? 0 : dr["bodega"]) == 1) { bodega_ = true; } else { bodega_ = false; }
+                if (Convert.ToInt32(dr["mantenimiento"] is DBNull ? 0 : dr["mantenimiento"]) == 1) { mantenimiento_ = true; } else { mantenimiento_ = false; }
                 usuariosTotales.Add(new usuario { id = Convert.ToInt32(dr["id"]), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), nivel = Convert.ToInt32(dr["nivel"]), cargo = dr["cargo"].ToString(), contrasenia = dr["contrasena"].ToString(), produccion = produccion_, mantenimiento = mantenimiento_, bodega = bodega_, ingenieria = ingenieria_, niveles = niveles_, cargos = cargos_.ToArray() });
             };
             //se termina la conexion a la base
@@ -507,7 +507,7 @@ namespace Production_control_1._0.pantallasIniciales
             {
                 listViewAccionesMecanico.Items.Clear();
                 numSolicitud_2 = ((accionSolicitud)listViewSolicitudesMecanicos.SelectedItem).num_solicitud;
-                string sql = "select id, num_solicitud, mecanico, hora, tipo from tiempos_por_mecanico where num_solicitud=" + numSolicitud_ + " order by hora";
+                string sql = "select id, num_solicitud, mecanico, hora, tipo from tiempos_por_mecanico where num_solicitud=" + numSolicitud_2 + " order by hora";
                 cnManto.Open();
                 SqlCommand cm = new SqlCommand(sql, cnManto);
                 SqlDataReader dr = cm.ExecuteReader();

@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Production_control_1._0.pantallasInsumos.validacionUsuario"
+﻿<UserControl x:Class="Production_control_1._0.pantallasIniciales.valiarUsuarioIngenieria"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Production_control_1._0.pantallasInsumos"
+             xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <!--#region filas/columnas-->
         <Grid.ColumnDefinitions>
@@ -69,12 +69,10 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--#endregion-->
-                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Area Solicitada:" FontSize="25" FontWeight="Bold"/>
-                <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Usuario:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
-                <Label Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Contraseña:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
-                <Label Grid.Row="2" Grid.Column="5" x:Name="labelAreaSolicitada" Grid.ColumnSpan="5" Grid.RowSpan="2" Content="----" FontSize="25" FontWeight="Light"/>
-                <TextBox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="textBoxUsuario" VerticalContentAlignment="Center" KeyDown="solo_numeros"/>
-                <PasswordBox Grid.Row="8" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="PasswordBoxContra" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Usuario:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="Contraseña:" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <TextBox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="textBoxUsuario" VerticalContentAlignment="Center" KeyDown="solo_numeros"/>
+                <PasswordBox Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="30" x:Name="PasswordBoxContra" VerticalContentAlignment="Center"/>
                 <Button x:Name="ButtonIngresar" Grid.Column="4" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="3" BorderBrush="Transparent" Background="Transparent" Click="ButtonIngresar_Click">
                     <Image Source="/imagenes/entrar.png"/>
                 </Button>

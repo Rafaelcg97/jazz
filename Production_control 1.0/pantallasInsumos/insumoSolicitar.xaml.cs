@@ -27,7 +27,6 @@ namespace Production_control_1._0.pantallasInsumos
         SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
         SqlDataReader dr; //leer los resultados del comando sql
         #endregion
-
         #region datosIniciales
         public insumosSolicitar(int codigo, string areaCategoria)
         {
@@ -80,7 +79,6 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
         }
         #endregion
-
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
@@ -129,7 +127,6 @@ namespace Production_control_1._0.pantallasInsumos
         }
 
         #endregion
-
         #region botonesControlFormulario
 
         private void aumentarCantidad_Click(object sender, RoutedEventArgs e)
@@ -175,7 +172,6 @@ namespace Production_control_1._0.pantallasInsumos
             }
         }
         #endregion
-
         #region FiltrarListasInsumosSelecc
 
         private void TextBoXBuscarRepuesto_TextChanged(object sender, TextChangedEventArgs e)
@@ -209,7 +205,6 @@ namespace Production_control_1._0.pantallasInsumos
         }
 
         #endregion
-
         #region agregarRepuestoLista
         private void ButtomIngresarRepuesto_Click(object sender, RoutedEventArgs e)
         {
@@ -288,7 +283,6 @@ namespace Production_control_1._0.pantallasInsumos
 
 
         #endregion
-
         #region terminarSolicitud
 
         private void ButtomTerminarSolicitud_Click(object sender, RoutedEventArgs e)

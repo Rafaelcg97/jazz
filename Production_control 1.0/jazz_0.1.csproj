@@ -332,6 +332,9 @@
     <Compile Include="pantallasMantenimiento\reporteMaquinaMala.xaml.cs">
       <DependentUpon>reporteMaquinaMala.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasIniciales\valiarUsuarioIngenieria.xaml.cs">
+      <DependentUpon>valiarUsuarioIngenieria.xaml</DependentUpon>
+    </Compile>
     <Compile Include="tamanosLetras\tamanosLetras.cs" />
     <Page Include="pantallasIniciales\inicio.xaml">
       <SubType>Designer</SubType>
@@ -471,6 +474,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pantallasIniciales\valiarUsuarioIngenieria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -538,9 +545,6 @@
     <Resource Include="imagenes\expediente.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\terminar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\engine.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -565,22 +569,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\iniciar_in.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\pausa_in.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\reanudar_in.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\terminar_in.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\tocar.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\mas.png" />
@@ -606,9 +595,6 @@
     <Resource Include="pantallasProduccion\imagenes\cerrar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagenes\salir.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\mantenimientoPreventivo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -628,9 +614,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\enviar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imagenes\salirAmarillo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\estadoPlantaProduccionAzul.png" />
@@ -741,6 +724,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\abrir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\iniciar_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\pausa_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\reanudar_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\terminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\terminar_in.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

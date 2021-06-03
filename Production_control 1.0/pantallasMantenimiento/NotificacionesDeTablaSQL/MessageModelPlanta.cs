@@ -45,6 +45,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
         private ObservableCollection<solicitudMaquina> u32 = null;
         private ObservableCollection<solicitudMaquina> u33 = null;
         private ObservableCollection<solicitudMaquina> u34 = null;
+        private ObservableCollection<solicitudMaquina> u35 = null;
         private ObservableCollection<solicitudMaquina> p = null;
         #endregion
         #region coleccionesObservablesPub
@@ -320,6 +321,14 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 return u34;
             }
         }
+        public ObservableCollection<solicitudMaquina> U35
+        {
+            get
+            {
+                u35 = u35 ?? new ObservableCollection<solicitudMaquina>();
+                return u35;
+            }
+        }
         public ObservableCollection<solicitudMaquina> P
         {
             get
@@ -329,8 +338,6 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             }
         }
         #endregion
-
-
         public Dispatcher UIDispatcher { get; set; }
         public SQLNotifierPlanta Notifier { get; set; }
         public MessageModelPlanta(Dispatcher uidispatcher)
@@ -390,7 +397,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                     #region agregarDatosLista
                     foreach (DataRow dr in consultado.Rows)
                     {
-                        switch (Convert.ToInt32(dr["ubicacion"]))
+                        switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
                         {
                             case 1:
                                 solicitudMaquina itemU1 = new solicitudMaquina
@@ -802,6 +809,18 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 };
                                 this.U34.Add(itemU34);
                                 break;
+                            case 35:
+                                solicitudMaquina itemU35 = new solicitudMaquina
+                                {
+                                    corresponde = dr["corresponde"].ToString(),
+                                    id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
+                                    problema_reportado = dr["problema_reportado"].ToString(),
+                                    maquina = dr["maquina"].ToString(),
+                                    hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
+                                };
+                                this.U34.Add(itemU35);
+                                break;
                         }
                         if (dr["corresponde"].ToString()=="MANTENIMIENTO" && String.IsNullOrEmpty(dr["hora_cierre"].ToString()))
                         {
@@ -818,11 +837,10 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                     }
                     #endregion
-                    coloresModulo.VerificarColor(U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34);
+                    coloresModulo.VerificarColor(U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35);
                 }
             });
         }
-
         void notifier_NewMessage(object sender, SqlNotificationEventArgs e)
         {
             this.LoadMessage(this.Notifier.RegisterDependency());

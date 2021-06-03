@@ -15,7 +15,6 @@ namespace Production_control_1._0.pantallasMantenimiento
         public SqlConnection cnMantenimiento = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
-
         #region datosIniciales
         public reporteFinalTPM(int id)
         {
@@ -23,7 +22,6 @@ namespace Production_control_1._0.pantallasMantenimiento
             labelSolicirud.Content = id;
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -46,13 +44,10 @@ namespace Production_control_1._0.pantallasMantenimiento
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
         #endregion
-
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
-            formularioTPM formularioTPM = new formularioTPM();
-            this.NavigationService.Navigate(formularioTPM);
-
+            this.NavigationService.GoBack();
         }
         private void ButtonSalir(object sender, RoutedEventArgs e)
         {
@@ -79,7 +74,6 @@ namespace Production_control_1._0.pantallasMantenimiento
             Application.Current.MainWindow.DragMove();
         }
         #endregion
-
         #region calculosGenerales
 
         private void Checkear(object sender, RoutedEventArgs e)
@@ -111,15 +105,31 @@ namespace Production_control_1._0.pantallasMantenimiento
         }
 
         #endregion
-
         #region habilitarFormulario
-
         private void checkedCompleto_Checked(object sender, RoutedEventArgs e)
         {
             BorderFormularioCompleto.IsEnabled = true;
-            checkedCompleto.IsChecked = true;
         }
-
+        private void checkedCompleto_Unchecked(object sender, RoutedEventArgs e)
+        {
+            BorderFormularioCompleto.IsEnabled = false;
+            s23.IsChecked = false;
+            s24.IsChecked = false;
+            s25.IsChecked = false;
+            s26.IsChecked = false;
+            s27.IsChecked = false;
+            s28.IsChecked = false;
+            s29.IsChecked = false;
+            s30.IsChecked = false;
+            s31.IsChecked = false;
+            s32.IsChecked = false;
+            s33.IsChecked = false;
+            s34.IsChecked = false;
+            s35.IsChecked = false;
+            s36.IsChecked = false;
+            s37.IsChecked = false;
+            s38.IsChecked = false;
+        }
         private void BorderFormularioCompleto_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Border borde = (Border)sender;
@@ -132,11 +142,8 @@ namespace Production_control_1._0.pantallasMantenimiento
                 borde.Opacity = 0.2;
             }
         }
-
         #endregion
-
         #region terminarSolicitud
-
         private void buttonIngresar_Click(object sender, RoutedEventArgs e)
         {
             #region variables
@@ -223,9 +230,6 @@ namespace Production_control_1._0.pantallasMantenimiento
             if (s38.IsChecked == true) { p38 = 1; } else { p38 = 0; }
             if(checkedCompleto.IsChecked == true) { tipo = "COMPLETO"; } else { tipo = "BASICO"; }
             observaciones_ = observaciones.Text.Replace("'", "");
-
-
-
             string sql = "insert into solicitudesTPMDetalles(idSolicitud, tipo, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p33, p34, p35, p36, p37, p38, observaciones) ";
             sql = sql + "values( '" + labelSolicirud.Content.ToString() + "', '" + tipo +"', " + p1 + ", " + p2 + ", " + p3 + ", " + p4 + ", " + p5 + ", " + p6 + ", " + p7 + ", " + p8 + ", " + p9 + ", " + p10 + ", " + p11 + ", " + p12 + ", " + p13 + ", " + p14 + ", " + p15 + ", " + p16 + ", " + p17 + ", " + p18 + ", " + p19 + ", " + p20 + ", " + p21 + ", " + p22 + ", " + p23 + ", " + p24 + ", " + p25 + ", " + p26 + ", " + p27 + ", " + p28 + ", " + p29 + ", " + p30 + ", " + p31 + ", " + p32 + ", " + p33 + ", " + p34 + ", " + p35 + ", " + p36 + ", " + p37 + ", " + p38 + ", '" + observaciones_ + "')";
             string sql2 = "update solicitudesTPM set fechaFin = '" + DateTime.Now + "' where id= '" + labelSolicirud.Content + "'";
@@ -239,7 +243,6 @@ namespace Production_control_1._0.pantallasMantenimiento
             formularioTPM formularioTPM = new formularioTPM();
             this.NavigationService.Navigate(formularioTPM);
         }
-
         #endregion
     }
 }

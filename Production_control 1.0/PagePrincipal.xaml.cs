@@ -19,7 +19,6 @@ namespace Production_control_1._0
         {
             int index = ListViewMenu.SelectedIndex;
             MoveCursorMenu(index);
-
             switch (index)
             {
                 case 0:
@@ -40,6 +39,7 @@ namespace Production_control_1._0
                     break;
                 case 4:
                     GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new pantallasIniciales.valiarUsuarioIngenieria());
                     break;
                 case 5:
                     GridPrincipal.Children.Clear();

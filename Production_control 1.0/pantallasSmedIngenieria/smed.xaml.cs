@@ -17,20 +17,16 @@ using System.Configuration;
 using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.EventArgs;
 
-namespace Production_control_1._0
+namespace Production_control_1._0.pantallasSmedIngenieria
 {
-    /// <summary>
-    /// Interaction logic for smed.xaml
-    /// </summary>
     public partial class smed : Page
     {
+        int ubicacion_ = 0;
+        int codigo_ = 0;
         #region clases_especiales
         public SqlConnection cn_smed = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_smed"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-
         public SqlConnection cn_manto = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-
-        public string cs = "Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"];
-
+        public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public class nuevo_movimiento
         {
             public int codigo { get; set; }
@@ -38,44 +34,36 @@ namespace Production_control_1._0
             public string movimiento { get; set; }
             public DateTime hora { get; set; }
         }
-
-        public class item_actualizacion
-        {
-            public int id { get; set; }
-        }
-
         public class nuevo_cambio
         {
             public int id_solicitud{ get; set; }
             public string modulo { get; set; }
             public DateTime hora_reportada { get; set; }
         }
-
         #endregion
-
         #region datos_iniciales
         public smed()
         {
             InitializeComponent();
-            string sql = "select codigo from personal";
+            string sql = "select nombre from usuarios where [ingenieria/SMED]='1' and (cargo='SOPORTE' or cargo='MECANICO') order by nombre";
             string sql2 = "select accion from acciones";
             string sql3 = "select movimientos.codigo, personal.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo=movimientos.id_movimiento inner join personal on movimientos.codigo = personal.codigo order by hora desc";
-            string sql4 = "select modulo from modulos";
-            List<nuevo_movimiento> ultimos_movimientos = new List<nuevo_movimiento>();
-            cn_smed.Open();
-            SqlCommand cm = new SqlCommand(sql, cn_smed);
-            SqlCommand cm2 = new SqlCommand(sql2, cn_smed);
-            SqlCommand cm3 = new SqlCommand(sql3, cn_smed);
-            SqlCommand cm4 = new SqlCommand(sql4, cn_manto);
-
+            string sql4 = "select modulo from orden_modulos group by modulo";
+            cnIngenieria.Open();
+            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
             //agregar codigos de soportes smed
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                codigo.Items.Add(dr["codigo"].ToString());
+                codigo.Items.Add(dr["nombre"].ToString());
             };
             dr.Close();
-
+            cnIngenieria.Close();
+            List<nuevo_movimiento> ultimos_movimientos = new List<nuevo_movimiento>();
+            cn_smed.Open(); 
+            SqlCommand cm2 = new SqlCommand(sql2, cn_smed);
+            SqlCommand cm3 = new SqlCommand(sql3, cn_smed);
+            SqlCommand cm4 = new SqlCommand(sql4, cn_manto);
             //afregar lista de acciones
             SqlDataReader dr2 = cm2.ExecuteReader();
             while (dr2.Read())
@@ -103,15 +91,13 @@ namespace Production_control_1._0
             };
             dr4.Close();
             cn_manto.Close();
+            comboBoxArteria.Items.Add("1");
+            comboBoxArteria.Items.Add("2");
 
             //habilitar boton
             habilitar_boton();
-
-            //revisar si se actualizan modulos del piso
-            datos_llamados();
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void letra_grande(object sender, SizeChangedEventArgs e)
@@ -228,19 +214,37 @@ namespace Production_control_1._0
 
 
         #endregion
-
         #region control_general_del_programa
-
         private void salir__Click(object sender, RoutedEventArgs e)
         {
             PagePrincipal PagePrincipal = new PagePrincipal();
             this.NavigationService.Navigate(PagePrincipal);
         }
+        private void ButtonSalir(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void ButtonMaximizar(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            };
 
-
-
+        }
+        private void ButtonMinimizar(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
         #endregion
-
         #region calculos_generales
         private void habilitar_boton()
         {
@@ -255,81 +259,20 @@ namespace Production_control_1._0
         }
 
         #endregion
-
-        #region actualizacion_planta()
-
-        public void monitorear_tabla()
-        {
-            try
-            {
-                var connectionString = cs;
-                var tableName = "actualizacion";
-                var tableDependency = new SqlTableDependency<item_actualizacion>(connectionString, tableName);
-                tableDependency.OnChanged += OnNotificationReceived;
-                tableDependency.Start();
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void OnNotificationReceived(object sender, RecordChangedEventArgs<item_actualizacion> e)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                datos_llamados();
-            });
-        }
-
-        private void datos_llamados()
-        {
-            List<nuevo_cambio> cambios_pendientes = new List<nuevo_cambio>();
-            try
-            {
-                string sql = "select id_solicitud, hora_reportada, modulo from solicitudes where corresponde= 'SMED' AND hora_cierre IS NULL and problema_reportado='CAMBIO'";
-                cn_manto.Open();
-                SqlCommand cm = new SqlCommand(sql, cn_manto);
-                SqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    cambios_pendientes.Add(new nuevo_cambio { id_solicitud = Convert.ToInt32(dr["id_solicitud"]), modulo = dr["modulo"].ToString(), hora_reportada = Convert.ToDateTime(dr["hora_reportada"])});
-                };
-                dr.Close();
-                cn_manto.Close();
-                cambios_abiertos.ItemsSource = cambios_pendientes;
-                monitorear_tabla();
-            }
-            catch
-            {
-                monitorear_tabla();
-            }
-        }
-
-
-        #endregion
-
         #region formulario_nueva_actividad_smed
-
         private void actividad_smed_Click(object sender, RoutedEventArgs e)
         {
             if (accion.SelectedItem.ToString() == "Falta de Trabajo")
             {
-                #region tamano_de_pop
-                verificar.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
-                verificar.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
-                verificar.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
-                verificar.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
-                #endregion
-                verificar.IsOpen = true;
-                codigo_autorizacion.Password = "";
-                validado.Content = "*";
-                enviar.IsEnabled = false;
+                passWordBoxValidarUsuario.Clear();
+                labelNombreAutoriza.Content = "*";
+                buttonIngresarActividad.IsEnabled = false;
+                popUpValidarUsuario.IsOpen = true;
             }
             else
             {
                 //ingresar nueva actividad de soporte smed
-                string sql = "insert into movimientos  values('" + codigo.SelectedItem.ToString() + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+                string sql = "insert into movimientos  values('" + codigo_ + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
                 cn_smed.Open();
                 SqlCommand cm = new SqlCommand(sql, cn_smed);
                 cm.ExecuteNonQuery();
@@ -348,43 +291,64 @@ namespace Production_control_1._0
                 movimientos.ItemsSource = ultimos_movimientos;
             }
         }
-
         private void codigo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            habilitar_boton();
+            if (codigo.SelectedIndex > -1)
+            {
+                string sql = "select codigo from usuarios where nombre='" + codigo.SelectedItem.ToString() + "'";
+                cnIngenieria.Open();
+                SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+                //agregar codigos de soportes smed
+                SqlDataReader dr = cm.ExecuteReader();
+                if (dr.Read())
+                {
+                    codigo_ = Convert.ToInt32(dr["codigo"].ToString());
+                };
+                dr.Close();
+                cnIngenieria.Close();
+                habilitar_boton();
+            }
         }
-
         private void accion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             habilitar_boton();
         }
-
-        private void codigo_autorizacion_PasswordChanged(object sender, RoutedEventArgs e)
+        private void modulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string sql = "select nombre from soportes where contrasena= '" + codigo_autorizacion.Password + "'";
+            string sql = "select id from orden_modulos where modulo='" + modulo.SelectedItem.ToString() + "'";
             cn_manto.Open();
             SqlCommand cm = new SqlCommand(sql, cn_manto);
             SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
+            if (dr.Read())
             {
-                validado.Content = dr["nombre"].ToString();
+                ubicacion_ = Convert.ToInt32(dr["id"]);
             };
             dr.Close();
             cn_manto.Close();
-            if (validado.Content.ToString() == "Coordinacion SMED")
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            string sql = "select nombre from usuarios where [ingenieria/SMED]='1' and nivel='1' and contrasena='" + passWordBoxValidarUsuario.Password + "'";
+            cnIngenieria.Open();
+            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+            SqlDataReader dr = cm.ExecuteReader();
+            if (dr.Read())
             {
-                enviar.IsEnabled = true;
+                labelNombreAutoriza.Content = dr["nombre"].ToString();
+                buttonIngresarActividad.IsEnabled = true;
             }
             else
             {
-                enviar.IsEnabled = false;
-            }
+                labelNombreAutoriza.Content = "*";
+                buttonIngresarActividad.IsEnabled = false;
+            };
+            dr.Close();
+            cnIngenieria.Close();
         }
-
-        private void enviar_Click(object sender, RoutedEventArgs e)
+        private void buttonIngresarActividad_Click(object sender, RoutedEventArgs e)
         {
             //ingresar nueva actividad de soporte smed
-            string sql = "insert into movimientos  values('" + codigo.SelectedItem.ToString() + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+            string sql = "insert into movimientos  values('" + codigo_ + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
             cn_smed.Open();
             SqlCommand cm = new SqlCommand(sql, cn_smed);
             cm.ExecuteNonQuery();
@@ -401,51 +365,31 @@ namespace Production_control_1._0
             dr2.Close();
             cn_smed.Close();
             movimientos.ItemsSource = ultimos_movimientos;
-            verificar.IsOpen = false;
+            popUpValidarUsuario.IsOpen = false;
         }
-
+        private void ButtonCerrarPopup2_Click(object sender, RoutedEventArgs e)
+        {
+            popUpValidarUsuario.IsOpen = false;
+        }
         #endregion
-
         #region formulario_nuevo_cambio
         private void cambio_Click(object sender, RoutedEventArgs e)
         {
-            if (modulo.SelectedIndex > -1)
+            if (modulo.SelectedIndex > -1 && comboBoxArteria.SelectedIndex>-1)
             {
-                string sql = "insert into solicitudes (modulo, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', 'CAMBIO', " + "'" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', 'SMED')";
-                string sql2 = "insert into actualizacion(evento) values(1)";
+                string sql = "insert into solicitudes (modulo, arteria, ubicacion, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', '"+comboBoxArteria.SelectedItem.ToString()+"', '"+ ubicacion_ + "', 'CAMBIO', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', 'SMED')";
                 cn_manto.Open();
                 SqlCommand cm = new SqlCommand(sql, cn_manto);
-                SqlCommand cm2 = new SqlCommand(sql2, cn_manto);
                 cm.ExecuteNonQuery();
-                cm2.ExecuteNonQuery();
                 cn_manto.Close();
+                this.NavigationService.Navigate(new estadoPlantaProduccion());
             }
-        }
-
-        private void cambios_abiertos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (cambios_abiertos.SelectedIndex > -1)
+            else
             {
-               foreach(nuevo_cambio item in cambios_abiertos.SelectedItems)
-                {
-                    string sql = "update solicitudes set hora_cierre= '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "' where id_solicitud= '" + item.id_solicitud.ToString() + "'";
-                    string sql2 = "insert into actualizacion(evento) values(1)";
-                    cn_manto.Open();
-                    SqlCommand cm = new SqlCommand(sql, cn_manto);
-                    SqlCommand cm2 = new SqlCommand(sql2, cn_manto);
-                    cm.ExecuteNonQuery();
-                    cm2.ExecuteNonQuery();
-                    cn_manto.Close();
-                }
-
-
-
-               
+                MessageBox.Show("Seleccione todos los datos");
             }
         }
-
         #endregion
-
 
     }
 }

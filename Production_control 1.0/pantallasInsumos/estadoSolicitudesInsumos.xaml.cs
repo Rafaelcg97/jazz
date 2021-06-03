@@ -13,25 +13,23 @@ namespace Production_control_1._0.pantallasInsumos
 {
     public partial class estadoSolicitudesInsumos : Page
     {
-
+        int autoriza_ = 0;
         #region conexionesConBasesSQL
         public SqlConnection cnMantenimiento = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public string sql; //Consulta que se hace en sql
         public SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
         public SqlDataReader dr; //leer los resultados del comando sql
         #endregion
-
         #region datosIniciales
-
-        public estadoSolicitudesInsumos()
+        public estadoSolicitudesInsumos(int autoriza)
         {
             InitializeComponent();
+            autoriza_ = autoriza;
             this.CreatePermission();
 
             MessageModel model = new MessageModel(this.Dispatcher);
             this.DataContext = model;
         }
-
         public void CreatePermission()
         {
             // Make sure client has permissions 
@@ -46,7 +44,6 @@ namespace Production_control_1._0.pantallasInsumos
             }
         }
         #endregion
-
         #region control_general_del_programa()
         private void regresar(object sender, RoutedEventArgs e)
         {
@@ -78,7 +75,6 @@ namespace Production_control_1._0.pantallasInsumos
             Application.Current.MainWindow.DragMove();
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void tamanoLetrAutomatico(object sender, SizeChangedEventArgs e)
@@ -95,7 +91,6 @@ namespace Production_control_1._0.pantallasInsumos
                 e.Handled = true;
         }
         #endregion
-
         #region ListBoxEmisorDeData
 
         #region ObtenerDatosDeListBox
@@ -141,7 +136,6 @@ namespace Production_control_1._0.pantallasInsumos
             }
         }
         #endregion
-
         #region listBoxReceptorDeDatos
         private void receptor(object sender, DragEventArgs e)
         {
@@ -149,14 +143,13 @@ namespace Production_control_1._0.pantallasInsumos
             string status = estacion.Name.ToString();
             object informacion = e.Data.GetData(typeof(solicitudInsumo));
             solicitudInsumo informacionElemento = informacion as solicitudInsumo;
-            sql = "update ordenesBodegaInsumos set ordenStatus='"+status+"' where orden_id="+informacionElemento.ordenIdNum;
+            sql = "update ordenesBodegaInsumos set ordenStatus='"+status+"', autoriza='"+autoriza_+"' where orden_id="+informacionElemento.ordenIdNum;
             cnMantenimiento.Open();
             cm = new SqlCommand(sql, cnMantenimiento);
             cm.ExecuteNonQuery();
             cnMantenimiento.Close();
         }
         #endregion
-
         #region abrirPopDetallesInsum
         private void Recibida_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -185,7 +178,6 @@ namespace Production_control_1._0.pantallasInsumos
         }
 
         #endregion
-
         #region botonesDescargadoCancelado
 
         private void buttonDescargas_Click(object sender, RoutedEventArgs e)

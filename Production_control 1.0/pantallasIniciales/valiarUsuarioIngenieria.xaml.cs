@@ -17,12 +17,13 @@ using System.Windows.Shapes;
 
 namespace Production_control_1._0.pantallasIniciales
 {
-    public partial class validacionUsuarioConfiguraciones : UserControl
+    public partial class valiarUsuarioIngenieria : UserControl
     {
-        public validacionUsuarioConfiguraciones()
+        public valiarUsuarioIngenieria()
         {
             InitializeComponent();
         }
+        #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
             //dependencia hacia la pagina
@@ -36,44 +37,40 @@ namespace Production_control_1._0.pantallasIniciales
             }
             return parent;
         }
-        private void ButtonIngresarContrasena_Click(object sender, RoutedEventArgs e)
+        private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
+        {
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasIniciales.inicio());
+        }
+        private void solo_numeros(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+        #endregion
+        #region ingresarAreas
+        private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select cargo from usuarios where contrasena='"+passwordBoxContrasenaAdministrador.Password+"'";
+            string sql = "select codigo from usuarios where [ingenieria/SMED]='1' and codigo='"+ textBoxUsuario.Text +"'  and contrasena='"+PasswordBoxContra.Password+"'";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
             if (dr.Read())
             {
-                if (dr["cargo"].ToString()=="ADMINISTRADOR1")
-                {
-                    Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
-                    GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new configuracion("ADMINISTRADOR1"));
-                }
-                else if(dr["cargo"].ToString() == "ADMINISTRADOR2")
-                {
-                    Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
-                    GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new configuracion("ADMINISTRADOR2"));
-                }
-                else if(dr["cargo"].ToString() == "ADMINISTRADORGENERAL")
-                {
-                    Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
-                    GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new configuracion("ADMINISTRADORGENERAL"));
-                }
-                else
-                {
-                    MessageBox.Show("Su usuario no tiene autorizacion para acceder a las configuraciones");
-                }
+                Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                GridPrincipal.Content = new pantallasSmedIngenieria.smed();
             }
             else
             {
-                MessageBox.Show("El usuario ingresado no existe");
+                MessageBox.Show("El usuario ingresado no existe o no tiene permiso de entrar");
             };
             dr.Close();
             cn.Close();
         }
+        #endregion
     }
 }

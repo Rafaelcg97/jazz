@@ -62,7 +62,7 @@ namespace Production_control_1._0.pantallasInsumos
             string areaSolicitadaVerificar = labelAreaSolicitada.Content.ToString();
             //datos para realizar conexion
             SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select*from usuarios where mantenimiento=1 and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
+            string sql = "select nivel from usuarios where bodega=1 and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
             cnIngenieria.Open();
             SqlCommand cm = new SqlCommand(sql, cnIngenieria);
             SqlDataReader dr = cm.ExecuteReader();
@@ -86,7 +86,7 @@ namespace Production_control_1._0.pantallasInsumos
                 }
                 else if(areaSolicitadaVerificar== "Administración Bodega de Insumos" && nivelUsuario == 1)
                 {
-                    estadoSolicitudesInsumos estadoSolicitudesInsumos = new estadoSolicitudesInsumos();
+                    estadoSolicitudesInsumos estadoSolicitudesInsumos = new estadoSolicitudesInsumos(Convert.ToInt32(textBoxUsuario.Text));
                     Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
                     GridPrincipal.Content = estadoSolicitudesInsumos;
                 }

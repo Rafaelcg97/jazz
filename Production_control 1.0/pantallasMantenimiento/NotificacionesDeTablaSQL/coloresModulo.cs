@@ -17,7 +17,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
 {
     public class coloresModulo
     {
-        public static void VerificarColor(ObservableCollection<solicitudMaquina> U1, ObservableCollection<solicitudMaquina> U2, ObservableCollection<solicitudMaquina> U3, ObservableCollection<solicitudMaquina> U4, ObservableCollection<solicitudMaquina> U5, ObservableCollection<solicitudMaquina> U6, ObservableCollection<solicitudMaquina> U7, ObservableCollection<solicitudMaquina> U8, ObservableCollection<solicitudMaquina> U9, ObservableCollection<solicitudMaquina> U10, ObservableCollection<solicitudMaquina> U11, ObservableCollection<solicitudMaquina> U12, ObservableCollection<solicitudMaquina> U13, ObservableCollection<solicitudMaquina> U14, ObservableCollection<solicitudMaquina> U15, ObservableCollection<solicitudMaquina> U16, ObservableCollection<solicitudMaquina> U17, ObservableCollection<solicitudMaquina> U18, ObservableCollection<solicitudMaquina> U19, ObservableCollection<solicitudMaquina> U20, ObservableCollection<solicitudMaquina> U21, ObservableCollection<solicitudMaquina> U22, ObservableCollection<solicitudMaquina> U23, ObservableCollection<solicitudMaquina> U24, ObservableCollection<solicitudMaquina> U25, ObservableCollection<solicitudMaquina> U26, ObservableCollection<solicitudMaquina> U27, ObservableCollection<solicitudMaquina> U28, ObservableCollection<solicitudMaquina> U29, ObservableCollection<solicitudMaquina> U30, ObservableCollection<solicitudMaquina> U31, ObservableCollection<solicitudMaquina> U32, ObservableCollection<solicitudMaquina> U33, ObservableCollection<solicitudMaquina> U34)
+        public static void VerificarColor(ObservableCollection<solicitudMaquina> U1, ObservableCollection<solicitudMaquina> U2, ObservableCollection<solicitudMaquina> U3, ObservableCollection<solicitudMaquina> U4, ObservableCollection<solicitudMaquina> U5, ObservableCollection<solicitudMaquina> U6, ObservableCollection<solicitudMaquina> U7, ObservableCollection<solicitudMaquina> U8, ObservableCollection<solicitudMaquina> U9, ObservableCollection<solicitudMaquina> U10, ObservableCollection<solicitudMaquina> U11, ObservableCollection<solicitudMaquina> U12, ObservableCollection<solicitudMaquina> U13, ObservableCollection<solicitudMaquina> U14, ObservableCollection<solicitudMaquina> U15, ObservableCollection<solicitudMaquina> U16, ObservableCollection<solicitudMaquina> U17, ObservableCollection<solicitudMaquina> U18, ObservableCollection<solicitudMaquina> U19, ObservableCollection<solicitudMaquina> U20, ObservableCollection<solicitudMaquina> U21, ObservableCollection<solicitudMaquina> U22, ObservableCollection<solicitudMaquina> U23, ObservableCollection<solicitudMaquina> U24, ObservableCollection<solicitudMaquina> U25, ObservableCollection<solicitudMaquina> U26, ObservableCollection<solicitudMaquina> U27, ObservableCollection<solicitudMaquina> U28, ObservableCollection<solicitudMaquina> U29, ObservableCollection<solicitudMaquina> U30, ObservableCollection<solicitudMaquina> U31, ObservableCollection<solicitudMaquina> U32, ObservableCollection<solicitudMaquina> U33, ObservableCollection<solicitudMaquina> U34, ObservableCollection<solicitudMaquina> U35)
         {
             #region variablesConteo
             //am (abierto Mantenimiento), as(abierto SMED), pm(pendiente Mantenimiento), ps(pendiente SMED), c(cambio)
@@ -55,6 +55,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int am32 = 0;
             int am33 = 0;
             int am34 = 0;
+            int am35 = 0;
             int as1 = 0;
             int as2 = 0;
             int as3 = 0;
@@ -89,6 +90,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int as32 = 0;
             int as33 = 0;
             int as34 = 0;
+            int as35 = 0;
             int pm1 = 0;
             int pm2 = 0;
             int pm3 = 0;
@@ -123,6 +125,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int pm32 = 0;
             int pm33 = 0;
             int pm34 = 0;
+            int pm35 = 0;
             int ps1 = 0;
             int ps2 = 0;
             int ps3 = 0;
@@ -157,6 +160,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int ps32 = 0;
             int ps33 = 0;
             int ps34 = 0;
+            int ps35 = 0;
             int c1 = 0;
             int c2 = 0;
             int c3 = 0;
@@ -191,6 +195,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             int c32 = 0;
             int c33 = 0;
             int c34 = 0;
+            int c35 = 0;
             #endregion
             #region contarListas
             foreach (solicitudMaquina item in U1)
@@ -1315,9 +1320,40 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         break;
                 }
             }
+            foreach (solicitudMaquina item in U35)
+            {
+                switch (item.corresponde.ToString())
+                {
+                    case "MANTENIMIENTO":
+                        if (item.hora_apertura.ToString() == "0")
+                        {
+                            pm35 = pm35 + 1;
+                        }
+                        else
+                        {
+                            am35 = am35 + 1;
+                        }
+                        break;
+                    case "SMED":
+                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        {
+                            c35 = c35 + 1;
+                        }
+                        else
+                        {
+                            if (item.hora_apertura.ToString() == "0")
+                            {
+                                ps35 = ps35 + 1;
+                            }
+                            else
+                            {
+                                as35 = as35 + 1;
+                            }
+                        }
+                        break;
+                }
+            }
             #endregion
-
-
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                     Grid areaTrabajo = (Grid)UIGlobal.MainPage.Content;
@@ -3745,15 +3781,84 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                         }
                                         #endregion
                                     }
+                                    if (moduloLista.Name == "modulo_35")
+                                {
+                                    #region fondo
+                                    if (c35 == 0)
+                                    {
+                                        if (pm35 > 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                        }
+                                        else if (pm35 == 0 && ps35 > 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                        }
+                                        else if (am35 > 0 || as35 > 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                        }
+                                        else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (pm35 > 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                        }
+                                        else if (pm35 == 0 && ps35 > 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                        }
+                                        else if (am35 > 0 || as35 > 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                        }
+                                        else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
+                                        {
+                                            moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                        }
+                                    }
+                                    #endregion
+                                    #region borde
 
+                                    //colores de borde
+
+                                    if (c35 == 0)
+                                    {
+                                        if (ps35 > 0)
+                                        {
+                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                        }
+                                        else if (pm35 > 0 && ps35 == 0)
+                                        {
+                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                        }
+                                        else if (am35 > 0 || as35 > 0)
+                                        {
+                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                        }
+                                        else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
+                                        {
+                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                                    }
+                                    #endregion
                                 }
+                            }
 
                             }
                         }
 
                     }
             }));
-
         }
     }
 }

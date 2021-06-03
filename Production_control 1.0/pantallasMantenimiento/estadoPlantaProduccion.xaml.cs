@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Production_control_1._0.clases;
 using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
@@ -17,9 +19,9 @@ namespace Production_control_1._0
         public estadoPlantaProduccion()
         {
             InitializeComponent();
-
             //se revisa cual es la distribucion de los modulos
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "select id, modulo from orden_modulos";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
@@ -39,18 +41,27 @@ namespace Production_control_1._0
             };
             dr.Close();
             cn.Close();
+            cnIngenieria.Open();
+            sql = "select codigo from usuarios where cargo='MECANICO'";
+            cm = new SqlCommand(sql, cnIngenieria);
+            dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                codigo_mec.Items.Add(Convert.ToInt32(dr["codigo"]));
+                codigo_mec_re.Items.Add(Convert.ToInt32(dr["codigo"]));
+            }
+            dr.Close();
+            cnIngenieria.Close();
 
             this.CreatePermission();
             MessageModelPlanta model = new MessageModelPlanta(this.Dispatcher);
             this.DataContext = model;
             UIGlobal.MainPage = this;
         }
-
         public static class UIGlobal
         {
             public static estadoPlantaProduccion MainPage { get; set; }
         }
-
         public void CreatePermission()
         {
             // Make sure client has permissions 
@@ -64,14 +75,12 @@ namespace Production_control_1._0
                 throw new ApplicationException("No permission");
             }
         }
-            #endregion
+        #endregion
         #region control_general_del_programa()
-
         private void salir__Click(object sender, RoutedEventArgs e)
         {
             PagePrincipal PagePrincipal = new PagePrincipal();
             this.NavigationService.Navigate(PagePrincipal);
-
         }
         private void ButtonSalir(object sender, RoutedEventArgs e)
         {
@@ -97,7 +106,6 @@ namespace Production_control_1._0
         {
             Application.Current.MainWindow.DragMove();
         }
-
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
 
@@ -268,7 +276,6 @@ namespace Production_control_1._0
         }
         #endregion
         #region botones_pop_uo
-
         #region botones_pop_principal
         private void iniciar_Click(object sender, RoutedEventArgs e)
         {
@@ -374,20 +381,14 @@ namespace Production_control_1._0
         }
 
         #endregion
-
         #region botones_por_pop_up
-
         private void btn_iniciar_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(codigo_mec.Text))
-            {
-
-            }
-            else
+            if (codigo_mec.SelectedIndex>-1)
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 string sql = "update solicitudes set hora_apertura='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "'  where id_solicitud= '" + id_1.Content.ToString() + "'";
-                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_1.Content.ToString() + "', '" + codigo_mec.Text.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_1.Content.ToString() + "', '" + codigo_mec.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlCommand cm2 = new SqlCommand(sql2, cn);
@@ -398,7 +399,6 @@ namespace Production_control_1._0
                 abrir_solicitud.IsOpen = false;
             }
         }
-
         private void motivo_de_pausa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (motivo_de_pausa.SelectedIndex>=0)
@@ -419,18 +419,13 @@ namespace Production_control_1._0
 
             }
         }
-
         private void btn_reanudar_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(codigo_mec_re.Text))
-            {
-
-            }
-            else
+            if (codigo_mec_re.SelectedIndex>-1)
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 string sql = "insert into pausas (num_solicitud, hora, tipo) values('" + id_3.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
-                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" +id_3.Content.ToString() +"', '" + codigo_mec_re.Text.ToString() + "', '"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +"', '-1')";
+                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_3.Content.ToString() + "', '" + codigo_mec_re.SelectedItem.ToString()+ "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlCommand cm2 = new SqlCommand(sql2, cn);
@@ -441,7 +436,6 @@ namespace Production_control_1._0
                 reanudar_solicitud.IsOpen = false;
             }
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (motivo_real.SelectedIndex>= 0 & nombre_autoriza.Content.ToString() !="*")
@@ -464,7 +458,6 @@ namespace Production_control_1._0
 
             }
         }
-
         private void buscar_motivo_real_TextChanged(object sender, TextChangedEventArgs e)
         {
             //se consultan las coincidencias de problemas
@@ -481,12 +474,11 @@ namespace Production_control_1._0
             dr.Close();
             cn.Close();
         }
-
         private void codigo_autoriza_PasswordChanged(object sender, RoutedEventArgs e)
         {
             nombre_autoriza.Content = "*";
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select nombre from soportes where contrasena= '" + codigo_autoriza.Password.ToString() + "'";
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select nombre from usuarios where contrasena= '" + codigo_autoriza.Password.ToString() + "' and mantenimiento='1'";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
@@ -497,9 +489,7 @@ namespace Production_control_1._0
             dr.Close();
             cn.Close();
         }
-
         #endregion
-
         #endregion
     }
 }

@@ -17,7 +17,6 @@ namespace Production_control_1._0.pantallasMantenimiento
         public SqlConnection cnMantenimiento = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
-
         #region datosIniciales
         public formularioTPM()
         {
@@ -56,7 +55,6 @@ namespace Production_control_1._0.pantallasMantenimiento
             consultarReportes();
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -79,12 +77,10 @@ namespace Production_control_1._0.pantallasMantenimiento
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
         #endregion
-
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
-            PagePrincipal PagePrincipal = new PagePrincipal();
-            this.NavigationService.Navigate(PagePrincipal);
+            this.NavigationService.GoBack();
 
         }
         private void ButtonSalir(object sender, RoutedEventArgs e)
@@ -112,7 +108,6 @@ namespace Production_control_1._0.pantallasMantenimiento
             Application.Current.MainWindow.DragMove();
         }
         #endregion
-
         #region datosFomrularioIniciar
         private void textBoxMaquina_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -188,7 +183,6 @@ namespace Production_control_1._0.pantallasMantenimiento
         }
 
         #endregion
-
         #region calculos_generales
         private void habilitarBotonEnviar()
         {
@@ -231,7 +225,6 @@ namespace Production_control_1._0.pantallasMantenimiento
 
         }
         #endregion
-
         #region mostrarPop
 
         private void listViewPendientes_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -378,10 +378,10 @@
                             <ListView.View>
                                 <GridView>
                                     <!--#region numSolicitud-->
-                                    <GridViewColumn Header="Num Solicitud" Width="50">
+                                    <GridViewColumn Header="Num Solicitud" Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label Width="400" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding num_solicitud}"/>
+                                                <Label Width="500" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" Content="{Binding num_solicitud}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
