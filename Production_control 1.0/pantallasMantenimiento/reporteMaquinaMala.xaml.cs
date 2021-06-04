@@ -42,7 +42,7 @@ namespace Production_control_1._0
             comboBoxArteria.Items.Add(2);
             //se cargan los datos de las listas de modulos y de problemas
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modulo from orden_modulos";
+            string sql = "select modulo from orden_modulos group by modulo";
             string sql2 = "select codigo from inventario_maquinas";
             string sql3 = "select falla from defectos_linea";
             cn.Open();
@@ -245,6 +245,28 @@ namespace Production_control_1._0
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
+        private void comboBoxArteria_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
+            {
+                cn.Open();
+                string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "' and arteria='" + comboBoxArteria.SelectedItem.ToString() + "'";
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+                if (dr.Read())
+                {
+                    corresponde_reporte.Content = "SMED";
+                }
+                else
+                {
+                    corresponde_reporte.Content = "MANTENIMIENTO";
+                };
+                dr.Close();
+                habilitar_boton();
+            }
+        }
         private void buscar_maquina_Reporte_TextChanged(object sender, TextChangedEventArgs e)
         {
             //se limpian los items cargados en la lista de maquinas
@@ -398,26 +420,5 @@ namespace Production_control_1._0
             }
         }
         #endregion
-        private void comboBoxArteria_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
-            {
-                cn.Open();
-                string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "' and arteria='" + comboBoxArteria.SelectedItem.ToString() + "'";
-                SqlCommand cm = new SqlCommand(sql, cn);
-                SqlDataReader dr = cm.ExecuteReader();
-                //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
-                if (dr.Read())
-                {
-                    corresponde_reporte.Content = "SMED";
-                }
-                else 
-                {
-                    corresponde_reporte.Content = "MANTENIMIENTO";
-                };
-                dr.Close();
-            }
-        }
     }
 }

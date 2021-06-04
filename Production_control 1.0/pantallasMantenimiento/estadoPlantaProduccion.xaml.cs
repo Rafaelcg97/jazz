@@ -42,7 +42,7 @@ namespace Production_control_1._0
             dr.Close();
             cn.Close();
             cnIngenieria.Open();
-            sql = "select codigo from usuarios where cargo='MECANICO'";
+            sql = "select codigo from usuarios where cargo='MECANICO' or cargo='ELECTRICISTA'";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())
@@ -208,7 +208,7 @@ namespace Production_control_1._0
                         img_terminar.Source = new BitmapImage(terminar_habilitado);
 
                         //se revisa en la tabla de tiempos por mecanico quien abrio el problema 
-                        string sql = "select top 1 mecanico, mecanicos.nombre from tiempos_por_mecanico left join mecanicos on mecanicos.codigo = mecanico where num_solicitud=" + item.id_solicitud + "order by hora desc";
+                        string sql = "select top 1 mecanico, usuarios.nombre from tiempos_por_mecanico left join ingenieria.dbo.usuarios on usuarios.codigo = mecanico where num_solicitud=" + item.id_solicitud + "order by hora desc";
                         cn.Open();
                         SqlCommand cm = new SqlCommand(sql, cn);
                         SqlDataReader dr = cm.ExecuteReader();
@@ -291,7 +291,7 @@ namespace Production_control_1._0
             codigo_mec.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
 
             #endregion
-            codigo_mec.Text = "";
+            codigo_mec.SelectedIndex=-1;
             id_1.Content = solicitud.Content.ToString();
             abrir_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
@@ -342,7 +342,7 @@ namespace Production_control_1._0
             codigo_mec_re.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
 
             #endregion
-            codigo_mec_re.Text = "";
+            codigo_mec_re.SelectedIndex=-1;
             id_3.Content = solicitud.Content.ToString();
             reanudar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;

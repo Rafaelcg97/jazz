@@ -48,6 +48,7 @@ namespace Production_control_1._0.pantallasIniciales
             acciones_[1] = -1;
             cargos_.Add("SOPORTE");
             cargos_.Add("MECANICO");
+            cargos_.Add("ELECTRICISTA");
             cargos_.Add("INGENIERO");
             cargos_.Add("COORDINADOR");
             cargos_.Add("LEAN");
@@ -249,6 +250,7 @@ namespace Production_control_1._0.pantallasIniciales
                 sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='MECANICO'";
                 cargos_.Clear();
                 cargos_.Add("MECANICO");
+                cargos_.Add("ELECTRICISTA");
                 ordenIngenieros.IsEnabled = false;
             }
             bool ingenieria_ = false;

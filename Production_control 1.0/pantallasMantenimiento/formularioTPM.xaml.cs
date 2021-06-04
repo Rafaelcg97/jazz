@@ -39,7 +39,7 @@ namespace Production_control_1._0.pantallasMantenimiento
 
             //llenar lista de mecanicos
             cnIngenieria.Open();
-            sql = "select codigo from usuarios where cargo='MECANICO'";
+            sql = "select codigo from usuarios where cargo='MECANICO' or cargo='ELECTRICISTA'";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())

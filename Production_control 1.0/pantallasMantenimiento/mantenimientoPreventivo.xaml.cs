@@ -40,12 +40,11 @@ namespace Production_control_1._0
             InitializeComponent();
             //se cargan los datos de las listas de modulos y de problemas
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modulo from orden_modulos";
-            string sql2 = "select codigo from mecanicos order by codigo";
+            SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select modulo from orden_modulos group by modulo";
             string sql3 = "select falla from defectos_totales where categoria='MANTENIMIENTO PREVENTIVO'";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
-            SqlCommand cm2 = new SqlCommand(sql2, cn);
             SqlCommand cm3 = new SqlCommand(sql3, cn);
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
@@ -53,12 +52,6 @@ namespace Production_control_1._0
                 modulo.Items.Add(dr["modulo"].ToString());
             };
             dr.Close();
-            SqlDataReader dr2 = cm2.ExecuteReader();
-            while (dr2.Read())
-            {
-                codigo.Items.Add(dr2["codigo"].ToString());
-            };
-            dr2.Close();
             SqlDataReader dr3 = cm3.ExecuteReader();
             while (dr3.Read())
             {
@@ -66,6 +59,19 @@ namespace Production_control_1._0
             };
             dr3.Close();
             cn.Close();
+
+            //llenar lista de mecanicos
+            cnIngenieria.Open();
+            sql3 = "select codigo from usuarios where cargo='MECANICO' or cargo='ELECTRICISTA'";
+            cm3 = new SqlCommand(sql3, cnIngenieria);
+            dr3 = cm3.ExecuteReader();
+            while (dr3.Read())
+            {
+                codigo.Items.Add(dr3["codigo"].ToString());
+            };
+            dr3.Close();
+            cnIngenieria.Close();
+
 
             //se habilita o ibhabilita el boton
             habilitar_boton();

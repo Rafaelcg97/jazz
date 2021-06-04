@@ -1800,7 +1800,6 @@ namespace Production_control_1._0
             eficiencia_.Content = ejecutarCalculoDeEficiencia();
             eficiencia_2.Content = ejecutarCalculoDeEficiencia();
         }
-
         #endregion
         #endregion
         #region ListViewEmisorDeData
