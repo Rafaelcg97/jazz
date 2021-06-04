@@ -6,9 +6,8 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="White">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="areaDeTrabajo" Background="#FF575656">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -43,6 +42,44 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Border  Grid.Column="11" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="25" CornerRadius="10" Background="DarkGray">
+            <StackPanel>
+                <Label FontSize="25" FontWeight="Bold" FontFamily="Bauhaus 93" HorizontalAlignment="Center" Foreground="White">Acerca del Software</Label>
+                <Image Source="/imagenes/logoJazz.png" MaxHeight="200" Margin="30" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="10" FontSize="15" FontWeight="Bold" Foreground="White">Nombre:</Label>
+                    <Label Margin="10" FontSize="15" Foreground="White">Jazz-CCO</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="10" FontSize="15" FontWeight="Bold" Foreground="White">Versión:</Label>
+                    <Label Margin="10" FontSize="15" Foreground="White">1.0</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="10,10,0,0" FontSize="15" FontWeight="Bold" Foreground="White">Base de Datos:</Label>
+                    <Label Margin="10" FontSize="15" Foreground="White">Microsoft SQL Server Express</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="10" FontSize="15" FontWeight="Bold" Foreground="White">Versión de Base:</Label>
+                    <Label Margin="10" FontSize="15" Foreground="White">14.0.1000.169</Label>
+                </StackPanel>
+                <Label Margin="10" FontSize="15" FontWeight="Bold" Foreground="White">Desarrollado Por:</Label>
+                <Label Margin="20,0,0,0" FontSize="15" Foreground="White">► Edwin Ortega</Label>
+                <Label Margin="20,0,0,0" FontSize="15" Foreground="White">► Napoleón Cerón</Label>
+                <Label Margin="20,0,0,0" FontSize="15" Foreground="White">► Rafael Castro</Label>
+            </StackPanel>
+        </Border>
+
+        <Image Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="10" HorizontalAlignment="Center" Grid.RowSpan="3" Source="/imagenes/logoEmpresa.png" Margin="25"/>
+        <Label FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="6" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">¡Bienvenido!</Label>
+        <Label x:Name="labelUsuario" FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="8" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">¡Bienvenido!</Label>
+        <Label x:Name="labelHora" FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="11" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">----</Label>
+
+        <StackPanel Grid.Row="15" Grid.ColumnSpan="10" Margin="10" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <RadioButton x:Name="color1" Content="Blue" Foreground="White" Margin="10" Checked="color1_Checked"></RadioButton>
+            <RadioButton x:Name="color2" Content="Green" Foreground="White" Margin="10" Checked="color2_Checked"></RadioButton>
+            <RadioButton x:Name="color3" Content="Gray" Foreground="White" Margin="10" Checked="color3_Checked"></RadioButton>
+            <RadioButton x:Name="color4" Content="Red" Foreground="White" Margin="10" Checked="color4_Checked"></RadioButton>
+        </StackPanel>
 
     </Grid>
 </UserControl>

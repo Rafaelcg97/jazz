@@ -2161,7 +2161,6 @@ namespace Production_control_1._0
             //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
             CalculoAsignadoPorOperacion();
         }
-
         private void colorRojo(object sender, RoutedEventArgs e)
         {
             //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
@@ -2171,7 +2170,6 @@ namespace Production_control_1._0
             //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
             CalculoAsignadoPorOperacion();
         }
-
         private void colorAzul(object sender, RoutedEventArgs e)
         {
             //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
@@ -2181,7 +2179,6 @@ namespace Production_control_1._0
             //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
             CalculoAsignadoPorOperacion();
         }
-
         private void colorAnaranjado(object sender, RoutedEventArgs e)
         {
             //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
@@ -2191,7 +2188,6 @@ namespace Production_control_1._0
             //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
             CalculoAsignadoPorOperacion();
         }
-
         private void colorAmarillo(object sender, RoutedEventArgs e)
         {
             //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
@@ -2201,7 +2197,6 @@ namespace Production_control_1._0
             //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
             CalculoAsignadoPorOperacion();
         }
-
         #endregion
         #region coloresBarraAsignado
         private void progressBarAsignado_Loaded(object sender, RoutedEventArgs e)

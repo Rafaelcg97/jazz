@@ -93,17 +93,11 @@ namespace Production_control_1._0.pantallasIniciales
             guardarOrdenModulo();
             guardarIngenieros();
             guardarPausas();
-
-
-
-
-
-
+            guardarAccionMeca();
             //notificar que se han actualizado los datos
             MessageBox.Show("Datos Actualizados");
 
         }
-
         private void guardarUusario()
         {
             cnIngenieria.Open();
@@ -246,6 +240,9 @@ namespace Production_control_1._0.pantallasIniciales
                 cargos_.Add("INGENIERO");
                 cargos_.Add("COORDINADOR");
                 ordenMoulos.IsEnabled = false;
+                arreglarSolicitudes.IsEnabled = false;
+                arreglarSolicitudesMecanicos.IsEnabled = false;
+                
             }
             else if (cargo == "ADMINISTRADOR2")
             {
@@ -381,56 +378,63 @@ namespace Production_control_1._0.pantallasIniciales
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
-            //validar codigo de coordinadores
-            foreach(moduloAdministrado item in listViewOrdenarIngenieros.Items)
+            if (((ComboBox)sender).SelectedIndex > -1)
             {
-                bool agregado = false;
-                foreach (usuario subitem in listViewAsignarUsuarios.Items)
+                List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
+                //validar codigo de coordinadores
+                foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
                 {
-                    if (item.coordinadorNombre == subitem.nombre)
+                    bool agregado = false;
+                    foreach (usuario subitem in listViewAsignarUsuarios.Items)
                     {
-                        listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = subitem.codigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo });
-                        agregado = true;
+                        if (item.coordinadorNombre == subitem.nombre)
+                        {
+                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = subitem.codigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo });
+                            agregado = true;
+                        }
+                    }
+
+                    if (agregado == false)
+                    {
+                        listaAuxiliar.Add(item);
                     }
                 }
 
-                if (agregado == false)
+                listViewOrdenarIngenieros.Items.Clear();
+                foreach (moduloAdministrado item in listaAuxiliar)
                 {
-                    listaAuxiliar.Add(item);
+                    listViewOrdenarIngenieros.Items.Add(item);
                 }
-            }
 
-            listViewOrdenarIngenieros.Items.Clear();
-            foreach(moduloAdministrado item in listaAuxiliar)
-            {
-                listViewOrdenarIngenieros.Items.Add(item);
             }
         }
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
-            //validar codigo de coordinadores
-            foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
+            if (((ComboBox)sender).SelectedIndex > -1)
             {
-                bool agregado = false;
-                foreach (usuario subitem in listViewAsignarUsuarios.Items)
+                List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
+                //validar codigo de coordinadores
+                foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
                 {
-                    if (item.ingenieroNombre == subitem.nombre)
+                    bool agregado = false;
+                    foreach (usuario subitem in listViewAsignarUsuarios.Items)
                     {
-                        listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = subitem.codigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo });
-                        agregado = true;
+                        if (item.ingenieroNombre == subitem.nombre)
+                        {
+                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = subitem.codigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo });
+                            agregado = true;
+                        }
+                    }
+                    if (agregado == false)
+                    {
+                        listaAuxiliar.Add(item);
                     }
                 }
-                if (agregado == false)
+                listViewOrdenarIngenieros.Items.Clear();
+                foreach (moduloAdministrado item in listaAuxiliar)
                 {
-                    listaAuxiliar.Add(item);
+                    listViewOrdenarIngenieros.Items.Add(item);
                 }
-            }
-            listViewOrdenarIngenieros.Items.Clear();
-            foreach (moduloAdministrado item in listaAuxiliar)
-            {
-                listViewOrdenarIngenieros.Items.Add(item);
             }
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
