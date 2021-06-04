@@ -390,6 +390,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                     this.U32.Clear();
                     this.U33.Clear();
                     this.U34.Clear();
+                    this.U35.Clear();
                     this.P.Clear();                    
                     #endregion
 
@@ -819,7 +820,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                     hora_reportada = Convert.ToDateTime(dr["hora_reportada"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     hora_apertura = string.IsNullOrEmpty(dr["hora_apertura"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_apertura"]).ToString("yyyy-MM-dd hh:mm:ss")
                                 };
-                                this.U34.Add(itemU35);
+                                this.U35.Add(itemU35);
                                 break;
                         }
                         if (dr["corresponde"].ToString()=="MANTENIMIENTO" && String.IsNullOrEmpty(dr["hora_cierre"].ToString()))
