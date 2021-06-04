@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Production_control_1._0"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStyle="None" BorderThickness="0" ResizeMode="NoResize">
+        Title="MainWindow" WindowStyle="None" BorderThickness="0" ResizeMode="NoResize" WindowState="Maximized">
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Width)" Storyboard.TargetName="grid">
