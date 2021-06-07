@@ -235,9 +235,9 @@ namespace Production_control_1._0.pantallasIniciales
             while (dr.Read())
             {
                 modulos.Add(dr["modart"].ToString());
-                totalPiezas = totalPiezas + Convert.ToInt32(dr["totalDePiezas"]);
-                trabajado = trabajado + Convert.ToDouble(dr["minutosTrabajados"]);
-                disponible = disponible + Convert.ToDouble(dr["minutosDisponibles"]);
+                totalPiezas = totalPiezas + Convert.ToInt32(dr["totalDePiezas"] is DBNull? 0: dr["totalDePiezas"]);
+                trabajado = trabajado + Convert.ToDouble(dr["minutosTrabajados"] is DBNull? 0: dr["minutosTrabajados"]);
+                disponible = disponible + Convert.ToDouble(dr["minutosDisponibles"] is DBNull? 0: dr["minutosDisponibles"]);
                 modulosProduccionEficiencia.Add(new elemento_grafica { modulo = dr["modart"].ToString(), eficiencia = Convert.ToDouble(dr["eficiencia"]), piezas = Convert.ToInt32(dr["totalDePiezas"]), coordinador = dr["coordinador"].ToString(), h1 = Convert.ToInt32(dr["H1"]), h2 = Convert.ToInt32(dr["H2"]), h3 = Convert.ToInt32(dr["H3"]), h4 = Convert.ToInt32(dr["H4"]), h5 = Convert.ToInt32(dr["H5"]), h6 = Convert.ToInt32(dr["H6"]), h7 = Convert.ToInt32(dr["H7"]), h8 = Convert.ToInt32(dr["H8"]), h9 = Convert.ToInt32(dr["H9"]), h10 = Convert.ToInt32(dr["H10"]), h11 = Convert.ToInt32(dr["H11"]), h12 = Convert.ToInt32(dr["H12"]) });
             };
             dr.Close();

@@ -441,7 +441,7 @@ namespace Production_control_1._0
             if (motivo_real.SelectedIndex>= 0 & nombre_autoriza.Content.ToString() !="*")
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', problema_real= '" + motivo_real.SelectedItem.ToString() + "', autoriza= '" + codigo_autoriza.Password.ToString() +"' where id_solicitud= '" + id_4.Content.ToString() + "'";
+                string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', problema_real= '" + motivo_real.SelectedItem.ToString() + "', autoriza= '" + nombre_autoriza.Content +"' where id_solicitud= '" + id_4.Content.ToString() + "'";
                 string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_4.Content.ToString() + "', '" + meca_2.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
