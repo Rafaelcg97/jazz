@@ -15,6 +15,7 @@ namespace Production_control_1._0
 {
     public partial class estadoPlantaProduccion : Page
     {
+        string modulo_ = "";
         #region datos_iniciales()
         public estadoPlantaProduccion()
         {
@@ -184,14 +185,15 @@ namespace Production_control_1._0
 
                 solicitudMaquina item = (solicitudMaquina)modulo.SelectedItem;
 
-                    // se agregan el problema, maquina, solicitud y la hora a la que se hizo del problema seleccionado
-                    problema.Content = item.problema_reportado.ToString();
-                    maquina.Content = item.maquina.ToString();
-                    solicitud.Content = item.id_solicitud.ToString();
-                    hora_reporte.Content = item.hora_reportada.ToString();
+                // se agregan el problema, maquina, solicitud y la hora a la que se hizo del problema seleccionado
+                problema.Content = item.problema_reportado.ToString();
+                maquina.Content = item.maquina.ToString();
+                solicitud.Content = item.id_solicitud.ToString();
+                hora_reporte.Content = item.hora_reportada.ToString();
+                modulo_ = item.modulo;
 
                     //se evalua si ya esta abierto
-                    if (item.hora_apertura.ToString() != "0")
+                if (item.hora_apertura.ToString() != "0")
                     {
                         //si ya esta abierto se coloca la hora de apertura, por defecto el estado se coloca en abierto y se inabilita el boton de iniciar
                         hora_apertura.Content = item.hora_apertura.ToString();
@@ -296,7 +298,6 @@ namespace Production_control_1._0
             abrir_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
-
         private void pausar_Click(object sender, RoutedEventArgs e)
         {
             #region tamano_de_pop
@@ -327,7 +328,6 @@ namespace Production_control_1._0
             pausar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
-
         private void reanudar_Click(object sender, RoutedEventArgs e)
         {
             #region tamano_de_pop
@@ -347,7 +347,6 @@ namespace Production_control_1._0
             reanudar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
-
         private void terminar_Click(object sender, RoutedEventArgs e)
         {
             #region tamano_de_pop
@@ -361,6 +360,7 @@ namespace Production_control_1._0
             id_4.Content = solicitud.Content.ToString();
             meca_2.Content = codigo_mecanico.Content.ToString();
             motivo_real.Items.Clear();
+            textBoxComentario.Clear();
 
             //se consulta en la base la lista y se agregan
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -379,7 +379,6 @@ namespace Production_control_1._0
             terminar_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
-
         #endregion
         #region botones_por_pop_up
         private void btn_iniciar_Click(object sender, RoutedEventArgs e)
@@ -441,7 +440,7 @@ namespace Production_control_1._0
             if (motivo_real.SelectedIndex>= 0 & nombre_autoriza.Content.ToString() !="*")
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', problema_real= '" + motivo_real.SelectedItem.ToString() + "', autoriza= '" + nombre_autoriza.Content +"' where id_solicitud= '" + id_4.Content.ToString() + "'";
+                string sql = "update solicitudes set hora_cierre='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', problema_real= '" + motivo_real.SelectedItem.ToString() + "', autoriza= '" + nombre_autoriza.Content +"', comentario='"+textBoxComentario.Text+"' where id_solicitud= '" + id_4.Content.ToString() + "'";
                 string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_4.Content.ToString() + "', '" + meca_2.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
@@ -478,7 +477,7 @@ namespace Production_control_1._0
         {
             nombre_autoriza.Content = "*";
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select nombre from usuarios where contrasena= '" + codigo_autoriza.Password.ToString() + "' and mantenimiento='1'";
+            string sql = "select nombre from usuarios, produccion.dbo.modulosProduccion where (codigo=coordinadorCodigo or codigo=ingenieroProcesosCodigo or codigo=soporteCodigo) AND contrasena='"+codigo_autoriza.Password.ToString()+"' AND modulo='"+modulo_+"' and mantenimiento=1";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();

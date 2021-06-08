@@ -174,6 +174,7 @@ namespace Production_control_1._0.pantallasIniciales
                 cm.ExecuteNonQuery();
             }
             cnManto.Close();
+            consultar(cargo_);
 
         }
         #endregion
@@ -190,10 +191,15 @@ namespace Production_control_1._0.pantallasIniciales
             {
                 foreach (usuario item in usuariosTotales)
                 {
-                    if (item.nombre.StartsWith(textBoxBuscar.Text.Trim()))
+                    if (string.IsNullOrEmpty(item.nombre) == false)
                     {
-                        listViewAsignarUsuarios.Items.Add(item);
+                        if (item.nombre.StartsWith(textBoxBuscar.Text.Trim()))
+                        {
+                            listViewAsignarUsuarios.Items.Add(item);
+                        }
+
                     }
+
                 }
             }
             else if (textBoxBuscar.Text.Trim() == "")
