@@ -377,7 +377,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         {
             if (modulo.SelectedIndex > -1 && comboBoxArteria.SelectedIndex>-1)
             {
-                string sql = "insert into solicitudes (modulo, arteria, ubicacion, problema_reportado, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', '"+comboBoxArteria.SelectedItem.ToString()+"', '"+ ubicacion_ + "', 'CAMBIO', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', 'SMED')";
+                string sql = "insert into solicitudes (modulo, arteria, ubicacion, problema_reportado, hora_reportada, hora_asignacion, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', '"+comboBoxArteria.SelectedItem.ToString()+"', '"+ ubicacion_ + "', 'CAMBIO', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', 'SMED')";
                 cn_manto.Open();
                 SqlCommand cm = new SqlCommand(sql, cn_manto);
                 cm.ExecuteNonQuery();
@@ -390,6 +390,5 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             }
         }
         #endregion
-
     }
 }

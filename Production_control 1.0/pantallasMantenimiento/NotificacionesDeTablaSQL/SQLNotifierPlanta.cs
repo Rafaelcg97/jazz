@@ -51,7 +51,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select [id_solicitud], [ubicacion], [modulo], [maquina], [hora_reportada], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudes where [hora_apertura] is null or [hora_cierre] is null", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [id_solicitud], [ubicacion], [modulo], [maquina], [hora_reportada], [hora_asignacion], [hora_apertura], [hora_cierre], [problema_reportado], [corresponde] from dbo.solicitudes where [hora_apertura] is null or [hora_cierre] is null", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 

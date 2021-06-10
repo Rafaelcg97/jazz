@@ -203,7 +203,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm1 = pm1 + 1;
                         }
@@ -219,7 +219,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps1 = ps1 + 1;
                             }
@@ -236,7 +236,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm2 = pm2 + 1;
                         }
@@ -252,7 +252,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps2 = ps2 + 1;
                             }
@@ -269,7 +269,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm3 = pm3 + 1;
                         }
@@ -285,7 +285,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps3 = ps3 + 1;
                             }
@@ -302,7 +302,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm4 = pm4 + 1;
                         }
@@ -318,7 +318,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps4 = ps4 + 1;
                             }
@@ -335,7 +335,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm5 = pm5 + 1;
                         }
@@ -351,7 +351,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps5 = ps5 + 1;
                             }
@@ -368,7 +368,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm6 = pm6 + 1;
                         }
@@ -384,7 +384,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps6 = ps6 + 1;
                             }
@@ -401,7 +401,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm7 = pm7 + 1;
                         }
@@ -417,7 +417,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps7 = ps7 + 1;
                             }
@@ -434,7 +434,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm8 = pm8 + 1;
                         }
@@ -450,7 +450,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps8 = ps8 + 1;
                             }
@@ -467,7 +467,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm9 = pm9 + 1;
                         }
@@ -483,7 +483,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps9 = ps9 + 1;
                             }
@@ -500,7 +500,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm10 = pm10 + 1;
                         }
@@ -516,7 +516,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps10 = ps10 + 1;
                             }
@@ -533,7 +533,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm11 = pm11 + 1;
                         }
@@ -549,7 +549,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps11 = ps11 + 1;
                             }
@@ -566,7 +566,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm12 = pm12 + 1;
                         }
@@ -582,7 +582,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps12 = ps12 + 1;
                             }
@@ -599,7 +599,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm13 = pm13 + 1;
                         }
@@ -615,7 +615,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps13 = ps13 + 1;
                             }
@@ -632,7 +632,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm14 = pm14 + 1;
                         }
@@ -648,7 +648,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps14 = ps14 + 1;
                             }
@@ -665,7 +665,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm15 = pm15 + 1;
                         }
@@ -681,7 +681,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps15 = ps15 + 1;
                             }
@@ -698,7 +698,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm16 = pm16 + 1;
                         }
@@ -714,7 +714,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps16 = ps16 + 1;
                             }
@@ -731,7 +731,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm17 = pm17 + 1;
                         }
@@ -747,7 +747,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps17 = ps17 + 1;
                             }
@@ -764,7 +764,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm18 = pm18 + 1;
                         }
@@ -780,7 +780,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps18 = ps18 + 1;
                             }
@@ -797,7 +797,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm19 = pm19 + 1;
                         }
@@ -813,7 +813,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps19 = ps19 + 1;
                             }
@@ -830,7 +830,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm20 = pm20 + 1;
                         }
@@ -846,7 +846,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps20 = ps20 + 1;
                             }
@@ -863,7 +863,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm21 = pm21 + 1;
                         }
@@ -879,7 +879,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps21 = ps21 + 1;
                             }
@@ -896,7 +896,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm22 = pm22 + 1;
                         }
@@ -912,7 +912,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps22 = ps22 + 1;
                             }
@@ -929,7 +929,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm23 = pm23 + 1;
                         }
@@ -945,7 +945,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps23 = ps23 + 1;
                             }
@@ -962,7 +962,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm24 = pm24 + 1;
                         }
@@ -978,7 +978,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps24 = ps24 + 1;
                             }
@@ -995,7 +995,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm25 = pm25 + 1;
                         }
@@ -1011,7 +1011,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps25 = ps25 + 1;
                             }
@@ -1028,7 +1028,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm26 = pm26 + 1;
                         }
@@ -1044,7 +1044,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps26 = ps26 + 1;
                             }
@@ -1061,7 +1061,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm27 = pm27 + 1;
                         }
@@ -1077,7 +1077,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps27 = ps27 + 1;
                             }
@@ -1094,7 +1094,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm28 = pm28 + 1;
                         }
@@ -1110,7 +1110,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps28 = ps28 + 1;
                             }
@@ -1127,7 +1127,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm29 = pm29 + 1;
                         }
@@ -1143,7 +1143,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps29 = ps29 + 1;
                             }
@@ -1160,7 +1160,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm30 = pm30 + 1;
                         }
@@ -1176,7 +1176,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps30 = ps30 + 1;
                             }
@@ -1193,7 +1193,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm31 = pm31 + 1;
                         }
@@ -1209,7 +1209,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps31 = ps31 + 1;
                             }
@@ -1226,7 +1226,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm32 = pm32 + 1;
                         }
@@ -1242,7 +1242,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps32 = ps32 + 1;
                             }
@@ -1259,7 +1259,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm33 = pm33 + 1;
                         }
@@ -1275,7 +1275,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps33 = ps33 + 1;
                             }
@@ -1292,7 +1292,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm34 = pm34 + 1;
                         }
@@ -1308,7 +1308,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps34 = ps34 + 1;
                             }
@@ -1325,7 +1325,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                 switch (item.corresponde.ToString())
                 {
                     case "MANTENIMIENTO":
-                        if (item.hora_apertura.ToString() == "0")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
                             pm35 = pm35 + 1;
                         }
@@ -1341,7 +1341,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         else
                         {
-                            if (item.hora_apertura.ToString() == "0")
+                            if (item.hora_asignacion.ToString() == "0")
                             {
                                 ps35 = ps35 + 1;
                             }

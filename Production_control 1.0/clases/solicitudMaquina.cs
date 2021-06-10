@@ -14,6 +14,7 @@ namespace Production_control_1._0.clases
         public float operario { get; set; }
         public string problema_reportado { get; set; }
         public string hora_reportada { get; set; }
+        public string hora_asignacion { get; set; }
         public string hora_apertura { get; set; }
         public string hora_cierre { get; set; }
         public string corresponde { get; set; }

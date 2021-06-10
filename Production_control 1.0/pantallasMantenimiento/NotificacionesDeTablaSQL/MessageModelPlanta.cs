@@ -404,7 +404,8 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU1 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
-                                    modulo=dr["modulo"].ToString(),
+                                    hora_asignacion= string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                    modulo =dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
                                     maquina = dr["maquina"].ToString(),
@@ -418,6 +419,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU2 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -431,6 +433,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU3 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -444,6 +447,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU4 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -457,6 +461,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU5 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -470,6 +475,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU6 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -483,6 +489,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU7 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -496,6 +503,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU8 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -509,6 +517,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU9 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -522,6 +531,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU10 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -535,6 +545,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU11 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -548,6 +559,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU12 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -561,6 +573,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU13 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -574,6 +587,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU14 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -587,6 +601,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU15 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -600,6 +615,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU16 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -613,6 +629,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU17 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -626,6 +643,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU18 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -639,6 +657,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU19 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -652,6 +671,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU20 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -665,6 +685,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU21 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -678,6 +699,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU22 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -691,6 +713,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU23 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -704,6 +727,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU24 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -717,6 +741,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU25 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -730,6 +755,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU26 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -743,6 +769,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU27 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -756,6 +783,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU28 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -769,6 +797,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU29 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -782,6 +811,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU30 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -795,6 +825,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU31 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -808,6 +839,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU32 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -821,6 +853,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU33 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -835,6 +868,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU34 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),
@@ -848,6 +882,7 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 solicitudMaquina itemU35 = new solicitudMaquina
                                 {
                                     corresponde = dr["corresponde"].ToString(),
+                                    hora_asignacion = string.IsNullOrEmpty(dr["hora_asignacion"].ToString()) ? "0" : Convert.ToDateTime(dr["hora_asignacion"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     modulo = dr["modulo"].ToString(),
                                     id_solicitud = Convert.ToInt32(dr["id_solicitud"]),
                                     problema_reportado = dr["problema_reportado"].ToString(),

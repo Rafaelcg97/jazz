@@ -48,7 +48,7 @@ namespace Production_control_1._0
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                codigo_mec.Items.Add(Convert.ToInt32(dr["codigo"]));
+                comboBoxAsignarMecanico.Items.Add(Convert.ToInt32(dr["codigo"]));
                 codigo_mec_re.Items.Add(Convert.ToInt32(dr["codigo"]));
             }
             dr.Close();
@@ -160,6 +160,8 @@ namespace Production_control_1._0
             ListBox modulo = ((ListBox)sender);
             //strings generales para la conexion a la base y la direccion de las imagenes de los botones (se cambian para hacer evidente si estan habilitados o no)
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            Uri iniciarMeca_habilitado = new Uri("/imagenes/iniciarMeca.png", UriKind.RelativeOrAbsolute);
+            Uri iniciarMeca_inhabilitado = new Uri("/imagenes/iniciarMeca _in.png", UriKind.RelativeOrAbsolute);
             Uri iniciar_habilitado = new Uri("/imagenes/iniciar.png", UriKind.RelativeOrAbsolute);
             Uri pausar_habilitado = new Uri("/imagenes/pausa.png", UriKind.RelativeOrAbsolute);
             Uri reanudar_habilitado = new Uri("/imagenes/reanudar.png", UriKind.RelativeOrAbsolute);
@@ -192,8 +194,32 @@ namespace Production_control_1._0
                 hora_reporte.Content = item.hora_reportada.ToString();
                 modulo_ = item.modulo;
 
-                    //se evalua si ya esta abierto
-                if (item.hora_apertura.ToString() != "0")
+                //se evalua si ya esta abierto
+                if (item.hora_asignacion.ToString() != "0")
+                {
+                    estado.Content = "Asignada";
+                    img_iniciarMeca.Source = new BitmapImage(iniciarMeca_inhabilitado);
+                    buttonAsignarMecanico.IsEnabled = false;
+                    iniciar.IsEnabled = true;
+                    pausar.IsEnabled = false;
+                    reanudar.IsEnabled = false;
+                    terminar.IsEnabled = false;
+
+                    //se revisa en la tabla de tiempos por mecanico quien abrio el problema 
+                    string sql = "select top 1 mecanico, usuarios.nombre from tiempos_por_mecanico left join ingenieria.dbo.usuarios on usuarios.codigo = mecanico where num_solicitud=" + item.id_solicitud + "order by hora desc";
+                    cn.Open();
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    if(dr.Read())
+                    {
+                        mecanico.Content = Convert.ToString(dr["nombre"] is DBNull ? "----" : dr["nombre"]);
+                        codigo_mecanico.Content = Convert.ToString(dr["mecanico"] is DBNull ? "----" : dr["mecanico"]);
+                    };
+                    dr.Close();
+                    cn.Close();
+
+
+                    if (item.hora_apertura.ToString() != "0")
                     {
                         //si ya esta abierto se coloca la hora de apertura, por defecto el estado se coloca en abierto y se inabilita el boton de iniciar
                         hora_apertura.Content = item.hora_apertura.ToString();
@@ -209,19 +235,8 @@ namespace Production_control_1._0
                         img_reanudar.Source = new BitmapImage(reanudar_inhabilitado);
                         img_terminar.Source = new BitmapImage(terminar_habilitado);
 
-                        //se revisa en la tabla de tiempos por mecanico quien abrio el problema 
-                        string sql = "select top 1 mecanico, usuarios.nombre from tiempos_por_mecanico left join ingenieria.dbo.usuarios on usuarios.codigo = mecanico where num_solicitud=" + item.id_solicitud + "order by hora desc";
-                        cn.Open();
-                        SqlCommand cm = new SqlCommand(sql, cn);
-                        SqlDataReader dr = cm.ExecuteReader();
-                        while (dr.Read())
-                        {
-                            mecanico.Content = Convert.ToString(dr["nombre"] is DBNull ? "----" : dr["nombre"]);
-                            codigo_mecanico.Content = Convert.ToString(dr["mecanico"] is DBNull ? "----" : dr["mecanico"]);
-                        };
-                        dr.Close();
-
                         //se revisa si existen pausas abiertas de la solicitud (eso se ve en la tabla pausas: 1 es inicio de pausa un -1 es un cierre de pausa)
+                        cn.Open();
                         string sql2 = "select top 1 tipo from pausas where num_solicitud=" + item.id_solicitud + "order by hora desc";
                         SqlCommand cm2 = new SqlCommand(sql2, cn);
                         SqlDataReader dr2 = cm2.ExecuteReader();
@@ -262,8 +277,6 @@ namespace Production_control_1._0
                     {
                         //si esta sin abrir se coloca el estado y la imagen que corresponde a cada boton
                         hora_apertura.Content = "----";
-                        estado.Content = "Sin Abrir";
-                        mecanico.Content = "----";
                         iniciar.IsEnabled = true;
                         pausar.IsEnabled = false;
                         reanudar.IsEnabled = false;
@@ -274,27 +287,56 @@ namespace Production_control_1._0
                         img_reanudar.Source = new BitmapImage(reanudar_inhabilitado);
                         img_terminar.Source = new BitmapImage(terminar_inhabilitado);
                     }
+                }
+                else
+                {
+                    estado.Content = "Sin Asignar";
+                    mecanico.Content = "----";
+                    codigo_mecanico.Content = "----";
+                    buttonAsignarMecanico.IsEnabled = true;
+                    iniciar.IsEnabled = false;
+                    pausar.IsEnabled = false;
+                    reanudar.IsEnabled = false;
+                    terminar.IsEnabled = false;
+
+                    img_iniciarMeca.Source = new BitmapImage(iniciarMeca_habilitado);
+                    img_iniciar.Source = new BitmapImage(iniciar_inhabilitado);
+                    img_pausar.Source = new BitmapImage(pausar_inhabilitado);
+                    img_reanudar.Source = new BitmapImage(reanudar_inhabilitado);
+                    img_terminar.Source = new BitmapImage(terminar_inhabilitado);
+                }
             }
         }
         #endregion
         #region botones_pop_uo
         #region botones_pop_principal
+        private void buttonAsignarMecanico_Click(object sender, RoutedEventArgs e)
+        {
+            #region tamano_de_pop
+            asignar_solicitud.Width = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            asignar_solicitud.Height = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+            comboBoxAsignarMecanico.Width = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
+            comboBoxAsignarMecanico.Height = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
+            #endregion
+            comboBoxAsignarMecanico.SelectedIndex = -1;
+            id_asignar.Content = solicitud.Content.ToString();
+            asignar_solicitud.IsOpen = true;
+            datos_solicitud.IsOpen = false;
+        }
         private void iniciar_Click(object sender, RoutedEventArgs e)
         {
             #region tamano_de_pop
-            abrir_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
-            abrir_solicitud.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
-            abrir_solicitud.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
-            abrir_solicitud.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
-
-            codigo_mec.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
-            codigo_mec.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
-            codigo_mec.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
-            codigo_mec.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
-
+            abrir_solicitud.Width = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            abrir_solicitud.Height = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+            passwordBoxCodigoAbre.Width = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
+            passwordBoxCodigoAbre.Height = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
             #endregion
-            codigo_mec.SelectedIndex=-1;
+            passwordBoxCodigoAbre.Password = "";
             id_1.Content = solicitud.Content.ToString();
+            Uri iniciar_inhabilitado = new Uri("/imagenes/iniciar_in.png", UriKind.RelativeOrAbsolute);
+            img_verificar_inicio.Source = img_iniciarMeca.Source = new BitmapImage(iniciar_inhabilitado);
+            labelNombreAbre.Content = "*";
+            btn_iniciar.IsEnabled = false;
             abrir_solicitud.IsOpen = true;
             datos_solicitud.IsOpen = false;
         }
@@ -381,22 +423,56 @@ namespace Production_control_1._0
         }
         #endregion
         #region botones_por_pop_up
-        private void btn_iniciar_Click(object sender, RoutedEventArgs e)
+        private void comboBoxAsignarMecanico_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (codigo_mec.SelectedIndex>-1)
+            if (comboBoxAsignarMecanico.SelectedIndex > -1)
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "update solicitudes set hora_apertura='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "'  where id_solicitud= '" + id_1.Content.ToString() + "'";
-                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_1.Content.ToString() + "', '" + codigo_mec.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+                string sql = "update solicitudes set hora_asignacion='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "'  where id_solicitud= '" + id_asignar.Content.ToString() + "'";
+                string sql2 = "insert into tiempos_por_mecanico (num_solicitud, mecanico, hora, tipo) values( '" + id_asignar.Content.ToString() + "', '" + comboBoxAsignarMecanico.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlCommand cm2 = new SqlCommand(sql2, cn);
                 cm.ExecuteNonQuery();
                 cm2.ExecuteNonQuery();
                 cn.Close();
-                codigo_mec.Text = "";
-                abrir_solicitud.IsOpen = false;
+                asignar_solicitud.IsOpen = false;
             }
+        }
+        private void passwordBoxCodigoAbre_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            labelNombreAbre.Content = "*";
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select nombre from usuarios, produccion.dbo.modulosProduccion where (codigo=coordinadorCodigo or codigo=ingenieroProcesosCodigo or codigo=soporteCodigo) AND contrasena='" + passwordBoxCodigoAbre.Password + "' AND modulo='" + modulo_ + "' and mantenimiento=1";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                Uri iniciar_habilitado = new Uri("/imagenes/iniciar.png", UriKind.RelativeOrAbsolute);
+                img_verificar_inicio.Source = img_iniciarMeca.Source = new BitmapImage(iniciar_habilitado);
+                labelNombreAbre.Content = dr["nombre"].ToString();
+                btn_iniciar.IsEnabled = true;
+            }
+            else
+            {
+                Uri iniciar_inhabilitado = new Uri("/imagenes/iniciar_in.png", UriKind.RelativeOrAbsolute);
+                img_verificar_inicio.Source = img_iniciarMeca.Source = new BitmapImage(iniciar_inhabilitado);
+                labelNombreAbre.Content = "*";
+                btn_iniciar.IsEnabled = false;
+            };
+            dr.Close();
+            cn.Close();
+        }
+        private void btn_iniciar_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "update solicitudes set hora_apertura='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "'  where id_solicitud= '" + id_1.Content.ToString() + "'";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            cm.ExecuteNonQuery();
+            cn.Close();
+            abrir_solicitud.IsOpen = false;
         }
         private void motivo_de_pausa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -489,6 +565,37 @@ namespace Production_control_1._0
             cn.Close();
         }
         #endregion
+
         #endregion
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            datos_solicitud.IsOpen = false;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            asignar_solicitud.IsOpen = false;
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            abrir_solicitud.IsOpen = false;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            pausar_solicitud.IsOpen = false;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            reanudar_solicitud.IsOpen = false;
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            terminar_solicitud.IsOpen = false;
+        }
     }
 }

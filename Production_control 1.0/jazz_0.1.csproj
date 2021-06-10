@@ -768,6 +768,12 @@
   <ItemGroup>
     <Resource Include="imagenes\tocar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\iniciarMeca.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\iniciarMeca _in.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
