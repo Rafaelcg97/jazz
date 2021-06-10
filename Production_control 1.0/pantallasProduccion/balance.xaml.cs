@@ -1133,7 +1133,17 @@ namespace Production_control_1._0
             switch (impresion_seleccionada)
             {
                 case 0:
-                    #region imprimirLay
+                    bool asignado = true;
+                    foreach (elementoListBox item in Operaciones.Items)
+                    {
+                        if (item.asignadoOperacion==0)
+                        {
+                            asignado = false;
+                        }
+                    }
+                    if (asignado == true)
+                    {
+                        #region imprimirLay
                     List<elementoListBox> listaDeMaquinas = new List<elementoListBox>();
                     List<maquina> resumenMaquinas = new List<maquina>();
                     clases.balance resumenGeneral =  new clases.balance();
@@ -1495,7 +1505,12 @@ namespace Production_control_1._0
                     GridBackground.Margin = new Thickness(5, 30, 0, 0);
                     #endregion
                     this.NavigationService.Navigate(new impresion(listaDeMaquinas, resumenMaquinas, resumenGeneral));
-                    #endregion
+                        #endregion
+                    }
+                    else
+                    {
+                        MessageBox.Show("Parece que hay Operaciones no Asignadas");
+                    }
                     break;
                 case 1:
                     #region imprimirGraficaTeorica

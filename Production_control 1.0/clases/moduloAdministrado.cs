@@ -14,8 +14,11 @@ namespace Production_control_1._0.clases
         public int coordinadorCodigo { get; set; }
         public string ingenieroNombre { get; set; }
         public int ingenieroCodigo { get; set; }
+        public string soporteNombre { get; set; }
+        public int soporteCodigo { get; set; }
         public List<string> modulos { get; set; }
         public List<string> ingenieros { get; set; }
         public List<string> coordinadores { get; set; }
+        public List<string> soportes { get; set; }
     }
 }

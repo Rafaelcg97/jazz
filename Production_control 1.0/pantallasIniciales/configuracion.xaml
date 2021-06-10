@@ -221,10 +221,10 @@
                     <ListView.View>
                         <GridView>
                             <!--#region modulo-->
-                            <GridViewColumn Header="Modulo" Width="185">
+                            <GridViewColumn Header="Modulo" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Width="400" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="15" Content="{Binding modulo}"/>
+                                        <Label Width="400" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding modulo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -233,16 +233,16 @@
                             <GridViewColumn Header="Nombre de Coordinador" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Width="195" ItemsSource="{Binding coordinadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" SelectedItem="{Binding coordinadorNombre}" SelectionChanged="ComboBox_SelectionChanged"/>
+                                        <ComboBox Width="195" ItemsSource="{Binding coordinadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding coordinadorNombre}" SelectionChanged="ComboBox_SelectionChanged"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                             <!--#region coordinadorCodigo-->
-                            <GridViewColumn Header="Codigo de Coordinador" Width="150">
+                            <GridViewColumn Header="Codigo" Width="65">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="15" Content="{Binding coordinadorCodigo}"/>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding coordinadorCodigo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -251,16 +251,34 @@
                             <GridViewColumn Header="Nombre de Ingeniero" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Width="195" ItemsSource="{Binding ingenieros}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15" SelectedItem="{Binding ingenieroNombre}" SelectionChanged="ComboBox_SelectionChanged_1"/>
+                                        <ComboBox Width="195" ItemsSource="{Binding ingenieros}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding ingenieroNombre}" SelectionChanged="ComboBox_SelectionChanged_1"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
                             <!--#region ingenieroCodigo-->
-                            <GridViewColumn Header="Codigo de Ingeniero" Width="150">
+                            <GridViewColumn Header="Codigo" Width="65">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="15" Content="{Binding ingenieroCodigo}"/>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding ingenieroCodigo}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region soporteNombre-->
+                            <GridViewColumn Header="Nombre de Soporte" Width="210">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Width="195" ItemsSource="{Binding soportes}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding soporteNombre}" SelectionChanged="ComboBox_SelectionChanged_2" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region soporteCodigo-->
+                            <GridViewColumn Header="Codigo" Width="65">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding soporteCodigo}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

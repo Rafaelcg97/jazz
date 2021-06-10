@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:Production_control_1._0.pantallasIniciales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="areaDeTrabajo" Background="#FF575656">
@@ -75,10 +76,7 @@
         <Label x:Name="labelHora" FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="11" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">----</Label>
 
         <StackPanel Grid.Row="15" Grid.ColumnSpan="10" Margin="10" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <RadioButton x:Name="color1" Content="Blue" Foreground="White" Margin="10" Checked="color1_Checked"></RadioButton>
-            <RadioButton x:Name="color2" Content="Green" Foreground="White" Margin="10" Checked="color2_Checked"></RadioButton>
-            <RadioButton x:Name="color3" Content="Gray" Foreground="White" Margin="10" Checked="color3_Checked"></RadioButton>
-            <RadioButton x:Name="color4" Content="Red" Foreground="White" Margin="10" Checked="color4_Checked"></RadioButton>
+            <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Width="60"></xctk:ColorPicker>
         </StackPanel>
 
     </Grid>

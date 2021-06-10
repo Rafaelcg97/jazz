@@ -23,6 +23,7 @@ namespace Production_control_1._0.pantallasIniciales
         List<string> modulos_ = new List<string>();
         List<string> coordinadores_ = new List<string>();
         List<string> ingenieros_ = new List<string>();
+        List<string> soportes_ = new List<string>();
         int[] acciones_ = new int[2];
         int[] niveles_ = new int[2];
         string cargo_ = "";
@@ -139,7 +140,7 @@ namespace Production_control_1._0.pantallasIniciales
             cnProduccion.Open();
             foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
             {
-                string sql = "update modulosProduccion set coordinadorNombre='" + item.coordinadorNombre + "', coordinadorCodigo='" + item.coordinadorCodigo + "', ingenieroProcesosNombre='"+item.ingenieroNombre+"', ingenieroProcesosCodigo='"+item.ingenieroCodigo+"'  where id='" + item.id + "'";
+                string sql = "update modulosProduccion set coordinadorNombre='" + item.coordinadorNombre + "', coordinadorCodigo='" + item.coordinadorCodigo + "', ingenieroProcesosNombre='"+item.ingenieroNombre+"', ingenieroProcesosCodigo='"+item.ingenieroCodigo+"', soporteNombre='"+item.soporteNombre+"', soporteCodigo='"+item.soporteCodigo+"'  where id='" + item.id + "'";
                 SqlCommand cm = new SqlCommand(sql, cnProduccion);
                 cm.ExecuteNonQuery();
             }
@@ -288,7 +289,7 @@ namespace Production_control_1._0.pantallasIniciales
         }
         private void consultarIngenieros()
         {
-            string sql = "select id, modulo, coordinadorNombre, coordinadorCodigo, ingenieroProcesosNombre, ingenieroProcesosCodigo from modulosProduccion";
+            string sql = "select id, modulo, coordinadorNombre, coordinadorCodigo, ingenieroProcesosNombre, ingenieroProcesosCodigo, soporteCodigo, soporteNombre from modulosProduccion";
             cnProduccion.Open();
             SqlCommand cm = new SqlCommand(sql, cnProduccion);
             SqlDataReader dr = cm.ExecuteReader();
@@ -297,7 +298,7 @@ namespace Production_control_1._0.pantallasIniciales
             modulos_.Clear();
             while (dr.Read())
             {
-                listViewOrdenarIngenieros.Items.Add(new moduloAdministrado {id=Convert.ToInt32(dr["id"]), modulo = dr["modulo"].ToString(), ingenieros=ingenieros_, coordinadores=coordinadores_, coordinadorNombre = dr["coordinadorNombre"].ToString(), coordinadorCodigo = Convert.ToInt32(dr["coordinadorCodigo"] is DBNull ? 0 : dr["coordinadorCodigo"]), ingenieroNombre = dr["ingenieroProcesosNombre"].ToString(), ingenieroCodigo = Convert.ToInt32(dr["ingenieroProcesosCodigo"] is DBNull ? 0 : dr["ingenieroProcesosCodigo"]) });
+                listViewOrdenarIngenieros.Items.Add(new moduloAdministrado {id=Convert.ToInt32(dr["id"]), modulo = dr["modulo"].ToString(), soportes=soportes_, ingenieros=ingenieros_, coordinadores=coordinadores_, coordinadorNombre = dr["coordinadorNombre"].ToString(), coordinadorCodigo = Convert.ToInt32(dr["coordinadorCodigo"] is DBNull ? 0 : dr["coordinadorCodigo"]), ingenieroNombre = dr["ingenieroProcesosNombre"].ToString(), ingenieroCodigo = Convert.ToInt32(dr["ingenieroProcesosCodigo"] is DBNull ? 0 : dr["ingenieroProcesosCodigo"]), soporteNombre=dr["soporteNombre"].ToString(), soporteCodigo=Convert.ToInt32(dr["soporteCodigo"] is DBNull? 0 : dr["soporteCodigo"] ) });
                 modulos_.Add(dr["modulo"].ToString());
             };
             //se termina la conexion a la base
@@ -382,6 +383,10 @@ namespace Production_control_1._0.pantallasIniciales
                 {
                     ingenieros_.Add(item.nombre);
                 }
+                else if (item.cargo == "SOPORTE")
+                {
+                    soportes_.Add(item.nombre);
+                }
             }
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -397,7 +402,7 @@ namespace Production_control_1._0.pantallasIniciales
                     {
                         if (item.coordinadorNombre == subitem.nombre)
                         {
-                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = subitem.codigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo });
+                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = subitem.codigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo, soporteCodigo=item.soporteCodigo, soporteNombre=item.soporteNombre, soportes=item.soportes });
                             agregado = true;
                         }
                     }
@@ -429,7 +434,7 @@ namespace Production_control_1._0.pantallasIniciales
                     {
                         if (item.ingenieroNombre == subitem.nombre)
                         {
-                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = subitem.codigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo });
+                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = subitem.codigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo, soporteCodigo = item.soporteCodigo, soporteNombre = item.soporteNombre, soportes = item.soportes });
                             agregado = true;
                         }
                     }
@@ -444,6 +449,36 @@ namespace Production_control_1._0.pantallasIniciales
                     listViewOrdenarIngenieros.Items.Add(item);
                 }
             }
+        }
+        private void ComboBox_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex > -1)
+            {
+                List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
+                //validar codigo de coordinadores
+                foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
+                {
+                    bool agregado = false;
+                    foreach (usuario subitem in listViewAsignarUsuarios.Items)
+                    {
+                        if (item.soporteNombre == subitem.nombre)
+                        {
+                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo , ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo, soporteCodigo = subitem.codigo, soporteNombre = item.soporteNombre, soportes = item.soportes });
+                            agregado = true;
+                        }
+                    }
+                    if (agregado == false)
+                    {
+                        listaAuxiliar.Add(item);
+                    }
+                }
+                listViewOrdenarIngenieros.Items.Clear();
+                foreach (moduloAdministrado item in listaAuxiliar)
+                {
+                    listViewOrdenarIngenieros.Items.Add(item);
+                }
+            }
+
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {

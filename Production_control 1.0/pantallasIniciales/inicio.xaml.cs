@@ -22,11 +22,11 @@ namespace Production_control_1._0.pantallasIniciales
             string nombre= System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             nombre = nombre.Substring(7,nombre.Length-7);
             labelUsuario.Content = nombre;
+            ClrPcker_Background.SelectedColor = (Color)ColorConverter.ConvertFromString(ConfigurationManager.AppSettings["colorInicial"]);
             areaDeTrabajo.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ConfigurationManager.AppSettings["colorInicial"]);
         }
         #endregion
-
-        private void color1_Checked(object sender, RoutedEventArgs e)
+        private void ClrPcker_Background_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             XmlDocument xmldoc = new XmlDocument();
             xmldoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
@@ -37,72 +37,13 @@ namespace Production_control_1._0.pantallasIniciales
                     foreach (XmlNode node in element.ChildNodes)
                     {
 
-                        if (node.Attributes[0].Value == "colorInicial") { node.Attributes[1].Value = "#FF47506C";}
+                        if (node.Attributes[0].Value == "colorInicial") { node.Attributes[1].Value = ClrPcker_Background.SelectedColor.ToString(); }
                     }
                 }
             }
             xmldoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             ConfigurationManager.RefreshSection("appSettings");
             areaDeTrabajo.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ConfigurationManager.AppSettings["colorInicial"]);
-        }
-        private void color2_Checked(object sender, RoutedEventArgs e)
-        {
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            foreach (XmlElement element in xmldoc.DocumentElement)
-            {
-                if (element.Name.Equals("appSettings"))
-                {
-                    foreach (XmlNode node in element.ChildNodes)
-                    {
-
-                        if (node.Attributes[0].Value == "colorInicial") { node.Attributes[1].Value = "#FF084D21"; }
-                    }
-                }
-            }
-            xmldoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            ConfigurationManager.RefreshSection("appSettings");
-            areaDeTrabajo.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ConfigurationManager.AppSettings["colorInicial"]);
-        }
-        private void color3_Checked(object sender, RoutedEventArgs e)
-        {
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            foreach (XmlElement element in xmldoc.DocumentElement)
-            {
-                if (element.Name.Equals("appSettings"))
-                {
-                    foreach (XmlNode node in element.ChildNodes)
-                    {
-
-                        if (node.Attributes[0].Value == "colorInicial") { node.Attributes[1].Value = "#FF575656"; }
-                    }
-                }
-            }
-            xmldoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            ConfigurationManager.RefreshSection("appSettings");
-            areaDeTrabajo.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ConfigurationManager.AppSettings["colorInicial"]);
-
-        }
-        private void color4_Checked(object sender, RoutedEventArgs e)
-        {
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            foreach (XmlElement element in xmldoc.DocumentElement)
-            {
-                if (element.Name.Equals("appSettings"))
-                {
-                    foreach (XmlNode node in element.ChildNodes)
-                    {
-
-                        if (node.Attributes[0].Value == "colorInicial") { node.Attributes[1].Value = "#FF6C0F0F"; }
-                    }
-                }
-            }
-            xmldoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            ConfigurationManager.RefreshSection("appSettings");
-            areaDeTrabajo.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ConfigurationManager.AppSettings["colorInicial"]);
-
         }
     }
 }
