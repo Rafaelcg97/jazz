@@ -89,7 +89,7 @@
                 <Label Content="Op. Costura" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
                 <TextBox x:Name="TextBoxCostura" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="3"/>
                 <Label Content="Permisos" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged"  />
-                <TextBox x:Name="TextBoxPermisos" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="6"/>
+                <TextBox x:Name="TextBoxPermisos" FontSize="29" KeyDown="solo_numeros"  Margin="0,0,0,45" TabIndex="6"/>
                 <CheckBox x:Name="checkBoxCustom" VerticalContentAlignment="Center" TabIndex="9">
                     <Label Content="Custom" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
@@ -100,7 +100,7 @@
                 <Label Content="Op. Manuales" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
                 <TextBox x:Name="TextBoxManuales" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="4"/>
                 <Label Content="Cita ISSS" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-                <TextBox x:Name="TextBoxCita" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="7"/>
+                <TextBox x:Name="TextBoxCita" FontSize="29" KeyDown="solo_numeros"  Margin="0,0,0,45" TabIndex="7"/>
                 <CheckBox x:Name="checkBoxCambio" VerticalContentAlignment="Center" TabIndex="10">
                     <Label Content="Cambio" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>
@@ -109,9 +109,9 @@
                 <Label Content="Hora" Padding="0" Foreground="White" FontWeight="Bold" FontSize="29" />
                 <ComboBox x:Name="comboBoxHora" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1" FontSize="29" IsTextSearchEnabled="True" Margin="0,0,0,45" TabIndex="2"/>
                 <Label Content="Incapacitados" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="TextBoxIncapacitado" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="5"/>
+                <TextBox x:Name="TextBoxIncapacitado" FontSize="29" KeyDown="solo_numeros"  Margin="0,0,0,45" TabIndex="5"/>
                 <Label Content="Inasistencia" FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"  SizeChanged="Control_SizeChanged" />
-                <TextBox x:Name="TextBoxInasistencia" FontSize="29" KeyDown="soloNumerosDecimales"  Margin="0,0,0,45" TabIndex="8"/>
+                <TextBox x:Name="TextBoxInasistencia" FontSize="29" KeyDown="solo_numeros"  Margin="0,0,0,45" TabIndex="8"/>
                 <CheckBox x:Name="checkBoxExtra" VerticalContentAlignment="Center" Checked="checkBoxExtra_Checked" Unchecked="checkBoxExtra_Unchecked" TabIndex="11">
                     <Label Content="Extra" Margin="15,0,0,0"  FontSize="29" Padding="0" Foreground="White" FontWeight="Bold"/>
                 </CheckBox>

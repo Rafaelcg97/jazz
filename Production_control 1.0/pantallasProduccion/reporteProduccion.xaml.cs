@@ -21,7 +21,7 @@ namespace Production_control_1._0.pantallasProduccion
     public partial class reporteProduccion : Page
     {
         List<lote> listaDeLotes = new List<lote>();
-        public string[] _motivos = new string[8];
+        public string[] _motivos = new string[9];
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -344,7 +344,8 @@ namespace Production_control_1._0.pantallasProduccion
             _motivos[4] = "Sublimado";
             _motivos[5] = "Máquina Mala";
             _motivos[6] = "Reunión";
-            _motivos[7] = "Falta de Tela";
+            _motivos[7] = "Reproceso";
+            _motivos[8] = "Falta de Tela";
             #endregion
             //agregar registro uno de lote
             if (listBoxLote.SelectedIndex > -1 && listBoxEmpaqueLo.SelectedIndex>-1)
@@ -526,11 +527,11 @@ namespace Production_control_1._0.pantallasProduccion
         }
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
-            int operariosMaquina = 0;
-            int operariosManuqles = 0;
-            if (string.IsNullOrEmpty(TextBoxCostura.Text)) { operariosMaquina = 0; } else { operariosMaquina = Convert.ToInt32(TextBoxCostura.Text); }
-            if (string.IsNullOrEmpty(TextBoxManuales.Text)) { operariosManuqles = 0; } else { operariosManuqles = Convert.ToInt32(TextBoxManuales.Text); }
-            int totalOperarios = operariosMaquina + operariosMaquina;
+            double operariosMaquina = 0;
+            double operariosManuqles = 0;
+            if (string.IsNullOrEmpty(TextBoxCostura.Text)) { operariosMaquina = 0; } else { operariosMaquina = Convert.ToDouble(TextBoxCostura.Text); }
+            if (string.IsNullOrEmpty(TextBoxManuales.Text)) { operariosManuqles = 0; } else { operariosManuqles = Convert.ToDouble(TextBoxManuales.Text); }
+            double totalOperarios = operariosMaquina + operariosMaquina;
             if(comboBoxModulo.SelectedIndex<0 || comboBoxArteria.SelectedIndex<0 || comboBoxHora.SelectedIndex<0 || totalOperarios <= 0)
             {
                 MessageBox.Show("!Ups Parece que no haz ingresado algunos datos Importantes");

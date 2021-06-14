@@ -44,7 +44,7 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
             #region agregarNombreUsuario
             cnIngenieria.Open();
-            sql = "select nombre from usuarios where codigo='"+ 9009 +"'";
+            sql = "select nombre from usuarios where codigo='"+ codigo +"'";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             dr.Read();

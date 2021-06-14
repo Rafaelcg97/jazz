@@ -513,7 +513,7 @@
                                     <GridViewColumn Header="Coordinador" Width="150">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label  Content="{Binding Path=coordinador}" Width="170" Background="DarkRed" Foreground="White"/>
+                                                <Label  Content="{Binding Path=coordinador}" Width="325" Background="DarkRed" Foreground="White"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

@@ -32,7 +32,7 @@ namespace Production_control_1._0.pantallasProduccion
         public int[] _arterias = new int[3];
         public int[] _horas = new int[12];
         public string[] _eleccion = new string[2];
-        public string[] _motivos = new string[8];
+        public string[] _motivos = new string[9];
         public List<String> lotesConMasPiezas = new List<string>();
         #endregion
         #region datosIniciales
@@ -202,7 +202,8 @@ namespace Production_control_1._0.pantallasProduccion
             _motivos[4] = "Sublimado";
             _motivos[5] = "Máquina Mala";
             _motivos[6] = "Reunión";
-            _motivos[7] = "Falta de Tela";
+            _motivos[7] = "Reproceso";
+            _motivos[8] = "Falta de Tela";
             #endregion
             #region agregarHora
             cnProduccion.Open();
@@ -226,7 +227,7 @@ namespace Production_control_1._0.pantallasProduccion
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                lista.Add(new horaProduccion { num_hh = Convert.ToInt32(dr["num_hh"]), fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), turno = dr["Turno"].ToString(), turnos = _turnos, hora = Convert.ToInt32(dr["hora"] is DBNull?0:dr["hora"]), horas = _horas, modulo = dr["Modulo"].ToString(), modulos = _modulos.ToArray(), arteria = Convert.ToInt32(dr["arterias"] is DBNull ? 0 : dr["arterias"]), arterias = _arterias, estilo=dr["estilo"].ToString(), temporada=dr["temporada"].ToString(), empaque=dr["empaque"].ToString(), sam = Convert.ToDouble(dr["sam"] is DBNull ? 0 : dr["sam"]), incapacitados=Convert.ToInt32(dr["incapacitados"] is DBNull ? 0 : dr["incapacitados"]), permisos=Convert.ToInt32(dr["Permisos"] is DBNull ? 0 :dr["permisos"]), cita=Convert.ToInt32(dr["cita"] is DBNull ? 0 : dr["cita"]), inasistencia=Convert.ToInt32(dr["Inasistencia"] is DBNull ? 0 : dr["Inasistencia"]), opeCostura= Convert.ToInt32(dr["costura"] is DBNull ? 0 : dr["costura"]), opeManuales=Convert.ToInt32(dr["manuales"] is DBNull ? 0 : dr["manuales"]),lote=dr["lote"].ToString(), xxs=Convert.ToInt32(dr["xxs"] is DBNull ? 0 :dr["xxs"]), xs=Convert.ToInt32(dr["xs"] is DBNull ? 0 :dr["xs"]), s=Convert.ToInt32(dr["s"] is DBNull ? 0 :dr["s"]), m=Convert.ToInt32(dr["m"] is DBNull ? 0 :dr["m"]), l=Convert.ToInt32(dr["l"] is DBNull ? 0 :dr["l"]), xl=Convert.ToInt32(dr["xl"] is DBNull ? 0 :dr["xl"]), xxl=Convert.ToInt32(dr["xxl"] is DBNull ? 0 :dr["xxl"]), xxxl=Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas=Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 :dr["totalDePiezas"]), tiempoParo=Convert.ToDouble(dr["tiempoParo"] is DBNull ? 0: dr["tiempoParo"]), motivoParo=dr["motivoParo"].ToString() , motivos=_motivos, custom=dr["custom"].ToString(), eleccion=_eleccion, cambioEstilo=dr["cambioEstilo"].ToString(), minutosEfectivos=Convert.ToDouble(dr["minutosEfectivos"]), ingresadoPor=dr["ingresadoPor"].ToString()  });
+                lista.Add(new horaProduccion { num_hh = Convert.ToInt32(dr["num_hh"]), fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), turno = dr["Turno"].ToString(), turnos = _turnos, hora = Convert.ToInt32(dr["hora"] is DBNull?0:dr["hora"]), horas = _horas, modulo = dr["Modulo"].ToString(), modulos = _modulos.ToArray(), arteria = Convert.ToInt32(dr["arterias"] is DBNull ? 0 : dr["arterias"]), arterias = _arterias, estilo=dr["estilo"].ToString(), temporada=dr["temporada"].ToString(), empaque=dr["empaque"].ToString(), sam = Convert.ToDouble(dr["sam"] is DBNull ? 0 : dr["sam"]), incapacitados=Convert.ToInt32(dr["incapacitados"] is DBNull ? 0 : dr["incapacitados"]), permisos=Convert.ToInt32(dr["Permisos"] is DBNull ? 0 :dr["permisos"]), cita=Convert.ToInt32(dr["cita"] is DBNull ? 0 : dr["cita"]), inasistencia=Convert.ToInt32(dr["Inasistencia"] is DBNull ? 0 : dr["Inasistencia"]), opeCostura= Convert.ToDouble(dr["costura"] is DBNull ? 0 : dr["costura"]), opeManuales=Convert.ToDouble(dr["manuales"] is DBNull ? 0 : dr["manuales"]),lote=dr["lote"].ToString(), xxs=Convert.ToInt32(dr["xxs"] is DBNull ? 0 :dr["xxs"]), xs=Convert.ToInt32(dr["xs"] is DBNull ? 0 :dr["xs"]), s=Convert.ToInt32(dr["s"] is DBNull ? 0 :dr["s"]), m=Convert.ToInt32(dr["m"] is DBNull ? 0 :dr["m"]), l=Convert.ToInt32(dr["l"] is DBNull ? 0 :dr["l"]), xl=Convert.ToInt32(dr["xl"] is DBNull ? 0 :dr["xl"]), xxl=Convert.ToInt32(dr["xxl"] is DBNull ? 0 :dr["xxl"]), xxxl=Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas=Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 :dr["totalDePiezas"]), tiempoParo=Convert.ToDouble(dr["tiempoParo"] is DBNull ? 0: dr["tiempoParo"]), motivoParo=dr["motivoParo"].ToString() , motivos=_motivos, custom=dr["custom"].ToString(), eleccion=_eleccion, cambioEstilo=dr["cambioEstilo"].ToString(), minutosEfectivos=Convert.ToDouble(dr["minutosEfectivos"]), ingresadoPor=dr["ingresadoPor"].ToString()  });
             };
             dr.Close();
             cnProduccion.Close();

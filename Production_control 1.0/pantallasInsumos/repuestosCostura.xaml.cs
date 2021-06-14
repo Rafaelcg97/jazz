@@ -43,7 +43,7 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
             #region agregarNombreUsuario
             cnIngenieria.Open();
-            sql = "select nombre from usuarios where codigo='"+ 9009 +"'";
+            sql = "select nombre from usuarios where codigo='"+ codigo +"'";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             dr.Read();
@@ -345,7 +345,6 @@ namespace Production_control_1._0.pantallasInsumos
         #endregion
 
         #region terminarSolicitud
-
         private void ButtomTerminarSolicitud_Click(object sender, RoutedEventArgs e)
         {
             //hay productos que requieren una aprobacion especial y estan definidos en dbo(
@@ -432,7 +431,6 @@ namespace Production_control_1._0.pantallasInsumos
             listViewRepuestosSolicitados.ItemsSource = listaLimpia;
             textBoxCantidad.Text = "1";
         }
-
         #endregion
     }
 }
