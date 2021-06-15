@@ -1499,6 +1499,7 @@ namespace Production_control_1._0
                     resumenGeneral.sub = subutilizacion_2.Content.ToString();
                     resumenGeneral.sobre = sobrecarga_2.Content.ToString();
                     resumenGeneral.lote = lote.Text;
+                    resumenGeneral.fechaModificacion = Convert.ToDateTime(fecha_.Content);
                     #endregion
                     #region salirPanelLatera
                     GridMenu.Margin = new Thickness(-250, 0, 0, 0);
@@ -2846,6 +2847,7 @@ namespace Production_control_1._0
             foreach (string item in listaDeOperariosUnica)
             {
                 double sumaCargas = 0;
+                double sumaCargas2 = 0;
                 double sumaSam = 0;
                 double sumaTiempo = 0;
                 double eficienciaTotal = 0;
@@ -2860,15 +2862,15 @@ namespace Production_control_1._0
                     if (sumaTiempo > 0)
                     {
                         eficienciaTotal = sumaSam / sumaTiempo;
-                        sumaCargas = sumaCargas / eficienciaTotal;
+                        sumaCargas2 = sumaCargas / eficienciaTotal;
                     }
                     else
                     {
                         eficienciaTotal = 0;
-                        sumaCargas = 0;
+                        sumaCargas2 = 0;
                     }
                 };
-                listaConsolidada.Add(new ElementoRebalance { nombreOperario = item.ToString(), cargaRebalance = sumaCargas, eficienciaRebalance = eficienciaTotal });
+                listaConsolidada.Add(new ElementoRebalance { nombreOperario = item.ToString(), cargaRebalance = sumaCargas2, eficienciaRebalance = eficienciaTotal });
             };
             //se limpian los datos cargados anteriormente para poder volver a cargar
             graficoRebalance.AxisX.Clear();
@@ -2888,7 +2890,6 @@ namespace Production_control_1._0
             };
         }
         #endregion
-
         #endregion
     }
 }

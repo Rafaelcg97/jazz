@@ -43,19 +43,19 @@ namespace Production_control_1._0
                         switch (item.colorAjuste)
                         {
                             case "rojo":
-                                color = Brushes.Red;
+                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFF8080");
                                 break;
                             case "azul":
-                                color = Brushes.Blue;
+                                color =(SolidColorBrush)new BrushConverter().ConvertFromString("#FF89BFF5");
                                 break;
                             case "verde":
-                                color = Brushes.Green;
+                                color =(SolidColorBrush)new BrushConverter().ConvertFromString("#FF7FE483");
                                 break;
                             case "amarillo":
                                 color = Brushes.Yellow;
                                 break;
                             case "anaranjado":
-                                color = Brushes.Orange;
+                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFFC662");
                                 break;
                             default:
                                 color = Brushes.White;
@@ -84,19 +84,19 @@ namespace Production_control_1._0
                         switch (item.colorAjuste)
                         {
                             case "rojo":
-                                color = Brushes.Red;
+                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFF8080");
                                 break;
                             case "azul":
-                                color = Brushes.Blue;
+                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF89BFF5");
                                 break;
                             case "verde":
-                                color = Brushes.Green;
+                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF7FE483");
                                 break;
                             case "amarillo":
                                 color = Brushes.Yellow;
                                 break;
                             case "anaranjado":
-                                color = Brushes.Orange;
+                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFFC662");
                                 break;
                             default:
                                 color = Brushes.White;
@@ -127,6 +127,7 @@ namespace Production_control_1._0
             modulo.Content = general.modulo;
             operarios.Content = general.operarios;
             ingeniero.Content = general.ingeniero;
+            textBoxFechaModificado.Text = general.fechaModificacion.ToString("yyyy-MM-dd");
             #endregion
             #region formularioImprimir
             //agregar la lista de impresoras instaladas
@@ -140,6 +141,7 @@ namespace Production_control_1._0
                     impresora.SelectedItem = printDoc.PrinterSettings.PrinterName;
                 }
             }
+            impresora.Items.Add("XEROX-PRODUCCION");
 
             //agregar orientaciones de paginas
             orientacion_impresion.Items.Add("Horizontal");
@@ -213,7 +215,7 @@ namespace Production_control_1._0
             try
             {
                 Control tmp = sender as Control;
-                tmp.FontSize = e.NewSize.Height * 0.2 / tmp.FontFamily.LineSpacing;
+                tmp.FontSize = e.NewSize.Height * 0.25 / tmp.FontFamily.LineSpacing;
             }
             catch
             {
@@ -230,7 +232,6 @@ namespace Production_control_1._0
                 e.Handled = true;
         }
         #endregion
-
         #region control_general_Del_programa
         private void salir_Click(object sender, RoutedEventArgs e)
         {
@@ -263,7 +264,6 @@ namespace Production_control_1._0
         }
         #endregion
         #endregion
-
         #region formulario_impresion
         private void confirmar_impresion_Click(object sender, RoutedEventArgs e)
         {
@@ -322,12 +322,10 @@ namespace Production_control_1._0
                 MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
             }
         }
-
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {
             copias.Text = (Convert.ToInt32(copias.Text) + 1).ToString();
         }
-
         private void disminuir_copias_Click(object sender, RoutedEventArgs e)
         {
             if (Convert.ToInt32(copias.Text) > 1)
@@ -335,9 +333,7 @@ namespace Production_control_1._0
                 copias.Text = (Convert.ToInt32(copias.Text) - 1).ToString();
             }
         }
-
         #endregion
-
         #region calculos_generales
         private void cargar_image()
         {

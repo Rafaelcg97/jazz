@@ -110,7 +110,7 @@ namespace Production_control_1._0
                     impresora.SelectedItem = printDoc.PrinterSettings.PrinterName;
                 }
             }
-
+            impresora.Items.Add("XEROX-PRODUCCION");
             //agregar orientaciones de paginas
             orientacion_impresion.Items.Add("Horizontal");
             orientacion_impresion.Items.Add("Vertical");
