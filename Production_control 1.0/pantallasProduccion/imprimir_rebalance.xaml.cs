@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Production_control_1._0.clases;
+using System.Management;
 
 namespace Production_control_1._0
 {
@@ -25,7 +26,6 @@ namespace Production_control_1._0
         #region clases_especiales
         private PrintDocument printDoc = new PrintDocument();
         #endregion
-
         #region clases_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -33,7 +33,6 @@ namespace Production_control_1._0
 
 
         #endregion
-
         #region datos_iniciales
         public imprimir_rebalance(List<ElementoRebalance> listaOperariosRecibidos, clases.balance datosBalanceRecibidos)
         {
@@ -110,7 +109,7 @@ namespace Production_control_1._0
             eficiencia.Content = datosBalanceRecibidos.eficiencia;
             modulo.Content = datosBalanceRecibidos.modulo;
             #endregion
-            #region datosFormulario
+            #region formularioImprimir
             //agregar la lista de impresoras instaladas
             string impresora_instalada;
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
@@ -122,7 +121,6 @@ namespace Production_control_1._0
                     impresora.SelectedItem = printDoc.PrinterSettings.PrinterName;
                 }
             }
-            impresora.Items.Add("XEROX-PRODUCCION");
 
             //agregar orientaciones de paginas
             orientacion_impresion.Items.Add("Horizontal");
@@ -137,14 +135,13 @@ namespace Production_control_1._0
             orientacion_impresion.SelectedItem = "Horizontal";
 
             //establecer tamaño predeterminado
-            tamano_impresion.SelectedItem = "Tabloide";
+            tamano_impresion.SelectedItem="Tabloide";
 
             //numero de copias
             copias.Text = "1";
             #endregion
         }
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void letra_pequena(object sender, SizeChangedEventArgs e)
@@ -211,7 +208,6 @@ namespace Production_control_1._0
                 e.Handled = true;
         }
         #endregion
-
         #region control_general_Del_programa
         private void salir_Click(object sender, RoutedEventArgs e)
         {
@@ -244,8 +240,7 @@ namespace Production_control_1._0
         }
         #endregion
         #endregion
-
-        #region formulario_impresion
+                #region formulario_impresion
         private void confirmar_impresion_Click(object sender, RoutedEventArgs e)
         {
             //varibales para hacer el switch de los tamaños de pagina y orientaciones de pagina
@@ -297,27 +292,38 @@ namespace Production_control_1._0
                 dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
                 dialog.PrintQueue = new PrintQueue(new PrintServer(), impresora.SelectedItem.ToString());
                 dialog.PrintVisual(area_de_impresion, "LayOut");
+                MessageBox.Show("Enviado a Impresora");
             }
             catch
             {
                 MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
             }
-        }
 
+            //try
+            //{
+            //    this.IsEnabled = false;
+            //    PrintDialog printDialog = new PrintDialog();
+            //    if (printDialog.ShowDialog() == true)
+            //    {
+            //        printDialog.PrintVisual(area_de_impresion, "layOut");
+            //    }
+            //}
+            //finally
+            //{
+            //    this.IsEnabled = true;
+            //}
+        }
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {
             copias.Text = (Convert.ToInt32(copias.Text) + 1).ToString();
         }
-
         private void disminuir_copias_Click(object sender, RoutedEventArgs e)
         {
             if (Convert.ToInt32(copias.Text) > 1)
             {
                 copias.Text = (Convert.ToInt32(copias.Text) - 1).ToString();
             }
-
         }
-
         #endregion
 
     }

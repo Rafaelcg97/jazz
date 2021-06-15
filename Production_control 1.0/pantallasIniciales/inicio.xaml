@@ -53,7 +53,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="10" FontSize="15" FontWeight="Bold" Foreground="White">Versión:</Label>
-                    <Label Margin="10" FontSize="15" Foreground="White">1.2</Label>
+                    <Label Margin="10" FontSize="15" Foreground="White">1.4</Label>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="10,10,0,0" FontSize="15" FontWeight="Bold" Foreground="White">Base de Datos:</Label>

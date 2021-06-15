@@ -17,6 +17,7 @@ using System.Printing;
 using System.Drawing.Printing;
 using NHibernate.Impl;
 using Production_control_1._0.clases;
+using System.Management;
 
 namespace Production_control_1._0
 {
@@ -25,7 +26,6 @@ namespace Production_control_1._0
         #region clases_especiales
         private PrintDocument printDoc = new PrintDocument();
         #endregion
-
         #region datos_iniciales
         public impresion(List<elementoListBox> listaOperariosRecibidos, List<maquina> resumenMaquinas, clases.balance general)
         {
@@ -141,7 +141,6 @@ namespace Production_control_1._0
                     impresora.SelectedItem = printDoc.PrinterSettings.PrinterName;
                 }
             }
-            impresora.Items.Add("XEROX-PRODUCCION");
 
             //agregar orientaciones de paginas
             orientacion_impresion.Items.Add("Horizontal");
@@ -163,9 +162,7 @@ namespace Production_control_1._0
             #endregion
             cargar_image();
         }
-
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void letra_pequena(object sender, SizeChangedEventArgs e)
@@ -268,7 +265,7 @@ namespace Production_control_1._0
         private void confirmar_impresion_Click(object sender, RoutedEventArgs e)
         {
             //varibales para hacer el switch de los tamaños de pagina y orientaciones de pagina
-            string tamano_pagina=tamano_impresion.SelectedItem.ToString();
+            string tamano_pagina = tamano_impresion.SelectedItem.ToString();
             string orientacion_pagina = tamano_impresion.SelectedItem.ToString();
             PageMediaSize tamano;
             PageOrientation orientacion;
@@ -276,7 +273,7 @@ namespace Production_control_1._0
 
             //configurar el valor del tamño de pagina
             switch (tamano_pagina)
-                 {
+            {
                 case "Carta":
                     tamano = new PageMediaSize(PageMediaSizeName.NorthAmericaLetter);
                     break;
@@ -295,13 +292,13 @@ namespace Production_control_1._0
             switch (orientacion_pagina)
             {
                 case "Horizontal":
-                   orientacion = PageOrientation.Landscape;
+                    orientacion = PageOrientation.Landscape;
                     break;
                 case "Vertical":
                     orientacion = PageOrientation.Portrait;
                     break;
                 default:
-                    orientacion= PageOrientation.Landscape;
+                    orientacion = PageOrientation.Landscape;
                     break;
             };
 
@@ -309,18 +306,32 @@ namespace Production_control_1._0
 
             try
             {
-            PrintDialog dialog = new PrintDialog();
-            dialog.PrintTicket.PageOrientation = orientacion;
-            dialog.PrintTicket.PageBorderless = PageBorderless.None;
-            dialog.PrintTicket.PageMediaSize = tamano;
-            dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
-            dialog.PrintQueue = new PrintQueue(new PrintServer(), impresora.SelectedItem.ToString());
-            dialog.PrintVisual(area_de_impresion, "LayOut");
+                PrintDialog dialog = new PrintDialog();
+                dialog.PrintTicket.PageOrientation = orientacion;
+                dialog.PrintTicket.PageBorderless = PageBorderless.None;
+                dialog.PrintTicket.PageMediaSize = tamano;
+                dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
+                dialog.PrintVisual(area_de_impresion, "LayOut");
+                MessageBox.Show("Enviado a Impresora");
             }
             catch
             {
                 MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
             }
+
+            //try
+            //{
+            //    this.IsEnabled = false;
+            //    PrintDialog printDialog = new PrintDialog();
+            //    if (printDialog.ShowDialog() == true)
+            //    {
+            //        printDialog.PrintVisual(area_de_impresion, "layOut");
+            //    }
+            //}
+            //finally
+            //{
+            //    this.IsEnabled = true;
+            //}
         }
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {

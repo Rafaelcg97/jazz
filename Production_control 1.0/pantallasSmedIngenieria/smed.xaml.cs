@@ -278,7 +278,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
                 cm.ExecuteNonQuery();
 
                 //refrescar tabla de ultimas actividades
-                string sql2 = "select movimientos.codigo, personal.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo=movimientos.id_movimiento inner join personal on movimientos.codigo = personal.codigo order by hora desc";
+                string sql2 = "select movimientos.codigo, usuarios.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo=movimientos.id_movimiento inner join ingenieria.dbo.usuarios on movimientos.codigo = usuarios.codigo order by hora desc";
                 List<nuevo_movimiento> ultimos_movimientos = new List<nuevo_movimiento>();
                 SqlCommand cm2 = new SqlCommand(sql2, cn_smed);
                 SqlDataReader dr2 = cm2.ExecuteReader();
