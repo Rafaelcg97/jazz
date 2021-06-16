@@ -26,13 +26,11 @@ namespace Production_control_1._0
         #region strings
         private PrintDocument printDoc = new PrintDocument();
         #endregion
-
         #region clases_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
         #endregion
-
         #region datos_iniciales
         public imprimir_balance(List<operario> listaOperariosRecibidos, clases.balance datosBalanceRecibidos)
         {
@@ -133,7 +131,6 @@ namespace Production_control_1._0
         }
 
         #endregion
-
         #region tamanos_de_letra_/_tipo_de_texto
 
         private void letra_pequena(object sender, SizeChangedEventArgs e)
@@ -200,7 +197,6 @@ namespace Production_control_1._0
                 e.Handled = true;
         }
         #endregion
-
         #region control_general_Del_programa
         private void salir_Click(object sender, RoutedEventArgs e)
         {
@@ -233,7 +229,6 @@ namespace Production_control_1._0
         }
         #endregion
         #endregion
-
         #region formulario_impresion
         private void confirmar_impresion_Click(object sender, RoutedEventArgs e)
         {
@@ -277,22 +272,41 @@ namespace Production_control_1._0
 
             //establecer las propiedades de impresion
 
-            try
+            if (checkBoxImpresora.IsChecked == true)
             {
-                PrintDialog dialog = new PrintDialog();
-                dialog.PrintTicket.PageOrientation = orientacion;
-                dialog.PrintTicket.PageBorderless = PageBorderless.None;
-                dialog.PrintTicket.PageMediaSize = tamano;
-                dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
-                dialog.PrintQueue = new PrintQueue(new PrintServer(), impresora.SelectedItem.ToString());
-                dialog.PrintVisual(area_de_impresion, "LayOut");
-                MessageBox.Show("Enviado a Impresora");
+                try
+                {
+                    PrintDialog dialog = new PrintDialog();
+                    dialog.PrintTicket.PageOrientation = orientacion;
+                    dialog.PrintTicket.PageBorderless = PageBorderless.None;
+                    dialog.PrintTicket.PageMediaSize = tamano;
+                    dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
+                    dialog.PrintVisual(area_de_impresion, "LayOut");
+                    MessageBox.Show("Enviado a Impresora");
+                }
+                catch
+                {
+                    MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
+                }
             }
-            catch
+            else if (checkBoxImpresora.IsChecked == false)
             {
-                MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
+                try
+                {
+                    PrintDialog dialog = new PrintDialog();
+                    dialog.PrintTicket.PageOrientation = orientacion;
+                    dialog.PrintTicket.PageBorderless = PageBorderless.None;
+                    dialog.PrintTicket.PageMediaSize = tamano;
+                    dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
+                    dialog.PrintQueue = new PrintQueue(new PrintServer(), impresora.SelectedItem.ToString());
+                    dialog.PrintVisual(area_de_impresion, "LayOut");
+                    MessageBox.Show("Enviado a Impresora");
+                }
+                catch
+                {
+                    MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
+                }
             }
-
             //try
             //{
             //    this.IsEnabled = false;
@@ -317,6 +331,14 @@ namespace Production_control_1._0
             {
                 copias.Text = (Convert.ToInt32(copias.Text) - 1).ToString();
             }
+        }
+        private void checkBoxImpresora_Checked(object sender, RoutedEventArgs e)
+        {
+            impresora.IsEnabled = false;
+        }
+        private void checkBoxImpresora_Unchecked(object sender, RoutedEventArgs e)
+        {
+            impresora.IsEnabled = true;
         }
         #endregion
     }
