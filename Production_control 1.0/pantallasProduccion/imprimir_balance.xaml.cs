@@ -25,41 +25,45 @@ namespace Production_control_1._0
     {
         #region strings
         private PrintDocument printDoc = new PrintDocument();
+        Double tkt_ = 0;
         #endregion
         #region clases_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
+        public string[] Labels2 { get; set; }
         public Func<double, string> Formatter { get; set; }
         #endregion
         #region datos_iniciales
         public imprimir_balance(List<operario> listaOperariosRecibidos, clases.balance datosBalanceRecibidos)
         {
             InitializeComponent();
+            tkt_ = Math.Round(3600 / (Convert.ToDouble(datosBalanceRecibidos.corrida) / Convert.ToDouble(datosBalanceRecibidos.horas)), 2);
             #region datosInicialesDeGraficoo
             // se cargan los datos iniciales para la grafica
             SeriesCollection = new SeriesCollection
             {
-                new ColumnSeries
+                new StackedColumnSeries
                 {
                     Title = "Carga",
                     Values = new ChartValues<double> {0},
                     Fill = System.Windows.Media.Brushes.Green,
+                    LabelsPosition=BarLabelPosition.Top,
                 },
                 new LineSeries
                 {
-                    Title="",
+                    Title="Tkt",
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Red,
                     Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
+                    PointGeometry= DefaultGeometries.Circle,
                 },
                  new LineSeries
                 {
-                    Title="",
+                    Title="TktO",
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
+                    PointGeometry= DefaultGeometries.Circle,
                 }
             };
             Formatter = value => value.ToString("N");
@@ -78,13 +82,13 @@ namespace Production_control_1._0
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black});
             //se agregan los valores de las cargas en las columnas
             foreach (operario item in listaOperariosRecibidos)
             {
                 SeriesCollection[0].Values.Add(item.asignadoOperario);
-                SeriesCollection[1].Values.Add(1d);
-                SeriesCollection[2].Values.Add(0.9d);
+                SeriesCollection[1].Values.Add(tkt_);
+                SeriesCollection[2].Values.Add(tkt_*0.9);
             };
             #endregion
             #region datosEncabezado
@@ -96,6 +100,7 @@ namespace Production_control_1._0
             operarios.Content = datosBalanceRecibidos.operarios;
             eficiencia.Content = datosBalanceRecibidos.eficiencia;
             modulo.Content = datosBalanceRecibidos.modulo;
+            tkt.Content =tkt_;
             #endregion
             #region formularioImprimir
             //agregar la lista de impresoras instaladas

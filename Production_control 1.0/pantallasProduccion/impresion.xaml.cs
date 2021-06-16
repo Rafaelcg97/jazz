@@ -366,11 +366,11 @@ namespace Production_control_1._0
         }
         private void checkBoxImpresora_Checked(object sender, RoutedEventArgs e)
         {
-            impresora.IsEnabled = false;
+           impresora.IsEnabled = false;
         }
         private void checkBoxImpresora_Unchecked(object sender, RoutedEventArgs e)
         {
-            impresora.IsEnabled = true;
+          impresora.IsEnabled = true;
         }
         #endregion
         #region calculos_generales

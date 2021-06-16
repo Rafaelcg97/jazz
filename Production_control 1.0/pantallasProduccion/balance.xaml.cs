@@ -20,6 +20,7 @@ namespace Production_control_1._0
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
+        public Func<double, string> Formatter2 { get; set; }
 
         public SeriesCollection DatosGraficaRebalance { get; set; }
         public string[] etiquetasRebalance { get; set; }
@@ -93,19 +94,19 @@ namespace Production_control_1._0
                 },
                 new LineSeries
                 {
-                    Title="",
+                    Title="Tkt",
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Red,
                     Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
+                    PointGeometry= DefaultGeometries.Circle,
                 },
                  new LineSeries
                 {
-                    Title="",
+                    Title="TktO",
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
+                    PointGeometry= DefaultGeometries.Circle,
                 }
             };
             Formatter = value => value.ToString("N");
@@ -124,30 +125,23 @@ namespace Production_control_1._0
                 },
                 new LineSeries
                 {
-                    Title="",
+                    Title="Tkt",
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Red,
                     Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
+                    PointGeometry= DefaultGeometries.Circle,
                 },
                  new LineSeries
                 {
-                    Title="",
+                    Title="TktO",
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = Brushes.Transparent,
-                    PointGeometry= System.Windows.Media.Geometry.Empty
-                },
-                 new LineSeries
-                {
-                    Title="Eficiencia",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.DarkGoldenrod,
-                    Fill = Brushes.Transparent,
                     PointGeometry= DefaultGeometries.Circle,
-                }
+                },
             };
             FormatterRebalance = value => value.ToString("N");
+            Formatter2 = value => value.ToString("P");
             DataContext = this;
             #endregion
             #region datosInicialesDeResumenDeMaquinas
@@ -1515,7 +1509,8 @@ namespace Production_control_1._0
                     break;
                 case 1:
                     #region imprimirGraficaTeorica
-                    List<operario> listaDeOperarios = new List<operario>();
+
+                    List<operario> listaDeOperarios = concatenacionOperariosOperacionA();
                     clases.balance datosBalance= new clases.balance();
                     datosBalance.sam = Convert.ToDouble(sam_.Content);
                     datosBalance.nombre = estilo_.Content.ToString();
@@ -1523,13 +1518,8 @@ namespace Production_control_1._0
                     datosBalance.eficiencia = eficiencia_.Content.ToString();
                     datosBalance.modulo = modulo_2.Content.ToString();
                     datosBalance.fechaCreacion = Convert.ToDateTime(fecha_.Content.ToString());
-                    foreach (elementoListBox item in Operarios.Items)
-                    {
-                        if (item.asignadoOperario > 0)
-                        {
-                            listaDeOperarios.Add(new operario {nombreOperario= item.nombreOperario, asignadoOperario=item.asignadoOperario});
-                        }
-                    }
+                    datosBalance.corrida =Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
+                    datosBalance.horas = Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
                     #region salirPanelLatera
                     GridMenu.Margin = new Thickness(-250, 0, 0, 0);
                     GridBackground.Margin = new Thickness(5, 30, 0, 0);
@@ -1539,7 +1529,7 @@ namespace Production_control_1._0
                     break;
                 case 2:
                     #region imprimirGraficaRealcal
-                    List<ElementoRebalance> listaDeOperariosRebalance = new List<ElementoRebalance>();
+                    List<ElementoRebalance> listaDeOperariosRebalance = generarListaRebalance();
                     clases.balance datosRebalance = new clases.balance();
                     datosRebalance.sam = Convert.ToDouble(sam_.Content);
                     datosRebalance.nombre = estilo_.Content.ToString();
@@ -1547,43 +1537,8 @@ namespace Production_control_1._0
                     datosRebalance.eficiencia = eficiencia_.Content.ToString();
                     datosRebalance.modulo = modulo_2.Content.ToString();
                     datosRebalance.fechaCreacion = Convert.ToDateTime(fecha_.Content.ToString());
-                    List<string> nombresUnicos = new List<string>();
-                    foreach (ElementoRebalance item in rebalance_.Items)
-                    {
-                        nombresUnicos.Add(item.nombreOperario);
-                    }
-
-                    //En esa lista se dejan nombres unicos (a algunos operarios se les asigna mas de una operacion)
-                    IList<string> listaDeOperariosUnica = nombresUnicos.Distinct().ToList();
-
-                    //se crea lista donde a los nombres unicos de operarios se le asigna la suma de sus datos
-                    foreach (string item in listaDeOperariosUnica)
-                    {
-                        double sumaCargas = 0;
-                        double sumaSam = 0;
-                        double sumaTiempo = 0;
-                        double eficienciaTotal = 0;
-                        foreach (ElementoRebalance subitem in rebalance_.Items)
-                        {
-                            if (item.ToString() == subitem.nombreOperario)
-                            {
-                                sumaCargas = sumaCargas + subitem.cargaRebalance;
-                                sumaSam = sumaSam + subitem.samOperacion;
-                                sumaTiempo = sumaTiempo + subitem.tiempoRebalance;
-                            }
-                            if (sumaTiempo > 0)
-                            {
-                                eficienciaTotal = sumaSam / sumaTiempo;
-                                sumaCargas = sumaCargas / eficienciaTotal;
-                            }
-                            else
-                            {
-                                eficienciaTotal = 0;
-                                sumaCargas = 0;
-                            }
-                        };
-                        listaDeOperariosRebalance.Add(new ElementoRebalance { nombreOperario = item.ToString(), cargaRebalance = sumaCargas, eficienciaRebalance = eficienciaTotal });
-                    };
+                    datosRebalance.corrida = Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
+                    datosRebalance.horas = Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
                     #region salirPanelLatera
                     GridMenu.Margin = new Thickness(-250, 0, 0, 0);
                     GridBackground.Margin = new Thickness(5, 30, 0, 0);
@@ -1867,6 +1822,12 @@ namespace Production_control_1._0
         private void generarListaDeOperacionesRebalance()
         {
             List<ElementoRebalance> listaOperariosRebalance = new List<ElementoRebalance>();
+            #region Enganche
+            foreach (elementoListBox item in listBoxEnganche.Items)
+            {
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+            }
+            #endregion
             #region areaPreparacion
             foreach (Border estacion in areaPreparacion.Children)
             {
@@ -2006,12 +1967,6 @@ namespace Production_control_1._0
                 {
                     listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                 }
-            }
-            #endregion
-            #region Enganche
-            foreach (elementoListBox item in listBoxEnganche.Items)
-            {
-             listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
             }
             #endregion
             //se completa listaOperariosRebalance que son los operarios con su operacion (pero no tienen el codigo porque este solo esta en la lista de operarios)
@@ -2769,9 +2724,14 @@ namespace Production_control_1._0
         #region ActualizarDatosDeGrafica
         private void actualizarGrafica()
         {
+            List<operario> listaOperariosConCarga = concatenacionOperariosOperacionA();
+            double piezasCorrida= Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
+            double horasCorrida= Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
+            double tkt_ = 3600 / (piezasCorrida / horasCorrida);
+
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
             List<string> listaDeOperarios = new List<string>();
-            foreach (elementoListBox item in Operarios.Items)
+            foreach (operario item in listaOperariosConCarga)
             {
                 if (item.asignadoOperario > 0)
                 {
@@ -2784,17 +2744,213 @@ namespace Production_control_1._0
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9 });
             //se agregan los valores de las cargas en las columnas
-            foreach (elementoListBox item in Operarios.Items)
+            foreach (operario item in listaOperariosConCarga)
             {
                 if (item.asignadoOperario > 0)
                 {
                     SeriesCollection[0].Values.Add(item.asignadoOperario);
-                    SeriesCollection[1].Values.Add(1d);
-                    SeriesCollection[2].Values.Add(0.9d);
+                    SeriesCollection[1].Values.Add(tkt_);
+                    SeriesCollection[2].Values.Add(0.9*tkt_);
                 }
             };
+        }
+        private List<operario> concatenacionOperariosOperacionA()
+        {
+            List<ElementoRebalance> listaOperariosRebalance = new List<ElementoRebalance>();
+            #region Enganche
+            string operacionese = "";
+            foreach (elementoListBox item in listBoxEnganche.Items)
+            {
+                operacionese = operacionese + item.tituloOperacion + "\n";
+            }
+            listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = operacionese });
+            #endregion
+            #region areaPreparacion
+            foreach (Border estacion in areaPreparacion.Children)
+            {
+                string operario = "";
+                string operaciones = "";
+                //Dentro de los bordes hay un StackPanel que tiene todo 
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            operaciones = operaciones + item.tituloOperacion + "\n";
+                        }
+                    }
+                }
+
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+            }
+            #endregion
+            #region arteriaUno
+            foreach (Border estacion in arteriaUno.Children)
+            {
+                string operario = "";
+                string operaciones = "";
+                //Dentro de los bordes hay un StackPanel que tiene todo 
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            operaciones = operaciones + item.tituloOperacion + "\n";
+                        }
+                    }
+                }
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+            }
+            #endregion
+            #region arteriaDos
+            foreach (Border estacion in arteriaDos.Children)
+            {
+                string operario = "";
+                string operaciones = "";
+                //Dentro de los bordes hay un StackPanel que tiene todo 
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            operaciones = operaciones + item.tituloOperacion + "\n";
+                        }
+                    }
+                }
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+            }
+            #endregion
+            #region arteriaTres
+            foreach (Border estacion in arteriaTres.Children)
+            {
+                string operario = "";
+                string operaciones = "";
+                //Dentro de los bordes hay un StackPanel que tiene todo 
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            operaciones = operaciones + item.tituloOperacion + "\n";
+                        }
+                    }
+                }
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+            }
+            #endregion
+            #region arteriaCuatro
+            foreach (Border estacion in arteriaCuatro.Children)
+            {
+                string operario = "";
+                string operaciones = "";
+                //Dentro de los bordes hay un StackPanel que tiene todo 
+                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
+                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                foreach (object elemento in stackPanelEstacion.Children)
+                {
+                    if (elemento.GetType() == typeof(Label))
+                    {
+                        operario = ((Label)elemento).Content.ToString();
+                    }
+                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        {
+                            operaciones = operaciones + item.tituloOperacion + "\n";
+                        }
+                    }
+                }
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+            }
+            #endregion
+            var results = listaOperariosRebalance.Select(x => x.nombreOperario).Distinct();
+            List<string> listaNombresUnicos = new List<string>();
+            listaNombresUnicos = results.ToList();
+            List<Operacion> operarioOperaciones = new List<Operacion>();
+            foreach (string item in listaNombresUnicos)
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+                    string operaciones = "";
+                    foreach (ElementoRebalance subitem in listaOperariosRebalance)
+                    {
+                        if (item == subitem.nombreOperario)
+                        {
+                            operaciones = operaciones + subitem.tituloOperacion + "\n";
+                        }
+                    }
+
+                    operarioOperaciones.Add(new Operacion { nombreOperario = item, tituloOperacion = item + "\n" + operaciones });
+                }
+            }
+            List<operario> listaFinal = new List<operario>();
+            double takt = 0;
+            if (!string.IsNullOrEmpty(piezas_de_corrida.Text) & !string.IsNullOrEmpty(horas_de_corrida.Text))
+            {
+                if (Convert.ToDouble(piezas_de_corrida.Text) > 0 & Convert.ToDouble(horas_de_corrida.Text) > 0)
+                {
+                    takt = 3600 / (Convert.ToDouble(piezas_de_corrida.Text) / Convert.ToDouble(horas_de_corrida.Text));
+                }
+            }
+            foreach (Operacion item in operarioOperaciones)
+            {
+                double asignado = 0;
+                foreach (operario subitem in Operarios.Items)
+                {
+                    if (item.nombreOperario == subitem.nombreOperario)
+                    {
+                        asignado = asignado + subitem.asignadoOperario;
+                    }
+                }
+
+                listaFinal.Add(new operario { nombreOperario = item.tituloOperacion, asignadoOperario = asignado * takt });
+            }
+            string cadena = "";
+            foreach (operario item in listaFinal)
+            {
+                cadena = cadena + item.nombreOperario + "-" + item.asignadoOperario + "\n";
+            }
+            return listaFinal;
         }
         #endregion
         #region operarioSobrecargadoSubutilizado
@@ -2832,11 +2988,38 @@ namespace Production_control_1._0
         #region ActualizarDatosDeGraficaRebalance
         private void actualizarGraficaReal()
         {
+            List<ElementoRebalance> listaConsolidada = generarListaRebalance();
+            double piezasCorrida = Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
+            double horasCorrida = Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
+            double tkt_ = 3600 / (piezasCorrida / horasCorrida);
+
+            List<string> nombreOperacion = new List<string>();
+            foreach (ElementoRebalance item in listaConsolidada)
+            {
+                nombreOperacion.Add(item.nombreOperario);
+            }
+            //se limpian los datos cargados anteriormente para poder volver a cargar
+            graficoRebalance.AxisX.Clear();
+            DatosGraficaRebalance[0].Values.Clear();
+            DatosGraficaRebalance[1].Values.Clear();
+            DatosGraficaRebalance[2].Values.Clear();
+            //se agrega la lista de operarios hecha al principio
+            graficoRebalance.AxisX.Add(new Axis() { Labels = nombreOperacion.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9 });
+            //se agregan los valores de las cargas en las columnas
+            foreach (ElementoRebalance item in listaConsolidada)
+            {
+                DatosGraficaRebalance[0].Values.Add(item.cargaRebalance*tkt_);
+                DatosGraficaRebalance[1].Values.Add(tkt_);
+                DatosGraficaRebalance[2].Values.Add(0.9*tkt_);
+            };
+        }
+        private List<ElementoRebalance> generarListaRebalance()
+        {
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
             List<string> listaDeOperarios = new List<string>();
             foreach (ElementoRebalance item in rebalance_.Items)
             {
-                    listaDeOperarios.Add(item.nombreOperario);
+                listaDeOperarios.Add(item.nombreOperario);
             }
 
             //En esa lista se dejan nombres unicos (a algunos operarios se les asigna mas de una operacion)
@@ -2847,6 +3030,7 @@ namespace Production_control_1._0
             foreach (string item in listaDeOperariosUnica)
             {
                 double sumaCargas = 0;
+                string operaciones = "";
                 double sumaCargas2 = 0;
                 double sumaSam = 0;
                 double sumaTiempo = 0;
@@ -2858,6 +3042,7 @@ namespace Production_control_1._0
                         sumaCargas = sumaCargas + subitem.cargaRebalance;
                         sumaSam = sumaSam + subitem.samOperacion;
                         sumaTiempo = sumaTiempo + subitem.tiempoRebalance;
+                        operaciones = operaciones + subitem.tituloOperacion + "\n";
                     }
                     if (sumaTiempo > 0)
                     {
@@ -2870,24 +3055,10 @@ namespace Production_control_1._0
                         sumaCargas2 = 0;
                     }
                 };
-                listaConsolidada.Add(new ElementoRebalance { nombreOperario = item.ToString(), cargaRebalance = sumaCargas2, eficienciaRebalance = eficienciaTotal });
-            };
-            //se limpian los datos cargados anteriormente para poder volver a cargar
-            graficoRebalance.AxisX.Clear();
-            DatosGraficaRebalance[0].Values.Clear();
-            DatosGraficaRebalance[1].Values.Clear();
-            DatosGraficaRebalance[2].Values.Clear();
-            DatosGraficaRebalance[3].Values.Clear();
-            //se agrega la lista de operarios hecha al principio
-            graficoRebalance.AxisX.Add(new Axis() { Labels = listaDeOperariosUnica.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
-            //se agregan los valores de las cargas en las columnas
-            foreach (ElementoRebalance item in listaConsolidada)
-            {
-                DatosGraficaRebalance[0].Values.Add(item.cargaRebalance);
-                DatosGraficaRebalance[1].Values.Add(1d);
-                DatosGraficaRebalance[2].Values.Add(0.9d);
-                DatosGraficaRebalance[3].Values.Add(item.eficienciaRebalance);
-            };
+
+                listaConsolidada.Add(new ElementoRebalance { nombreOperario = item + "\n" + operaciones.Trim(), cargaRebalance = sumaCargas2 });
+            }
+            return listaConsolidada;
         }
         #endregion
         #endregion

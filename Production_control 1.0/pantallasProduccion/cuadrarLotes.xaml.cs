@@ -176,7 +176,7 @@ namespace Production_control_1._0.pantallasProduccion
                 SqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    listViewLotesDetalles.Items.Add(new horaProduccion { fecha= Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), xxs = Convert.ToInt32(dr["xxs"] is DBNull ? 0 : dr["xxs"]), xs = Convert.ToInt32(dr["xs"] is DBNull ? 0 : dr["xs"]), s = Convert.ToInt32(dr["s"] is DBNull ? 0 : dr["s"]), m = Convert.ToInt32(dr["m"] is DBNull ? 0 : dr["s"]), l = Convert.ToInt32(dr["l"] is DBNull ? 0 : dr["l"]), xl = Convert.ToInt32(dr["xl"] is DBNull ? 0 : dr["xl"]), xxl = Convert.ToInt32(dr["xxl"] is DBNull ? 0 : dr["xxl"]), xxxl = Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]) });
+                    listViewLotesDetalles.Items.Add(new horaProduccion { fecha= Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), xxs = Convert.ToInt32(dr["xxs"] is DBNull ? 0 : dr["xxs"]), xs = Convert.ToInt32(dr["xs"] is DBNull ? 0 : dr["xs"]), s = Convert.ToInt32(dr["s"] is DBNull ? 0 : dr["s"]), m = Convert.ToInt32(dr["m"] is DBNull ? 0 : dr["m"]), l = Convert.ToInt32(dr["l"] is DBNull ? 0 : dr["l"]), xl = Convert.ToInt32(dr["xl"] is DBNull ? 0 : dr["xl"]), xxl = Convert.ToInt32(dr["xxl"] is DBNull ? 0 : dr["xxl"]), xxxl = Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]) });
                 };
                 //se termina la conexion a la base
                 dr.Close();
