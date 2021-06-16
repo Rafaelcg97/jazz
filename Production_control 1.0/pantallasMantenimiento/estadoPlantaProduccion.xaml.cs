@@ -174,6 +174,10 @@ namespace Production_control_1._0
             //si no hay ningun elemento seleccionado no se muestran la ventana emergente
             if (modulo.SelectedIndex > -1)
             {
+                //limpiar en caso de que se haya seleccionado uno antes
+                codigo_mecanico.Content = "----";
+                mecanico.Content = "----";
+
                 //se determina el tamano de la ventana emergente
                 #region tamano_de_pop
                 datos_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
@@ -197,6 +201,7 @@ namespace Production_control_1._0
                 //se evalua si ya esta abierto
                 if (item.hora_asignacion.ToString() != "0")
                 {
+                    hora_asignacion.Content = item.hora_asignacion.ToString();
                     estado.Content = "Asignada";
                     img_iniciarMeca.Source = new BitmapImage(iniciarMeca_inhabilitado);
                     buttonAsignarMecanico.IsEnabled = false;
@@ -572,27 +577,22 @@ namespace Production_control_1._0
         {
             datos_solicitud.IsOpen = false;
         }
-
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             asignar_solicitud.IsOpen = false;
         }
-
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             abrir_solicitud.IsOpen = false;
         }
-
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             pausar_solicitud.IsOpen = false;
         }
-
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             reanudar_solicitud.IsOpen = false;
         }
-
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
             terminar_solicitud.IsOpen = false;
