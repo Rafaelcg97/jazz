@@ -18,6 +18,8 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using Production_control_1._0.clases;
 using System.Management;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Production_control_1._0
 {
@@ -38,11 +40,43 @@ namespace Production_control_1._0
         {
             InitializeComponent();
             tkt_ = Math.Round(3600 / (Convert.ToDouble(datosBalanceRecibidos.corrida) / Convert.ToDouble(datosBalanceRecibidos.horas)), 2);
+            int categoriaDeSam = 0;
+            double eficienciaDouble = 0;
+            if (datosBalanceRecibidos.eficiencia.Length >= 2)
+            {
+                eficienciaDouble = Math.Round(Convert.ToDouble(datosBalanceRecibidos.eficiencia.Substring(0, datosBalanceRecibidos.eficiencia.Length - 1)) / 100, 2);
+            }
+            #region establecerCategoriaSam
+            if (datosBalanceRecibidos.sam <= 10)
+            {
+                categoriaDeSam = 1;
+            }
+            else if(datosBalanceRecibidos.sam >10 && datosBalanceRecibidos.sam <= 13.5)
+            {
+                categoriaDeSam = 2;
+            }
+            else if (datosBalanceRecibidos.sam > 13.5 && datosBalanceRecibidos.sam <= 16.5)
+            {
+                categoriaDeSam = 3;
+            }
+            else if (datosBalanceRecibidos.sam > 16.5 && datosBalanceRecibidos.sam <=20)
+            {
+                categoriaDeSam = 4;
+            }
+            else if (datosBalanceRecibidos.sam > 20 && datosBalanceRecibidos.sam <=25)
+            {
+                categoriaDeSam = 5;
+            }
+            else if (datosBalanceRecibidos.sam > 25)
+            {
+                categoriaDeSam = 6;
+            }
+            #endregion
             #region datosInicialesDeGraficoo
             // se cargan los datos iniciales para la grafica
             SeriesCollection = new SeriesCollection
             {
-                new StackedColumnSeries
+                new ColumnSeries
                 {
                     Title = "Carga",
                     Values = new ChartValues<double> {0},
@@ -91,6 +125,24 @@ namespace Production_control_1._0
                 SeriesCollection[2].Values.Add(tkt_*0.9);
             };
             #endregion
+            #region consultarBonos
+            SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql; //Consulta que se hace en sql
+            SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
+            SqlDataReader dr; //leer los resultados del comando sql
+            sql = "select turno, bono  from bono_t where eficiencia='" +eficienciaDouble + "' and categoria='" + categoriaDeSam +"' order by turno";
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            string cadenaBono = "";
+            while (dr.Read())
+            {
+                cadenaBono = cadenaBono+ "$ "+ dr["bono"].ToString() + " - " ;
+            };
+            dr.Close();
+            cnProduccion.Close();
+            bonoPorTurno.Content = cadenaBono;
+            #endregion
             #region datosEncabezado
             creacion.Content = datosBalanceRecibidos.fechaCreacion.ToString("yyyy-MM-dd");
             impresion.Content = DateTime.Now.ToString("yyyy-MM-dd");
@@ -101,6 +153,7 @@ namespace Production_control_1._0
             eficiencia.Content = datosBalanceRecibidos.eficiencia;
             modulo.Content = datosBalanceRecibidos.modulo;
             tkt.Content =tkt_;
+            piezasPorHora.Content =Math.Round((Convert.ToDouble(datosBalanceRecibidos.corrida) / Convert.ToDouble(datosBalanceRecibidos.horas)),0);
             #endregion
             #region formularioImprimir
             //agregar la lista de impresoras instaladas
@@ -134,7 +187,6 @@ namespace Production_control_1._0
             copias.Text = "1";
             #endregion
         }
-
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
 

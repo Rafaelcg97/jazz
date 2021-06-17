@@ -108,7 +108,7 @@
                     </Button>
                 </Grid>
             </Grid>
-            <Border Grid.ColumnSpan="11" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="2" x:Name="area_de_impresion">
+            <Border Grid.ColumnSpan="11" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="15,2,2,2" x:Name="area_de_impresion">
                 <Grid x:Name="prueba" Grid.ColumnSpan="11" Grid.Column="1">
                     <!--#region filas/columnas-->
                     <Grid.ColumnDefinitions>
@@ -570,7 +570,7 @@
                     <!--#endregion-->
 
                     <!--#region maquina_27-->
-                    <Label Grid.Row="1" Content="14" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="1" Content="26" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp27" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op27" Grid.Row="2" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -583,7 +583,7 @@
                     <Label x:Name="o27" Grid.Row="5" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_28-->
-                    <Label Grid.Row="7" Content="15" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="7" Content="25" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp28" Grid.Row="7" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op28" Grid.Row="8" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -596,7 +596,7 @@
                     <Label x:Name="o28" Grid.Row="11" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_29-->
-                    <Label Grid.Row="13" Content="16" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="13" Content="24" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp29" Grid.Row="13" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op29" Grid.Row="14" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -609,7 +609,7 @@
                     <Label x:Name="o29" Grid.Row="17" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_30-->
-                    <Label Grid.Row="19" Content="17" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="19" Content="23" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp30" Grid.Row="19" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op30" Grid.Row="20" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -622,7 +622,7 @@
                     <Label x:Name="o30" Grid.Row="23" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_31-->
-                    <Label Grid.Row="25" Content="18" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="25" Content="22" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp31" Grid.Row="25" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op31" Grid.Row="26" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -635,7 +635,7 @@
                     <Label x:Name="o31" Grid.Row="29" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_32-->
-                    <Label Grid.Row="31" Content="19" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="31" Content="21" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp32" Grid.Row="31" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op32" Grid.Row="32" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -661,7 +661,7 @@
                     <Label x:Name="o33" Grid.Row="41" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_34-->
-                    <Label Grid.Row="43" Content="21" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="43" Content="19" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp34" Grid.Row="43" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op34" Grid.Row="44" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -674,7 +674,7 @@
                     <Label x:Name="o34" Grid.Row="47" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_35-->
-                    <Label Grid.Row="49" Content="22" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="49" Content="18" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp35" Grid.Row="49" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op35" Grid.Row="50" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -687,7 +687,7 @@
                     <Label x:Name="o35" Grid.Row="53" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_36-->
-                    <Label Grid.Row="55" Content="23" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="55" Content="17" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp36" Grid.Row="55" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op36" Grid.Row="56" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -700,7 +700,7 @@
                     <Label x:Name="o36" Grid.Row="59" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_37-->
-                    <Label Grid.Row="61" Content="24" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="61" Content="16" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp37" Grid.Row="61" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op37" Grid.Row="62" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -713,7 +713,7 @@
                     <Label x:Name="o37" Grid.Row="65" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_38-->
-                    <Label Grid.Row="67" Content="25" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="67" Content="15" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp38" Grid.Row="67" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op38" Grid.Row="68" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -726,7 +726,7 @@
                     <Label x:Name="o38" Grid.Row="71" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_39-->
-                    <Label Grid.Row="73" Content="26" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="73" Content="14" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="8" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp39" Grid.Row="73" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="8" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op39" Grid.Row="74" Grid.RowSpan="3" Grid.Column="8" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -904,7 +904,7 @@
                     <!--#endregion-->
 
                     <!--#region maquina_53-->
-                    <Label Grid.Row="1" Content="40" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="1" Content="52" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp53" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op53" Grid.Row="2" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -917,7 +917,7 @@
                     <Label x:Name="o53" Grid.Row="5" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_54-->
-                    <Label Grid.Row="7" Content="41" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="7" Content="51" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp54" Grid.Row="7" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op54" Grid.Row="8" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -930,7 +930,7 @@
                     <Label x:Name="o54" Grid.Row="11" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_55-->
-                    <Label Grid.Row="13" Content="42" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="13" Content="50" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp55" Grid.Row="13" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op55" Grid.Row="14" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -943,7 +943,7 @@
                     <Label x:Name="o55" Grid.Row="17" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_56-->
-                    <Label Grid.Row="19" Content="43" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="19" Content="49" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp56" Grid.Row="19" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op56" Grid.Row="20" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -956,7 +956,7 @@
                     <Label x:Name="o56" Grid.Row="23" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_57-->
-                    <Label Grid.Row="25" Content="44" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="25" Content="48" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp57" Grid.Row="25" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op57" Grid.Row="26" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -969,7 +969,7 @@
                     <Label x:Name="o57" Grid.Row="29" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_58-->
-                    <Label Grid.Row="31" Content="45" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="31" Content="47" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp58" Grid.Row="31" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op58" Grid.Row="32" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -995,7 +995,7 @@
                     <Label x:Name="o59" Grid.Row="41" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_60-->
-                    <Label Grid.Row="43" Content="47" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="43" Content="45" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp60" Grid.Row="43" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op60" Grid.Row="44" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -1008,7 +1008,7 @@
                     <Label x:Name="o60" Grid.Row="47" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_61-->
-                    <Label Grid.Row="49" Content="48" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="49" Content="44" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp61" Grid.Row="49" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op61" Grid.Row="50" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -1021,7 +1021,7 @@
                     <Label x:Name="o61" Grid.Row="53" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_62-->
-                    <Label Grid.Row="55" Content="49" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="55" Content="43" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp62" Grid.Row="55" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op62" Grid.Row="56" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -1034,7 +1034,7 @@
                     <Label x:Name="o62" Grid.Row="59" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_63-->
-                    <Label Grid.Row="61" Content="50" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="61" Content="42" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp63" Grid.Row="61" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op63" Grid.Row="62" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -1047,7 +1047,7 @@
                     <Label x:Name="o63" Grid.Row="65" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_64-->
-                    <Label Grid.Row="67" Content="51" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="67" Content="41" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp64" Grid.Row="67" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op64" Grid.Row="68" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>
@@ -1060,7 +1060,7 @@
                     <Label x:Name="o64" Grid.Row="71" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content=""  BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <!--#endregion-->
                     <!--#region maquina_65-->
-                    <Label Grid.Row="73" Content="52" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
+                    <Label Grid.Row="73" Content="40" Grid.RowSpan="1" HorizontalContentAlignment="Left" FontWeight="Bold" Padding="0" Grid.Column="16" FontSize="15" Foreground="Black" HorizontalAlignment="Left" SizeChanged="letra_pequena"/>
                     <Label Margin="15,0,0,0" x:Name="mp65" Grid.Row="73" Grid.RowSpan="1" Grid.ColumnSpan="3" Grid.Column="16" Content="" BorderBrush="Black" BorderThickness="1" Background="White" Foreground="Black" SizeChanged="letra_pequena" Padding="0"/>
                     <ListBox x:Name="op65" Grid.Row="74" Grid.RowSpan="3" Grid.Column="16" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" Background="White"  SizeChanged="letra_list_box" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontWeight="Bold">
                         <ListBox.ItemContainerStyle>

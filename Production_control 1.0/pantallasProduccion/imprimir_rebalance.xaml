@@ -220,14 +220,20 @@
                 <Label Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Creación:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
                 <Label Grid.Column="0" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Impresión:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
                 <Label Grid.Column="0" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Tipo:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label Grid.Column="0" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Tkt:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label Grid.Column="3" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="PH:" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
+                <Label Grid.Column="5" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Bono(D-E-N):" FontWeight="Bold" SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
 
                 <Label x:Name="creacion" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
                 <Label x:Name="impresion" Grid.Column="2" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
                 <Label x:Name="tipo" Grid.Column="2" Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Label x:Name="tkt" Grid.Column="2" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Label x:Name="piezasPorHora" Grid.Column="4" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
+                <Label x:Name="bonoPorTurno" Grid.Column="7" Grid.Row="11" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="----" FontWeight="Light"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Left"/>
 
 
                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" Grid.RowSpan="8">
-                    <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
+                <Label x:Name="modulo" FontFamily="calibri" FontWeight="Bold"  Content="MODULO" SizeChanged="letra_pequena" HorizontalAlignment="Center"/>
                 </Border>
                 <Label Grid.Column="9" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="Estilo:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>
                 <Label Grid.Column="9" Grid.Row="5" Grid.RowSpan="3" Grid.ColumnSpan="1" Content="SAM:" FontWeight="Bold"  SizeChanged="letra_pequena_3" Padding="0" Margin="10,0" HorizontalAlignment="Right"/>

@@ -1772,6 +1772,66 @@ namespace Production_control_1._0
             eficiencia_2.Content = ejecutarCalculoDeEficiencia();
         }
         #endregion
+        #region regenerarListaOperaciones
+        private void regenerar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Regenerar el balance implica consultar si existe algun cambio en las operaciones \n Aun así debes asegurarte que todo sea congruente con el nuevo SAM \n podria haber quedado asignada en el LayOut alguna operación o un ajuste ya no existente \n ¿Desea Continuar?", "Jazz-CCO", MessageBoxButton.YesNo);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    #region guardarDatosEmpaque
+                    string nombreEmpaque = "";
+                    double samEmpaque = 0;
+                    foreach (elementoListBox item in Operaciones.Items)
+                    {
+                        nombreEmpaque = item.tituloOperacion;
+                        samEmpaque = item.samOperacion;
+                    }
+                    #endregion
+                    #region agregarOperaciones
+                    SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                    string sql; //Consulta que se hace en sql
+                    SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
+                    SqlDataReader dr; //leer los resultados del comando sql
+                    cnIngenieria.Open();
+                    sql = "select correlativo, nombre, titulo, sam, maquina, categoria from operaciones where temporada= '" + temporada_.Content + "' and estilo= '" + estilo_.Content + "' and sam is not null";
+                    cm = new SqlCommand(sql, cnIngenieria);
+                    dr = cm.ExecuteReader();
+                    List<elementoListBox> listaOperaciones = new List<elementoListBox>();
+                    List<elementoListBox> listaOperaciones2 = new List<elementoListBox>();
+                    //agregar operaciones de consulta
+                    while (dr.Read())
+                    {
+                        listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = Convert.ToInt32(dr["correlativo"]), nombreOperacion = dr["nombre"].ToString(), tituloOperacion = dr["titulo"].ToString().Replace("'", ""), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = dr["maquina"].ToString(), categoriaMaquina = dr["categoria"].ToString() });
+                    };
+                    dr.Close();
+                    cnIngenieria.Close();
+                    listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = 0, nombreOperacion = "empaque", tituloOperacion = nombreEmpaque, samOperacion = samEmpaque, asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
+                    //agregar operacion de empaque
+                    #endregion
+                    #region calcularAsignaciones
+                    // se obtienen las piezas por hora
+                    Double piezasRequeridasHora = Math.Round(Convert.ToDouble(piezas_de_corrida.Text) / Convert.ToDouble(horas_de_corrida.Text), 0);
+                    piezas_por_hora.Content = piezasRequeridasHora;
+                    foreach (elementoListBox item in listaOperaciones)
+                    {
+                        Double requerido = Math.Round(piezasRequeridasHora / (60 / item.samOperacion), 2);
+                        listaOperaciones2.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = item.correlativoOperacion, nombreOperacion = item.nombreOperacion, tituloOperacion = item.tituloOperacion, samOperacion = item.samOperacion, asignadoOperacion = item.asignadoOperacion, requeridoOperacion = requerido, ajusteMaquina = item.ajusteMaquina, categoriaMaquina = item.categoriaMaquina });
+                    }
+                    Operaciones.ItemsSource = listaOperaciones2;
+                    //recalcular_asignaciones();
+
+                    #endregion
+                    CalculoAsignadoPorOperacion();
+                    actualizarGrafica();
+                    operacionSobrecargadaOperacionSubutilizada();
+                    MessageBox.Show("Terminado");
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
+        }
+        #endregion
         #endregion
         #region ListViewEmisorDeData
 
@@ -2167,6 +2227,16 @@ namespace Production_control_1._0
             //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
             CalculoAsignadoPorOperacion();
         }
+
+        private void colorBlanco(object sender, RoutedEventArgs e)
+        {
+            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
+            RadioButton radioButton = (RadioButton)sender;
+            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese dentro del borde que debe tener el color
+            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.White;
+            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
+            CalculoAsignadoPorOperacion();
+        }
         #endregion
         #region coloresBarraAsignado
         private void progressBarAsignado_Loaded(object sender, RoutedEventArgs e)
@@ -2201,6 +2271,21 @@ namespace Production_control_1._0
                 e.Handled = false;
             else
                 e.Handled = true;
+        }
+        private void piezas_de_corrida_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(piezas_de_corrida.Text) || Convert.ToInt32(piezas_de_corrida.Text)==0)
+            {
+                piezas_de_corrida.Text = "1";
+            }
+        }
+        private void horas_de_corrida_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(horas_de_corrida.Text) || Convert.ToInt32(horas_de_corrida.Text) == 0)
+            {
+                horas_de_corrida.Text = "1";
+            }
+
         }
         #endregion
         #region calculoDeAsigandoPorOperacion
@@ -2744,7 +2829,7 @@ namespace Production_control_1._0
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9 });
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black });
             //se agregan los valores de las cargas en las columnas
             foreach (operario item in listaOperariosConCarga)
             {
@@ -3004,7 +3089,7 @@ namespace Production_control_1._0
             DatosGraficaRebalance[1].Values.Clear();
             DatosGraficaRebalance[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            graficoRebalance.AxisX.Add(new Axis() { Labels = nombreOperacion.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9 });
+            graficoRebalance.AxisX.Add(new Axis() { Labels = nombreOperacion.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black });
             //se agregan los valores de las cargas en las columnas
             foreach (ElementoRebalance item in listaConsolidada)
             {
@@ -3061,6 +3146,15 @@ namespace Production_control_1._0
             return listaConsolidada;
         }
         #endregion
+        #region removerOperario
+        private void Label_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((Label)sender).Content = "";
+            CalculoAsignadoPorOperacion();
+            actualizarGrafica();
+        }
+        #endregion
+
         #endregion
     }
 }

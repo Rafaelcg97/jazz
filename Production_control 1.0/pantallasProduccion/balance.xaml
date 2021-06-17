@@ -215,7 +215,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!--#endregion-->
-            <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="7">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="7">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="5">
                         <Label Content="Fecha"  Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
@@ -272,7 +272,7 @@
                 </StackPanel>
             </Border>
 
-            <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2" Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="7">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="2"  Grid.Column="7" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="7" Padding="0">
                 <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
                     <StackPanel Margin="5">
                         <Label Content="Piezas de la corrida:" Grid.Row="1" Grid.Column="8" FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
@@ -280,13 +280,17 @@
                         <Label Content="Operarios:" Grid.Row="4" Grid.Column="8"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
                         <Label Content="Eficiencia:" Grid.Row="3" Grid.Column="8" FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
                         <Label Content="Piezas por Hora:" Grid.Row="5" Grid.Column="8" FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
+                        <Label Content="Regenerar:" Grid.Row="3" Grid.Column="8" FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
                     </StackPanel>
                     <StackPanel Margin="5" Grid.ColumnSpan="3">
-                        <TextBox x:Name="piezas_de_corrida"  Grid.Row="2" Grid.Column="11"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2" MinWidth="50" MaxWidth="150" TextChanged="maquinaRequerimiento" KeyDown="solo_numeros"/>
-                        <TextBox x:Name="horas_de_corrida"  Grid.Row="1" Grid.Column="11"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"  MinWidth="50" MaxWidth="150" TextChanged="maquinaRequerimiento" KeyDown="solo_numeros"/>
-                        <Label x:Name="operarios_" Content="0" Grid.Row="4" Grid.Column="11" FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2" MinWidth="50" MaxWidth="150" />
-                        <Label x:Name="eficiencia_" Content="0"  Grid.Row="3" Grid.Column="11" FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"  MinWidth="50" MaxWidth="150"/>
-                        <Label x:Name="piezas_por_hora" Content="0"  Grid.Row="5" Grid.Column="11"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="piezas_de_corrida" FontFamily="calibri" FontWeight="Medium" Padding="0"  Width="50" TextChanged="maquinaRequerimiento" KeyDown="solo_numeros" LostFocus="piezas_de_corrida_LostFocus"/>
+                        <TextBox x:Name="horas_de_corrida" FontFamily="calibri" FontWeight="Medium" Padding="0"  Width="50" TextChanged="maquinaRequerimiento" KeyDown="solo_numeros" LostFocus="horas_de_corrida_LostFocus"/>
+                        <Label x:Name="operarios_" Content="0" FontFamily="calibri" FontWeight="Medium" Padding="0" Width="50"  />
+                        <Label x:Name="eficiencia_" Content="0" FontFamily="calibri" FontWeight="Medium" Padding="0" Width="50"/>
+                        <Label x:Name="piezas_por_hora" Content="0" FontFamily="calibri" FontWeight="Medium" Padding="0" />
+                        <Button x:Name="regenerar" Padding="0" Background="Transparent" Width="31" Height="15" HorizontalAlignment="Left" Click="regenerar_Click">
+                            <Image Source="/imagenes/reordenar.png"/>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -447,6 +451,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -464,7 +469,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -478,6 +483,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -495,7 +501,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -509,6 +515,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -526,7 +533,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -540,6 +547,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -557,7 +565,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -571,6 +579,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -588,7 +597,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -602,6 +611,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -619,7 +629,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -633,6 +643,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -650,7 +661,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -664,6 +675,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -681,7 +693,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -695,6 +707,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -712,7 +725,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -726,6 +739,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -743,7 +757,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -757,6 +771,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -774,7 +789,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -788,6 +803,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -805,7 +821,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -819,6 +835,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -836,7 +853,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -861,6 +878,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0" />
@@ -878,7 +896,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -892,6 +910,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -909,7 +928,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -923,6 +942,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -940,7 +960,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -954,6 +974,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -971,7 +992,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -985,6 +1006,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1002,7 +1024,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1016,6 +1038,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1033,7 +1056,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1047,6 +1070,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1064,7 +1088,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1078,6 +1102,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1095,7 +1120,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1109,6 +1134,8 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
+                                                            
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1126,7 +1153,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1140,6 +1167,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1157,7 +1185,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1171,6 +1199,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1188,7 +1217,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1202,6 +1231,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1219,7 +1249,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1233,6 +1263,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1250,7 +1281,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1273,6 +1304,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1290,7 +1322,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1304,6 +1336,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1321,7 +1354,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1335,6 +1368,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1352,7 +1386,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1366,6 +1400,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1383,7 +1418,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1397,6 +1432,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1414,7 +1450,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1428,6 +1464,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1445,7 +1482,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1459,6 +1496,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1476,7 +1514,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1490,6 +1528,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1507,7 +1546,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1521,6 +1560,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1538,7 +1578,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1552,6 +1592,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1569,7 +1610,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1583,6 +1624,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1600,7 +1642,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1614,6 +1656,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1631,7 +1674,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1645,6 +1688,7 @@
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                             <RadioButton Background="red" Checked="colorRojo"/>
                                                             <RadioButton Background="blue" Checked="colorAzul"/>
+                                                            <RadioButton Background="white" Checked="colorBlanco"/>
                                                         </StackPanel>
                                                         <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                         <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1662,7 +1706,7 @@
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
-                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                        <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <!--#endregion-->
@@ -1679,6 +1723,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden" x:Name="textBlockEngancheCategoria"/>
                                                 <TextBox Height="20" Width="556" Background="Transparent" Padding="0,0,0,0" x:Name="ajusteEnganche"/>
@@ -1696,7 +1741,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" x:Name="operarioEnganche"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" x:Name="operarioEnganche" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1718,6 +1763,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1735,7 +1781,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1749,6 +1795,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1766,7 +1813,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1780,6 +1827,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1797,7 +1845,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1811,6 +1859,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1828,7 +1877,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1842,6 +1891,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1859,7 +1909,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1873,6 +1923,8 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
+
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1890,7 +1942,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1904,6 +1956,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1921,7 +1974,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1935,6 +1988,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1952,7 +2006,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1966,6 +2020,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -1983,7 +2038,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -1997,6 +2052,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2014,7 +2070,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2028,6 +2084,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2045,7 +2102,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2059,6 +2116,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2076,7 +2134,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2090,6 +2148,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2107,7 +2166,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2130,6 +2189,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2147,7 +2207,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2161,6 +2221,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2178,7 +2239,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2192,6 +2253,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2209,7 +2271,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2223,6 +2285,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2240,7 +2303,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2254,6 +2317,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2271,7 +2335,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2285,6 +2349,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2302,7 +2367,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2316,6 +2381,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2333,7 +2399,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2347,6 +2413,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2364,7 +2431,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2378,6 +2445,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2395,7 +2463,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2409,6 +2477,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2426,7 +2495,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2440,6 +2509,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2457,7 +2527,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2471,6 +2541,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2488,7 +2559,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
@@ -2502,6 +2573,7 @@
                                                     <RadioButton Background="Yellow" Checked="colorAmarillo" />
                                                     <RadioButton Background="red" Checked="colorRojo"/>
                                                     <RadioButton Background="blue" Checked="colorAzul"/>
+                                                    <RadioButton Background="white" Checked="colorBlanco"/>
                                                 </StackPanel>
                                                 <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
                                                 <TextBox Height="20" Width="180" Background="Transparent" Padding="0,0,0,0"/>
@@ -2519,7 +2591,7 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
-                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black"/>
+                                                <Label  Content="" Height="15"  Padding="0" BorderBrush="Black" MouseDoubleClick="Label_MouseDoubleClick"/>
                                             </StackPanel>
                                         </Border>
                                         <!--#endregion-->
