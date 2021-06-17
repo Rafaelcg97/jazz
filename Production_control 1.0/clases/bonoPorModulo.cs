@@ -32,7 +32,17 @@ namespace Production_control_1._0.clases
         public string bonoViernes { get; set; }
         public string bonoSabado { get; set; }
 
+        public string samLunes { get; set; }
+        public string samMartes { get; set; }
+        public string samMiercoles { get; set; }
+        public string samJueves { get; set; }
+        public string samViernes { get; set; }
+        public string samSabado { get; set; }
+
+
         public int totalDePiezas { get; set; }
+        public string samTotal { get; set; }
+        public string eficienciaTotal { get; set; }
         public string bono { get; set; }
 
     }
