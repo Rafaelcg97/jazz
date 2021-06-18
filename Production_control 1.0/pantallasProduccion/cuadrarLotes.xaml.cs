@@ -35,7 +35,7 @@ namespace Production_control_1._0.pantallasProduccion
         public cuadrarLotes()
         {
             InitializeComponent();
-            string sql = "select lote, xxs, xs, s, m, l, xl, xxl, xxxl, totalDePiezas from lotesAgrupados";
+            string sql = "select lote, xxs, xs, s, m, l, xl, xxl, xxxl, totalDePiezas, make, totalDePiezas-make as diferencia from lotesAgrupados";
             cnProduccion.Open();
             SqlCommand cm = new SqlCommand(sql, cnProduccion);
             SqlDataReader dr = cm.ExecuteReader();
@@ -43,7 +43,7 @@ namespace Production_control_1._0.pantallasProduccion
             // se llenan la lista de modulos con los datos de la consulta
             while (dr.Read())
             {
-                listaTodosLotes.Add(new horaProduccion { lote = dr["lote"].ToString(), xxs = Convert.ToInt32(dr["xxs"] is DBNull ? 0 :dr["xxs"]), xs = Convert.ToInt32(dr["xs"] is DBNull ? 0 : dr["xs"]), s = Convert.ToInt32(dr["s"] is DBNull ? 0 :dr["s"]), m = Convert.ToInt32(dr["m"] is DBNull ? 0 : dr["m"]), l = Convert.ToInt32(dr["l"] is DBNull ? 0 : dr["l"]), xl = Convert.ToInt32(dr["xl"] is DBNull ? 0 :dr["xl"]), xxl = Convert.ToInt32(dr["xxl"] is DBNull ? 0 : dr["xxl"]), xxxl = Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]) });
+                listaTodosLotes.Add(new horaProduccion { lote = dr["lote"].ToString(), xxs = Convert.ToInt32(dr["xxs"] is DBNull ? 0 :dr["xxs"]), xs = Convert.ToInt32(dr["xs"] is DBNull ? 0 : dr["xs"]), s = Convert.ToInt32(dr["s"] is DBNull ? 0 :dr["s"]), m = Convert.ToInt32(dr["m"] is DBNull ? 0 : dr["m"]), l = Convert.ToInt32(dr["l"] is DBNull ? 0 : dr["l"]), xl = Convert.ToInt32(dr["xl"] is DBNull ? 0 :dr["xl"]), xxl = Convert.ToInt32(dr["xxl"] is DBNull ? 0 : dr["xxl"]), xxxl = Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), make= Convert.ToInt32(dr["make"] is DBNull ? 0 : dr["make"]), diferencia= Convert.ToInt32(dr["diferencia"] is DBNull ? 0 : dr["diferencia"]) });
             };
             //se termina la conexion a la base
             dr.Close();
@@ -170,22 +170,17 @@ namespace Production_control_1._0.pantallasProduccion
             {
                 string loteSeleccionado = ((horaProduccion)listViewLotesLista.SelectedItem).lote;
                 listViewLotesDetalles.Items.Clear();
-                string sql = "select fecha, modulo, [2XS] as xxs, xs, s, m, l, xl, [2XL] as xxl, [3XL] as xxxl, totalDePiezas from horahora where lote='" + loteSeleccionado + "'";
+                string sql = "select fecha, modulo, [2XS] as xxs, xs, s, m, l, xl, [2XL] as xxl, [3XL] as xxxl, totalDePiezas, Coordinador from horahora where lote='" + loteSeleccionado + "'";
                 cnProduccion.Open();
                 SqlCommand cm = new SqlCommand(sql, cnProduccion);
                 SqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    listViewLotesDetalles.Items.Add(new horaProduccion { fecha= Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), xxs = Convert.ToInt32(dr["xxs"] is DBNull ? 0 : dr["xxs"]), xs = Convert.ToInt32(dr["xs"] is DBNull ? 0 : dr["xs"]), s = Convert.ToInt32(dr["s"] is DBNull ? 0 : dr["s"]), m = Convert.ToInt32(dr["m"] is DBNull ? 0 : dr["m"]), l = Convert.ToInt32(dr["l"] is DBNull ? 0 : dr["l"]), xl = Convert.ToInt32(dr["xl"] is DBNull ? 0 : dr["xl"]), xxl = Convert.ToInt32(dr["xxl"] is DBNull ? 0 : dr["xxl"]), xxxl = Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]) });
+                    listViewLotesDetalles.Items.Add(new horaProduccion { fecha= Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"), modulo=dr["modulo"].ToString(), xxs = Convert.ToInt32(dr["xxs"] is DBNull ? 0 : dr["xxs"]), xs = Convert.ToInt32(dr["xs"] is DBNull ? 0 : dr["xs"]), s = Convert.ToInt32(dr["s"] is DBNull ? 0 : dr["s"]), m = Convert.ToInt32(dr["m"] is DBNull ? 0 : dr["m"]), l = Convert.ToInt32(dr["l"] is DBNull ? 0 : dr["l"]), xl = Convert.ToInt32(dr["xl"] is DBNull ? 0 : dr["xl"]), xxl = Convert.ToInt32(dr["xxl"] is DBNull ? 0 : dr["xxl"]), xxxl = Convert.ToInt32(dr["xxxl"] is DBNull ? 0 : dr["xxxl"]), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), coordinadorNombre=dr["Coordinador"].ToString() });
                 };
                 //se termina la conexion a la base
                 dr.Close();
                 cnProduccion.Close();
-                foreach (horaProduccion item in listaTodosLotes)
-                {
-                    listViewLotesLista.Items.Add(item);
-                }
-
             }
         }
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)

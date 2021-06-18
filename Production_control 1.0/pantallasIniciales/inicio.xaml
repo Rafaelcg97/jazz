@@ -43,7 +43,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border  Grid.Column="11" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="25" CornerRadius="10" Background="DarkGray">
+        <Border  Grid.Column="11" Grid.ColumnSpan="4" Grid.RowSpan="14" Margin="25" CornerRadius="10" Background="DarkGray" Opacity="0.6">
             <StackPanel>
                 <Label FontSize="25" FontWeight="Bold" FontFamily="Bauhaus 93" HorizontalAlignment="Center" Foreground="White">Acerca del Software</Label>
                 <Image Source="/imagenes/logoJazz.png" MaxHeight="200" Margin="30" />
@@ -53,7 +53,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="10" FontSize="15" FontWeight="Bold" Foreground="White">Versión:</Label>
-                    <Label Margin="10" FontSize="15" Foreground="White">1.7</Label>
+                    <Label Margin="10" FontSize="15" Foreground="White">1.8</Label>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="10,10,0,0" FontSize="15" FontWeight="Bold" Foreground="White">Base de Datos:</Label>
@@ -70,10 +70,19 @@
             </StackPanel>
         </Border>
 
-        <Image Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="10" HorizontalAlignment="Center" Grid.RowSpan="3" Source="/imagenes/logoEmpresa.png" Margin="25"/>
-        <Label FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="6" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">¡Bienvenido!</Label>
-        <Label x:Name="labelUsuario" FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="8" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">¡Bienvenido!</Label>
-        <Label x:Name="labelHora" FontSize="67" Grid.Column="1" Foreground="White" Grid.ColumnSpan="10" Grid.Row="11" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">----</Label>
+
+        <Label FontSize="67" Grid.Column="2" Foreground="White" Grid.ColumnSpan="10" Grid.Row="3" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold">¡Bienvenido!</Label>
+        <Border Grid.Row="4"  Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="6" Margin="50" CornerRadius="400" Background="DarkGray" Opacity="0.6"/>
+        <Label x:Name="labelUsuario" FontSize="67" Grid.Column="2" Foreground="White" Grid.ColumnSpan="10" Grid.Row="9" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold" Margin="10">¡Bienvenido!</Label>
+        <Label x:Name="labelHora" FontSize="67" Grid.Column="0" FontFamily="Arial" Foreground="White" Grid.ColumnSpan="10" Grid.Row="1" Grid.RowSpan="2" HorizontalContentAlignment="Left" FontWeight="Bold" Margin="15,0,0,0">----</Label>
+        <Border Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="5" Margin="50" CornerRadius="10" Background="White" Opacity="0.3"/>
+        <Border Grid.Row="7"  Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="50" CornerRadius="10" Background="DarkGray" Opacity="0.6">
+            <StackPanel>
+                
+            </StackPanel>
+    
+        </Border>
+
 
         <StackPanel Grid.Row="15" Grid.ColumnSpan="10" Margin="10" Orientation="Horizontal" VerticalAlignment="Bottom">
             <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Width="60"></xctk:ColorPicker>

@@ -15,6 +15,7 @@ namespace Production_control_1._0.clases
         public string modulo { get; set; }
         public int arteria { get; set; }
         public int coordinador { get; set; }
+        public string coordinadorNombre { get; set; }
         public string estilo { get; set; }
         public string temporada { get; set; }
         public string empaque { get; set; }
@@ -54,6 +55,7 @@ namespace Production_control_1._0.clases
         public List<string> empaques { get; set; }
         public int valido { get; set; }
         public int diferencia { get; set; }
+        public int make { get; set; }
     }
 }
 
