@@ -177,6 +177,8 @@ namespace Production_control_1._0
                 //limpiar en caso de que se haya seleccionado uno antes
                 codigo_mecanico.Content = "----";
                 mecanico.Content = "----";
+                hora_asignacion.Content = "----";
+                hora_apertura.Content = "----";
 
                 //se determina el tamano de la ventana emergente
                 #region tamano_de_pop
