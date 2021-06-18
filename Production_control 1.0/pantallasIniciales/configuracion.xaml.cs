@@ -388,6 +388,9 @@ namespace Production_control_1._0.pantallasIniciales
                     soportes_.Add(item.nombre);
                 }
             }
+            coordinadores_.Add("-");
+            ingenieros_.Add("-");
+            soportes_.Add("-");
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

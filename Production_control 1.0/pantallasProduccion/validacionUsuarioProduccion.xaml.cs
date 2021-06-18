@@ -103,7 +103,7 @@ namespace Production_control_1._0.pantallasProduccion
                 if (verificacion==true)
                 {
                     Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
-                    GridPrincipal.Content = new pantallasProduccion.reporteAsistencia();
+                    GridPrincipal.Content = new pantallasProduccion.reporteAsistencia(Convert.ToInt32(textBoxUsuario.Text));
                 }
                 else
                 {

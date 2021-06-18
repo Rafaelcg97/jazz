@@ -32,11 +32,11 @@ namespace Production_control_1._0.pantallasProduccion
         List<string> modulos_ = new List<string>();
         string[] turnos_ = new string[3];
         int[] arterias_ = new int[3];
-        string[] movimientos_ = new string[4];
+        string[] movimientos_ = new string[6];
         string[] puestos_ = new string[3];
         #endregion
         #region datosIniciales
-        public reporteAsistencia()
+        public reporteAsistencia(int codigoCoordinador)
         {
             InitializeComponent();
             //agregar modulos
@@ -44,7 +44,7 @@ namespace Production_control_1._0.pantallasProduccion
             SqlCommand cm;
             SqlDataReader dr;
             cnProduccion.Open();
-            sql = "select modulo from modulosProduccion where coordinadorNombre<>'-'";
+            sql = "select modulo from modulosProduccion where coordinadorCodigo='"+codigoCoordinador+"'";
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             while (dr.Read())
@@ -68,6 +68,8 @@ namespace Production_control_1._0.pantallasProduccion
             movimientos_[1] = "PERMISO PERSONAL/TRAMITE PERSONAL";
             movimientos_[2] = "AUSENCIA INJUSTIFICADA";
             movimientos_[3] = "PERMISO PERSONAL/CITA ISSS";
+            movimientos_[4] = "INASISTENCIA";
+            movimientos_[5] = "-";
             puestos_[0] = "OPERARIO(A)";
             puestos_[1] = "CORREDOR";
             puestos_[2] = "LAVADO";
