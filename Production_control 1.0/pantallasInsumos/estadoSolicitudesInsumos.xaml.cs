@@ -14,6 +14,7 @@ namespace Production_control_1._0.pantallasInsumos
     public partial class estadoSolicitudesInsumos : Page
     {
         int autoriza_ = 0;
+        string cargo_ = "";
         #region conexionesConBasesSQL
         public SqlConnection cnMantenimiento = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public string sql; //Consulta que se hace en sql
@@ -21,7 +22,7 @@ namespace Production_control_1._0.pantallasInsumos
         public SqlDataReader dr; //leer los resultados del comando sql
         #endregion
         #region datosIniciales
-        public estadoSolicitudesInsumos(int autoriza)
+        public estadoSolicitudesInsumos(int autoriza, string cargo="")
         {
             InitializeComponent();
             autoriza_ = autoriza;
@@ -29,6 +30,23 @@ namespace Production_control_1._0.pantallasInsumos
 
             MessageModel model = new MessageModel(this.Dispatcher);
             this.DataContext = model;
+            cargo_ = cargo;
+            if (cargo == "ADMINISTRADOR3")
+            {
+                Recibida.Opacity = 0.4;
+                Aprobada.Opacity = 1;
+                Entregada.Opacity = 1;
+                Descargada.Opacity = 1;
+                Cancelada.Opacity = 1;
+            }
+            else if (cargo == "")
+            {
+                Recibida.Opacity = 1;
+                Aprobada.Opacity = 1;
+                Entregada.Opacity = 0.4;
+                Descargada.Opacity = 0.4;
+                Cancelada.Opacity = 0.4;
+            }
         }
         public void CreatePermission()
         {
@@ -92,7 +110,6 @@ namespace Production_control_1._0.pantallasInsumos
         }
         #endregion
         #region ListBoxEmisorDeData
-
         #region ObtenerDatosDeListBox
         private static object GetDataFromListBox(ListBox source, Point point)
         {
@@ -143,11 +160,38 @@ namespace Production_control_1._0.pantallasInsumos
             string status = estacion.Name.ToString();
             object informacion = e.Data.GetData(typeof(solicitudInsumo));
             solicitudInsumo informacionElemento = informacion as solicitudInsumo;
-            sql = "update ordenesBodegaInsumos set ordenStatus='"+status+"', autoriza='"+autoriza_+"' where orden_id="+informacionElemento.ordenIdNum;
-            cnMantenimiento.Open();
-            cm = new SqlCommand(sql, cnMantenimiento);
-            cm.ExecuteNonQuery();
-            cnMantenimiento.Close();
+
+
+            switch (cargo_)
+            {
+                case "ADMINISTRADOR3":
+                    if (informacionElemento.autorizado == "Recibida"|| status=="Recibida")
+                    {
+
+                    }
+                    else
+                    {
+                        sql = "update ordenesBodegaInsumos set ordenStatus='" + status + "', autoriza='" + autoriza_ + "' where orden_id='" + informacionElemento.ordenId + "'";
+                        cnMantenimiento.Open();
+                        cm = new SqlCommand(sql, cnMantenimiento);
+                        cm.ExecuteNonQuery();
+                        cnMantenimiento.Close();
+                    }
+                    break;
+                case "":
+                    if (informacionElemento.autorizado == "Recibida" || (status == "Recibida" && informacionElemento.autorizado=="Aprobada"))
+                    {
+                        sql = "update ordenesBodegaInsumos set ordenStatus='" + status + "', autoriza='" + autoriza_ + "' where orden_id='" + informacionElemento.ordenId+"'";
+                        cnMantenimiento.Open();
+                        cm = new SqlCommand(sql, cnMantenimiento);
+                        cm.ExecuteNonQuery();
+                        cnMantenimiento.Close();
+                    }
+                    else
+                    {
+                    }
+                    break;
+            }
         }
         #endregion
         #region abrirPopDetallesInsum
@@ -158,16 +202,17 @@ namespace Production_control_1._0.pantallasInsumos
             {
                solicitudInsumo itemSeleccionado= (solicitudInsumo)estadoSolicitud.SelectedItem;
                 //se abre la ventana emergente
-                int numeroSolici = itemSeleccionado.ordenIdNum;
+                int numeroSolici = itemSeleccionado.ordenId;
+                labelNumeroDeSolicitud.Content = numeroSolici.ToString();
                 List<solicitudInsumo> listaResumenSolicitudes = new List<solicitudInsumo>();
                 cnMantenimiento.Open();
-                sql = "select*from ordenesBodegaInsumosDetalles where ordenId="+numeroSolici;
+                sql = "select ordenId, insumo, descripcion, cantidad, total, comentario from ordenesBodegaInsumosDetalles where ordenId='"+numeroSolici+"'";
                 cm = new SqlCommand(sql, cnMantenimiento);
                 dr = cm.ExecuteReader();
                 //agregar solicitudes recibidas aprobadas entregadas a las listas
                 while (dr.Read())
                 {
-                    listaResumenSolicitudes.Add(new solicitudInsumo() { description = dr["insumo"].ToString(), solicitado = Convert.ToInt32(dr["cantidad"]), costC = Convert.ToDouble(dr["total"]).ToString("C"), comentario=dr["comentario"].ToString() });    
+                    listaResumenSolicitudes.Add(new solicitudInsumo() { partNumber=dr["insumo"].ToString(), description = dr["descripcion"].ToString(), solicitado = Convert.ToInt32(dr["cantidad"]), costC = Convert.ToDouble(dr["total"]).ToString("C"), comentario=dr["comentario"].ToString() });    
                 };
                 dr.Close();
                 cnMantenimiento.Close();
@@ -190,7 +235,7 @@ namespace Production_control_1._0.pantallasInsumos
             //agregar solicitudes recibidas aprobadas entregadas a las listas
             while (dr.Read())
             {
-                listaSolicitudesDescargadas.Add(new solicitudInsumo() { ordenIdNum= Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante=dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["CostoTotal"]).ToString("C") });
+                listaSolicitudesDescargadas.Add(new solicitudInsumo() { ordenId= Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante=dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["CostoTotal"]).ToString("C") });
             };
             dr.Close();
             cnMantenimiento.Close();
@@ -207,7 +252,7 @@ namespace Production_control_1._0.pantallasInsumos
             //agregar solicitudes recibidas aprobadas entregadas a las listas
             while (dr.Read())
             {
-                listaSolicitudesCanceladas.Add(new solicitudInsumo() { ordenIdNum = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["CostoTotal"]).ToString("C") });
+                listaSolicitudesCanceladas.Add(new solicitudInsumo() { ordenId = Convert.ToInt32(dr["orden_id"]), ordenNombreSolicitante = dr["ordenNombreSolicitante"].ToString(), costC = Convert.ToDouble(dr["CostoTotal"]).ToString("C") });
             };
             dr.Close();
             cnMantenimiento.Close();
@@ -215,5 +260,10 @@ namespace Production_control_1._0.pantallasInsumos
 
         }
         #endregion
+
+        private void buttonCerrarDetalles_Click(object sender, RoutedEventArgs e)
+        {
+            detalles.IsOpen = false;
+        }
     }
 }

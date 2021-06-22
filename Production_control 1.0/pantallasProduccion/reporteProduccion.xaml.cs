@@ -589,8 +589,29 @@ namespace Production_control_1._0.pantallasProduccion
                         }
                     }
                     cnProduccion.Close();
+                    #region navegarInicioProduccion
                     PagePrincipal pagePrincipal = new PagePrincipal();
+                    Grid gridInicio = (Grid)pagePrincipal.Content;
+                    foreach(object objeto in gridInicio.Children)
+                    {
+                        if (objeto.GetType() == typeof(Grid))
+                        {
+                            Grid grid = (Grid)objeto;
+                            if (grid.Name == "gridListaAreas")
+                            {
+                                foreach(object objeto2 in grid.Children)
+                                {
+                                    if(objeto2.GetType()== typeof(ListView))
+                                    {
+                                        ListView listviewMenu = (ListView)objeto2;
+                                        listviewMenu.SelectedIndex = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     NavigationService.Navigate(pagePrincipal);
+                    #endregion
                 }
             }
         }
@@ -662,8 +683,29 @@ namespace Production_control_1._0.pantallasProduccion
                 }
             }
             cnProduccion.Close();
+            #region navegarInicioProduccion
             PagePrincipal pagePrincipal = new PagePrincipal();
+            Grid gridInicio = (Grid)pagePrincipal.Content;
+            foreach (object objeto in gridInicio.Children)
+            {
+                if (objeto.GetType() == typeof(Grid))
+                {
+                    Grid grid = (Grid)objeto;
+                    if (grid.Name == "gridListaAreas")
+                    {
+                        foreach (object objeto2 in grid.Children)
+                        {
+                            if (objeto2.GetType() == typeof(ListView))
+                            {
+                                ListView listviewMenu = (ListView)objeto2;
+                                listviewMenu.SelectedIndex = 1;
+                            }
+                        }
+                    }
+                }
+            }
             NavigationService.Navigate(pagePrincipal);
+            #endregion
         }
         private void ButtonCerrarPopup2_Click_1(object sender, RoutedEventArgs e)
         {

@@ -19,6 +19,7 @@ namespace Production_control_1._0.clases
         public string autorizado { get; set; }
         public string comentario { get; set; }
         public string ordenNombreSolicitante { get; set; }
-        public int ordenIdNum { get; set; }
+        public string ordenKey{ get; set; }
+        public int ordenId { get; set; }
     }
 }

@@ -284,7 +284,6 @@ namespace Production_control_1._0.pantallasInsumos
 
         #endregion
         #region terminarSolicitud
-
         private void ButtomTerminarSolicitud_Click(object sender, RoutedEventArgs e)
         {
             //hay productos que requieren una aprobacion especial y estan definidos en dbo(
@@ -334,13 +333,14 @@ namespace Production_control_1._0.pantallasInsumos
                 //ingresar detalles de la orden
                 foreach(solicitudInsumo item in listViewRepuestosSolicitados.Items)
                 {
-                sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('"+ idIngreso +"', '"+ item.partNumber +"', '"+ item.solicitado+"', '"+ ((double)item.solicitado * item.cost) + "', '"+item.comentario+"')";
+                sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, descripcion, cantidad, total, comentario) values('"+ idIngreso +"', '"+ item.partNumber +"', '"+item.description+"', '"+ item.solicitado+"', '"+ ((double)item.solicitado * item.cost) + "', '"+item.comentario+"')";
                 cm = new SqlCommand(sql, cnMantenimiento);
                 cm.ExecuteNonQuery();
                 }
                 cnMantenimiento.Close();
-                MessageBox.Show("Su orden ha sido enviada esta en espera de aprobación");
-            }
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = new estadoSolicitudesUsuarios();
+                }
             else
             {
                 cnMantenimiento.Open();
@@ -355,13 +355,14 @@ namespace Production_control_1._0.pantallasInsumos
                 //ingresar detalles de la orden
                 foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
                 {
-                    sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '"+item.comentario+"')";
+                    sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, descripcion, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.description + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
                     cm = new SqlCommand(sql, cnMantenimiento);
                     cm.ExecuteNonQuery();
                 }
                 cnMantenimiento.Close();
-                MessageBox.Show("Su orden ha sido enviada y aprobada");
-                }
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = new estadoSolicitudesUsuarios();
+            }
             }
             else
             {
@@ -372,8 +373,6 @@ namespace Production_control_1._0.pantallasInsumos
             listViewRepuestosSolicitados.ItemsSource = listaLimpia;
             textBoxCantidad.Text = "1";
         }
-
-
         #endregion
     }
 }

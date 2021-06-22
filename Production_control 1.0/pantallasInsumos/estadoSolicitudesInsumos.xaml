@@ -17,8 +17,12 @@
                     <DataTemplate>
                         <Border BorderBrush="Black" BorderThickness="1" Margin="1" Height="100" Background="AliceBlue" CornerRadius="8" >
                             <StackPanel>
-                                <Label FontWeight="Bold" Content="{Binding ordenNombreSolicitante}" Padding="5,0,5,0" Margin="0,15,0,15" FontSize="12"/>
-                                <Label Content="{Binding Path=costC}" HorizontalContentAlignment="Center" FontSize="25"/>
+                                <Label FontWeight="Bold" Content="{Binding ordenNombreSolicitante}" Padding="5,0,5,0" Margin="0,15,0,0" FontSize="12"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Label Content="N° Orden:" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold"/>
+                                    <Label Content="{Binding Path=ordenId}" HorizontalContentAlignment="Center" FontSize="12"/>
+                                </StackPanel>
+                                <Label Content="{Binding Path=costC}" HorizontalContentAlignment="Center" FontSize="15" Margin="0,0,0,0" Padding="0"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -112,36 +116,48 @@
             <Label Content="Solicitudes Recibidas" Grid.Column="0" Grid.Row="3" Margin="32,0,0,0"  Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
             <ListBox x:Name="Recibida" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Recibidas}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor" MouseRightButtonUp="Recibida_MouseRightButtonUp" />
             <Label Content="Solicitudes Aprobadas" Grid.Column="4" Grid.Row="3" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
-            <ListBox x:Name="Aprobada" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Aprobadas}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <ListBox x:Name="Aprobada" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Aprobadas}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor" MouseRightButtonUp="Recibida_MouseRightButtonUp" />
             <Label Content="Solicitudes Entregadas" Grid.Column="8" Grid.Row="3" Margin="32,0,0,0" Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
-            <ListBox x:Name="Entregada" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Entregadas}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <ListBox x:Name="Entregada" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Entregadas}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor" MouseRightButtonUp="Recibida_MouseRightButtonUp" />
             <StackPanel Orientation="Horizontal" Grid.Column="12" Grid.Row="3" Margin="32,0,0,0" Grid.ColumnSpan="4" HorizontalAlignment="Center">
                 <Label Content="Solicitudes Descargadas" Foreground="Wheat" FontSize="25" HorizontalContentAlignment="Center"/>
                 <Button Width="35" Height="35" Margin="15,0,0,0" Background="Transparent" BorderBrush="Transparent" x:Name="buttonDescargas" Click="buttonDescargas_Click">
                     <Image Source="/imagenes/actualizar.png"/>
                 </Button>
             </StackPanel>
-            <ListBox x:Name="Descargada" Grid.Row="4" Grid.Column="12" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <ListBox x:Name="Descargada" Grid.Row="4" Grid.Column="12" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor" MouseRightButtonUp="Recibida_MouseRightButtonUp" />
             <StackPanel Grid.Column="12" Grid.Row="11" Margin="32,0,0,0"  Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Solicitudes Canceladas" Foreground="Wheat" FontSize="25" HorizontalContentAlignment="Center"/>
                 <Button Width="35" Height="35" Margin="15,0,0,0" Background="Transparent" BorderBrush="Transparent" x:Name="buttonCanceladas" Click="buttonCanceladas_Click">
                     <Image Source="/imagenes/actualizar.png"/>
                 </Button>
             </StackPanel>
-            <ListBox x:Name="Cancelada" Grid.Row="12" Grid.Column="12" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor"/>
+            <ListBox x:Name="Cancelada" Grid.Row="12" Grid.Column="12" Grid.ColumnSpan="4" Grid.RowSpan="7" Margin="32,0,15,0"  ItemsSource="{Binding}" Background="Transparent" PreviewMouseLeftButtonDown="obtenerDatosListBox" AllowDrop="True" Drop="receptor" MouseRightButtonUp="Recibida_MouseRightButtonUp" />
         </Grid>
         <Popup x:Name="detalles" Width="580" Height="627" AllowsTransparency="True" StaysOpen="False" PlacementTarget="{Binding ElementName=areaDeTrabajo}" Placement="Center">
             <Border Background="White" CornerRadius="9">
-                <ListView x:Name="listViewInsumosOrden" Margin="5" BorderThickness="0" BorderBrush="Transparent" FontSize="10" >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Repuesto" DisplayMemberBinding="{Binding Path=description}" Width="290" />
-                            <GridViewColumn Header="Cantidad" DisplayMemberBinding="{Binding Path=solicitado}" Width="55"/>
-                            <GridViewColumn Header="$ Total" DisplayMemberBinding="{Binding Path=costC}" Width="55"/>
-                            <GridViewColumn Header="Comentario" DisplayMemberBinding="{Binding Path=comentario}" Width="160"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="N° Solicitud:" FontSize="12" FontWeight="Bold"/>
+                        <Label x:Name="labelNumeroDeSolicitud" Content="----" FontSize="12" Width="200" />
+                        <Button x:Name="buttonCerrarDetalles" Margin="275,0,0,0" Width="25" Height="25" Background="Transparent" BorderBrush="Transparent" Click="buttonCerrarDetalles_Click">
+                            <Image Source="/imagenes/cerrar.png"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView x:Name="listViewInsumosOrden" Margin="5" BorderThickness="0" BorderBrush="Transparent" FontSize="10" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Repuesto" DisplayMemberBinding="{Binding Path=description}" Width="290" />
+                                <GridViewColumn Header="PartNumber" DisplayMemberBinding="{Binding Path=partNumber}" Width="55"/>
+                                <GridViewColumn Header="Cantidad" DisplayMemberBinding="{Binding Path=solicitado}" Width="55"/>
+                                <GridViewColumn Header="$ Total" DisplayMemberBinding="{Binding Path=costC}" Width="55"/>
+                                <GridViewColumn Header="Comentario" DisplayMemberBinding="{Binding Path=comentario}" Width="160"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </StackPanel>
+
             </Border>
         </Popup>
     </Grid>

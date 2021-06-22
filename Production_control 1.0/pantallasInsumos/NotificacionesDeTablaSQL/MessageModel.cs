@@ -73,7 +73,7 @@ namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
                               case "Recibida":
                                   solicitudInsumo recibida = new solicitudInsumo
                                   {
-                                      ordenIdNum = Convert.ToInt32(drow["orden_id"]),
+                                      ordenId = Convert.ToInt32(drow["orden_id"]),
                                       ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
                                       autorizado = drow["ordenStatus"] as string,
                                       costC = Convert.ToDouble(drow["CostoTotal"]).ToString("C")
@@ -83,7 +83,7 @@ namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
                               case "Aprobada":
                                   solicitudInsumo aprobada = new solicitudInsumo
                                   {
-                                      ordenIdNum = Convert.ToInt32(drow["orden_id"]),
+                                      ordenId = Convert.ToInt32(drow["orden_id"]),
                                       ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
                                       autorizado = drow["ordenStatus"] as string,
                                       costC = Convert.ToDouble(drow["CostoTotal"]).ToString("C")
@@ -93,7 +93,7 @@ namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
                               case "Entregada":
                                   solicitudInsumo entregada = new solicitudInsumo
                                   {
-                                      ordenIdNum = Convert.ToInt32(drow["orden_id"]),
+                                      ordenId = Convert.ToInt32(drow["orden_id"]),
                                       ordenNombreSolicitante = drow["ordenNombreSolicitante"] as string,
                                       autorizado = drow["ordenStatus"] as string,
                                       costC = Convert.ToDouble(drow["CostoTotal"]).ToString("C")
@@ -111,9 +111,7 @@ namespace Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL
         }
 
         #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)

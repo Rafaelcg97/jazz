@@ -313,7 +313,7 @@ namespace Production_control_1._0
                     dialog.PrintTicket.PageBorderless = PageBorderless.None;
                     dialog.PrintTicket.PageMediaSize = tamano;
                     dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
-                    dialog.PrintVisual(area_de_impresion, "LayOut");
+                    dialog.PrintVisual(area_de_impresion, "LayOut: " + estilo.Content);
                     MessageBox.Show("Enviado a Impresora");
                 }
                 catch

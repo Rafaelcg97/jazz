@@ -81,7 +81,6 @@ namespace Production_control_1._0
                     Title = "Carga",
                     Values = new ChartValues<double> {0},
                     Fill = System.Windows.Media.Brushes.Green,
-                    LabelsPosition=BarLabelPosition.Top,
                 },
                 new LineSeries
                 {
@@ -116,7 +115,7 @@ namespace Production_control_1._0
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black});
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black});
             //se agregan los valores de las cargas en las columnas
             foreach (operario item in listaOperariosRecibidos)
             {
@@ -294,8 +293,6 @@ namespace Production_control_1._0
             string orientacion_pagina = tamano_impresion.SelectedItem.ToString();
             PageMediaSize tamano;
             PageOrientation orientacion;
-
-
             //configurar el valor del tamño de pagina
             switch (tamano_pagina)
             {
@@ -312,7 +309,6 @@ namespace Production_control_1._0
                     tamano = new PageMediaSize(PageMediaSizeName.NorthAmericaTabloid);
                     break;
             };
-
             //configurar el valor de orientacion de pagina
             switch (orientacion_pagina)
             {
@@ -326,7 +322,6 @@ namespace Production_control_1._0
                     orientacion = PageOrientation.Landscape;
                     break;
             };
-
             //establecer las propiedades de impresion
 
             if (checkBoxImpresora.IsChecked == true)
@@ -338,7 +333,7 @@ namespace Production_control_1._0
                     dialog.PrintTicket.PageBorderless = PageBorderless.None;
                     dialog.PrintTicket.PageMediaSize = tamano;
                     dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
-                    dialog.PrintVisual(area_de_impresion, "LayOut");
+                    dialog.PrintVisual(area_de_impresion, "Balance: "+estilo.Content);
                     MessageBox.Show("Enviado a Impresora");
                 }
                 catch

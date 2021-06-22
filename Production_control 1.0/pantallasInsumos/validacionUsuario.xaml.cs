@@ -62,17 +62,19 @@ namespace Production_control_1._0.pantallasInsumos
             string areaSolicitadaVerificar = labelAreaSolicitada.Content.ToString();
             //datos para realizar conexion
             SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select nivel from usuarios where bodega=1 and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
+            string sql = "select nivel, cargo from usuarios where bodega=1 and codigo='" + textBoxUsuario.Text + "' and contrasena='" + PasswordBoxContra.Password + "'";
             cnIngenieria.Open();
             SqlCommand cm = new SqlCommand(sql, cnIngenieria);
             SqlDataReader dr = cm.ExecuteReader();
             //se hace un conteo para ver si existe ese usuario con esa contrasena
             int conteoVerificacion = 0;
             int nivelUsuario = 0;
+            string cargo = "";
             while (dr.Read())
             {
                 conteoVerificacion = conteoVerificacion + 1;
                 nivelUsuario = Convert.ToInt32(dr["nivel"]);
+                cargo = dr["cargo"].ToString();
             };
             dr.Close();
             cnIngenieria.Close();
@@ -84,9 +86,15 @@ namespace Production_control_1._0.pantallasInsumos
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new repuestosCostura(Convert.ToInt32(textBoxUsuario.Text), labelAreaSolicitada.Content.ToString()));
                 }
-                else if(areaSolicitadaVerificar== "Administración Bodega de Insumos" && nivelUsuario == 1)
+                else if(areaSolicitadaVerificar== "Administración Bodega de Insumos" && nivelUsuario == 1 && cargo !="ADMINISTRADOR3")
                 {
                     estadoSolicitudesInsumos estadoSolicitudesInsumos = new estadoSolicitudesInsumos(Convert.ToInt32(textBoxUsuario.Text));
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = estadoSolicitudesInsumos;
+                }
+                else if (areaSolicitadaVerificar == "Administración Bodega de Insumos" && nivelUsuario == 1 && cargo=="ADMINISTRADOR3")
+                {
+                    estadoSolicitudesInsumos estadoSolicitudesInsumos = new estadoSolicitudesInsumos(Convert.ToInt32(textBoxUsuario.Text), cargo);
                     Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
                     GridPrincipal.Content = estadoSolicitudesInsumos;
                 }

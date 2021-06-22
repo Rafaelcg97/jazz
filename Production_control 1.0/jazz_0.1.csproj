@@ -252,6 +252,9 @@
     <Compile Include="pantallasIniciales\validacionUsuarioConfiguraciones.xaml.cs">
       <DependentUpon>validacionUsuarioConfiguraciones.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasInsumos\estadoSolicitudesUsuarios.xaml.cs">
+      <DependentUpon>estadoSolicitudesUsuarios.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\MessageModel.cs" />
     <Compile Include="pantallasInsumos\NotificacionesDeTablaSQL\SQLNotifier.cs" />
     <Compile Include="pantallasIniciales\inicio.xaml.cs">
@@ -361,6 +364,10 @@
     <Page Include="pantallasIniciales\validacionUsuarioConfiguraciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasInsumos\estadoSolicitudesUsuarios.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="pantallasInsumos\estadoSolicitudesInsumos.xaml">
       <SubType>Designer</SubType>
@@ -786,6 +793,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\administrar.png" />
+    <Resource Include="imagenes\observar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

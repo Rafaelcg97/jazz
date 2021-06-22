@@ -55,6 +55,7 @@ namespace Production_control_1._0.pantallasIniciales
             cargos_.Add("LEAN");
             cargos_.Add("ADMINISTRADOR1");
             cargos_.Add("ADMINISTRADOR2");
+            cargos_.Add("ADMINISTRADOR3");
             cargos_.Add("ADMINISTRADORGENERAL");
             consultar(cargo);
             actualizarListas();

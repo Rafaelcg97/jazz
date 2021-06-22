@@ -57,7 +57,7 @@ namespace Production_control_1._0.NotificacionesDeTablaSQL
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select[orden_id], [ordenStatus], [ordenNombreSolicitante], [CostoTotal] from dbo.ordenesBodegaInsumos where [ordenStatus]<>'Cancelada' and [ordenStatus]<>'Descargada'", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [orden_id], [ordenStatus], [ordenNombreSolicitante], [CostoTotal] from dbo.ordenesBodegaInsumos where [ordenStatus]<>'Cancelada' and [ordenStatus]<>'Descargada'", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 

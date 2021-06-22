@@ -27,7 +27,6 @@ namespace Production_control_1._0.pantallasInsumos
         SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
         SqlDataReader dr; //leer los resultados del comando sql
         #endregion
-
         #region datosIniciales
         public repuestosCostura(int codigo, string areaCategoria)
         {
@@ -95,7 +94,6 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
         }
         #endregion
-
         #region calculos_generals
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
@@ -143,7 +141,6 @@ namespace Production_control_1._0.pantallasInsumos
             deshabilitarBoton();
         }
         #endregion
-
         #region botonesControlFormulario
 
         private void aumentarCantidad_Click(object sender, RoutedEventArgs e)
@@ -210,7 +207,6 @@ namespace Production_control_1._0.pantallasInsumos
         }
 
         #endregion
-
         #region FiltrarListasMaquinaRepuestos
 
         private void TextBoXBuscarMaquina_TextChanged(object sender, TextChangedEventArgs e)
@@ -264,7 +260,6 @@ namespace Production_control_1._0.pantallasInsumos
         }
 
         #endregion
-
         #region agregarRepuestoLista
         private void ButtomIngresarRepuesto_Click(object sender, RoutedEventArgs e)
         {
@@ -343,7 +338,6 @@ namespace Production_control_1._0.pantallasInsumos
 
 
         #endregion
-
         #region terminarSolicitud
         private void ButtomTerminarSolicitud_Click(object sender, RoutedEventArgs e)
         {
@@ -394,12 +388,13 @@ namespace Production_control_1._0.pantallasInsumos
                     //ingresar detalles de la orden
                     foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
                     {
-                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
+                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, descripcion, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '"+ item.description+"', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
                         cm = new SqlCommand(sql, cnMantenimiento);
                         cm.ExecuteNonQuery();
                     }
                     cnMantenimiento.Close();
-                    MessageBox.Show("Su orden ha sido enviada esta en espera de aprobación");
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = new estadoSolicitudesUsuarios();
                 }
                 else
                 {
@@ -415,12 +410,13 @@ namespace Production_control_1._0.pantallasInsumos
                     //ingresar detalles de la orden
                     foreach (solicitudInsumo item in listViewRepuestosSolicitados.Items)
                     {
-                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
+                        sql = "insert into ordenesBodegaInsumosDetalles (ordenId, insumo, descripcion, cantidad, total, comentario) values('" + idIngreso + "', '" + item.partNumber + "', '" + item.description + "', '" + item.solicitado + "', '" + ((double)item.solicitado * item.cost) + "', '" + item.comentario + "')";
                         cm = new SqlCommand(sql, cnMantenimiento);
                         cm.ExecuteNonQuery();
                     }
                     cnMantenimiento.Close();
-                    MessageBox.Show("Su orden ha sido enviada y aprobada");
+                    Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+                    GridPrincipal.Content = new estadoSolicitudesUsuarios();
                 }
             }
             else

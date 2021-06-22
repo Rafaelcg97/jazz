@@ -33,7 +33,7 @@
         </Grid>
         <!--#endregion-->
         <!--#region menu general-->
-        <Grid Width="250" HorizontalAlignment="Left" Background="#FF222222">
+        <Grid x:Name="gridListaAreas" Width="250" HorizontalAlignment="Left" Background="#FF222222">
             <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                 <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
             </materialDesign:TransitioningContent>

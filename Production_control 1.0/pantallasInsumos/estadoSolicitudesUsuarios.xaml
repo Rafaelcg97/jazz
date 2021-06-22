@@ -1,0 +1,117 @@
+﻿<Page x:Class="Production_control_1._0.pantallasInsumos.estadoSolicitudesUsuarios"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Production_control_1._0.pantallasInsumos"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="estadoSolicitudesInsumos"
+      Background="#FF2A2C32">
+    <Page.Resources>
+        <Style TargetType="{x:Type ListBox}">
+
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="1" Height="100" Background="AliceBlue" CornerRadius="8" >
+                            <StackPanel>
+                                <Label FontWeight="Bold" Content="{Binding ordenNombreSolicitante}" Padding="5,0,5,0" Margin="0,15,0,0" FontSize="15"/>
+                                <Label Content="N° Orden:" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold"/>
+                                <Label Content="{Binding Path=ordenId}" HorizontalContentAlignment="Center" FontSize="17"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- para que no muestre el scroll horizontal -->
+            <Setter 
+        Property="ScrollViewer.HorizontalScrollBarVisibility" 
+        Value="Disabled" 
+        />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <!--#region control general del programa-->
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
+                        <materialDesign:PackIcon Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
+                        <materialDesign:PackIcon Kind="Close"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+        <Grid x:Name="areaDeTrabajo">
+            <!--#region encabezadoPr-->
+            <!--#region filas/columans-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--#endregion-->
+            <Button x:Name="ButtonRegresar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="regresar" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
+            </Button>
+            <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10"  Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="tamanoLetrAutomatico" Foreground="LightCoral" FontWeight="Bold" HorizontalAlignment="Center">Estado De Solicitudes</Label>
+            <!--#endregion-->
+            <Label Content="Solicitudes Recibidas" Grid.Column="0" Grid.Row="3" Margin="32,0,0,0"  Foreground="DarkRed" FontSize="25" Grid.ColumnSpan="8" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Recibida" Grid.Row="4" IsHitTestVisible="False" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Recibidas}" Background="Transparent" BorderThickness="10" BorderBrush="DarkRed" />
+            <Label Content="Solicitudes Aprobadas" Grid.Column="8" Grid.Row="3" Margin="32,0,0,0" Foreground="CadetBlue" FontSize="25" Grid.ColumnSpan="8" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="Aprobada" Grid.Row="4" IsHitTestVisible="False"  Grid.Column="8" Grid.ColumnSpan="8" Grid.RowSpan="15" Margin="32,0,15,0"  ItemsSource="{Binding Aprobadas}" Background="Transparent" BorderThickness="10" BorderBrush="CadetBlue" />
+        </Grid>
+    </Grid>
+</Page>
