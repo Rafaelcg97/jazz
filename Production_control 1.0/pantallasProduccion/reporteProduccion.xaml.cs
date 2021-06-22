@@ -191,9 +191,9 @@ namespace Production_control_1._0.pantallasProduccion
                 dr = cm.ExecuteReader();
                 if (dr.Read())
                 {
-                    if (dr["Fecha"].ToString() == DateTime.Now.ToString("yyyy-MM-dd") && Convert.ToInt32(dr["Hora"]) < 12)
+                    if (Convert.ToDateTime(dr["Fecha"]).ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd") && Convert.ToInt32(dr["Hora"] is DBNull? 0: dr["Hora"]) < 12)
                     {
-                        comboBoxHora.SelectedItem = (Convert.ToInt32(dr["Hora"]) + 1).ToString();
+                        comboBoxHora.SelectedIndex = Convert.ToInt32(dr["Hora"] is DBNull ? 0 : dr["Hora"]);
                     }
                     else
                     {
