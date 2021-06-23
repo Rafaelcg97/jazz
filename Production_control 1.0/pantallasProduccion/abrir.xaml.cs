@@ -22,7 +22,29 @@ namespace Production_control_1._0
         #region control_general_programa()
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.GoBack();
+            #region navegarInicioProduccion
+            PagePrincipal pagePrincipal = new PagePrincipal();
+            Grid gridInicio = (Grid)pagePrincipal.Content;
+            foreach (object objeto in gridInicio.Children)
+            {
+                if (objeto.GetType() == typeof(Grid))
+                {
+                    Grid grid = (Grid)objeto;
+                    if (grid.Name == "gridListaAreas")
+                    {
+                        foreach (object objeto2 in grid.Children)
+                        {
+                            if (objeto2.GetType() == typeof(ListView))
+                            {
+                                ListView listviewMenu = (ListView)objeto2;
+                                listviewMenu.SelectedIndex = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            NavigationService.Navigate(pagePrincipal);
+            #endregion
         }
         #region accionesBarraDeTitulo
         private void ButtonSalir(object sender, RoutedEventArgs e)
@@ -73,7 +95,6 @@ namespace Production_control_1._0
             dr.Close();
             cn.Close();
         }
-
         #endregion
         #region filtros_de_list_box
         private void modulo__SelectionChanged(object sender, SelectionChangedEventArgs e)

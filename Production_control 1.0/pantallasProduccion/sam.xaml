@@ -8,11 +8,11 @@
       mc:Ignorable="d"
       Title="sam" Height="auto" Width="auto">
     <Page.Resources>
-        <Style TargetType="{x:Type ListView}">
+        <Style x:Name="estiloListView1" TargetType="{x:Type ListView}">
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="1" Margin="1" Height="50" Background="#FF0069C0" CornerRadius="8">
+                        <Border BorderBrush="Black"  Margin="1" Height="50" Background="#FF0069C0" CornerRadius="8">
                             <StackPanel>
                                 <Label FontWeight="Bold" Content="{Binding nombre}" Padding="5,0,5,0" Margin="0,15,0,15" FontSize="12" VerticalContentAlignment="Center" Foreground="White"/>
                             </StackPanel>
@@ -33,6 +33,37 @@
         Value="Disabled" 
         />
         </Style>
+        
+        
+        <!-- Estilo para el los items del listview -->
+        <Style x:Key="ListViewItemStyle1" TargetType="{x:Type ListViewItem}">
+            <!-- fondo normal -->
+            <Setter Property="Background" Value="Red" />
+
+            <!-- fondo para cuando esta seleccionado un item -->
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Green" />
+                </Trigger>
+            </Style.Triggers>
+
+            <!-- modificar el color usado por el elemento 'border' de la plantilla (para windows XP) -->
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True" >
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Background" Value="Yellow" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
     </Page.Resources>
     <Grid Background="#FFEEEEEE" x:Name="GridInicio">
         <!--#region  region control general del programa-->
@@ -110,8 +141,12 @@
             <Label Content="Tipo" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
             <Label Content="Empaque" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
             <Label Content="Buscar Estilo" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5"/>
+            <Button Grid.Column="13" Grid.ColumnSpan="2" Margin="35,0,0,5" Grid.Row="1" Background="Transparent" Click="Button_Click">
+                <Image Source="/imagenes/descargar.png"/>
+            </Button>
             <!--#endregion-->
             <ListBox x:Name="listBoxTemporada" Grid.Row="2" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxTemporada_SelectionChanged"/>
+
             <ListBox x:Name="listBoxCliente" Grid.Row="2" Grid.RowSpan="7" Grid.Column="2" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxCliente_SelectionChanged"/>
             <ListBox x:Name="listBoxTipo" Grid.Row="2" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="2" Margin="35,0,0,5" SelectionChanged="listBoxTipo_SelectionChanged"/>
             <ListBox x:Name="listBoxEmpaque" Grid.Row="2" Grid.RowSpan="7" Grid.Column="6" Grid.ColumnSpan="3" Margin="35,0,0,5" SelectionChanged="listBoxEmpaque_SelectionChanged"/>
@@ -128,8 +163,8 @@
                 </ListView.View>
             </ListView>
             <TextBox x:Name="textBoxBuscar" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5" VerticalAlignment="Bottom" MinHeight="25" TextChanged="textBoxBuscar_TextChanged"/>
-            <ListView x:Name="ListViewEstilos" Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" SelectionChanged="ListViewEstilos_SelectionChanged"/>
-            <StackPanel Orientation="Horizontal"  Grid.Column="6" Grid.ColumnSpan="5" Grid.Row="10" Grid.RowSpan="8" >
+            <ListView x:Name="ListViewEstilos"  ItemContainerStyle="{DynamicResource ListViewItemStyle1}"   Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" SelectionChanged="ListViewEstilos_SelectionChanged"/>
+            <StackPanel Orientation="Horizontal"  Grid.Column="6" Grid.ColumnSpan="5" Grid.Row="10" Grid.RowSpan="9" >
                 <StackPanel>
                     <Label Content="Estado:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,0,0,5"/>
                     <Label Content="Etapa:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
@@ -137,6 +172,7 @@
                     <Label Content="SAM Costura:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                     <Label Content="SAM Empaque:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                     <Label Content="SAM Total:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label Content="Descripción:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                 </StackPanel>
                 <StackPanel>
                     <Label x:Name="labelEstado" Content="----" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,0,0,5"/>
@@ -145,9 +181,10 @@
                     <Label x:Name="labelSamCostura" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                     <Label x:Name="labelSamEmpaque" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                     <Label x:Name="labelSamTota" Content="0" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
+                    <Label x:Name="labelDescripcionEstilo" Content="----" FontFamily="calibri" FontSize="25" FontWeight="Medium" VerticalContentAlignment="Center" Margin="35,20,0,5"/>
                 </StackPanel>
             </StackPanel>
-            <TextBlock x:Name="textBlockElementosEmpaques" Grid.Column="6" Grid.Row="18" Grid.ColumnSpan="5" Grid.RowSpan="3"  Margin="35,20,0,20" TextWrapping="Wrap" Text="----" Background="#FF7DAFDA"  FontFamily="calibri" FontSize="20" Padding="10" />
+            <TextBlock x:Name="textBlockElementosEmpaques" Grid.Column="6" Grid.Row="19" Grid.ColumnSpan="5" Grid.RowSpan="3"  Margin="35,20,0,20" TextWrapping="Wrap" Text="----" Background="#FF7DAFDA"  FontFamily="calibri" FontSize="17" Padding="10" />
             <Button x:Name="buttonCrearPlantilla" Grid.Column="11" Grid.Row="18" Grid.ColumnSpan="2" Grid.RowSpan="3"  Margin="35,20,0,20" Background="Transparent" BorderBrush="Transparent" Click="buttonCrearPlantilla_Click">
                 <Image Source="/imagenes/nuevo.png"/>
             </Button>

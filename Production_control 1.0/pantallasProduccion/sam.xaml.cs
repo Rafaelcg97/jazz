@@ -7,6 +7,10 @@ using System.Windows.Navigation;
 using System.Configuration;
 using System.Data.SqlClient;
 using Production_control_1._0.clases;
+using System.Text;
+using Microsoft.Win32;
+using System.IO;
+using System.Diagnostics;
 
 namespace Production_control_1._0
 {
@@ -325,7 +329,7 @@ namespace Production_control_1._0
                 SqlDataReader dr;
                 // se consulta los datos de estilo
                 cnIngenieria.Open();
-                sql = "select sum(sam) as sam, max(etapa) as etapa, max(muestra) as muestra, max(estatus) as estatus from operaciones where temporada='" + listBoxTemporada.SelectedItem.ToString() + "' and cliente='" + listBoxCliente.SelectedItem.ToString() + "' and tipo='" + listBoxTipo.SelectedItem.ToString() + "' and estilo='" +_estilo+ "' group by estilo";
+                sql = "select sum(sam) as sam, max(etapa) as etapa, max(muestra) as muestra, max(estatus) as estatus, max(descripcionEstilo) as descripcion from operaciones where temporada='" + listBoxTemporada.SelectedItem.ToString() + "' and cliente='" + listBoxCliente.SelectedItem.ToString() + "' and tipo='" + listBoxTipo.SelectedItem.ToString() + "' and estilo='" +_estilo+ "' group by estilo";
                 cm = new SqlCommand(sql, cnIngenieria);
                 dr = cm.ExecuteReader();
                 dr.Read();
@@ -333,6 +337,7 @@ namespace Production_control_1._0
                 labelEtapa.Content = dr["etapa"].ToString();
                 labelMuestra.Content = dr["muestra"].ToString();
                 labelSamCostura.Content = dr["sam"].ToString();
+                labelDescripcionEstilo.Content = dr["descripcion"].ToString();
                 labelSamTota.Content = Math.Round(Convert.ToDouble(labelSamEmpaque.Content) + Convert.ToDouble(dr["sam"]),4);
                 dr.Close();
 
@@ -391,6 +396,46 @@ namespace Production_control_1._0
             }
         }
         #endregion
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder buffer = new StringBuilder();
+            #region encabezados
+            buffer.Append("TITULO OPERACION");
+            buffer.Append(",");
+            buffer.Append("AJUSTE OPERACION");
+            buffer.Append(",");
+            buffer.Append("SAM OPERACION");
+            buffer.Append("\n");
+            #endregion
+            foreach (Operacion item in ListViewOperaciones.Items)
+            {
+                buffer.Append(item.tituloOperacion.Replace(",",""));
+                buffer.Append(",");
+                buffer.Append(item.ajusteMaquina.Replace(",", ""));
+                buffer.Append(",");
+                buffer.Append(item.samOperacion);
+                buffer.Append("\n");
+            }
+            String result = buffer.ToString();
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            { }
+        }
     }
 }
 

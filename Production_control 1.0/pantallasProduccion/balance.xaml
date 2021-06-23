@@ -1458,7 +1458,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 20" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 21" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1490,7 +1490,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 19" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 20" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1522,7 +1522,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 18" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 19" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1554,7 +1554,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 17" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 18" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1586,7 +1586,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 16" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 17" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1618,7 +1618,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 15" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 16" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1650,7 +1650,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 14" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 15" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />
@@ -1682,7 +1682,7 @@
                                                 <Border BorderBrush="Black" BorderThickness="1" Width="180" Padding="0" Margin="4" Background="White">
                                                     <StackPanel Height="105" AllowDrop="True" Drop="receptor" Width="180" Background="Transparent">
                                                         <StackPanel Orientation="Horizontal" Background="Transparent">
-                                                            <Label Content="Estación 13" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
+                                                            <Label Content="Estación 14" FontSize="10" Padding="0" FontWeight="Black" Margin="5,0,10,0"/>
                                                             <RadioButton Background="Green" Checked="colorVerde" />
                                                             <RadioButton Background="Orange" Checked="colorAnaranjado" />
                                                             <RadioButton Background="Yellow" Checked="colorAmarillo" />

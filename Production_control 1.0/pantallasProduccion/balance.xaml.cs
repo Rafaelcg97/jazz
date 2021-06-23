@@ -676,7 +676,7 @@ namespace Production_control_1._0
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    this.NavigationService.Navigate(new PagePrincipal());
+                    this.NavigationService.Navigate(new abrir());
                     break;
                 case MessageBoxResult.No:
                     break;
