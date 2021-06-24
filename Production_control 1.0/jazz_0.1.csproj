@@ -236,6 +236,7 @@
     <Compile Include="clases\bp.cs" />
     <Compile Include="clases\elementoListBox.cs" />
     <Compile Include="clases\elementoRebalance.cs" />
+    <Compile Include="clases\elemento_grafica.cs" />
     <Compile Include="clases\estilo.cs" />
     <Compile Include="clases\horaProduccion.cs" />
     <Compile Include="clases\horasPorOperario.cs" />
@@ -797,6 +798,12 @@
   <ItemGroup>
     <Resource Include="imagenes\administrar.png" />
     <Resource Include="imagenes\observar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ControlLib4\ControlLib4.csproj">
+      <Project>{19436f88-d12d-452d-8d02-56142ff3e8cd}</Project>
+      <Name>ControlLib4</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

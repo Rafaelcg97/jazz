@@ -16,31 +16,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasIniciales
 {
     public partial class produccion : UserControl
     {
         #region clases_especiales
-        public class elemento_grafica
-        {
-            public string modulo { get; set; }
-            public string coordinador { get; set; }
-            public double eficiencia { get; set; }
-            public int piezas { get; set; }
-            public int h1 { get; set; }
-            public int h2 { get; set; }
-            public int h3 { get; set; }
-            public int h4 { get; set; }
-            public int h5 { get; set; }
-            public int h6 { get; set; }
-            public int h7 { get; set; }
-            public int h8 { get; set; }
-            public int h9 { get; set; }
-            public int h10 { get; set; }
-            public int h11 { get; set; }
-            public int h12 { get; set; }
-        }
+
         #endregion
         #region clases_especiales_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
@@ -221,6 +204,19 @@ namespace Production_control_1._0.pantallasIniciales
         }
         private void actualizarGrafica(string turno, string fecha)
         {
+            int h1 = 0;
+            int h2 = 0;
+            int h3 = 0;
+            int h4 = 0;
+            int h5 = 0;
+            int h6 = 0;
+            int h7 = 0;
+            int h8 = 0;
+            int h9 = 0;
+            int h10 = 0;
+            int h11 = 0;
+            int h12 = 0;
+            int piezas = 0;
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
             List<string> modulos = new List<string>();
             int totalPiezas = 0;
@@ -251,12 +247,45 @@ namespace Production_control_1._0.pantallasIniciales
             {
                 SeriesCollection[0].Values.Add(item.piezas);
                 SeriesCollection[1].Values.Add(item.eficiencia);
+                h1 = h1 + item.h1;
+                h2 = h2 + item.h2;
+                h3 = h3 + item.h3;
+                h4 = h4 + item.h4;
+                h5 = h5 + item.h5;
+                h6 = h6 + item.h6;
+                h7 = h7 + item.h7;
+                h8 = h8 + item.h8;
+                h9 = h9 + item.h9;
+                h10 = h10 + item.h10;
+                h11 = h11 + item.h11;
+                h12 = h12 + item.h12;
+                piezas = piezas + item.piezas;
             };
             listViewProduccionHora.ItemsSource = modulosProduccionEficiencia;
             labelTotalPiezas.Content = totalPiezas;
             labelTotalEficiencia.Content = (trabajado / disponible).ToString("P");
+            listViewFooter.piezas = 0;
 
+            listViewFooter.h1 = h1;
+            listViewFooter.h2 = h2;
+            listViewFooter.h3 = h3;
+            listViewFooter.h4 = h4;
+            listViewFooter.h5 = h5;
+            listViewFooter.h6 = h6;
+            listViewFooter.h7 = h7;
+            listViewFooter.h8 = h8;
+            listViewFooter.h9 = h9;
+            listViewFooter.h10 = h10;
+            listViewFooter.h11 = h11;
+            listViewFooter.h12 = h12;
+            listViewFooter.piezas = piezas;
         }
         #endregion
+
+        private void Label_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            elemento_grafica prueba = new elemento_grafica();
+            listViewFooter = prueba;
+        }
     }
 }

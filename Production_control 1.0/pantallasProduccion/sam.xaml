@@ -33,26 +33,6 @@
         Value="Disabled" 
         />
         </Style>
-        
-        
-        <!-- Estilo para el los items del listview -->
-        <Style x:Key="ListViewItemStyle1" TargetType="{x:Type ListViewItem}">
-            <!-- fondo normal -->
-            <Setter Property="Background" Value="Red" />
-
-            <!-- fondo para cuando esta seleccionado un item -->
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="Green" />
-                </Trigger>
-            </Style.Triggers>
-
-            <!-- modificar el color usado por el elemento 'border' de la plantilla (para windows XP) -->
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
-            </Style.Resources>
-        </Style>
-
         <Style TargetType="ListBoxItem">
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True" >
@@ -62,9 +42,58 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="ListBoxItem" x:Key="ListBoxItemStyle">
+            <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Black"  Margin="1" Height="50" Background="#FF0069C0" CornerRadius="8">
+                            <StackPanel>
+                                <Label FontWeight="Bold" Content="{Binding nombre}" Padding="5,0,5,0" Margin="0,15,0,15" FontSize="12" VerticalContentAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border BorderBrush="Black"  Margin="1" Height="50" Background="Red" CornerRadius="8">
+                                    <StackPanel>
+                                        <Label FontWeight="Bold" Content="{Binding nombre}" Padding="5,0,5,0" Margin="0,15,0,15" FontSize="12" VerticalContentAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
 
     </Page.Resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <Grid Background="#FFEEEEEE" x:Name="GridInicio">
         <!--#region  region control general del programa-->
         <StackPanel VerticalAlignment="Top">
@@ -163,7 +192,7 @@
                 </ListView.View>
             </ListView>
             <TextBox x:Name="textBoxBuscar" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="9" FontFamily="calibri" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Bottom" Margin="35,0,0,5" VerticalAlignment="Bottom" MinHeight="25" TextChanged="textBoxBuscar_TextChanged"/>
-            <ListView x:Name="ListViewEstilos"  ItemContainerStyle="{DynamicResource ListViewItemStyle1}"   Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" SelectionChanged="ListViewEstilos_SelectionChanged"/>
+            <ListView x:Name="ListViewEstilos"  ItemContainerStyle="{StaticResource ListBoxItemStyle}"   Grid.Row="10" Grid.RowSpan="11" Grid.Column="0" Grid.ColumnSpan="6" Margin="35,0,0,20" SelectionChanged="ListViewEstilos_SelectionChanged"/>
             <StackPanel Orientation="Horizontal"  Grid.Column="6" Grid.ColumnSpan="5" Grid.Row="10" Grid.RowSpan="9" >
                 <StackPanel>
                     <Label Content="Estado:" FontFamily="calibri" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" Margin="35,0,0,5"/>
