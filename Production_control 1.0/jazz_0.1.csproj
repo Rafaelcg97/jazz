@@ -250,6 +250,9 @@
     <Compile Include="clases\solicitudMaquina.cs" />
     <Compile Include="clases\solicitudTPM.cs" />
     <Compile Include="clases\usuario.cs" />
+    <Compile Include="pantallasIniciales\produccionHora.xaml.cs">
+      <DependentUpon>produccionHora.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasIniciales\validacionUsuarioConfiguraciones.xaml.cs">
       <DependentUpon>validacionUsuarioConfiguraciones.xaml</DependentUpon>
     </Compile>
@@ -359,6 +362,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasIniciales\produccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasIniciales\produccionHora.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
