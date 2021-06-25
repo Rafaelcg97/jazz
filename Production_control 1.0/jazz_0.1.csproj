@@ -299,6 +299,9 @@
     <Compile Include="pantallasProduccion\balance.xaml.cs">
       <DependentUpon>balance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasProduccion\bonoPorModuloSemana.xaml.cs">
+      <DependentUpon>bonoPorModuloSemana.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasProduccion\bonos.xaml.cs">
       <DependentUpon>bonos.xaml</DependentUpon>
     </Compile>
@@ -406,6 +409,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasProduccion\balance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasProduccion\bonoPorModuloSemana.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

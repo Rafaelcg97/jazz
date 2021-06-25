@@ -9,150 +9,152 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <MyNamespace:ListViewF x:Name="listViewProduccionHora" SelectionMode="Single">
-            <MyNamespace:ListViewF.View>
-                <MyNamespace:MyGridView>
-                    <!--#region coordinador-->
-                    <GridViewColumn Header="Coordinador" Width="175">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding Path=coordinador}" Width="175" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region modulo-->
-                    <GridViewColumn Header="Módulo" Width="155">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=modulo}" Width="155" FontSize="15" FontWeight="Bold"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region totalPiezas-->
-                    <GridViewColumn Header="Total" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=piezas}" Width="75" Foreground="DarkRed" FontWeight="Bold" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h1-->
-                    <GridViewColumn Header="H1" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h1}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h2-->
-                    <GridViewColumn Header="H2" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h2}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h3-->
-                    <GridViewColumn Header="H3" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h3}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h4-->
-                    <GridViewColumn Header="H4" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h4}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h5-->
-                    <GridViewColumn Header="H5" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h5}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h6-->
-                    <GridViewColumn Header="H6" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h6}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h7-->
-                    <GridViewColumn Header="H7" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h7}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h8-->
-                    <GridViewColumn Header="H8" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h8}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h9-->
-                    <GridViewColumn Header="H9" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h9}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h10-->
-                    <GridViewColumn Header="H10" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h10}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h11-->
-                    <GridViewColumn Header="H11" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h11}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                    <!--#region h12-->
-                    <GridViewColumn Header="H12" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label  Content="{Binding Path=h12}" Width="75" FontSize="15" HorizontalContentAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--#endregion-->
-                </MyNamespace:MyGridView>
-            </MyNamespace:ListViewF.View>
-            <MyNamespace:ListViewF.FooterObj x:Uid="2">
-                <local2:elemento_grafica x:Name="listViewFooter"/>
-            </MyNamespace:ListViewF.FooterObj>
-        </MyNamespace:ListViewF>
+        <Viewbox>
+            <MyNamespace:ListViewF x:Name="listViewProduccionHora" SelectionMode="Single">
+                <MyNamespace:ListViewF.View>
+                    <MyNamespace:MyGridView>
+                        <!--#region coordinador-->
+                        <GridViewColumn Header="Coordinador" Width="350">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=coordinador}" Width="350" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region modulo-->
+                        <GridViewColumn Header="Módulo" Width="155">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=modulo}" Width="155" FontSize="15" FontWeight="Bold"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region totalPiezas-->
+                        <GridViewColumn Header="Total" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=piezas}" Width="75" Foreground="DarkRed" FontWeight="Bold" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h1-->
+                        <GridViewColumn Header="H1" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h1}" Width="75" FontSize="15" HorizontalContentAlignment="Center"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h2-->
+                        <GridViewColumn Header="H2" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h2}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h3-->
+                        <GridViewColumn Header="H3" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h3}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h4-->
+                        <GridViewColumn Header="H4" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h4}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h5-->
+                        <GridViewColumn Header="H5" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h5}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h6-->
+                        <GridViewColumn Header="H6" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h6}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h7-->
+                        <GridViewColumn Header="H7" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h7}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h8-->
+                        <GridViewColumn Header="H8" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h8}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h9-->
+                        <GridViewColumn Header="H9" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h9}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h10-->
+                        <GridViewColumn Header="H10" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h10}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h11-->
+                        <GridViewColumn Header="H11" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h11}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                        <!--#region h12-->
+                        <GridViewColumn Header="H12" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label  Content="{Binding Path=h12}" Width="75" FontSize="15" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
+                    </MyNamespace:MyGridView>
+                </MyNamespace:ListViewF.View>
+                <MyNamespace:ListViewF.FooterObj x:Uid="2">
+                    <local2:elemento_grafica x:Name="listViewFooter"/>
+                </MyNamespace:ListViewF.FooterObj>
+            </MyNamespace:ListViewF>
+        </Viewbox>
 
     </Grid>
 </UserControl>

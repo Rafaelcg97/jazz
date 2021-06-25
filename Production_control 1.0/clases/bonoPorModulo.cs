@@ -39,11 +39,19 @@ namespace Production_control_1._0.clases
         public string samViernes { get; set; }
         public string samSabado { get; set; }
 
+        public int operariosLunes { get; set; }
+        public int operariosMartes { get; set; }
+        public int operariosMiercoles { get; set; }
+        public int operariosJueves { get; set; }
+        public int operariosViernes { get; set; }
+        public int operariosSabado { get; set; }
+
 
         public int totalDePiezas { get; set; }
         public string samTotal { get; set; }
         public string eficienciaTotal { get; set; }
         public string bono { get; set; }
+        public int operarios { get; set; }
 
     }
 }

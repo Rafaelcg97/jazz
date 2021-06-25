@@ -60,6 +60,21 @@ namespace Production_control_1._0.pantallasIniciales
             DataContext = this;
             #endregion
             radioButtomDiurno.IsChecked = true;
+            #region cargarListaCoordinadores
+            comboBoxCoordinadorNombre.Items.Add("-");
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select distinct nombre from usuarios where cargo='COORDINADOR' and produccion=1";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                comboBoxCoordinadorNombre.Items.Add(dr["nombre"].ToString());
+            };
+            dr.Close();
+            cn.Close();
+            comboBoxCoordinadorNombre.SelectedIndex = 0;
+            #endregion
         }
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
@@ -209,6 +224,14 @@ namespace Production_control_1._0.pantallasIniciales
             List<elemento_grafica> modulosProduccionEficiencia = new List<elemento_grafica>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
+            if (comboBoxCoordinadorNombre.SelectedIndex>0)
+            {
+                sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='" + fecha + "' and turno='" + turno +  "' and coordinador='"+ comboBoxCoordinadorNombre.SelectedItem.ToString() + "'";
+            }
+            else
+            {
+               sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
+            }
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
@@ -238,7 +261,29 @@ namespace Production_control_1._0.pantallasIniciales
             gridProduccion.Children.Add(new produccionHora(modulosProduccionEficiencia));
         }
         #endregion
+        private void comboBoxCoordinadorNombre_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string fecha = Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd");
+            if (fecha == "0001-01-01" || string.IsNullOrEmpty(fecha))
+            {
+                fecha = DateTime.Now.ToString("yyyy-MM-dd");
+            }
+            actualizarGrafica("Diurno", fecha);
 
-
+            string turno = "Diurno";
+            if (radioButtomDiurno.IsChecked == true)
+            {
+                turno = "Diurno";
+            }
+            else if (radioButtomNocturno.IsChecked == true)
+            {
+                turno = "Nocturno";
+            }
+            if (radioButtomExtra.IsChecked == true)
+            {
+                turno = "Extra";
+            }
+            actualizarGrafica(turno, fecha);
+        }
     }
 }

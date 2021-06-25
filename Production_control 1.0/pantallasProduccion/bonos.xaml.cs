@@ -26,6 +26,7 @@ namespace Production_control_1._0.pantallasProduccion
     {
         List<bonoPorOperario> bonoPorOperario = new List<bonoPorOperario>();
         List<bonoPorModulo> bonoPorModulo= new List<bonoPorModulo>();
+        List<bonoPorModulo> listViewBonoPorModulo = new List<bonoPorModulo>();
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
@@ -133,22 +134,59 @@ namespace Production_control_1._0.pantallasProduccion
                 string sql;
                 SqlCommand cm;
                 SqlDataReader dr;
-                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes], [samLunes], [piezasMartes],[eficienciaMartes],[bonoMartes], [samMartes], [piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles], [samMiercoles], [piezasJueves],[eficienciaJueves],[bonoJueves], [samJueves], [piezasViernes],[eficienciaViernes],[bonoViernes], [samViernes], [piezasSabado], [samSabado], [eficienciaSabado],[bonoSabado],[totalDePiezas], [samTotal], [eficienciaTotal], [bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
+                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes], [samLunes], [operariosLunes], [piezasMartes],[eficienciaMartes],[bonoMartes], [samMartes], [operariosMartes], [piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles], [samMiercoles], [operariosMiercoles], [piezasJueves],[eficienciaJueves],[bonoJueves], [samJueves], [operariosJueves], [piezasViernes],[eficienciaViernes],[bonoViernes], [samViernes], [operariosViernes], [piezasSabado], [samSabado], [operariosSabado], [eficienciaSabado],[bonoSabado],[totalDePiezas], [samTotal], [eficienciaTotal], [operarios], [bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    bonoPorModulo.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"] is DBNull ? 0 : dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"] is DBNull ? 0 : dr["piezasMartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"] is DBNull ? 0 : dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"] is DBNull ? 0 : dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"] is DBNull ? 0 : dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"] is DBNull ? 0 : dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"] is DBNull ? 0 : dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"] is DBNull ? 0 : dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"] is DBNull ? 0 : dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"] is DBNull ? 0 : dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"] is DBNull ? 0 : dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"] is DBNull ? 0 : dr["eficienciaSabado"]).ToString("P"), samLunes=dr["samLunes"].ToString(), samMartes = dr["samMartes"].ToString(), samMiercoles = dr["samMiercoles"].ToString(), samJueves = dr["samJueves"].ToString(), samViernes= dr["samViernes"].ToString(), samSabado= dr["samSabado"].ToString(), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), samTotal=dr["samTotal"].ToString(), eficienciaTotal=Convert.ToInt32(dr["eficienciaTotal"] is DBNull? 0: dr["eficienciaTotal"]).ToString("P"), bono = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]).ToString("C") });
+                    bonoPorModulo.Add(new bonoPorModulo { 
+                        turno = dr["turno"].ToString(), 
+                        modart = dr["modart"].ToString(),
+                        piezasLunes = Convert.ToInt32(dr["piezasLunes"] is DBNull ? 0 : dr["piezasLunes"]), 
+                        piezasMartes = Convert.ToInt32(dr["piezasmartes"] is DBNull ? 0 : dr["piezasMartes"]), 
+                        piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"] is DBNull ? 0 : dr["piezasMiercoles"]),
+                        piezasJueves = Convert.ToInt32(dr["piezasJueves"] is DBNull ? 0 : dr["piezasJueves"]), 
+                        piezasViernes = Convert.ToInt32(dr["piezasViernes"] is DBNull ? 0 : dr["piezasViernes"]), 
+                        piezasSabado = Convert.ToInt32(dr["piezasSabado"] is DBNull ? 0 : dr["piezasSabado"]), 
+                        bonoLunes = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]).ToString("C"), 
+                        bonoMartes = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]).ToString("C"), 
+                        bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"), 
+                        bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"), 
+                        bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"), 
+                        bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"), 
+                        eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"] is DBNull ? 0 : dr["eficienciaLunes"]).ToString("P"), 
+                        eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"] is DBNull ? 0 : dr["eficienciaMartes"]).ToString("P"), 
+                        eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"] is DBNull ? 0 : dr["eficienciaMiercoles"]).ToString("P"), 
+                        eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"] is DBNull ? 0 : dr["eficienciaJueves"]).ToString("P"), 
+                        eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"] is DBNull ? 0 : dr["eficienciaViernes"]).ToString("P"), 
+                        eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"] is DBNull ? 0 : dr["eficienciaSabado"]).ToString("P"), 
+                        operariosLunes= Convert.ToInt32(dr["operariosLunes"] is DBNull ? 0 : dr["operariosLunes"]),
+                        operariosMartes = Convert.ToInt32(dr["operariosMartes"] is DBNull ? 0 : dr["operariosMartes"]),
+                        operariosMiercoles = Convert.ToInt32(dr["operariosMiercoles"] is DBNull ? 0 : dr["operariosMiercoles"]),
+                        operariosJueves = Convert.ToInt32(dr["operariosJueves"] is DBNull ? 0 : dr["operariosJueves"]),
+                        operariosViernes = Convert.ToInt32(dr["operariosViernes"] is DBNull ? 0 : dr["operariosViernes"]),
+                        operariosSabado = Convert.ToInt32(dr["operariosSabado"] is DBNull ? 0 : dr["operariosSabado"]),
+                        samLunes =dr["samLunes"].ToString(), 
+                        samMartes = dr["samMartes"].ToString(), 
+                        samMiercoles = dr["samMiercoles"].ToString(), 
+                        samJueves = dr["samJueves"].ToString(), 
+                        samViernes= dr["samViernes"].ToString(), 
+                        samSabado= dr["samSabado"].ToString(), 
+                        totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), 
+                        samTotal=dr["samTotal"].ToString(), 
+                        eficienciaTotal=Convert.ToDouble(dr["eficienciaTotal"] is DBNull? 0: dr["eficienciaTotal"]).ToString("P"), 
+                        bono = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]).ToString("C"),
+                        operarios = Convert.ToInt32(dr["operarios"] is DBNull ? 0 : dr["operarios"])});
                 }
                 dr.Close();
                 cnProduccion.Close();
-                listViewBomoPorModulo.Items.Clear();
+                listViewBonoPorModulo.Clear();
                 if (comboBoxModulo.SelectedIndex == -1)
                 {
                     foreach (bonoPorModulo item in bonoPorModulo)
                     {
-                        listViewBomoPorModulo.Items.Add(item);
+                        listViewBonoPorModulo.Add(item);
                     }
                 }
                 else
@@ -157,11 +195,12 @@ namespace Production_control_1._0.pantallasProduccion
                     {
                         if (item.modart == comboBoxModulo.SelectedItem.ToString() + "-1" || item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
                         {
-                            listViewBomoPorModulo.Items.Add(item);
+                            listViewBonoPorModulo.Add(item);
                         }
                     }
-
                 }
+                GridBono.Children.Clear();
+                GridBono.Children.Add(new bonoPorModuloSemana(listViewBonoPorModulo));
             }
             else if (tabControlListBono.SelectedIndex == 1)
             {
@@ -237,12 +276,12 @@ namespace Production_control_1._0.pantallasProduccion
                 }
                 dr.Close();
                 cnProduccion.Close();
-                listViewBomoPorModulo.Items.Clear();
+                listViewBonoPorModulo.Clear();
                 if (comboBoxModulo.SelectedIndex == -1)
                 {
                     foreach (bonoPorModulo item in bonoPorModulo)
                     {
-                        listViewBomoPorModulo.Items.Add(item);
+                        listViewBonoPorModulo.Add(item);
                     }
                 }
                 else
@@ -251,11 +290,13 @@ namespace Production_control_1._0.pantallasProduccion
                     {
                         if (item.modart == comboBoxModulo.SelectedItem.ToString() + "-1" || item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
                         {
-                            listViewBomoPorModulo.Items.Add(item);
+                            listViewBonoPorModulo.Add(item);
                         }
                     }
 
                 }
+                GridBono.Children.Clear();
+                GridBono.Children.Add(new bonoPorModuloSemana(listViewBonoPorModulo));
             }
             else if (tabControlListBono.SelectedIndex == 1)
             {
@@ -304,24 +345,29 @@ namespace Production_control_1._0.pantallasProduccion
             {
                 if (comboBoxModulo.SelectedIndex > -1)
                 {
-                    listViewBomoPorModulo.Items.Clear();
+                    listViewBonoPorModulo.Clear();
                     foreach (bonoPorModulo item in bonoPorModulo)
                     {
                         if (item.modart == comboBoxModulo.SelectedItem.ToString()+"-1"|| item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
 
                         {
-                            listViewBomoPorModulo.Items.Add(item);
+                            listViewBonoPorModulo.Add(item);
                         }
                     }
+
+                    GridBono.Children.Clear();
+                    GridBono.Children.Add(new bonoPorModuloSemana(listViewBonoPorModulo));
                 }
 
                 else if (comboBoxModulo.SelectedIndex == -1)
                 {
-                    listViewBomoPorModulo.Items.Clear();
+                    listViewBonoPorModulo.Clear();
                     foreach (bonoPorModulo item in bonoPorModulo)
                     {
-                        listViewBomoPorModulo.Items.Add(item);
+                        listViewBonoPorModulo.Add(item);
                     }
+                    GridBono.Children.Clear();
+                    GridBono.Children.Add(new bonoPorModuloSemana(listViewBonoPorModulo));
                 }
 
             }
@@ -534,7 +580,7 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append("TOTAL BONO");
                 buffer.Append("\n");
                 #endregion
-                foreach (bonoPorModulo item in listViewBomoPorModulo.Items)
+                foreach (bonoPorModulo item in listViewBonoPorModulo)
                 {
                     buffer.Append(item.turno);
                     buffer.Append(",");

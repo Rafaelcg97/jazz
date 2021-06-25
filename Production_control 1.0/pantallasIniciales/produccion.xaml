@@ -100,7 +100,7 @@
         </Grid>
         <!--#endregion-->
         <!--#region encabezado-->
-        <Viewbox Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="7">
+        <Viewbox Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="7" VerticalAlignment="Top">
             <Label FontFamily="calibri" Foreground="#FF1E5D1E" FontWeight="Bold" HorizontalAlignment="Center">Resumen Piso de Producción TEXOPS</Label>
         </Viewbox>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="1" Orientation="Horizontal" VerticalAlignment="Bottom">
@@ -113,6 +113,8 @@
             <RadioButton x:Name="radioButtomExtra" VerticalContentAlignment="Center" IsChecked="False" Margin="20,0,0,0" Checked="radioButtomExtra_Checked">
                 <Label Content="Extra" FontSize="20" FontWeight="Bold"/>
             </RadioButton>
+            <Label Margin="60,0,0,0"  FontSize="20" FontWeight="Bold" Content="Coordinador:" />
+            <ComboBox x:Name="comboBoxCoordinadorNombre" Margin="20,0,0,0" Width="265" Height="25" SelectionChanged="comboBoxCoordinadorNombre_SelectionChanged"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="100,0,25,0" >
             <Border Margin="0,0,0,0" BorderBrush="Black" BorderThickness="1" Padding="0" >
@@ -148,7 +150,7 @@
                 </lvc:CartesianChart>
             </TabItem>
             <TabItem Header="Producción Por Hora">
-                <Grid x:Name="gridProduccion">
+                <Grid x:Name="gridProduccion" VerticalAlignment="Top">
                     
                 </Grid>
             </TabItem>
