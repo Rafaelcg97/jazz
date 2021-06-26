@@ -127,7 +127,7 @@ namespace ControlLib4
                 else if (col.DisplayMemberBinding != null)
                 {
                     string fTemplate = @"<DataTemplate>
-                                            <Border BorderThickness=""1,0,1,0"" BorderBrush=""Gray"" Margin=""-6,0,-6,0"" Padding=""6,2,6,2"" >
+                                            <Border BorderThickness=""1,0,1,0"" BorderBrush=""DarkGray"" Margin=""-6,0,-6,0"" Padding=""6,2,6,2"" >
                                                 <TextBlock Text=""{Binding DisplayMemberBinding}"" /> 
                                             </Border>
                                          </DataTemplate>";

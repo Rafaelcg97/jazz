@@ -79,7 +79,9 @@
             </Button>
             <!--#endregion-->
             <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="1" Content="Resultados de Bonificación" SizeChanged="Control_SizeChanged" Padding="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-            <Calendar x:Name="calendarFecha" Grid.Column="14" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" SelectedDatesChanged="calendarFecha_SelectedDatesChanged"/>
+            <Viewbox Grid.Column="14" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="0,0,25,10" >
+                <Calendar x:Name="calendarFecha" SelectedDatesChanged="calendarFecha_SelectedDatesChanged"/>
+            </Viewbox>
             <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="1" Orientation="Horizontal" VerticalAlignment="Top">
                 <ComboBox x:Name="comboBoxModulo" Width="200" Margin="25,0,0,0" Height="30" Foreground="Black" FontSize="17" FontWeight="Bold" SelectionChanged="comboBoxModulo_SelectionChanged"/>
                 <Button x:Name="buttonLimipiar" Width="50" Height="30" Margin="0,0,0,0" Background="Transparent" BorderBrush="Transparent" Click="buttonLimipiar_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">

@@ -32,6 +32,13 @@ namespace Production_control_1._0.clases
         public string bonoViernes { get; set; }
         public string bonoSabado { get; set; }
 
+        public double bonoLunesD { get; set; }
+        public double bonoMartesD { get; set; }
+        public double bonoMiercolesD { get; set; }
+        public double bonoJuevesD { get; set; }
+        public double bonoViernesD { get; set; }
+        public double bonoSabadoD { get; set; }
+
         public string samLunes { get; set; }
         public string samMartes { get; set; }
         public string samMiercoles { get; set; }
@@ -47,11 +54,31 @@ namespace Production_control_1._0.clases
         public int operariosSabado { get; set; }
 
 
+        public double mtLunes { get; set; }
+        public double mtMartes { get; set; }
+        public double mtMiercoles { get; set; }
+        public double mtJueves { get; set; }
+        public double mtViernes { get; set; }
+        public double mtSabado { get; set; }
+
+        public double mdLunes { get; set; }
+        public double mdMartes { get; set; }
+        public double mdMiercoles { get; set; }
+        public double mdJueves { get; set; }
+        public double mdViernes { get; set; }
+        public double mdSabado { get; set; }
+
+
+
+
         public int totalDePiezas { get; set; }
         public string samTotal { get; set; }
         public string eficienciaTotal { get; set; }
         public string bono { get; set; }
         public int operarios { get; set; }
+        public double mt { get; set; }
+        public double md { get; set; }
+        public double bonoD { get; set; }
 
     }
 }

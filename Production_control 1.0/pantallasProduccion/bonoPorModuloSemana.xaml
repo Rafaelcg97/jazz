@@ -11,6 +11,11 @@
     <Grid VerticalAlignment="Top">
         <Viewbox StretchDirection="DownOnly">
             <MyNamespace:ListViewF x:Name="listViewBomoPorModulo" Background="Black" Focusable="False">
+                <MyNamespace:ListViewF.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Focusable" Value="false"/>
+                    </Style>
+                </MyNamespace:ListViewF.ItemContainerStyle>
                 <MyNamespace:ListViewF.View>
                     <MyNamespace:MyGridView>
                         <!--#region turno-->
@@ -349,7 +354,7 @@
                     </MyNamespace:MyGridView>
                 </MyNamespace:ListViewF.View>
                 <MyNamespace:ListViewF.FooterObj x:Uid="2">
-                    <local2:bonoPorModulo x:Name="listViewFooter" modart="TOTAL DIA" samLunes="0" />
+                    <local2:bonoPorModulo x:Name="listViewFooter" turno="-" modart="TOTAL DIA" samLunes="0" />
                 </MyNamespace:ListViewF.FooterObj>
             </MyNamespace:ListViewF>
         </Viewbox>

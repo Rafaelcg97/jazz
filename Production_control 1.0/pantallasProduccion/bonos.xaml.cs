@@ -134,7 +134,16 @@ namespace Production_control_1._0.pantallasProduccion
                 string sql;
                 SqlCommand cm;
                 SqlDataReader dr;
-                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes], [samLunes], [operariosLunes], [piezasMartes],[eficienciaMartes],[bonoMartes], [samMartes], [operariosMartes], [piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles], [samMiercoles], [operariosMiercoles], [piezasJueves],[eficienciaJueves],[bonoJueves], [samJueves], [operariosJueves], [piezasViernes],[eficienciaViernes],[bonoViernes], [samViernes], [operariosViernes], [piezasSabado], [samSabado], [operariosSabado], [eficienciaSabado],[bonoSabado],[totalDePiezas], [samTotal], [eficienciaTotal], [operarios], [bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
+                sql = "SELECT [turno], [modart]," +
+                    "[piezasLunes],[eficienciaLunes],[bonoLunes], [samLunes], [operariosLunes], [minutosTrabajadosLunes],[minutosDisponiblesLunes], " +
+                    "[piezasMartes],[eficienciaMartes],[bonoMartes], [samMartes], [operariosMartes], [minutosTrabajadosMartes], [minutosDisponiblesMartes], " +
+                    "[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles], [samMiercoles], [operariosMiercoles], [minutosTrabajadosMiercoles], [minutosDisponiblesMiercoles], " +
+                    "[piezasJueves],[eficienciaJueves],[bonoJueves],[samJueves], [operariosJueves], [minutosTrabajadosJueves], [minutosDisponiblesJueves], " +
+                    "[piezasViernes],[eficienciaViernes],[bonoViernes], [samViernes], [operariosViernes], [minutosTrabajadosViernes], [minutosDisponiblesViernes], " +
+                    "[piezasSabado], [samSabado], [operariosSabado], [eficienciaSabado],[bonoSabado], [minutosTrabajadosSabado], [minutosDisponiblesSabado]," +
+                    "[totalDePiezas], [samTotal], [eficienciaTotal], [operarios], [bono], [minutosTrabajados], [minutosDisponibles] FROM [produccion].[dbo].[bonoPorDiaSemana] " +
+                    "where anio='" + anio + "' and semana='" + semana + "' order by turno";
+
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
@@ -154,7 +163,13 @@ namespace Production_control_1._0.pantallasProduccion
                         bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"), 
                         bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"), 
                         bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"), 
-                        bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"), 
+                        bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"),
+                        bonoLunesD = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]),
+                        bonoMartesD = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]),
+                        bonoMiercolesD = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]),
+                        bonoJuevesD = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]),
+                        bonoViernesD = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]),
+                        bonoSabadoD = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]),
                         eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"] is DBNull ? 0 : dr["eficienciaLunes"]).ToString("P"), 
                         eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"] is DBNull ? 0 : dr["eficienciaMartes"]).ToString("P"), 
                         eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"] is DBNull ? 0 : dr["eficienciaMiercoles"]).ToString("P"), 
@@ -172,12 +187,27 @@ namespace Production_control_1._0.pantallasProduccion
                         samMiercoles = dr["samMiercoles"].ToString(), 
                         samJueves = dr["samJueves"].ToString(), 
                         samViernes= dr["samViernes"].ToString(), 
-                        samSabado= dr["samSabado"].ToString(), 
+                        samSabado= dr["samSabado"].ToString(),
+                        mtLunes = Convert.ToDouble(dr["minutosTrabajadosLunes"]),
+                        mtMartes = Convert.ToDouble(dr["minutosTrabajadosMartes"]),
+                        mtMiercoles = Convert.ToDouble(dr["minutosTrabajadosMiercoles"]),
+                        mtJueves = Convert.ToDouble(dr["minutosTrabajadosJueves"]),
+                        mtViernes = Convert.ToDouble(dr["minutosTrabajadosViernes"]),
+                        mtSabado = Convert.ToDouble(dr["minutosTrabajadosSabado"]),
+                        mdLunes = Convert.ToDouble(dr["minutosDisponiblesLunes"]),
+                        mdMartes = Convert.ToDouble(dr["minutosDisponiblesMartes"]),
+                        mdMiercoles = Convert.ToDouble(dr["minutosDisponiblesMiercoles"]),
+                        mdJueves = Convert.ToDouble(dr["minutosDisponiblesJueves"]),
+                        mdViernes = Convert.ToDouble(dr["minutosDisponiblesViernes"]),
+                        mdSabado = Convert.ToDouble(dr["minutosDisponiblesSabado"]),
                         totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), 
                         samTotal=dr["samTotal"].ToString(), 
                         eficienciaTotal=Convert.ToDouble(dr["eficienciaTotal"] is DBNull? 0: dr["eficienciaTotal"]).ToString("P"), 
                         bono = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]).ToString("C"),
-                        operarios = Convert.ToInt32(dr["operarios"] is DBNull ? 0 : dr["operarios"])});
+                        bonoD = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]),
+                        operarios = Convert.ToInt32(dr["operarios"] is DBNull ? 0 : dr["operarios"]),
+                        mt = Convert.ToDouble(dr["minutosTrabajados"]),
+                        md=Convert.ToDouble(dr["minutosDisponibles"])});
                 }
                 dr.Close();
                 cnProduccion.Close();
