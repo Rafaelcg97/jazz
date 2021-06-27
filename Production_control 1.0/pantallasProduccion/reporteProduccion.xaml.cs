@@ -442,6 +442,7 @@ namespace Production_control_1._0.pantallasProduccion
                 listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, estilo=item2.estilo, empaque=item2.empaque, descripcion=item2.descripcion, temporada=item2.temporada, tiempoParo=item2.tiempoParo, motivoParo=item2.motivoParo, motivos=item2.motivos, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = minutosLote, sam=item2.sam, xxs=item2.xxs, xs=item2.xs, s=item2.s, m=item2.m, l=item2.l, xl=item2.xl, xxl=item2.xxl, xxxl=item2.xxxl });
             }
             labelMinutos.Content =Math.Round(minutosHoraEfectivos,2);
+            labelPiezas.Content = piezasLote;
         }
         private void LostFocusElemento(object sender, RoutedEventArgs e)
         {
