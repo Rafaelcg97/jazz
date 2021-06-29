@@ -80,13 +80,11 @@ namespace Production_control_1._0.pantallasProduccion
         }
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
-
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height / tmp.FontFamily.LineSpacing;
         }
-
         private void solo_numeros(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key == Key.Tab)
@@ -94,7 +92,6 @@ namespace Production_control_1._0.pantallasProduccion
             else
                 e.Handled = true;
         }
-
         private void soloNumerosDecimales(object sender, KeyEventArgs e)
         {
             if ((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key == Key.Decimal) || (e.Key == Key.Tab))
@@ -102,7 +99,6 @@ namespace Production_control_1._0.pantallasProduccion
             else
                 e.Handled = true;
         }
-
         private void letra_pop_cerrar(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
@@ -296,13 +292,82 @@ namespace Production_control_1._0.pantallasProduccion
                 string sql;
                 SqlCommand cm;
                 SqlDataReader dr;
-                sql = "SELECT [turno], [modart],[piezasLunes],[eficienciaLunes],[bonoLunes], [samLunes], [piezasMartes],[eficienciaMartes],[bonoMartes], [samMartes], [piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles], [samMiercoles], [piezasJueves],[eficienciaJueves],[bonoJueves], [samJueves], [piezasViernes],[eficienciaViernes],[bonoViernes], [samViernes], [piezasSabado], [samSabado], [eficienciaSabado],[bonoSabado],[totalDePiezas], [samTotal], [eficienciaTotal], [bono] FROM [produccion].[dbo].[bonoPorDiaSemana] where anio='" + anio + "' and semana='" + semana + "' order by turno";
+                sql = "SELECT [turno], [modart]," +
+                    "[piezasLunes],[eficienciaLunes],[bonoLunes], [samLunes], [operariosLunes], [minutosTrabajadosLunes],[minutosDisponiblesLunes], " +
+                    "[piezasMartes],[eficienciaMartes],[bonoMartes], [samMartes], [operariosMartes], [minutosTrabajadosMartes], [minutosDisponiblesMartes], " +
+                    "[piezasMiercoles],[eficienciaMiercoles],[bonoMiercoles], [samMiercoles], [operariosMiercoles], [minutosTrabajadosMiercoles], [minutosDisponiblesMiercoles], " +
+                    "[piezasJueves],[eficienciaJueves],[bonoJueves],[samJueves], [operariosJueves], [minutosTrabajadosJueves], [minutosDisponiblesJueves], " +
+                    "[piezasViernes],[eficienciaViernes],[bonoViernes], [samViernes], [operariosViernes], [minutosTrabajadosViernes], [minutosDisponiblesViernes], " +
+                    "[piezasSabado], [samSabado], [operariosSabado], [eficienciaSabado],[bonoSabado], [minutosTrabajadosSabado], [minutosDisponiblesSabado]," +
+                    "[totalDePiezas], [samTotal], [eficienciaTotal], [operarios], [bono], [minutosTrabajados], [minutosDisponibles] FROM [produccion].[dbo].[bonoPorDiaSemana] " +
+                    "where anio='" + anio + "' and semana='" + semana + "' order by turno";
+
                 cnProduccion.Open();
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    bonoPorModulo.Add(new bonoPorModulo { turno = dr["turno"].ToString(), modart = dr["modart"].ToString(), piezasLunes = Convert.ToInt32(dr["piezasLunes"] is DBNull ? 0 : dr["piezasLunes"]), piezasMartes = Convert.ToInt32(dr["piezasmartes"] is DBNull ? 0 : dr["piezasMartes"]), piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"] is DBNull ? 0 : dr["piezasMiercoles"]), piezasJueves = Convert.ToInt32(dr["piezasJueves"] is DBNull ? 0 : dr["piezasJueves"]), piezasViernes = Convert.ToInt32(dr["piezasViernes"] is DBNull ? 0 : dr["piezasViernes"]), piezasSabado = Convert.ToInt32(dr["piezasSabado"] is DBNull ? 0 : dr["piezasSabado"]), bonoLunes = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]).ToString("C"), bonoMartes = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]).ToString("C"), bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"), bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"), bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"), bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"), eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"] is DBNull ? 0 : dr["eficienciaLunes"]).ToString("P"), eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"] is DBNull ? 0 : dr["eficienciaMartes"]).ToString("P"), eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"] is DBNull ? 0 : dr["eficienciaMiercoles"]).ToString("P"), eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"] is DBNull ? 0 : dr["eficienciaJueves"]).ToString("P"), eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"] is DBNull ? 0 : dr["eficienciaViernes"]).ToString("P"), eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"] is DBNull ? 0 : dr["eficienciaSabado"]).ToString("P"), samLunes = dr["samLunes"].ToString(), samMartes = dr["samMartes"].ToString(), samMiercoles = dr["samMiercoles"].ToString(), samJueves = dr["samJueves"].ToString(), samViernes = dr["samViernes"].ToString(), samSabado = dr["samSabado"].ToString(), totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), samTotal = dr["samTotal"].ToString(), eficienciaTotal = Convert.ToInt32(dr["eficienciaTotal"] is DBNull ? 0 : dr["eficienciaTotal"]).ToString("P"), bono = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]).ToString("C") });
+                    bonoPorModulo.Add(new bonoPorModulo
+                    {
+                        turno = dr["turno"].ToString(),
+                        modart = dr["modart"].ToString(),
+                        piezasLunes = Convert.ToInt32(dr["piezasLunes"] is DBNull ? 0 : dr["piezasLunes"]),
+                        piezasMartes = Convert.ToInt32(dr["piezasmartes"] is DBNull ? 0 : dr["piezasMartes"]),
+                        piezasMiercoles = Convert.ToInt32(dr["piezasMiercoles"] is DBNull ? 0 : dr["piezasMiercoles"]),
+                        piezasJueves = Convert.ToInt32(dr["piezasJueves"] is DBNull ? 0 : dr["piezasJueves"]),
+                        piezasViernes = Convert.ToInt32(dr["piezasViernes"] is DBNull ? 0 : dr["piezasViernes"]),
+                        piezasSabado = Convert.ToInt32(dr["piezasSabado"] is DBNull ? 0 : dr["piezasSabado"]),
+                        bonoLunes = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]).ToString("C"),
+                        bonoMartes = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]).ToString("C"),
+                        bonoMiercoles = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]).ToString("C"),
+                        bonoJueves = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]).ToString("C"),
+                        bonoViernes = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]).ToString("C"),
+                        bonoSabado = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]).ToString("C"),
+                        bonoLunesD = Convert.ToDouble(dr["bonoLunes"] is DBNull ? 0 : dr["bonoLunes"]),
+                        bonoMartesD = Convert.ToDouble(dr["bonoMartes"] is DBNull ? 0 : dr["bonoMartes"]),
+                        bonoMiercolesD = Convert.ToDouble(dr["bonoMiercoles"] is DBNull ? 0 : dr["bonoMiercoles"]),
+                        bonoJuevesD = Convert.ToDouble(dr["bonoJueves"] is DBNull ? 0 : dr["bonoJueves"]),
+                        bonoViernesD = Convert.ToDouble(dr["bonoViernes"] is DBNull ? 0 : dr["bonoViernes"]),
+                        bonoSabadoD = Convert.ToDouble(dr["bonoSabado"] is DBNull ? 0 : dr["bonoSabado"]),
+                        eficienciaLunes = Convert.ToDouble(dr["eficienciaLunes"] is DBNull ? 0 : dr["eficienciaLunes"]).ToString("P"),
+                        eficienciaMartes = Convert.ToDouble(dr["eficienciaMartes"] is DBNull ? 0 : dr["eficienciaMartes"]).ToString("P"),
+                        eficienciaMiercoles = Convert.ToDouble(dr["eficienciaMiercoles"] is DBNull ? 0 : dr["eficienciaMiercoles"]).ToString("P"),
+                        eficienciaJueves = Convert.ToDouble(dr["eficienciaJueves"] is DBNull ? 0 : dr["eficienciaJueves"]).ToString("P"),
+                        eficienciaViernes = Convert.ToDouble(dr["eficienciaViernes"] is DBNull ? 0 : dr["eficienciaViernes"]).ToString("P"),
+                        eficienciaSabado = Convert.ToDouble(dr["eficienciaSabado"] is DBNull ? 0 : dr["eficienciaSabado"]).ToString("P"),
+                        operariosLunes = Convert.ToInt32(dr["operariosLunes"] is DBNull ? 0 : dr["operariosLunes"]),
+                        operariosMartes = Convert.ToInt32(dr["operariosMartes"] is DBNull ? 0 : dr["operariosMartes"]),
+                        operariosMiercoles = Convert.ToInt32(dr["operariosMiercoles"] is DBNull ? 0 : dr["operariosMiercoles"]),
+                        operariosJueves = Convert.ToInt32(dr["operariosJueves"] is DBNull ? 0 : dr["operariosJueves"]),
+                        operariosViernes = Convert.ToInt32(dr["operariosViernes"] is DBNull ? 0 : dr["operariosViernes"]),
+                        operariosSabado = Convert.ToInt32(dr["operariosSabado"] is DBNull ? 0 : dr["operariosSabado"]),
+                        samLunes = dr["samLunes"].ToString(),
+                        samMartes = dr["samMartes"].ToString(),
+                        samMiercoles = dr["samMiercoles"].ToString(),
+                        samJueves = dr["samJueves"].ToString(),
+                        samViernes = dr["samViernes"].ToString(),
+                        samSabado = dr["samSabado"].ToString(),
+                        mtLunes = Convert.ToDouble(dr["minutosTrabajadosLunes"]),
+                        mtMartes = Convert.ToDouble(dr["minutosTrabajadosMartes"]),
+                        mtMiercoles = Convert.ToDouble(dr["minutosTrabajadosMiercoles"]),
+                        mtJueves = Convert.ToDouble(dr["minutosTrabajadosJueves"]),
+                        mtViernes = Convert.ToDouble(dr["minutosTrabajadosViernes"]),
+                        mtSabado = Convert.ToDouble(dr["minutosTrabajadosSabado"]),
+                        mdLunes = Convert.ToDouble(dr["minutosDisponiblesLunes"]),
+                        mdMartes = Convert.ToDouble(dr["minutosDisponiblesMartes"]),
+                        mdMiercoles = Convert.ToDouble(dr["minutosDisponiblesMiercoles"]),
+                        mdJueves = Convert.ToDouble(dr["minutosDisponiblesJueves"]),
+                        mdViernes = Convert.ToDouble(dr["minutosDisponiblesViernes"]),
+                        mdSabado = Convert.ToDouble(dr["minutosDisponiblesSabado"]),
+                        totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]),
+                        samTotal = dr["samTotal"].ToString(),
+                        eficienciaTotal = Convert.ToDouble(dr["eficienciaTotal"] is DBNull ? 0 : dr["eficienciaTotal"]).ToString("P"),
+                        bono = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]).ToString("C"),
+                        bonoD = Convert.ToDouble(dr["bono"] is DBNull ? 0 : dr["bono"]),
+                        operarios = Convert.ToInt32(dr["operarios"] is DBNull ? 0 : dr["operarios"]),
+                        mt = Convert.ToDouble(dr["minutosTrabajados"]),
+                        md = Convert.ToDouble(dr["minutosDisponibles"])
+                    });
                 }
                 dr.Close();
                 cnProduccion.Close();
@@ -323,7 +388,6 @@ namespace Production_control_1._0.pantallasProduccion
                             listViewBonoPorModulo.Add(item);
                         }
                     }
-
                 }
                 GridBono.Children.Clear();
                 GridBono.Children.Add(new bonoPorModuloSemana(listViewBonoPorModulo));

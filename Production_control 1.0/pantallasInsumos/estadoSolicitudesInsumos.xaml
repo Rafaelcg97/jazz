@@ -8,9 +8,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="estadoSolicitudesInsumos"
-      Background="#FF2A2C32">
+      Background="#FF2A2C32"
+      x:Name="pagina">
     <Page.Resources>
-        <Style TargetType="{x:Type ListBox}">
+        <Style x:Name="estiloListBox" TargetType="{x:Type ListBox}">
 
             <Setter Property="ItemTemplate">
                 <Setter.Value>
@@ -43,7 +44,6 @@
         />
         </Style>
     </Page.Resources>
-
     <Grid>
         <!--#region control general del programa-->
         <StackPanel VerticalAlignment="Top">
@@ -111,6 +111,9 @@
                 <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
             </Button>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="tamanoLetrAutomatico" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Solicitudes De Bodega de Insumos</Label>
+            <Button x:Name="ButtonAgregarFueraDeSistema" Grid.Column="14" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="ButtonAgregarFueraDeSistema_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                <Image Source="/imagenes/fueraDeSistema.png" Width="50" Height="50"/>
+            </Button>
             <!--#endregion-->
 
             <Label Content="Solicitudes Recibidas" Grid.Column="0" Grid.Row="3" Margin="32,0,0,0"  Foreground="Wheat" FontSize="25" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
@@ -158,6 +161,77 @@
 
                 </StackPanel>
 
+            </Border>
+        </Popup>
+        <Popup x:Name="popUpAgregarItems" Width="900" Height="500" StaysOpen="True" PlacementTarget="{Binding ElementName=pagina}" Placement="Center" AllowsTransparency="True">
+            <Border Background="LightGray" BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="14" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="Button_Click">
+                        <Image Source="/imagenes/cerrar.png"/>
+                    </Button>
+                    <Label Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="14" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20">Validar Items fuera de Sistema Contable</Label>
+                    <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Content="Buscar Item" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="textBoxBuscarItem" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Width="240" Height="25" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" TextChanged="textBoxBuscarItem_TextChanged"/>
+                    <ListView x:Name="listBoxItems" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" Width="240" FontSize="10" FontWeight="SemiBold" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding partNumber}" Width="420"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalContentAlignment="Center" Width="240" Height="25" FontSize="15" Padding="0" Content="Cantidad" FontWeight="Bold" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                    <TextBox x:Name="textBoxCantidad" Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="240" Height="25" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" KeyDown="soloNumeros"/>
+                    <Button x:Name="buttonAgregar" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="1" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregar_Click">
+                        <Image Source="/imagenes/add.png"/>
+                    </Button>
+                    <Label Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="7" Content="Items Agregados" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ListView x:Name="listViewItemsActuales" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="7" Grid.RowSpan="8" MouseDoubleClick="listViewItemsActuales_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding ordenId}">
+                                    
+                                </GridViewColumn>
+                                <GridViewColumn Header="PartNumber" Width="274" DisplayMemberBinding="{Binding partNumber}">
+
+                                </GridViewColumn>
+                                <GridViewColumn Header="Cantidad" Width="85" DisplayMemberBinding="{Binding onHand}">
+
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </Border>
         </Popup>
     </Grid>

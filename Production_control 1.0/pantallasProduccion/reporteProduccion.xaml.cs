@@ -422,6 +422,7 @@ namespace Production_control_1._0.pantallasProduccion
             int totalPiezasTerminadas = 0;
             double minutosParoHora = 0;
             double _sam = 0;
+            int totalDePiezas = 0;
             foreach(horaProduccion item in listViewLotes.Items)
             {
                  _sam = item.sam;
@@ -431,8 +432,10 @@ namespace Production_control_1._0.pantallasProduccion
                 minutosLote = _sam * piezasLote;
                 minutosHora = minutosHora + minutosLote;
                 minutosParoHora = minutosParoHora + item.tiempoParo;
+                totalDePiezas = totalDePiezas + piezasLote;
                 listaCalculada.Add(new horaProduccion {lote=item.lote, estilo=item.estilo, temporada=item.temporada, empaque=item.empaque, descripcion=item.descripcion, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, motivos=item.motivos, tiempoParo=item.tiempoParo, motivoParo=item.motivoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
             }
+            labelPiezas.Content = totalDePiezas;
             listViewPiezas.Items.Clear();
             foreach(horaProduccion item2 in listaCalculada)
             {
@@ -442,12 +445,11 @@ namespace Production_control_1._0.pantallasProduccion
                 listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, estilo=item2.estilo, empaque=item2.empaque, descripcion=item2.descripcion, temporada=item2.temporada, tiempoParo=item2.tiempoParo, motivoParo=item2.motivoParo, motivos=item2.motivos, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = minutosLote, sam=item2.sam, xxs=item2.xxs, xs=item2.xs, s=item2.s, m=item2.m, l=item2.l, xl=item2.xl, xxl=item2.xxl, xxxl=item2.xxxl });
             }
             labelMinutos.Content =Math.Round(minutosHoraEfectivos,2);
-            labelPiezas.Content = piezasLote;
+
         }
         private void LostFocusElemento(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            calculosLotes();
             if (string.IsNullOrEmpty(textBox.Text))
             {
                 textBox.Clear();

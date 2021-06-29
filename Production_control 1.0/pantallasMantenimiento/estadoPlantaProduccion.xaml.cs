@@ -474,7 +474,7 @@ namespace Production_control_1._0
         private void btn_iniciar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "update solicitudes set hora_apertura='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "'  where id_solicitud= '" + id_1.Content.ToString() + "'";
+            string sql = "update solicitudes set hora_apertura='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', abre='"+labelNombreAbre.Content+"'  where id_solicitud= '" + id_1.Content.ToString() + "'";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             cm.ExecuteNonQuery();

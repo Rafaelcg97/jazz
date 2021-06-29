@@ -260,10 +260,114 @@ namespace Production_control_1._0.pantallasInsumos
 
         }
         #endregion
-
+        #region popUpListaFueraDeLibros
         private void buttonCerrarDetalles_Click(object sender, RoutedEventArgs e)
         {
             detalles.IsOpen = false;
         }
+        private void ButtonAgregarFueraDeSistema_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxBuscarItem.Clear();
+            listBoxItems.Items.Clear();
+            textBoxCantidad.Clear();
+            popUpAgregarItems.IsOpen = true;
+            List<solicitudInsumo> listaFueraDeLibrosContables = new List<solicitudInsumo>();
+            List<solicitudInsumo> listaItems = new List<solicitudInsumo>();
+            cnMantenimiento.Open();
+            sql = "select id, partNumber, cantidad from fueraDeLibrosContables";
+            cm = new SqlCommand(sql, cnMantenimiento);
+            dr = cm.ExecuteReader();
+            //agregar solicitudes recibidas aprobadas entregadas a las listas
+            while (dr.Read())
+            {
+                listaFueraDeLibrosContables.Add(new solicitudInsumo() { ordenId = Convert.ToInt32(dr["id"]), partNumber=dr["partNumber"].ToString(), onHand=Convert.ToInt32(dr["cantidad"])});
+            };
+            dr.Close();
+            listViewItemsActuales.ItemsSource = listaFueraDeLibrosContables;
+            sql = "select top 100 PartNumber from spare_onhand";
+            cm = new SqlCommand(sql, cnMantenimiento);
+            dr = cm.ExecuteReader();
+            //agregar solicitudes recibidas aprobadas entregadas a las listas
+            while (dr.Read())
+            {
+                listBoxItems.Items.Add(new solicitudInsumo() {partNumber = dr["partNumber"].ToString()});
+            };
+            dr.Close();
+            cnMantenimiento.Close();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            popUpAgregarItems.IsOpen = false;
+        }
+        private void textBoxBuscarItem_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            listBoxItems.Items.Clear();
+            cnMantenimiento.Open();
+            sql = sql = "select top 100 PartNumber from spare_onhand where partNumber like '%" + textBoxBuscarItem.Text + "%'" ;
+            cm = new SqlCommand(sql, cnMantenimiento);
+            dr = cm.ExecuteReader();
+            //agregar solicitudes recibidas aprobadas entregadas a las listas
+            while (dr.Read())
+            {
+                listBoxItems.Items.Add(new solicitudInsumo() { partNumber = dr["partNumber"].ToString() });
+            };
+            dr.Close();
+            cnMantenimiento.Close();
+        }
+        private void buttonAgregar_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxItems.SelectedIndex > -1 && string.IsNullOrEmpty(textBoxCantidad.Text) == false)
+            {
+                List<solicitudInsumo> listaFueraDeLibrosContables = new List<solicitudInsumo>();
+                cnMantenimiento.Open();
+                sql = sql = "insert into fueraDeLibrosContables(partNumber, cantidad) values('"+ ((solicitudInsumo)listBoxItems.SelectedItem).partNumber + "', '"+ textBoxCantidad.Text+"')" ;
+                cm = new SqlCommand(sql, cnMantenimiento);
+                cm.ExecuteNonQuery();
+
+                // mostrar items que se han agregado
+
+                sql = "select id, partNumber, cantidad from fueraDeLibrosContables";
+                cm = new SqlCommand(sql, cnMantenimiento);
+                dr = cm.ExecuteReader();
+                //agregar solicitudes recibidas aprobadas entregadas a las listas
+                while (dr.Read())
+                {
+                    listaFueraDeLibrosContables.Add(new solicitudInsumo() { ordenId = Convert.ToInt32(dr["id"]), partNumber = dr["partNumber"].ToString(), onHand = Convert.ToInt32(dr["cantidad"]) });
+                };
+                dr.Close();
+                listViewItemsActuales.ItemsSource = listaFueraDeLibrosContables;
+                cnMantenimiento.Close();
+            }
+            else
+            {
+            }
+        }
+        private void listViewItemsActuales_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (listViewItemsActuales.SelectedIndex > -1)
+            {
+                List<solicitudInsumo> listaFueraDeLibrosContables = new List<solicitudInsumo>();
+                cnMantenimiento.Open();
+                sql = sql = "delete from fueraDeLibrosContables where id='" + ((solicitudInsumo)listViewItemsActuales.SelectedItem).ordenId + "'";
+                cm = new SqlCommand(sql, cnMantenimiento);
+                cm.ExecuteNonQuery();
+
+                // mostrar items que se han agregado
+
+                sql = "select id, partNumber, cantidad from fueraDeLibrosContables";
+                cm = new SqlCommand(sql, cnMantenimiento);
+                dr = cm.ExecuteReader();
+                //agregar solicitudes recibidas aprobadas entregadas a las listas
+                while (dr.Read())
+                {
+                    listaFueraDeLibrosContables.Add(new solicitudInsumo() { ordenId = Convert.ToInt32(dr["id"]), partNumber = dr["partNumber"].ToString(), onHand = Convert.ToInt32(dr["cantidad"]) });
+                };
+                dr.Close();
+                listViewItemsActuales.ItemsSource = listaFueraDeLibrosContables;
+                cnMantenimiento.Close();
+
+            }
+        }
+        #endregion
     }
 }
