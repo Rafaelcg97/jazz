@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.Win32;
 using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasIniciales
@@ -70,6 +73,22 @@ namespace Production_control_1._0.pantallasIniciales
             while (dr.Read())
             {
                 comboBoxCoordinadorNombre.Items.Add(dr["nombre"].ToString());
+            };
+            dr.Close();
+            cn.Close();
+            comboBoxCoordinadorNombre.SelectedIndex = 0;
+            #endregion
+            #region cargarListaModulos
+            comboBoxCoordinadorNombre.Items.Add("-");
+            cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            sql = "select modulo from orden_modulos";
+            cn.Open();
+            cm = new SqlCommand(sql, cn);
+            dr = cm.ExecuteReader();
+            comboBoxModulo.Items.Add("-");
+            while (dr.Read())
+            {
+                comboBoxModulo.Items.Add(dr["modulo"].ToString());
             };
             dr.Close();
             cn.Close();
@@ -184,6 +203,45 @@ namespace Production_control_1._0.pantallasIniciales
             }
             actualizarGrafica(turno, fecha);
 
+            #region datosOlo
+            if (tabControlInicio.SelectedIndex == 2)
+            {
+                listViewProduccionPorModulo.Items.Clear();
+                listViewProduccionPorSemana.Items.Clear();
+                listViewProduccionLote.Items.Clear();
+                int totalPiezas = 0;
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_olocuilta"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "select fecha, modulo2, piezas2 from produccion2 where fecha='" + fecha + "'";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    listViewProduccionPorModulo.Items.Add(new elemento_grafica { modulo = dr["modulo2"].ToString(), piezas = Convert.ToInt32(dr["piezas2"]), coordinador = dr["fecha"].ToString() });
+                    totalPiezas = totalPiezas + Convert.ToInt32(dr["piezas2"]);
+                };
+                dr.Close();
+                sql = "select ano, semana, produccion from produccion4 order by ano desc, semana desc";
+                cm = new SqlCommand(sql, cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    listViewProduccionPorSemana.Items.Add(new elemento_grafica { h1 = Convert.ToInt32(dr["ano"]), h2 = Convert.ToInt32(dr["semana"]), piezas = Convert.ToInt32(dr["produccion"]) });
+                };
+                dr.Close();
+                sql = "select lote3, piezas3 from produccion3 order by lote3 desc";
+                cm = new SqlCommand(sql, cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    listViewProduccionLote.Items.Add(new elemento_grafica { coordinador = dr["lote3"].ToString(), piezas = Convert.ToInt32(dr["piezas3"]) });
+                };
+                dr.Close();
+                cn.Close();
+                labelTotalPiezasOlocuilta.Content = totalPiezas;
+            }
+            #endregion
+
         }
         private void radioButtomDiurno_Checked(object sender, RoutedEventArgs e)
         {
@@ -285,5 +343,225 @@ namespace Production_control_1._0.pantallasIniciales
             }
             actualizarGrafica(turno, fecha);
         }
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabControlInicio.SelectedIndex == 2)
+            {
+                listViewProduccionPorModulo.Items.Clear();
+                listViewProduccionPorSemana.Items.Clear();
+                listViewProduccionLote.Items.Clear();
+                int totalPiezas = 0;
+                string fecha = Convert.ToDateTime(calendarFecha.SelectedDate).ToString("yyyy-MM-dd");
+                if (fecha == "0001-01-01" || string.IsNullOrEmpty(fecha))
+                {
+                    fecha = DateTime.Now.ToString("yyyy-MM-dd");
+                }
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_olocuilta"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "select fecha, modulo2, piezas2 from produccion2 where fecha='" + fecha + "'" ;
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    listViewProduccionPorModulo.Items.Add(new elemento_grafica { modulo = dr["modulo2"].ToString(), piezas = Convert.ToInt32(dr["piezas2"]), coordinador = dr["fecha"].ToString() });
+                    totalPiezas = totalPiezas + Convert.ToInt32(dr["piezas2"]);
+                };
+                dr.Close();
+                sql = "select ano, semana, produccion from produccion4 order by ano desc, semana desc";
+                cm = new SqlCommand(sql, cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                   listViewProduccionPorSemana.Items.Add(new elemento_grafica { h1 = Convert.ToInt32(dr["ano"]), h2= Convert.ToInt32(dr["semana"]), piezas = Convert.ToInt32(dr["produccion"])});
+                };
+                dr.Close();
+                sql = "select lote3, piezas3 from produccion3 order by lote3 desc";
+                cm = new SqlCommand(sql, cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    listViewProduccionLote.Items.Add(new elemento_grafica { coordinador = dr["lote3"].ToString(), piezas = Convert.ToInt32(dr["piezas3"]) });
+                };
+                dr.Close();
+                cn.Close();
+                labelTotalPiezasOlocuilta.Content = totalPiezas;
+            }
+            if (tabControlInicio.SelectedIndex == 3)
+            {
+                if (comboBoxModulo.SelectedIndex > -1)
+                {
+                    consultarProgra(comboBoxModulo.SelectedItem.ToString());
+                }
+                else
+                {
+                    consultarProgra();
+                }
+            }
+        }
+        private void textBoxLote_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            listViewProduccionLote.Items.Clear();
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_olocuilta"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select lote3, piezas3 from produccion3 where lote3 like '%" + textBoxLote.Text +"%'";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                listViewProduccionLote.Items.Add(new elemento_grafica { coordinador = dr["lote3"].ToString(), piezas = Convert.ToInt32(dr["piezas3"]) });
+            };
+            dr.Close();
+            cn.Close();
+        }
+        private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabControlInicio.SelectedIndex == 3)
+            {
+                if (comboBoxModulo.SelectedIndex > -1)
+                {
+                    consultarProgra(comboBoxModulo.SelectedItem.ToString());
+                }
+                else
+                {
+                    consultarProgra();
+                }
+            }
+        }
+        private void buttonDescargar_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder buffer = new StringBuilder();
+            #region encabezados
+            buffer.Append("MODULO");
+            buffer.Append(",");
+            buffer.Append("SCH START");
+            buffer.Append(",");
+            buffer.Append("ESTATUS");
+            buffer.Append(",");
+            buffer.Append("TARGET DATE");
+            buffer.Append(",");
+            buffer.Append("MO CUT");
+            buffer.Append(",");
+            buffer.Append("PO NUMBER");
+            buffer.Append(",");
+            buffer.Append("STYLE NUMBER");
+            buffer.Append(",");
+            buffer.Append("STYLE NAME");
+            buffer.Append(",");
+            buffer.Append("STYLE COLOR NAME");
+            buffer.Append(",");
+            buffer.Append("TIPO EMPAQUE");
+            buffer.Append(",");
+            buffer.Append("PIEZAS DE EMPAQUE");
+            buffer.Append(",");
+            buffer.Append("TEMPORADA");
+            buffer.Append(",");
+            buffer.Append("CLIENTE");
+            buffer.Append(",");
+            buffer.Append("MAKE");
+            buffer.Append(",");
+            buffer.Append("TERMINADAS");
+            buffer.Append("\n");
+            #endregion
+            foreach (loteProgramacion item in listViewCumplimientoProgra.Items)
+            {
+                buffer.Append(item.modulo);
+                buffer.Append(",");
+                buffer.Append(item.SchStart);
+                buffer.Append(",");
+                buffer.Append(item.estatus);
+                buffer.Append(",");
+                buffer.Append(item.targetDate);
+                buffer.Append(",");
+                buffer.Append(item.MOCut);
+                buffer.Append(",");
+                buffer.Append(item.PONumber);
+                buffer.Append(",");
+                buffer.Append(item.StyleNumber);
+                buffer.Append(",");
+                buffer.Append(item.StyleName);
+                buffer.Append(",");
+                buffer.Append(item.StyleColorName);
+                buffer.Append(",");
+                buffer.Append(item.tipoEmpaque);
+                buffer.Append(",");
+                buffer.Append(item.packQuantity);
+                buffer.Append(",");
+                buffer.Append(item.SeasonCode);
+                buffer.Append(",");
+                buffer.Append(item.CompanyNumber);
+                buffer.Append(",");
+                buffer.Append(item.QuantityOrdered);
+                buffer.Append(",");
+                buffer.Append(item.terminadas);
+                buffer.Append("\n");
+            }
+            String result = buffer.ToString();
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void consultarProgra(string modulo="")
+        {
+            listViewCumplimientoProgra.Items.Clear();
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sqlp = "";
+            if (modulo == "" || modulo=="-")
+            {
+                sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
+                       "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
+                       "from programacionPoly order by modulo, SchStart, StyleNumber, StyleColorName, PONumber, MOCut ";
+            }
+            else
+            {
+                sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
+                "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
+                "from programacionPoly where modulo='" + modulo + "' order by modulo, SchStart, StyleNumber, StyleColorName, PONumber, MOCut";
+
+            }
+
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sqlp, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                listViewCumplimientoProgra.Items.Add(new loteProgramacion
+                {
+                    modulo = dr["modulo"].ToString(),
+                    SchStart = Convert.ToDateTime(dr["SchStart"]).ToString("yyyy-MM-dd"),
+                    estatus = dr["estatus"].ToString(),
+                    targetDate = Convert.ToDateTime(dr["targetDate"]).ToString("yyyy-MM-dd"),
+                    MOCut = dr["MOCut"].ToString(),
+                    PONumber = dr["PONumber"].ToString(),
+                    StyleNumber = dr["StyleNumber"].ToString(),
+                    StyleName = dr["StyleName"].ToString(),
+                    StyleColorName = dr["StyleColorName"].ToString(),
+                    tipoEmpaque = dr["tipoEmpaque"].ToString(),
+                    packQuantity = dr["packQuantity"].ToString(),
+                    SeasonCode = dr["seasonCode"].ToString(),
+                    CompanyNumber = dr["CompanyNumber"].ToString(),
+                    QuantityOrdered = Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]),
+                    terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"])
+                });
+            };
+            cn.Close();
+        }
+
     }
 }

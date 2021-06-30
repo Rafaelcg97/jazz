@@ -625,6 +625,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append(",");
                 buffer.Append("$ LU");
                 buffer.Append(",");
+                buffer.Append("OPERARIOS LU");
+                buffer.Append(",");
                 buffer.Append("PIEZAS MA");
                 buffer.Append(",");
                 buffer.Append("SAM MA");
@@ -632,6 +634,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append("% MA");
                 buffer.Append(",");
                 buffer.Append("$ MA");
+                buffer.Append(",");
+                buffer.Append("OPERARIOS MA");
                 buffer.Append(",");
                 buffer.Append("PIEZAS MI");
                 buffer.Append(",");
@@ -641,6 +645,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append(",");
                 buffer.Append("$ MI");
                 buffer.Append(",");
+                buffer.Append("OPERARIOS MI");
+                buffer.Append(",");
                 buffer.Append("PIEZAS JU");
                 buffer.Append(",");
                 buffer.Append("SAM JU");
@@ -648,6 +654,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append("% JU");
                 buffer.Append(",");
                 buffer.Append("$ JU");
+                buffer.Append(",");
+                buffer.Append("OPERARIOS JU");
                 buffer.Append(",");
                 buffer.Append("PIEZAS VI");
                 buffer.Append(",");
@@ -657,6 +665,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append(",");
                 buffer.Append("$ VI");
                 buffer.Append(",");
+                buffer.Append("OPERARIOS VI");
+                buffer.Append(",");
                 buffer.Append("PIEZAS SA");
                 buffer.Append(",");
                 buffer.Append("SAM SA");
@@ -665,6 +675,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append(",");
                 buffer.Append("$ SA");
                 buffer.Append(",");
+                buffer.Append("OPERARIOS SA");
+                buffer.Append(",");
                 buffer.Append("TOTAL PIEZAS");
                 buffer.Append(",");
                 buffer.Append("SAM TOTAL");
@@ -672,6 +684,8 @@ namespace Production_control_1._0.pantallasProduccion
                 buffer.Append("EFICIENCIA TOTAL");
                 buffer.Append(",");
                 buffer.Append("TOTAL BONO");
+                buffer.Append(",");
+                buffer.Append("OPERARIOS");
                 buffer.Append("\n");
                 #endregion
                 foreach (bonoPorModulo item in listViewBonoPorModulo)
@@ -688,6 +702,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(",");
                     buffer.Append(item.bonoLunes);
                     buffer.Append(",");
+                    buffer.Append(item.operariosLunes);
+                    buffer.Append(",");
                     buffer.Append(item.piezasMartes);
                     buffer.Append(",");
                     buffer.Append(item.samMartes);
@@ -695,6 +711,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(item.eficienciaMartes);
                     buffer.Append(",");
                     buffer.Append(item.bonoMartes);
+                    buffer.Append(",");
+                    buffer.Append(item.operariosMartes);
                     buffer.Append(",");
                     buffer.Append(item.piezasMiercoles);
                     buffer.Append(",");
@@ -704,6 +722,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(",");
                     buffer.Append(item.bonoMiercoles);
                     buffer.Append(",");
+                    buffer.Append(item.operariosMiercoles);
+                    buffer.Append(",");
                     buffer.Append(item.piezasJueves);
                     buffer.Append(",");
                     buffer.Append(item.samJueves);
@@ -711,6 +731,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(item.eficienciaJueves);
                     buffer.Append(",");
                     buffer.Append(item.bonoJueves);
+                    buffer.Append(",");
+                    buffer.Append(item.operariosJueves);
                     buffer.Append(",");
                     buffer.Append(item.piezasViernes);
                     buffer.Append(",");
@@ -720,6 +742,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(",");
                     buffer.Append(item.bonoViernes);
                     buffer.Append(",");
+                    buffer.Append(item.operariosViernes);
+                    buffer.Append(",");
                     buffer.Append(item.piezasSabado);
                     buffer.Append(",");
                     buffer.Append(item.samSabado);
@@ -728,6 +752,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(",");
                     buffer.Append(item.bonoSabado);
                     buffer.Append(",");
+                    buffer.Append(item.operariosSabado);
+                    buffer.Append(",");
                     buffer.Append(item.totalDePiezas);
                     buffer.Append(",");
                     buffer.Append(item.samTotal);
@@ -735,6 +761,8 @@ namespace Production_control_1._0.pantallasProduccion
                     buffer.Append(item.eficienciaTotal);
                     buffer.Append(",");
                     buffer.Append(item.bono);
+                    buffer.Append(",");
+                    buffer.Append(item.operarios);
                     buffer.Append("\n");
                 }
                 String result = buffer.ToString();

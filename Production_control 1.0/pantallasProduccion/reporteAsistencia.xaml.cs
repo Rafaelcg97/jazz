@@ -30,6 +30,7 @@ namespace Production_control_1._0.pantallasProduccion
         #endregion
         #region listasGenerales
         List<string> modulos_ = new List<string>();
+        List<string> modulosCompletos = new List<string>();
         string[] turnos_ = new string[3];
         int[] arterias_ = new int[3];
         string[] movimientos_ = new string[6];
@@ -44,12 +45,16 @@ namespace Production_control_1._0.pantallasProduccion
             SqlCommand cm;
             SqlDataReader dr;
             cnProduccion.Open();
-            sql = "select modulo from modulosProduccion where coordinadorCodigo='"+codigoCoordinador+"'";
+            sql = "select modulo, coordinadorCodigo from modulosProduccion where coordinadorNombre<>'-'";
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                modulos_.Add(dr["modulo"].ToString());
+                if(Convert.ToInt32(dr["coordinadorCodigo"] is DBNull ? 0 : dr["coordinadorCodigo"]) == codigoCoordinador)
+                {
+                    modulos_.Add(dr["modulo"].ToString());
+                }
+                modulosCompletos.Add(dr["modulo"].ToString());
             };
             dr.Close();
             cnProduccion.Close();
@@ -157,7 +162,7 @@ namespace Production_control_1._0.pantallasProduccion
                 listViewAsistencia.Items.Clear();
                 while (dr.Read())
                 {
-                    listViewAsistencia.Items.Add(new asistencia {codigo=Convert.ToInt32(dr["codigo_at"]), modulos=modulos_, arterias=arterias_, puestos=puestos_, nombre=dr["nombre_at"].ToString(), modulo=dr["modulo_at"].ToString(), arteria=Convert.ToInt32(dr["arteria_at"]), tiempo=Convert.ToDouble(dr["tiempo_at"]), movimiento=dr["movimiento_at"].ToString(), puesto=dr["puesto_at"].ToString(), observaciones=dr["observaciones_at"].ToString(), movimientos=movimientos_ });
+                    listViewAsistencia.Items.Add(new asistencia {codigo=Convert.ToInt32(dr["codigo_at"]), modulos=modulosCompletos, arterias=arterias_, puestos=puestos_, nombre=dr["nombre_at"].ToString(), modulo=dr["modulo_at"].ToString(), arteria=Convert.ToInt32(dr["arteria_at"]), tiempo=Convert.ToDouble(dr["tiempo_at"]), movimiento=dr["movimiento_at"].ToString(), puesto=dr["puesto_at"].ToString(), observaciones=dr["observaciones_at"].ToString(), movimientos=movimientos_ });
                     comboBoxTurnoLista.SelectedItem = dr["turno_at"].ToString();
                     comboBoxBase.SelectedItem = dr["base_at"].ToString();
                     comboBoxAsignado.SelectedItem = dr["asignado_at"].ToString();

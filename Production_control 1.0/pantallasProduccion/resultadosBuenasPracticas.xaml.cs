@@ -226,7 +226,9 @@ namespace Production_control_1._0.pantallasProduccion
                 Process.Start(fileName);
             }
             catch (Exception ex)
-            { }
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {

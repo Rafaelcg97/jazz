@@ -47,7 +47,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             InitializeComponent();
             string sql = "select nombre from usuarios where [ingenieria/SMED]='1' and (cargo='SOPORTE' or cargo='MECANICO') order by nombre";
             string sql2 = "select accion from acciones";
-            string sql3 = "select movimientos.codigo, personal.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo=movimientos.id_movimiento inner join personal on movimientos.codigo = personal.codigo order by hora desc";
+            string sql3 = "select movimientos.codigo, usuarios.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo = movimientos.id_movimiento inner join ingenieria.dbo.usuarios on movimientos.codigo = usuarios.codigo order by hora desc";
             string sql4 = "select modulo from orden_modulos group by modulo";
             cnIngenieria.Open();
             SqlCommand cm = new SqlCommand(sql, cnIngenieria);

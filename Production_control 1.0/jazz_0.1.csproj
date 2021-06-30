@@ -242,6 +242,7 @@
     <Compile Include="clases\horasPorOperario.cs" />
     <Compile Include="clases\lote.cs" />
     <Compile Include="clases\loteConfirma.cs" />
+    <Compile Include="clases\loteProgramacion.cs" />
     <Compile Include="clases\maquina.cs" />
     <Compile Include="clases\moduloAdministrado.cs" />
     <Compile Include="clases\operacion.cs" />

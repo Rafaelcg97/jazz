@@ -487,5 +487,68 @@ namespace Production_control_1._0.pantallasProduccion
             { }
         }
         #endregion
+
+        private void buttonBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            listViewPromedioPorEstilo.Items.Clear();
+            string sql = "select modulo, estilo, temporada, round(avg(operarios),0) as operarios, AVG(piezas) as promedioPiezas, round(STDEVP(Piezas),4) as desviacion " +
+                "from (select fecha, modulo, hora, estilo, temporada, avg(operarios) as operarios, sum(totalDePiezas) as piezas from horahora where estilo like '%" + textBoxBuscarEstilooo.Text +"%'"+
+                "group by Fecha, modulo, hora, estilo, temporada) as a " +
+                "group by a.estilo, a.temporada, a.Modulo " +
+                "order by modulo, estilo, temporada, promedioPiezas ";
+            cnProduccion.Open();
+            SqlCommand cm = new SqlCommand(sql, cnProduccion);
+            SqlDataReader dr = cm.ExecuteReader();
+
+            // se llenan los modulos que han cosido el estilo
+            while (dr.Read())
+            {
+               listViewPromedioPorEstilo.Items.Add(new horaProduccion 
+               {
+                   modulo= dr["modulo"].ToString(), 
+                   estilo = dr["estilo"].ToString(),
+                   temporada= dr["temporada"].ToString(),
+                   piezas=Convert.ToInt32(dr["promedioPiezas"] is DBNull ? 0 : dr["promedioPiezas"]),
+                   sam= Convert.ToDouble(dr["desviacion"])
+               });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnProduccion.Close();
+        }
+        private void buttonLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxBuscarEstilooo.Clear();
+            listViewPromedioPorEstilo.Items.Clear();
+            listViewDetallesEstilo.Items.Clear();
+        }
+        private void listViewPromedioPorEstilo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            horaProduccion moduloSeleccionado = (horaProduccion)listViewPromedioPorEstilo.SelectedItem;
+            listViewDetallesEstilo.Items.Clear();
+            string sql = "select fecha, hora, estilo, empaque, sam, operarios, TotalDePiezas " +
+                "from horahora where modulo='"+ moduloSeleccionado.modulo +"' and estilo='"+ moduloSeleccionado.estilo +"' and temporada='"+ moduloSeleccionado.temporada +"' order by fecha, hora";
+            cnProduccion.Open();
+            SqlCommand cm = new SqlCommand(sql, cnProduccion);
+            SqlDataReader dr = cm.ExecuteReader();
+
+            // se llenan los modulos que han cosido el estilo
+            while (dr.Read())
+            {
+               listViewDetallesEstilo.Items.Add(new horaProduccion
+                {
+                    fecha = Convert.ToDateTime(dr["fecha"]).ToString("yyyy-MM-dd"),
+                    hora = Convert.ToInt32(dr["hora"] is DBNull ? 0 : dr["hora"]),
+                    estilo = dr["estilo"].ToString(),
+                    empaque =dr["empaque"].ToString(),
+                    sam = Convert.ToDouble(dr["sam"] is DBNull ? 0 : dr["sam"]),
+                    opeCostura = Convert.ToInt32(dr["operarios"] is DBNull ? 0 : dr["operarios"]),
+                    piezas = Convert.ToInt32(dr["TotalDePiezas"] is DBNull ? 0 : dr["TotalDePiezas"]),
+                });
+            };
+            //se termina la conexion a la base
+            dr.Close();
+            cnProduccion.Close();
+        }
     }
 }
