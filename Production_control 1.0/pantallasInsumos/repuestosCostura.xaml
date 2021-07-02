@@ -96,11 +96,11 @@
                         <DataTemplate>
                             <Grid Margin="0,2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200" />
                                     <ColumnDefinition Width="15" />
+                                    <ColumnDefinition Width="500" />
                                 </Grid.ColumnDefinitions>
-                                <Label Content="{Binding description}" FontSize="9" />
-                                <Ellipse x:Name="ellioseLista" Width="15" Height="15" Fill="{Binding color}" Grid.Column="1"/>
+                                <Ellipse x:Name="ellioseLista" Width="15" Height="15" Fill="{Binding color}" Grid.Column="0"/>
+                                <Label Content="{Binding description}" FontSize="9" Grid.Column="1" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

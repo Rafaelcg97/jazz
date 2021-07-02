@@ -599,5 +599,27 @@ namespace Production_control_1._0
         {
             terminar_solicitud.IsOpen = false;
         }
+
+        private void buttonMecanicoUbicacion_Click(object sender, RoutedEventArgs e)
+        {
+            mecanicosUbicacion.IsOpen = true;
+            listViewMecanicoUbicacion.Items.Clear();
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select id_solicitud, problema_reportado, modulo, nombre from mecanicosUbicacion";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                listViewMecanicoUbicacion.Items.Add(new solicitudMaquina { id_solicitud = Convert.ToInt32(dr["id_solicitud"]), problema_reportado = dr["problema_reportado"].ToString(), modulo = dr["modulo"].ToString(), corresponde = dr["nombre"].ToString() });
+            }
+            dr.Close();
+            cn.Close();
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            mecanicosUbicacion.IsOpen = false;
+        }
     }
 }
