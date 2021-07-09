@@ -43,6 +43,13 @@ namespace Production_control_1._0
                     break;
                 case 5:
                     GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new pantallasIniciales.kanban());
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+                    GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new pantallasIniciales.validacionUsuarioConfiguraciones());
                     break;
                 default:

@@ -526,13 +526,13 @@ namespace Production_control_1._0.pantallasIniciales
             {
                 sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
                        "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
-                       "from programacionPoly order by modulo, SchStart, StyleNumber, StyleColorName, PONumber, MOCut ";
+                       "from programacionPoly order by modulo, SchStart, StartSequence";
             }
             else
             {
                 sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
                 "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
-                "from programacionPoly where modulo='" + modulo + "' order by modulo, SchStart, StyleNumber, StyleColorName, PONumber, MOCut";
+                "from programacionPoly where modulo='" + modulo + "' order by modulo, SchStart, StartSequence";
 
             }
 

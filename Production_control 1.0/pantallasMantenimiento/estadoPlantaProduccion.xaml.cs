@@ -109,43 +109,36 @@ namespace Production_control_1._0
         }
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
-
         private void Control_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height*0.8 / tmp.FontFamily.LineSpacing;
         }
-
         private void letra_modulos_nombres(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height * 0.6 / tmp.FontFamily.LineSpacing;
         }
-
         private void letra_priori_solicitudes (object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
-
         private void letra_pop_cerrar (object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height * 0.5 / tmp.FontFamily.LineSpacing;
         }
-
         private void letra_pequena(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height * 0.06 / tmp.FontFamily.LineSpacing;
         }
-
         private void letra_mediana(object sender, SizeChangedEventArgs e)
         {
             Control tmp = sender as Control;
             tmp.FontSize = e.NewSize.Height * 0.3 / tmp.FontFamily.LineSpacing;
         }
-
         private void solo_numeros(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
@@ -572,7 +565,6 @@ namespace Production_control_1._0
             cn.Close();
         }
         #endregion
-
         #endregion
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
