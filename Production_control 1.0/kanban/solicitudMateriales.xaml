@@ -63,13 +63,16 @@
             <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
         </Button>
         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="17" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="letraAjustable1" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Center">Solicitud de Materiales</Label>
-        
-        
-        <Label FontFamily="calibri"  FontWeight="Bold" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"  SizeChanged="letraAjustable4" Content="Módulo" VerticalContentAlignment="Bottom"/>
-        <ListBox x:Name="listBoxModulo" FontFamily="calibri"  FontWeight="Bold"  Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="7"   SizeChanged="letraAjustable2" SelectionChanged="listBoxLote_SelectionChanged"/>
-        <Label FontFamily="calibri"  FontWeight="Bold" Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"  SizeChanged="letraAjustable4" Content="Lote" VerticalContentAlignment="Bottom"/>
-        <TextBox x:Name="textBoxBuscarLote" FontSize="17" VerticalContentAlignment="Center"  Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" TextChanged="textBoxBuscarLote_TextChanged"/>
-        <ListBox x:Name="listBoxLote" FontFamily="calibri"  FontWeight="Bold"  Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="6" SizeChanged="letraAjustable2" SelectionChanged="listBoxLote_SelectionChanged">
+
+        <Label FontFamily="calibri"  FontWeight="Bold" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="1" Padding="0"  SizeChanged="letraAjustable1" Content="Usuario:" VerticalContentAlignment="Bottom"/>
+        <PasswordBox x:Name="passwordboxUsuario" FontSize="17" VerticalContentAlignment="Center"  Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="1"/>
+        <Label x:Name="labelUsuario" Content="*" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" />
+        <Label x:Name="labelUbicacion" Content="0" Visibility="Hidden"/>
+        <Label FontFamily="calibri"  FontWeight="Bold" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0"  SizeChanged="letraAjustable1" Content="Módulo" VerticalContentAlignment="Bottom"/>
+        <ListBox x:Name="listBoxModulo" FontFamily="calibri"  FontWeight="Bold"  Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="6"   SizeChanged="letraAjustable2" SelectionChanged="listBoxModulo_SelectionChanged"/>
+        <Label FontFamily="calibri"  FontWeight="Bold" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="1" Padding="0"  SizeChanged="letraAjustable1" Content="Lote" VerticalContentAlignment="Bottom"/>
+        <TextBox x:Name="textBoxBuscarLote" FontSize="17" VerticalContentAlignment="Center"  Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="2" TextChanged="textBoxBuscarLote_TextChanged"/>
+        <ListBox x:Name="listBoxLote" FontFamily="calibri"  FontWeight="Bold"  Grid.Column="4" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="5" SizeChanged="letraAjustable2" SelectionChanged="listBoxLote_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding lote}"/>
@@ -89,27 +92,34 @@
         <Label x:Name="labelPiezas" FontFamily="calibri"  FontWeight="Bold" Grid.Column="8" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2"  SizeChanged="letraAjustable4" Content="----" VerticalContentAlignment="Center"/>
 
         <Border BorderBrush="Black" BorderThickness="4" Grid.Column="10" Grid.Row="5" Grid.RowSpan="20" Grid.ColumnSpan="5" CornerRadius="10">
-            <ListView FontSize="15" FontWeight="Bold" Margin="5">
+            <ListView x:Name="listViewListaMateriales" FontSize="15" FontWeight="Bold" Margin="5">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Material" Width="250" >
+                        <GridViewColumn Header="Lote" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    
+                                    <Label Content="{Binding lote}" FontSize="12" Foreground="White" Background="DarkRed" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Talla" Width="100">
+                        <GridViewColumn Header="Material" Width="185" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-
+                                    <Label Content="{Binding material}" FontSize="12" Width="200" Foreground="White" Background="DarkGoldenrod" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Cantidad" Width="100">
+                        <GridViewColumn Header="Talla" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-
+                                    <Label Content="{Binding talla}" FontSize="12" Foreground="White" Background="DarkGreen" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="200" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Cantidad" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding cantidad}" FontSize="12" Foreground="White" Background="DarkOrange" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -117,8 +127,6 @@
                 </ListView.View>
             </ListView>
         </Border>
-
-
 
         <TabControl Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="8" Grid.RowSpan="15">
             <TabItem Header="Accesorios" Background="Aqua" FontWeight="Bold" FontSize="15">
@@ -159,13 +167,14 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <ListBox Grid.ColumnSpan="4" Grid.RowSpan="20" Margin="15">
-                        
-                    </ListBox>
-                    <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
-                    <Label Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
-                    <Label Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="3" Grid.RowSpan="2" Content="----" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
-                    <Button Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                    <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers del lote:" SizeChanged="letraAjustable4"/>
+                    <ScrollViewer Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15">
+                        <ItemsControl x:Name="ItemsControlAccesorios" Margin="15" FontWeight="Light" ScrollViewer.CanContentScroll="True" BorderBrush="Black" BorderThickness="1"/>
+                    </ScrollViewer>
+                    <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
+                    <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
+                    <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoAccesorios" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
+                    <Button x:Name="buttonAgregarMaterial" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarMaterial_Click" >
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
                 </Grid>
@@ -193,6 +202,11 @@
 
             </TabItem>
         </TabControl>
+
+        <Button x:Name="buttonEnviarSolicitud" Grid.Row="26" Grid.Column="11" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Width="90" Height="90" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonEnviarSolicitud_Click" >
+            <Image Source="/imagenes/enviar.png"/>
+        </Button>
+
 
 
 

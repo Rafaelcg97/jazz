@@ -137,20 +137,6 @@ namespace Production_control_1._0.kanban
             GridPrincipal.Children.Add(new pantallasIniciales.kanban());
         }
 
-        private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select id from orden_modulos where modulo = '"+ listBoxModulo.SelectedItem.ToString() +"'";
-            cn.Open();
-            SqlCommand cm3 = new SqlCommand(sql, cn);
-            SqlDataReader dr3 = cm3.ExecuteReader();
-            dr3.Read();
-            //labelUbicacion.Content = dr3["id"].ToString();
-            dr3.Close();
-            cn.Close();
-            habilitarButton();
-        }
-
         private void enviar_reporte_Click(object sender, RoutedEventArgs e)
         {
             string tipo_ = "solicitud";
@@ -194,26 +180,36 @@ namespace Production_control_1._0.kanban
                 solicitudKanban loteSeleccionado = (solicitudKanban)listBoxLote.SelectedItem;
                 string lote = listBoxLote.SelectedItem.ToString();
                 SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "select count(lote) as lote from solicitudesKanban where lote='" + lote + "'";
+                //conteo de solicitudes de lote seleccionado
+                string sql = "select count(solicitudKanbanId) as numero from detalleSolicitudeKanban where lote='" + lote + "'";
                 cnKanban.Open();
                 SqlCommand cm = new SqlCommand(sql, cnKanban);
                 SqlDataReader dr = cm.ExecuteReader();
                 if (dr.Read())
                 {
-                    labelNumeroDeOrden.Content = dr["lote"].ToString();
+                    labelNumeroDeOrden.Content = (Convert.ToInt32(dr["numero"])+1).ToString();
                 }
                 else
                 {
-                    labelNumeroDeOrden.Content = "0";
+                    labelNumeroDeOrden.Content = "1";
                 };
+                dr.Close();
+
+                //carga de accesorios del lote
+                ItemsControlAccesorios.Items.Clear();
+                sql = "select PartNumber from componentePorEstilo where (CategoryName='Trim' or CategoryName='Supplies') and (SubCategoryName<>'Elastic' and SubCategoryName<>'Boxes' and SubCategoryName<>'Hangers' and SubCategoryName <>'Send Out' AND SubCategoryName<> 'Inks' and SubCategoryName<>'Subl. Paper') and StyleId='" + loteSeleccionado.styleId+"'";
+                cm = new SqlCommand(sql, cnKanban);
+                dr = cm.ExecuteReader();
+                while(dr.Read())
+                {
+                    ItemsControlAccesorios.Items.Add(dr["PartNumber"].ToString());
+                }
                 dr.Close();
                 cnKanban.Close();
                 labelEstilo.Content = loteSeleccionado.estilo;
                 labelTemporada.Content = loteSeleccionado.temporada;
                 labelPiezas.Content = loteSeleccionado.cantidad;
-
-                //llamar lista de partNumbers que componen el estilo
-
+                cnKanban.Close();
             }
             habilitarButton();
         }
@@ -250,7 +246,83 @@ namespace Production_control_1._0.kanban
             labelEstilo.Content = "----";
             labelTemporada.Content = "----";
             labelPiezas.Content = "----";
+            labelEstadoAccesorios.Content = "----";
 
+        }
+
+        private void buttonAgregarMaterial_Click(object sender, RoutedEventArgs e)
+        {
+            bool datoExistente = false;
+            foreach(solicitudKanban item in listViewListaMateriales.Items)
+            {
+                if(item.lote == ((solicitudKanban)(listBoxLote.SelectedItem)).lote && item.material == "Accesorios")
+                {
+                    datoExistente = true;
+                }
+            }
+            if (datoExistente==false)
+            {
+                listViewListaMateriales.Items.Add(new solicitudKanban
+                {
+                    lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                    modulo = listBoxModulo.SelectedItem.ToString(),
+                    material = "Accesorios",
+                    cantidad = 1,
+                    talla = "Unica"
+                });
+            }
+            else
+            {
+                MessageBox.Show("Ya lo agregaste a la lista de elementos solictados");
+            }
+
+        }
+
+        private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToInt32(labelNumeroDeOrden.Content) > 3)
+            {
+                MessageBox.Show("Se excedio el numero de solicitudes permitidas");
+            }
+            else
+            {
+                solicitudKanban loteSeleccionado = (solicitudKanban)listBoxLote.SelectedItem;
+                string lote = listBoxLote.SelectedItem.ToString();
+                SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '"+labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') SELECT SCOPE_IDENTITY()";
+                cnKanban.Open();
+                SqlCommand cm = new SqlCommand(sql, cnKanban);
+                SqlDataReader dr = cm.ExecuteReader();
+                dr.Read();
+                int idIngreso = Convert.ToInt32(dr[0]);
+                dr.Close();
+
+                //ingresar detalles de la orden
+                foreach (solicitudKanban item in listViewListaMateriales.Items)
+                {
+                    sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad) values('" + idIngreso + "', '" + item.lote + "', '" + item.material + "', '" + item.talla + "', '" + item.cantidad+ "')";
+                    cm = new SqlCommand(sql, cnKanban);
+                    cm.ExecuteNonQuery();
+                }
+                cnKanban.Close();
+            }
+        }
+
+        private void listBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SqlConnection cnManto = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+
+            //carga ubicacion de 
+            cnManto.Open();
+            string sql = "select id from orden_modulos where modulo = '" + listBoxModulo.SelectedItem.ToString() + "'";
+            SqlCommand cm = new SqlCommand(sql, cnManto);
+            SqlDataReader dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                labelUbicacion.Content = dr["id"].ToString();
+            }
+            dr.Close();
+            cnManto.Close();
         }
     }
 }
