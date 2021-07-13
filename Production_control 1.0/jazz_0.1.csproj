@@ -245,6 +245,7 @@
     <Compile Include="clases\loteKanban.cs" />
     <Compile Include="clases\loteProgramacion.cs" />
     <Compile Include="clases\maquina.cs" />
+    <Compile Include="clases\materialesEstilos.cs" />
     <Compile Include="clases\moduloAdministrado.cs" />
     <Compile Include="clases\operacion.cs" />
     <Compile Include="clases\operario.cs" />
