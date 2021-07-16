@@ -9,6 +9,7 @@ namespace Production_control_1._0.clases
     public class solicitudKanban
     {
         public int solicitudKanbanId { get; set; }
+        public int manufactureId { get; set; }
         public string tipo { get; set; }
         public string modulo { get; set; }
         public int ubicacion { get; set; }

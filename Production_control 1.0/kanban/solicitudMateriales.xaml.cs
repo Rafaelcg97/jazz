@@ -105,7 +105,7 @@ namespace Production_control_1._0.kanban
 
         private void enviar_reporte_Click(object sender, RoutedEventArgs e)
         {
-            string tipo_ = "solicitud";
+            //string tipo_ = "solicitud";
             //if (radioButtonDevolucion.IsChecked == true)
             //{
             //    tipo_ = "devolucion";
@@ -136,58 +136,113 @@ namespace Production_control_1._0.kanban
                 labelEstilo.Content = loteSeleccionado.estilo;
                 labelTemporada.Content = loteSeleccionado.temporada;
                 labelPiezas.Content = loteSeleccionado.cantidad;
-                string lote = listBoxLote.SelectedItem.ToString();
-
-                //conteo de solicitudes de lote seleccionado
-                string sql = "select count(solicitudKanbanId) as numero from detalleSolicitudeKanban where lote='" + lote + "'";
-                cnKanban.Open();
-                SqlCommand cm = new SqlCommand(sql, cnKanban);
-                SqlDataReader dr = cm.ExecuteReader();
-                if (dr.Read())
-                {
-                    labelNumeroDeOrden.Content = (Convert.ToInt32(dr["numero"])+1).ToString();
-                }
-                else
-                {
-                    labelNumeroDeOrden.Content = "1";
-                };
-                dr.Close();
+                labelColor.Content = loteSeleccionado.color;
 
                 //cargar en lista todos los materiales que tiene lote seleccionado
+                cnKanban.Open();
                 listaDeMaterialesCompleta.Clear();
-                sql = "select StyleId, StyleNumber, SeasonCode, CategoryName, SubCategoryName, PartNumber, Quantity from componentePorEstilo where StyleId='" + loteSeleccionado.styleId+"'";
-
-                sql = "select " +
-                    "StyleNumber, " +
-                    "SeasonCode, " +
+                string sql = "select " +
                     "CategoryName, " +
                     "SubCategoryName, " +
                     "PartNumber, " +
-                    "Quantity " +
-                    "from componentePorEstilo as a " +
-                    "where a.StyleId='97210' and " +
-                    "varyByColor=0 and varyBySize=0 " +
-                    "union " +
-                    "select " +
-                    "styleNumber, " +
-                    "seasonCode, " +
-                    "categoryName, " +
-                    "subcategoryName, " +
-                    "partNumber, " +
-                    "quantity " +
-                    "from  variacionesPorEstilo " +
-                    "where StyleId = '97210'";
+                    "description " +
+                    "from  componentesPorLote " +
+                    "where manufactureId= '"+loteSeleccionado.manufactureId+"'";
 
-                cm = new SqlCommand(sql, cnKanban);
-                dr = cm.ExecuteReader();
+                SqlCommand cm = new SqlCommand(sql, cnKanban);
+                SqlDataReader dr = cm.ExecuteReader();
                 while(dr.Read())
                 {
-                    listaDeMaterialesCompleta.Add(new materialesEstilos {styleId=Convert.ToInt32(dr["StyleId"]), styleNumber=dr["styleNumber"].ToString(), seasonCode=dr["SeasonCode"].ToString(), categoryName=dr["categoryName"].ToString(), subCategoryName=dr["SubCategoryName"].ToString(), partNumber=dr["partNumber"].ToString(), quantity=Convert.ToDouble(dr["quantity"] is DBNull? 0 : dr["quantity"]) });
+                    listaDeMaterialesCompleta.Add(new materialesEstilos {categoryName=dr["categoryName"].ToString(), subCategoryName=dr["SubCategoryName"].ToString(), partNumber=dr["partNumber"].ToString(), description=dr["description"].ToString()});
                 }
                 dr.Close();
                 cnKanban.Close();
 
-                //cargar lista de accesorios del lote
+                ItemsControlAccesorios.Items.Clear();
+                ItemsControlBinding.Items.Clear();
+                ItemsControlHilos.Items.Clear();
+                ItemsControlBra.Items.Clear();
+                ItemsControlElastico.Items.Clear();
+                ItemsControlGancho.Items.Clear();
+                ItemsControlTela.Items.Clear();
+                foreach(materialesEstilos item in listaDeMaterialesCompleta)
+                {
+                    if(item.categoryName== "Thread")
+                    {
+                        ItemsControlHilos.Items.Add(item.partNumber);
+                    }
+                    else if (item.categoryName == "Trim" && item.subCategoryName== "Send Out")
+                    {
+                        ItemsControlBinding.Items.Add(item.partNumber);
+                    }
+                    else if (item.categoryName == "Trim" && item.subCategoryName == "Elastic" && (item.description.ToLower().Contains("neck")|| item.description.ToLower().Contains("clear") || item.description.ToLower().Contains("rubber") || item.description.ToLower().Contains("gripper")))
+                    {
+                        ItemsControlElastico.Items.Add(item.partNumber);
+                    }
+                    else if (item.categoryName == "Trim" && item.subCategoryName == "Bra Cups")
+                    {
+                        ItemsControlBra.Items.Add(item.partNumber);
+                    }
+                    else if (item.categoryName == "Supplies" && item.subCategoryName == "Hangers")
+                    {
+                        ItemsControlGancho.Items.Add(item.partNumber);
+                    }
+                    else if (item.categoryName == "Supplies" && item.subCategoryName == "Boxes")
+                    {
+                        listViewCajas.Items.Add(item.partNumber);
+                    }
+                    else if (item.categoryName == "Fabric")
+                    {
+                        ItemsControlTela.Items.Add(item.partNumber);
+                    }
+                    else
+                    {
+                        ItemsControlAccesorios.Items.Add(item.partNumber);
+                    }
+                };
+
+                //cargar si ya se ha entregado
+                cnKanban.Open();
+                listaDeMaterialesCompleta.Clear();
+                sql = "select " +
+                    "a.lote, " +
+                    "a.talla, " +
+                    "a.make, " +
+                    "b.material, " +
+                    "b.cantidad as entregado " +
+                    "from tallasLotes a " +
+                    "left join(" +
+                    "select" +
+                    " lote, " +
+                    "material, " +
+                    "talla, " +
+                    "sum(cantidad) as cantidad " +
+                    "from detalleSolicitudeKanban " +
+                    "group by lote, talla, material) b " +
+                    "on a.lote = b.lote and a.talla=b.talla where a.lote='"+loteSeleccionado.lote+"'";
+
+                cm = new SqlCommand(sql, cnKanban);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr["material"].ToString() == "Accesorios")
+                    {
+                        labelEstadoAccesorios.Content = "Entregado";
+                    }
+                    if (dr["material"].ToString() == "Binding")
+                    {
+                        labelEstadoBinding.Content = "Entregado";
+                    }
+                    if (dr["material"].ToString() == "Hilos")
+                    {
+                        labelEstadoHilos.Content = "Entregado";
+                    }
+                }
+                dr.Close();
+                cnKanban.Close();
+
+
+
             }
         }
 
@@ -214,12 +269,10 @@ namespace Production_control_1._0.kanban
             }
 
             //limpiar las etiquetas de solicitud, piezas, tempordas
-            labelNumeroDeOrden.Content = "0";
             labelEstilo.Content = "----";
             labelTemporada.Content = "----";
             labelPiezas.Content = "----";
-            labelEstadoAccesorios.Content = "----";
-
+            labelColor.Content = "----";
         }
 
         private void buttonAgregarMaterial_Click(object sender, RoutedEventArgs e)
@@ -252,7 +305,7 @@ namespace Production_control_1._0.kanban
 
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(labelNumeroDeOrden.Content) > 3)
+            if (4==3)
             {
                 MessageBox.Show("Se excedio el numero de solicitudes permitidas");
             }
@@ -298,7 +351,7 @@ namespace Production_control_1._0.kanban
 
 
                 cnKanban.Open();
-                sql = "select lote, make, estilo, estiloId, temporada from lotes where modulo='" + listBoxModulo.SelectedItem.ToString() + "'";
+                sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes where modulo='" + listBoxModulo.SelectedItem.ToString() + "'";
                 listBoxLote.Items.Clear();
                 listaCompletaLotes.Clear();
                 cm = new SqlCommand(sql, cnKanban);
@@ -306,22 +359,28 @@ namespace Production_control_1._0.kanban
                 while (dr.Read())
                 {
                     listBoxLote.Items.Add(
+                      new solicitudKanban
+                      {
+                          manufactureId = Convert.ToInt32(dr["manufactureId"]),
+                          lote = dr["lote"].ToString(),
+                          cantidad = Convert.ToInt32(dr["make"]),
+                          estilo = dr["estilo"].ToString(),
+                          styleId = Convert.ToInt32(dr["estiloId"]),
+                          temporada = dr["temporada"].ToString(),
+                          color = dr["color"].ToString()
+                      });
+
+                    listaCompletaLotes.Add(
                         new solicitudKanban
                         {
+                            manufactureId = Convert.ToInt32(dr["manufactureId"]),
                             lote = dr["lote"].ToString(),
                             cantidad = Convert.ToInt32(dr["make"]),
                             estilo = dr["estilo"].ToString(),
                             styleId = Convert.ToInt32(dr["estiloId"]),
-                            temporada = dr["temporada"].ToString()
+                            temporada = dr["temporada"].ToString(),
+                            color = dr["color"].ToString()
                         });
-                    listaCompletaLotes.Add(new solicitudKanban
-                    {
-                        lote = dr["lote"].ToString(),
-                        cantidad = Convert.ToInt32(dr["make"]),
-                        estilo = dr["estilo"].ToString(),
-                        styleId = Convert.ToInt32(dr["estiloId"]),
-                        temporada = dr["temporada"].ToString()
-                    });
                 };
                 dr.Close();
                 cnKanban.Close();

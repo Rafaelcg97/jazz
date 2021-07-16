@@ -14,6 +14,7 @@ namespace Production_control_1._0.clases
         public string categoryName { get; set; }
         public string subCategoryName { get; set; }
         public string partNumber { get; set; }
+        public string description { get; set; }
         public double quantity { get; set; }
     }
 }
