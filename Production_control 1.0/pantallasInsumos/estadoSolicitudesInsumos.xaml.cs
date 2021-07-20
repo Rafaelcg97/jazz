@@ -171,7 +171,7 @@ namespace Production_control_1._0.pantallasInsumos
                     }
                     else
                     {
-                        sql = "update ordenesBodegaInsumos set ordenStatus='" + status + "', autoriza='" + autoriza_ + "' where orden_id='" + informacionElemento.ordenId + "'";
+                        sql = "update ordenesBodegaInsumos set ordenStatus='" + status + "' where orden_id='" + informacionElemento.ordenId + "'";
                         cnMantenimiento.Open();
                         cm = new SqlCommand(sql, cnMantenimiento);
                         cm.ExecuteNonQuery();

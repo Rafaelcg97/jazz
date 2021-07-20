@@ -27,6 +27,7 @@ namespace Production_control_1._0.pantallasInsumos
         SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
         SqlDataReader dr; //leer los resultados del comando sql
         #endregion
+        public List<solicitudInsumo> listaDeInsumos = new List<solicitudInsumo>();
         #region datosIniciales
         public repuestosCostura(int codigo, string areaCategoria)
         {
@@ -52,10 +53,9 @@ namespace Production_control_1._0.pantallasInsumos
             #endregion
             #region agregarRepuestos
             cnMantenimiento.Open();
-            sql = "select top 100 PartNumber, Description, OnHand, Cost from spare_onhand where final_category='Repuestos de Costura'";
+            sql = "select PartNumber, Description, OnHand, Cost from spare_onhand where final_category='Repuestos de Costura'";
             cm = new SqlCommand(sql, cnMantenimiento);
             dr = cm.ExecuteReader();
-            List<solicitudInsumo> listaDeInsumos = new List<solicitudInsumo>();
             //agregar operaciones de consulta
             while (dr.Read())
             {
@@ -68,12 +68,11 @@ namespace Production_control_1._0.pantallasInsumos
                 {
                     colorDisponible = "Red";
                 }
-               listaDeInsumos.Add(new solicitudInsumo {partNumber=dr["partNumber"].ToString(), description=dr["Description"].ToString(), onHand=Convert.ToInt32(dr["OnHand"]), cost=Convert.ToDouble(dr["Cost"]), color=colorDisponible });
+                listaDeInsumos.Add(new solicitudInsumo {partNumber=dr["partNumber"].ToString(), description=dr["Description"].ToString(), onHand=Convert.ToInt32(dr["OnHand"]), cost=Convert.ToDouble(dr["Cost"]), color=colorDisponible });
+                listBoxRepuesto.Items.Add(new solicitudInsumo { partNumber = dr["partNumber"].ToString(), description = dr["Description"].ToString(), onHand = Convert.ToInt32(dr["OnHand"]), cost = Convert.ToDouble(dr["Cost"]), color = colorDisponible });
             };
             dr.Close();
             cnMantenimiento.Close();
-            //agregar lista de respuestos a listBoxRepuesto
-            listBoxRepuesto.ItemsSource = listaDeInsumos;
             #endregion
             #region agregarMaquinas
             cnMantenimiento.Open();
@@ -232,29 +231,28 @@ namespace Production_control_1._0.pantallasInsumos
 
         private void TextBoXBuscarRepuesto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            cnMantenimiento.Open();
-            sql = "select top 20 PartNumber, Description, OnHand, Cost from spare_onhand where final_category='Repuestos de Costura' and Description like '%" + TextBoXBuscarRepuesto.Text + "%'";
-            cm = new SqlCommand(sql, cnMantenimiento);
-            dr = cm.ExecuteReader();
-            List<solicitudInsumo> listaDeInsumos = new List<solicitudInsumo>();
-            //agregar operaciones de consulta
-            while (dr.Read())
+            if (String.IsNullOrEmpty(TextBoXBuscarRepuesto.Text.Trim()) == false)
             {
-                string colorDisponible = "DarkGreen";
-                if (Convert.ToInt32(dr["OnHand"]) > 0)
+                listBoxRepuesto.Items.Clear();
+                foreach (solicitudInsumo item in listaDeInsumos)
                 {
-                    colorDisponible = "DarkGreen";
+                    if (item.description.ToLower().Contains(TextBoXBuscarRepuesto.Text.ToLower().Trim()))
+
+                    {
+                        listBoxRepuesto.Items.Add(item);
+                    }
                 }
-                else
+            }
+
+            else if (TextBoXBuscarRepuesto.Text.Trim() == "")
+            {
+                listBoxRepuesto.Items.Clear();
+
+                foreach(solicitudInsumo item in listaDeInsumos)
                 {
-                    colorDisponible = "Red";
+                    listBoxRepuesto.Items.Add(item);
                 }
-                listaDeInsumos.Add(new solicitudInsumo { partNumber = dr["partNumber"].ToString(), description = dr["Description"].ToString(), onHand = Convert.ToInt32(dr["OnHand"]), cost = Convert.ToDouble(dr["Cost"]), color = colorDisponible });
-            };
-            dr.Close();
-            cnMantenimiento.Close();
-            //agregar lista de respuestos a listBoxRepuesto
-            listBoxRepuesto.ItemsSource = listaDeInsumos;
+            }
             deshabilitarBoton();
 
         }

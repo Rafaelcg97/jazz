@@ -206,7 +206,7 @@ namespace Production_control_1._0
                     terminar.IsEnabled = false;
 
                     //se revisa en la tabla de tiempos por mecanico quien abrio el problema 
-                    string sql = "select top 1 mecanico, usuarios.nombre from tiempos_por_mecanico left join ingenieria.dbo.usuarios on usuarios.codigo = mecanico where num_solicitud=" + item.id_solicitud + "order by hora desc";
+                    string sql = "select top 1 mecanico, usuarios.nombre from tiempos_por_mecanico left join ingenieria.dbo.usuarios on usuarios.codigo = mecanico where (mecanico<>'----' or mecanico is not null) and num_solicitud=" + item.id_solicitud + "order by hora desc";
                     cn.Open();
                     SqlCommand cm = new SqlCommand(sql, cn);
                     SqlDataReader dr = cm.ExecuteReader();
