@@ -100,9 +100,20 @@
         </Grid>
         <!--#endregion-->
         <!--#region encabezado-->
-        <Viewbox Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="7" VerticalAlignment="Top">
-            <Label FontFamily="calibri" Foreground="#FF1E5D1E" FontWeight="Bold" HorizontalAlignment="Center">Resumen Piso de Producción TEXOPS</Label>
-        </Viewbox>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="7" >
+            <Viewbox VerticalAlignment="Top">
+                <Label FontFamily="calibri" Foreground="#FF1E5D1E" FontWeight="Bold" HorizontalAlignment="Center">Resumen Piso de Producción TEXOPS</Label>
+            </Viewbox>
+            <StackPanel Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="65,0,25,0" >
+                <Border BorderBrush="Black" BorderThickness="1" Padding="0">
+                    <Label x:Name="labelTotalEficiencia" Content="----" FontSize="20" FontWeight="Bold"/>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" >
+                    <Label x:Name="labelTotalPiezas" Content="----" FontSize="20" Foreground="DarkRed" FontWeight="Bold"/>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="1" Orientation="Horizontal" VerticalAlignment="Bottom">
             <RadioButton x:Name="radioButtomDiurno" VerticalContentAlignment="Center"  Margin="20,0,0,0" Checked="radioButtomDiurno_Checked">
                 <Label Content="Diurno" FontSize="20" FontWeight="Bold"/>
@@ -115,14 +126,6 @@
             </RadioButton>
             <Label Margin="60,0,0,0"  FontSize="20" FontWeight="Bold" Content="Coordinador:" />
             <ComboBox x:Name="comboBoxCoordinadorNombre" Margin="20,0,0,0" Width="265" Height="25" SelectionChanged="comboBoxCoordinadorNombre_SelectionChanged"/>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="100,0,25,0" >
-            <Border Margin="0,0,0,0" BorderBrush="Black" BorderThickness="1" Padding="0" >
-                <Label x:Name="labelTotalEficiencia" Content="----" FontSize="20" FontWeight="Bold"/>
-            </Border>
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
-                <Label x:Name="labelTotalPiezas" Content="----" FontSize="20" Foreground="DarkRed" FontWeight="Bold"/>
-            </Border>
         </StackPanel>
         <!--#endregion-->
         <TabControl x:Name="tabControlInicio" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="6" Margin="10,0,20,10" SelectionChanged="TabControl_SelectionChanged" >
@@ -332,124 +335,122 @@
                             <Image Source="/imagenes/descargar.png"/>
                         </Button>
                     </StackPanel>
-    
-                        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="19" Focusable="False"  FontWeight="Bold" FontSize="15" x:Name="listViewCumplimientoProgra">
+                    <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="19" Focusable="False"  FontWeight="Bold" FontSize="15" x:Name="listViewCumplimientoProgra">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Focusable" Value="false"/>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Módulo" Width="100">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Label Content="{Binding modulo}" FontSize="12" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkBlue" Foreground="White"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="SchStart" Width="90">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                            <GridView>
+                                <GridViewColumn Header="Módulo" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding modulo}" FontSize="12" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkBlue" Foreground="White"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="SchStart" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding SchStart}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Estatus" Width="100">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Estatus" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding estatus}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="TargetDate" Width="90">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="TargetDate" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding targetDate}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Lote" Width="150">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Lote" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding MOCut}" FontSize="12"  Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkGreen" Foreground="White" />
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="PO Number" Width="100">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="PO Number" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding PONumber}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Style Name" Width="187">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Style Name" Width="187">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding StyleName}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Style Number" Width="100">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Style Number" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding StyleNumber}" FontSize="12" Width="257" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkOrange" />
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Style Color Name" Width="186">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Style Color Name" Width="186">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding StyleColorName}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Empaque" Width="100">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Empaque" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding tipoEmpaque}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Pcs Empaq" Width="85">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Pcs Empaq" Width="85">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding packQuantity}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Temporada" Width="90">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Temporada" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding SeasonCode}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Cliente" Width="100">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Cliente" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding CompanyNumber}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Make" Width="85">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Make" Width="85">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding QuantityOrdered}" FontSize="12"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Terminadas" Width="85">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Terminadas" Width="85">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <Label Content="{Binding terminadas}" FontSize="12" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkRed" Foreground="White"/>
                                         </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </TabItem>
         </TabControl>

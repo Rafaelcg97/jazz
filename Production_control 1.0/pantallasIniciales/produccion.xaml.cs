@@ -25,6 +25,7 @@ namespace Production_control_1._0.pantallasIniciales
 {
     public partial class produccion : UserControl
     {
+        List<loteProgramacion> lotesProgramados = new List<loteProgramacion>();
         #region clases_especiales_para_la_grafica
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -388,13 +389,50 @@ namespace Production_control_1._0.pantallasIniciales
             }
             if (tabControlInicio.SelectedIndex == 3)
             {
-                if (comboBoxModulo.SelectedIndex > -1)
+                if (listViewProduccionLote.SelectedIndex < 1)
                 {
-                    consultarProgra(comboBoxModulo.SelectedItem.ToString());
-                }
-                else
-                {
-                    consultarProgra();
+                    if (lotesProgramados.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                        string sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
+                                   "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
+                                   "from programacionPoly order by modulo, SchStart, StartSequence";
+                        cn.Open();
+                        SqlCommand cm = new SqlCommand(sqlp, cn);
+                        SqlDataReader dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            //listViewCumplimientoProgra.Items
+                            lotesProgramados.Add(new loteProgramacion
+                            {
+                                modulo = dr["modulo"].ToString(),
+                                SchStart = Convert.ToDateTime(dr["SchStart"]).ToString("yyyy-MM-dd"),
+                                estatus = dr["estatus"].ToString(),
+                                targetDate = Convert.ToDateTime(dr["targetDate"]).ToString("yyyy-MM-dd"),
+                                MOCut = dr["MOCut"].ToString(),
+                                PONumber = dr["PONumber"].ToString(),
+                                StyleNumber = dr["StyleNumber"].ToString(),
+                                StyleName = dr["StyleName"].ToString(),
+                                StyleColorName = dr["StyleColorName"].ToString(),
+                                tipoEmpaque = dr["tipoEmpaque"].ToString(),
+                                packQuantity = dr["packQuantity"].ToString(),
+                                SeasonCode = dr["seasonCode"].ToString(),
+                                CompanyNumber = dr["CompanyNumber"].ToString(),
+                                QuantityOrdered = Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]),
+                                terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"])
+                            });
+                        };
+                        cn.Close();
+                        foreach (loteProgramacion item in lotesProgramados)
+                        {
+                            listViewCumplimientoProgra.Items.Add(item);
+                        }
+
+                    }
                 }
             }
         }
@@ -417,13 +455,24 @@ namespace Production_control_1._0.pantallasIniciales
         {
             if (tabControlInicio.SelectedIndex == 3)
             {
-                if (comboBoxModulo.SelectedIndex > -1)
+                if (comboBoxModulo.SelectedIndex > 0)
                 {
-                    consultarProgra(comboBoxModulo.SelectedItem.ToString());
+                    listViewCumplimientoProgra.Items.Clear();
+                    foreach(loteProgramacion item in lotesProgramados)
+                    {
+                        if (item.modulo.ToUpper() == comboBoxModulo.SelectedItem.ToString())
+                        {
+                            listViewCumplimientoProgra.Items.Add(item);
+                        }
+                    }
                 }
-                else
+                else if(comboBoxModulo.SelectedIndex==0)
                 {
-                    consultarProgra();
+                    listViewCumplimientoProgra.Items.Clear();
+                    foreach (loteProgramacion item in lotesProgramados)
+                    {
+                        listViewCumplimientoProgra.Items.Add(item);
+                    }
                 }
             }
         }
@@ -517,51 +566,5 @@ namespace Production_control_1._0.pantallasIniciales
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void consultarProgra(string modulo="")
-        {
-            listViewCumplimientoProgra.Items.Clear();
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sqlp = "";
-            if (modulo == "" || modulo=="-")
-            {
-                sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
-                       "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
-                       "from programacionPoly order by modulo, SchStart, StartSequence";
-            }
-            else
-            {
-                sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
-                "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
-                "from programacionPoly where modulo='" + modulo + "' order by modulo, SchStart, StartSequence";
-
-            }
-
-            cn.Open();
-            SqlCommand cm = new SqlCommand(sqlp, cn);
-            SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                listViewCumplimientoProgra.Items.Add(new loteProgramacion
-                {
-                    modulo = dr["modulo"].ToString(),
-                    SchStart = Convert.ToDateTime(dr["SchStart"]).ToString("yyyy-MM-dd"),
-                    estatus = dr["estatus"].ToString(),
-                    targetDate = Convert.ToDateTime(dr["targetDate"]).ToString("yyyy-MM-dd"),
-                    MOCut = dr["MOCut"].ToString(),
-                    PONumber = dr["PONumber"].ToString(),
-                    StyleNumber = dr["StyleNumber"].ToString(),
-                    StyleName = dr["StyleName"].ToString(),
-                    StyleColorName = dr["StyleColorName"].ToString(),
-                    tipoEmpaque = dr["tipoEmpaque"].ToString(),
-                    packQuantity = dr["packQuantity"].ToString(),
-                    SeasonCode = dr["seasonCode"].ToString(),
-                    CompanyNumber = dr["CompanyNumber"].ToString(),
-                    QuantityOrdered = Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]),
-                    terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"])
-                });
-            };
-            cn.Close();
-        }
-
     }
 }

@@ -198,16 +198,16 @@ namespace Production_control_1._0
                 cm = new SqlCommand(sql, cnBalances);
                 dr = cm.ExecuteReader();
                 dr.Read();
-               // modulo.SelectedItem = dr["modulo"].ToString();
+                // modulo.SelectedItem = dr["modulo"].ToString();
                 fecha_.Content = Convert.ToDateTime(dr["fecha_creacion"]).ToString("yyyy-MM-dd");
                 version_.Text = dr["version"].ToString();
                 piezas_de_corrida.Text = dr["corrida"].ToString();
                 horas_de_corrida.Text = dr["horas"].ToString();
-                operarios_.Content = dr["operarios"].ToString();
-                operarios_2.Content= dr["operarios"].ToString();
                 sam_.Content = dr["sam"].ToString();
                 sam_2.Content = dr["sam"].ToString();
                 modulo.SelectedItem = dr["modulo"].ToString();
+                operarios_.Content = dr["operarios"].ToString();
+                operarios_2.Content = dr["operarios"].ToString();
                 cnBalances.Close();
                 dr.Close();
                 #endregion
@@ -1788,7 +1788,7 @@ namespace Production_control_1._0
                         samEmpaque = item.samOperacion;
                     }
                     #endregion
-                    #region agregarOperaciones
+                    #region obtenerNuevaListaDeOperaciones
                     SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                     string sql; //Consulta que se hace en sql
                     SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
@@ -1799,6 +1799,7 @@ namespace Production_control_1._0
                     dr = cm.ExecuteReader();
                     List<elementoListBox> listaOperaciones = new List<elementoListBox>();
                     List<elementoListBox> listaOperaciones2 = new List<elementoListBox>();
+                    List<elementoListBox> listaOperaciones3 = new List<elementoListBox>();
                     //agregar operaciones de consulta
                     while (dr.Read())
                     {
@@ -1806,22 +1807,64 @@ namespace Production_control_1._0
                     };
                     dr.Close();
                     cnIngenieria.Close();
-                    listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = 0, nombreOperacion = "empaque", tituloOperacion = nombreEmpaque, samOperacion = samEmpaque, asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
                     //agregar operacion de empaque
+                    listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = 0, nombreOperacion = "empaque", tituloOperacion = nombreEmpaque, samOperacion = samEmpaque, asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
                     #endregion
                     #region calcularAsignaciones
+
+                    //verificar y agregar a nueva lista las operaciones que no van a cambiar
+                    foreach (elementoListBox item in Operaciones.Items)
+                    {
+                        int conteo = 0;
+                        foreach(elementoListBox subitem in listaOperaciones)
+                        {
+                            if(item.nombreOperacion==subitem.nombreOperacion && item.samOperacion == subitem.samOperacion)
+                            {
+                                //se valida que no exista alguna operacion que se ha colocado dos veces en el costeo y que duplique datos
+                                conteo = conteo = 1;
+                                if (conteo < 2)
+                                {
+                                    listaOperaciones2.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    //verificar y agregar a nueva lista las operaciones nuevas que no se agregaron en el paso anterior
+                    foreach (elementoListBox item in listaOperaciones)
+                    {
+                        bool aparece = false;
+                        foreach (elementoListBox subitem in listaOperaciones2)
+                        {
+                            if (item.nombreOperacion == subitem.nombreOperacion)
+                            {
+                                if (item.samOperacion==subitem.samOperacion)
+                                {
+                                    aparece=true;
+                                }
+                            }
+                        }
+
+                        if (aparece == false)
+                        {
+                            listaOperaciones2.Add(item);
+                        }
+                    }
+
                     // se obtienen las piezas por hora
                     Double piezasRequeridasHora = Math.Round(Convert.ToDouble(piezas_de_corrida.Text) / Convert.ToDouble(horas_de_corrida.Text), 0);
                     piezas_por_hora.Content = piezasRequeridasHora;
-                    foreach (elementoListBox item in listaOperaciones)
+                    foreach (elementoListBox item in listaOperaciones2)
                     {
                         Double requerido = Math.Round(piezasRequeridasHora / (60 / item.samOperacion), 2);
-                        listaOperaciones2.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = item.correlativoOperacion, nombreOperacion = item.nombreOperacion, tituloOperacion = item.tituloOperacion, samOperacion = item.samOperacion, asignadoOperacion = item.asignadoOperacion, requeridoOperacion = requerido, ajusteMaquina = item.ajusteMaquina, categoriaMaquina = item.categoriaMaquina });
+                        listaOperaciones3.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = item.correlativoOperacion, nombreOperacion = item.nombreOperacion, tituloOperacion = item.tituloOperacion, samOperacion = item.samOperacion, asignadoOperacion = item.asignadoOperacion, requeridoOperacion = requerido, ajusteMaquina = item.ajusteMaquina, categoriaMaquina = item.categoriaMaquina });
                     }
-                    Operaciones.ItemsSource = listaOperaciones2;
-                    //recalcular_asignaciones();
-
+                    Operaciones.ItemsSource = listaOperaciones3;
                     #endregion
+                    #region sustituirCorrelativosDeOperacion
+                    //obtener lista unica de operaciones y de numero unico correlativo (puede ocurrir que en el desgloce de operaciones este colocada dos veces la misma)
+     
+                    #endregion
+
                     CalculoAsignadoPorOperacion();
                     actualizarGrafica();
                     operacionSobrecargadaOperacionSubutilizada();
@@ -3154,7 +3197,6 @@ namespace Production_control_1._0
             actualizarGrafica();
         }
         #endregion
-
         #endregion
     }
 }

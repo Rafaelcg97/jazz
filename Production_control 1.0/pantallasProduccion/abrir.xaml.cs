@@ -107,7 +107,6 @@ namespace Production_control_1._0
             corrida_c.Content = "----";
             horas_c.Content = "----";
             operarios_c.Content = "----";
-            eficiencia_c.Content = "----";
             Uri fileUri = new Uri("/imagenes/ini.jpg", UriKind.RelativeOrAbsolute);
             foto_vista.Source = new BitmapImage(fileUri);
 
@@ -137,7 +136,6 @@ namespace Production_control_1._0
             corrida_c.Content = "----";
             horas_c.Content = "----";
             operarios_c.Content = "----";
-            eficiencia_c.Content = "----";
             Uri fileUri = new Uri("/imagenes/ini.jpg", UriKind.RelativeOrAbsolute);
             foto_vista.Source = new BitmapImage(fileUri);
 
@@ -173,8 +171,6 @@ namespace Production_control_1._0
             corrida_c.Content = "----";
             horas_c.Content = "----";
             operarios_c.Content = "----";
-            eficiencia_c.Content = "----";
-
             if (estilo_.SelectedIndex>-1 & modulo_.SelectedIndex>-1 & temporada_.SelectedIndex>-1)
             {
                 //se cpnsultan las versione que tiene el modulo, temporada, estilo que se escoge
@@ -219,14 +215,13 @@ namespace Production_control_1._0
             corrida_c.Content = "----";
             horas_c.Content = "----";
             operarios_c.Content = "----";
-            eficiencia_c.Content = "----";
 
             if (estilo_.SelectedIndex > -1 & modulo_.SelectedIndex > -1 & temporada_.SelectedIndex > -1 & vers_.SelectedIndex>-1)
             {
                 //se cpnsultan los datos de la version que se escoge
                 // se declaran las variables de conexion
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_balances"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "select corrida, horas, operarios, eficiencia from lista_balances where modulo= '" + modulo_.SelectedItem.ToString() + "' and temporada= '" + temporada_.SelectedItem.ToString() + "' and estilo= '" + estilo_.SelectedItem.ToString() + "' and version= '" + vers_.SelectedItem.ToString() +"'";
+                string sql = "select corrida, horas, operarios from lista_balances where modulo= '" + modulo_.SelectedItem.ToString() + "' and temporada= '" + temporada_.SelectedItem.ToString() + "' and estilo= '" + estilo_.SelectedItem.ToString() + "' and version= '" + vers_.SelectedItem.ToString() +"'";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlDataReader dr = cm.ExecuteReader();
@@ -237,7 +232,6 @@ namespace Production_control_1._0
                     corrida_c.Content= dr["corrida"].ToString();
                     horas_c.Content = dr["horas"].ToString();
                     operarios_c.Content = dr["operarios"].ToString();
-                    eficiencia_c.Content = dr["eficiencia"].ToString() + "%";
                 };
                 //se termina la conexion a la base
                 dr.Close();

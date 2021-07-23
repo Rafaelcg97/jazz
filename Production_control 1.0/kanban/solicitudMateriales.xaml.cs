@@ -27,12 +27,16 @@ namespace Production_control_1._0.kanban
         public SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnManto = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
+        #region listasGlobales
         List<solicitudKanban> listaCompletaLotes = new List<solicitudKanban>();
         List<materialesEstilos> listaDeMaterialesCompleta = new List<materialesEstilos>();
+        #endregion
+        #region datosIniciales
         public solicitudMateriales()
         {
             InitializeComponent();
         }
+        #endregion
         #region tamanos_de_letra_/_tipo_de_texto
         private void letraAjustable1(object sender, SizeChangedEventArgs e)
         {
@@ -204,22 +208,7 @@ namespace Production_control_1._0.kanban
                 //cargar si ya se ha entregado
                 cnKanban.Open();
                 listaDeMaterialesCompleta.Clear();
-                sql = "select " +
-                    "a.lote, " +
-                    "a.talla, " +
-                    "a.make, " +
-                    "b.material, " +
-                    "b.cantidad as entregado " +
-                    "from tallasLotes a " +
-                    "left join(" +
-                    "select" +
-                    " lote, " +
-                    "material, " +
-                    "talla, " +
-                    "sum(cantidad) as cantidad " +
-                    "from detalleSolicitudeKanban " +
-                    "group by lote, talla, material) b " +
-                    "on a.lote = b.lote and a.talla=b.talla where a.lote='"+loteSeleccionado.lote+"'";
+                sql = "select material from detalleSolicitudeKanban where lote='" +loteSeleccionado.lote +"'";
 
                 cm = new SqlCommand(sql, cnKanban);
                 dr = cm.ExecuteReader();
@@ -227,22 +216,19 @@ namespace Production_control_1._0.kanban
                 {
                     if (dr["material"].ToString() == "Accesorios")
                     {
-                        labelEstadoAccesorios.Content = "Entregado";
+                        labelEstadoAccesorios.Content = "Solicitado";
                     }
                     if (dr["material"].ToString() == "Binding")
                     {
-                        labelEstadoBinding.Content = "Entregado";
+                        labelEstadoBinding.Content = "Solicitado";
                     }
                     if (dr["material"].ToString() == "Hilos")
                     {
-                        labelEstadoHilos.Content = "Entregado";
+                        labelEstadoHilos.Content = "Solicitado";
                     }
                 }
                 dr.Close();
                 cnKanban.Close();
-
-
-
             }
         }
 
@@ -265,7 +251,6 @@ namespace Production_control_1._0.kanban
                 {
                     listBoxLote.Items.Add(lote);
                 }
-
             }
 
             //limpiar las etiquetas de solicitud, piezas, tempordas
@@ -274,35 +259,6 @@ namespace Production_control_1._0.kanban
             labelPiezas.Content = "----";
             labelColor.Content = "----";
         }
-
-        private void buttonAgregarMaterial_Click(object sender, RoutedEventArgs e)
-        {
-            bool datoExistente = false;
-            foreach(solicitudKanban item in listViewListaMateriales.Items)
-            {
-                if(item.lote == ((solicitudKanban)(listBoxLote.SelectedItem)).lote && item.material == "Accesorios")
-                {
-                    datoExistente = true;
-                }
-            }
-            if (datoExistente==false)
-            {
-                listViewListaMateriales.Items.Add(new solicitudKanban
-                {
-                    lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                    modulo = listBoxModulo.SelectedItem.ToString(),
-                    material = "Accesorios",
-                    cantidad = 1,
-                    talla = "Unica"
-                });
-            }
-            else
-            {
-                MessageBox.Show("Ya lo agregaste a la lista de elementos solictados");
-            }
-
-        }
-
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
         {
             if (4==3)
@@ -332,7 +288,6 @@ namespace Production_control_1._0.kanban
                 cnKanban.Close();
             }
         }
-
         private void listBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listBoxModulo.SelectedIndex > -1)
@@ -386,7 +341,6 @@ namespace Production_control_1._0.kanban
                 cnKanban.Close();
             }
         }
-
         private void passwordboxUsuario_PasswordChanged(object sender, RoutedEventArgs e)
         {
             labelUsuario.Content = "*";
@@ -416,5 +370,184 @@ namespace Production_control_1._0.kanban
             cnProduccion.Close();
             #endregion
         }
+
+        #region botonesDeAgregarMaterialLista
+        private void buttonAgregarAccesorios_Click(object sender, RoutedEventArgs e)
+        {
+            //se verifica si tiene accesorios
+            if (ItemsControlAccesorios.Items.Count > 0)
+            {
+                //se verifica si aun no ha sido entregado
+                if(labelEstadoAccesorios.Content.ToString() == "Pendiente de Entrega")
+                {
+                    //se verifica si no esta ya agregado a la lista
+                    bool datoExistente = false;
+                    foreach (solicitudKanban item in listViewListaMateriales.Items)
+                    {
+                        if (item.lote == ((solicitudKanban)(listBoxLote.SelectedItem)).lote && item.material == "Accesorios")
+                        {
+                            datoExistente = true;
+                        }
+                    }
+                    if (datoExistente == false)
+                    {
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = "Accesorios",
+                            cantidad = 1,
+                            talla = "Unica"
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ya lo agregaste a la lista de elementos solictados o ya ha sido solicitado");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Ya se ha solicitado previamente");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Este lote no requiere Accesorios");
+            }
+        }
+        private void buttonAgregarBinding_Click(object sender, RoutedEventArgs e)
+        {
+            //se verifica si tiene accesorios
+            if (ItemsControlBinding.Items.Count > 0)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoBinding.Content.ToString() == "Pendiente de Entrega")
+                {
+                    //se verifica si no esta ya agregado a la lista
+                    bool datoExistente = false;
+                    foreach (solicitudKanban item in listViewListaMateriales.Items)
+                    {
+                        if (item.lote == ((solicitudKanban)(listBoxLote.SelectedItem)).lote && item.material == "Binding")
+                        {
+                            datoExistente = true;
+                        }
+                    }
+                    if (datoExistente == false)
+                    {
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = "Binding",
+                            cantidad = 1,
+                            talla = "Unica"
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ya lo agregaste a la lista de elementos solictados o ya ha sido solicitado");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Ya se ha solicitado previamente");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Este lote no requiere Binding");
+            }
+        }
+        private void buttonAgregarHilo_Click(object sender, RoutedEventArgs e)
+        {
+            //se verifica si tiene accesorios
+            if (ItemsControlHilos.Items.Count > 0)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoHilos.Content.ToString() == "Pendiente de Entrega")
+                {
+                    //se verifica si no esta ya agregado a la lista
+                    bool datoExistente = false;
+                    foreach (solicitudKanban item in listViewListaMateriales.Items)
+                    {
+                        if (item.lote == ((solicitudKanban)(listBoxLote.SelectedItem)).lote && item.material == "Hilos")
+                        {
+                            datoExistente = true;
+                        }
+                    }
+                    if (datoExistente == false)
+                    {
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = "Hilos",
+                            cantidad = 1,
+                            talla = "Unica"
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ya lo agregaste a la lista de elementos solictados o ya ha sido solicitado");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Ya se ha solicitado previamente");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Este lote no requiere Hilos");
+            }
+        }
+        private void buttonAgregarElastico_Click(object sender, RoutedEventArgs e)
+        {
+            //se verifica si tiene accesorios
+            if (ItemsControlElastico.Items.Count > 0)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoElastico.Content.ToString() == "Pendiente de Entrega")
+                {
+                    //se verifica si no esta ya agregado a la lista
+                    bool datoExistente = false;
+                    foreach (solicitudKanban item in listViewListaMateriales.Items)
+                    {
+                        if (item.lote == ((solicitudKanban)(listBoxLote.SelectedItem)).lote && item.material == "Elastico")
+                        {
+                            datoExistente = true;
+                        }
+                    }
+                    if (datoExistente == false)
+                    {
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = "Elastico",
+                            cantidad = 1,
+                            talla = "Unica"
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ya lo agregaste a la lista de elementos solictados o ya ha sido solicitado");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Ya se ha solicitado previamente");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Este lote no requiere Elastico");
+            }
+        }
+        #endregion
     }
 }
