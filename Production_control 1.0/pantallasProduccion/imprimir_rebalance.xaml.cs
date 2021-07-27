@@ -118,9 +118,9 @@ namespace Production_control_1._0
             //se agregan los valores de las cargas en las columnas
             foreach (ElementoRebalance item in listaOperariosRecibidos)
             {
-                SeriesCollection[0].Values.Add(item.cargaRebalance);
-                SeriesCollection[1].Values.Add(1d);
-                SeriesCollection[2].Values.Add(0.9d);
+                SeriesCollection[0].Values.Add(item.cargaRebalance*tkt_);
+                SeriesCollection[1].Values.Add(tkt_);
+                SeriesCollection[2].Values.Add(tkt_*0.9);
             };
             #endregion
             #region consultarBonos

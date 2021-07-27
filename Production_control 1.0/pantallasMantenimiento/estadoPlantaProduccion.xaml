@@ -558,7 +558,8 @@
                             <Label x:Name="modulo_orden" Content="{Binding Path=prioridad}" Grid.ColumnSpan="1" FontWeight="Bold" Grid.Column="0" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
                             <Label x:Name="modulo_prio" Content="{Binding Path=modulo}" Grid.ColumnSpan="2" Grid.Column="1" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
                             <Label x:Name="maquina_prio" Content="{Binding Path=maquina}" Grid.ColumnSpan="2" Grid.Column="3" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
-                            <Label x:Name="problema_prio" Content="{Binding Path=problema_reportado}" Grid.ColumnSpan="5" Grid.Column="5" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
+                            <Label x:Name="problema_prio" Content="{Binding Path=problema_reportado}" Grid.ColumnSpan="4" Grid.Column="5" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
+                            <Label x:Name="labelTipoPrioridad" Content="{Binding Path=tipoPrioridad}" Grid.ColumnSpan="2" Grid.Column="8" SizeChanged="letra_priori_solicitudes" Foreground="AliceBlue" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

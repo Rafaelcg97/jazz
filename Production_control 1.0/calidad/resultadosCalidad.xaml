@@ -1,0 +1,206 @@
+﻿<UserControl x:Class="Production_control_1._0.calidad.resultadosCalidad"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Production_control_1._0.calidad"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="20" Padding="0" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="letraAjustable" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Center">AQL Semanal TexOps</Label>
+        <Viewbox Grid.Row="0" Grid.Column="17" Grid.RowSpan="5" Grid.ColumnSpan="3" Margin="10">
+            <Calendar x:Name="calendarCalidad" SelectedDatesChanged="calendarCalidad_SelectedDatesChanged"/>
+        </Viewbox>
+        <Label Grid.ColumnSpan="2"  Padding="0" Margin="10" Content="Descargar:" FontWeight="Bold" Grid.Row="2" SizeChanged="letraAjustable"/>
+        <Button x:Name="buttonDescargar" Background="Transparent" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="8" Click="buttonDescargar_Click">
+            <Image Source="/imagenes/descargar.png"/>
+        </Button>
+        <ListView x:Name="listViewDatosCalidad" Grid.Row="4" Grid.ColumnSpan="15" Margin="10" Grid.RowSpan="21" SelectionChanged="listViewDatosCalidad_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Año" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGray" Content="{Binding anio}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Semana" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGray" Content="{Binding semana}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Modulo" Width="90">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGray" Content="{Binding modulo}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Arteria" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGray" Content="{Binding arteria}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Muestra Proceso" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGreen" Content="{Binding muestraP}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Rechazos Proceso" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGreen" Content="{Binding rechazosP}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="AQL Proceso" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkGreen" Content="{Binding aqlP}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Muestra Empaque" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkRed" Content="{Binding muestraE}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Rechazos Empaque" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkRed" Content="{Binding muestraE}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="AQL Empaque" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkRed" Content="{Binding aqlE}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Muentra Final" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkOrange" Content="{Binding muestraF}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Rechazos Final" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkOrange" Content="{Binding rechazosF}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="AQL Final" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkOrange" Content="{Binding aqlF}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="listViewDetallesRechazos" Grid.Column="15" Grid.Row="6" Grid.ColumnSpan="5" Grid.RowSpan="19" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Fecha" Width="90">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Background="IndianRed" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Content="{Binding fecha}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Codigo" Width="90">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Background="DarkSeaGreen" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Content="{Binding codigo}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Defecto" Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Background="DarkGray" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Content="{Binding defecto}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Auditado" Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Background="DarkCyan" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Content="{Binding muestraP}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Rechazado" Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Background="CornflowerBlue" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Content="{Binding rechazosP}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

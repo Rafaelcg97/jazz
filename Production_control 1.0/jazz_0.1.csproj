@@ -227,6 +227,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="calidad\resultadosCalidad.xaml.cs">
+      <DependentUpon>resultadosCalidad.xaml</DependentUpon>
+    </Compile>
     <Compile Include="clases\accionSolicitud.cs" />
     <Compile Include="clases\asistencia.cs" />
     <Compile Include="clases\asistenciaPorColaborador.cs" />
@@ -249,6 +252,7 @@
     <Compile Include="clases\moduloAdministrado.cs" />
     <Compile Include="clases\operacion.cs" />
     <Compile Include="clases\operario.cs" />
+    <Compile Include="clases\registroCalidad.cs" />
     <Compile Include="clases\solicitudInsumo.cs" />
     <Compile Include="clases\solicitudKanban.cs" />
     <Compile Include="clases\solicitudMaquina.cs" />
@@ -371,6 +375,10 @@
     <Compile Include="splashScreen.xaml.cs">
       <DependentUpon>splashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="calidad\resultadosCalidad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="kanban\estadoPlanta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

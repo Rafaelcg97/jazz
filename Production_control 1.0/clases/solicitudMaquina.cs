@@ -22,5 +22,6 @@ namespace Production_control_1._0.clases
         public double tiempoPausa { get; set; }
         public string color { get; set; }
         public string mecanico { get; set; }
+        public string tipoPrioridad { get; set; }
     }
 }

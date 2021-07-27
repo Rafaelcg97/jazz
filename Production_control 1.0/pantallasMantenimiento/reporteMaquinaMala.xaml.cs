@@ -361,8 +361,13 @@ namespace Production_control_1._0
         }
         private void enviar_reporte_Click(object sender, RoutedEventArgs e)
         {
+            string prioridad_ = "balance";
+            if (checkBoxPrioridad.IsChecked == true)
+            {
+                prioridad_ = "principal";
+            }
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudes (modulo, arteria, ubicacion, maquina, operario, problema_reportado, hora_reportada, corresponde)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + comboBoxArteria.SelectedItem.ToString()+"', '" + labelUbicacion.Content.ToString() +"', '"+ maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "')";
+            string sql = "insert into solicitudes (modulo, arteria, ubicacion, maquina, operario, problema_reportado, hora_reportada, corresponde, prioridad)  values('" + modulo_reporte.SelectedItem.ToString() + "', '" + comboBoxArteria.SelectedItem.ToString()+"', '" + labelUbicacion.Content.ToString() +"', '"+ maquina_reporte.SelectedItem.ToString() + "', '" + codigo_reporte.Text.ToString() + "', '" + problema_reporte.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + corresponde_reporte.Content.ToString() + "', '" + prioridad_ + "')";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             cm.ExecuteNonQuery();

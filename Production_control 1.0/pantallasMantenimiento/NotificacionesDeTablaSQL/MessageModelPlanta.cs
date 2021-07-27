@@ -902,7 +902,8 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                                 modulo = dr["modulo"].ToString(),
                                 maquina = dr["maquina"].ToString(),
                                 problema_reportado = dr["problema_reportado"].ToString(),
-                                prioridad = conteoPrio
+                                prioridad = conteoPrio,
+                                tipoPrioridad = dr["prioridad"].ToString()
                             };
                             this.P.Add(prioridad);
                         }
