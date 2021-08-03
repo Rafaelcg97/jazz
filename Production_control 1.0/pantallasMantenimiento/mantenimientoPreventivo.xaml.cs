@@ -245,7 +245,7 @@ namespace Production_control_1._0
         private void enviar_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudes (modulo, ubicacion, maquina, problema_reportado, hora_asignacion, hora_reportada, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content.ToString() +"', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO')  SELECT SCOPE_IDENTITY()";
+            string sql = "insert into solicitudes (modulo, ubicacion, maquina, problema_reportado, hora_asignacion, hora_reportada, hora_apertura, corresponde, prioridad)  values('" + modulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content.ToString() +"', 'manto', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString() + "', 'MANTENIMIENTO', 'preventivo')  SELECT SCOPE_IDENTITY()";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();

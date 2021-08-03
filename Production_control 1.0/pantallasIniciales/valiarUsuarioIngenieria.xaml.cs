@@ -45,7 +45,7 @@ namespace Production_control_1._0.pantallasIniciales
         }
         private void solo_numeros(object sender, KeyEventArgs e)
         {
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key == Key.Tab)
                 e.Handled = false;
             else
                 e.Handled = true;

@@ -126,7 +126,7 @@
                     <GridViewColumn Header="Rechazos Empaque" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkRed" Content="{Binding muestraE}"/>
+                                <Label Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" Background="DarkRed" Content="{Binding rechazosE}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

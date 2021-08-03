@@ -266,6 +266,9 @@
     <Compile Include="kanban\solicitudMateriales.xaml.cs">
       <DependentUpon>solicitudMateriales.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasIniciales\ingenieria.xaml.cs">
+      <DependentUpon>ingenieria.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasIniciales\kanban.xaml.cs">
       <DependentUpon>kanban.xaml</DependentUpon>
     </Compile>
@@ -384,6 +387,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="kanban\solicitudMateriales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasIniciales\ingenieria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
