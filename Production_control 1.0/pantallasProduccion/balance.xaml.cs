@@ -57,13 +57,13 @@ namespace Production_control_1._0
             sam_2.Content = Math.Round(datosBalance.sam, 4).ToString();
             #endregion
             #region cargarListaDeModulos
-            sql = "select Descripción from coordinadores";
+            sql = "select min(id) as id, modulo from modulosProduccion where coordinadorCodigo>0 group by modulo order by id";
             cnProduccion.Open();
             cm = new SqlCommand(sql, cnProduccion);
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                modulo.Items.Add(dr["Descripción"].ToString());
+                modulo.Items.Add(dr["modulo"].ToString());
             };
             dr.Close();
             cnProduccion.Close();
