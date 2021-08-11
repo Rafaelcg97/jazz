@@ -23,5 +23,6 @@ namespace Production_control_1._0.clases
         public string CompanyNumber { get; set; }
         public int QuantityOrdered { get; set; }
         public int terminadas { get; set; }
+        public string color { get; set; }
     }
 }

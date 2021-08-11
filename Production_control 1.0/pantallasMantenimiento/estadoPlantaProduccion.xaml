@@ -861,7 +861,6 @@
                         <Button Grid.Column="4" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="10" Background="Transparent" BorderBrush="Transparent" x:Name="btn_reanudar" Click="btn_reanudar_Click">
                             <Image x:Name="img_verificar_reanudar" Source="/imagenes/reanudar.png"/>
                         </Button>
-
                     </Grid>
                 </Border>
             </Popup>

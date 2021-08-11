@@ -16,10 +16,13 @@ namespace Production_control_1._0.pantallasMantenimiento
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         #endregion
         #region datosIniciales
-        public reporteFinalTPM(int id)
+        int mecanico_ = 0;
+        int id_ = 0;
+        public reporteFinalTPM(int id, int mecanico)
         {
             InitializeComponent();
-            labelSolicirud.Content = id;
+            mecanico_ = mecanico;
+            id_ = id;
         }
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
@@ -231,12 +234,15 @@ namespace Production_control_1._0.pantallasMantenimiento
             if(checkedCompleto.IsChecked == true) { tipo = "COMPLETO"; } else { tipo = "BASICO"; }
             observaciones_ = observaciones.Text.Replace("'", "");
             string sql = "insert into solicitudesTPMDetalles(idSolicitud, tipo, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p33, p34, p35, p36, p37, p38, observaciones) ";
-            sql = sql + "values( '" + labelSolicirud.Content.ToString() + "', '" + tipo +"', " + p1 + ", " + p2 + ", " + p3 + ", " + p4 + ", " + p5 + ", " + p6 + ", " + p7 + ", " + p8 + ", " + p9 + ", " + p10 + ", " + p11 + ", " + p12 + ", " + p13 + ", " + p14 + ", " + p15 + ", " + p16 + ", " + p17 + ", " + p18 + ", " + p19 + ", " + p20 + ", " + p21 + ", " + p22 + ", " + p23 + ", " + p24 + ", " + p25 + ", " + p26 + ", " + p27 + ", " + p28 + ", " + p29 + ", " + p30 + ", " + p31 + ", " + p32 + ", " + p33 + ", " + p34 + ", " + p35 + ", " + p36 + ", " + p37 + ", " + p38 + ", '" + observaciones_ + "')";
-            string sql2 = "update solicitudesTPM set fechaFin = '" + DateTime.Now + "' where id= '" + labelSolicirud.Content + "'";
+            sql = sql + "values( '" + id_ + "', '" + tipo +"', " + p1 + ", " + p2 + ", " + p3 + ", " + p4 + ", " + p5 + ", " + p6 + ", " + p7 + ", " + p8 + ", " + p9 + ", " + p10 + ", " + p11 + ", " + p12 + ", " + p13 + ", " + p14 + ", " + p15 + ", " + p16 + ", " + p17 + ", " + p18 + ", " + p19 + ", " + p20 + ", " + p21 + ", " + p22 + ", " + p23 + ", " + p24 + ", " + p25 + ", " + p26 + ", " + p27 + ", " + p28 + ", " + p29 + ", " + p30 + ", " + p31 + ", " + p32 + ", " + p33 + ", " + p34 + ", " + p35 + ", " + p36 + ", " + p37 + ", " + p38 + ", '" + observaciones_ + "')";
+            string sql2 = "update solicitudesTPM set fechaFin = '" + DateTime.Now + "' where id= '" + id_ + "'";
+            string sql3 = "insert into tiemposPorMecanicoTPM (num_solicitud, mecanico, hora, tipo) values( '" + id_ + "', '" + mecanico_ + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
             cnMantenimiento.Open();
             SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
             cm.ExecuteNonQuery();
             cm = new SqlCommand(sql2, cnMantenimiento);
+            cm.ExecuteNonQuery();
+            cm = new SqlCommand(sql3, cnMantenimiento);
             cm.ExecuteNonQuery();
             cnMantenimiento.Close();
 

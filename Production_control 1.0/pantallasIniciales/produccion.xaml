@@ -353,21 +353,21 @@
                                 <GridViewColumn Header="SchStart" Width="90">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding SchStart}" FontSize="12"/>
+                                            <Label Content="{Binding SchStart}" Background="{Binding color}" FontSize="12" Width="200"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Estatus" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding estatus}" FontSize="12"/>
+                                            <Label Content="{Binding estatus}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="TargetDate" Width="90">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding targetDate}" FontSize="12"/>
+                                            <Label Content="{Binding targetDate}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -381,14 +381,14 @@
                                 <GridViewColumn Header="PO Number" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding PONumber}" FontSize="12"/>
+                                            <Label Content="{Binding PONumber}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Style Name" Width="187">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding StyleName}" FontSize="12"/>
+                                            <Label Content="{Binding StyleName}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -402,42 +402,42 @@
                                 <GridViewColumn Header="Style Color Name" Width="186">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding StyleColorName}" FontSize="12"/>
+                                            <Label Content="{Binding StyleColorName}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Empaque" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding tipoEmpaque}" FontSize="12"/>
+                                            <Label Content="{Binding tipoEmpaque}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Pcs Empaq" Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding packQuantity}" FontSize="12"/>
+                                            <Label Content="{Binding packQuantity}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Temporada" Width="90">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding SeasonCode}" FontSize="12"/>
+                                            <Label Content="{Binding SeasonCode}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Cliente" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding CompanyNumber}" FontSize="12"/>
+                                            <Label Content="{Binding CompanyNumber}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Make" Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding QuantityOrdered}" FontSize="12"/>
+                                            <Label Content="{Binding QuantityOrdered}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

@@ -45,6 +45,7 @@ namespace Production_control_1._0.pantallasMantenimiento
             while (dr.Read())
             {
                 listBoxMecanico.Items.Add(dr["codigo"].ToString());
+                codigo_mec_re.Items.Add(dr["codigo"].ToString());
             };
             dr.Close();
             cnIngenieria.Close();
@@ -163,9 +164,15 @@ namespace Production_control_1._0.pantallasMantenimiento
             {
                 tipo = "PREVENTIVO";
             }
-            string sql = "insert into solicitudesTPM(maquina, tipo, problema, mecanico, fechaInicio) values('" + listBoxMaquina.SelectedItem.ToString() + "', '" + tipo + "', '" + textBoxProblema.Text + "', '" + listBoxMecanico.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+            string sql = "insert into solicitudesTPM(maquina, tipo, problema, fechaInicio) values('" + listBoxMaquina.SelectedItem.ToString() + "', '" + tipo + "', '" + textBoxProblema.Text + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') SELECT SCOPE_IDENTITY()";
             cnMantenimiento.Open();
             SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
+            SqlDataReader dr = cm.ExecuteReader();
+            dr.Read();
+            int id_ingresado = Convert.ToInt32(dr[0]);
+            dr.Close();
+            sql= "insert into tiemposPorMecanicoTPM (num_solicitud, mecanico, hora, tipo) values( '" + id_ingresado+ "', '" + listBoxMecanico.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+            cm = new SqlCommand(sql, cnMantenimiento);
             cm.ExecuteNonQuery();
             cnMantenimiento.Close();
 
@@ -200,11 +207,10 @@ namespace Production_control_1._0.pantallasMantenimiento
                 imagenButton.Source = new BitmapImage(inhabilitado);
             }
         }
-
         private void consultarReportes()
         {
             List<solicitudTPM> maquinasEnManto = new List<solicitudTPM>();
-            string sql = "select id, maquina, tipo, problema, codigoMecanico, nombreMecanico, fechaInicio, minutosPausa from resumenTiemposTPM where fechaFin is null";
+            string sql = "select id, maquina, tipo, problema, fechaInicio, minutosPausa from resumenTiemposTPM where fechaFin is null";
             cnMantenimiento.Open();
             SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
             SqlDataReader dr = cm.ExecuteReader();
@@ -216,7 +222,7 @@ namespace Production_control_1._0.pantallasMantenimiento
                     direccionImagen = "/imagenes/reanudar.png";
                 }
 
-                maquinasEnManto.Add(new solicitudTPM { id = Convert.ToInt32(dr["id"]), maquina = dr["maquina"].ToString(), problema = dr["problema"].ToString(), fechaInicio = Convert.ToDateTime(dr["fechaInicio"]).ToString("yyyy-MM-dd HH:mm:ss"), nombreMecanico = dr["nombreMecanico"].ToString(), codigoMecanico=Convert.ToInt32(dr["codigoMecanico"]), imagen = direccionImagen });
+                maquinasEnManto.Add(new solicitudTPM { id = Convert.ToInt32(dr["id"]), maquina = dr["maquina"].ToString(), problema = dr["problema"].ToString(), fechaInicio = Convert.ToDateTime(dr["fechaInicio"]).ToString("yyyy-MM-dd HH:mm:ss"), imagen = direccionImagen });
             };
             dr.Close();
             cnMantenimiento.Close();
@@ -226,7 +232,6 @@ namespace Production_control_1._0.pantallasMantenimiento
         }
         #endregion
         #region mostrarPop
-
         private void listViewPendientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //strings generales para la conexion a la base y la direccion de las imagenes de los botones (se cambian para hacer evidente si estan habilitados o no)
@@ -256,11 +261,21 @@ namespace Production_control_1._0.pantallasMantenimiento
                 problema.Content = problemaSeleccionado.problema;
                 maquina.Content = problemaSeleccionado.maquina;
                 solicitud.Content = problemaSeleccionado.id;
-                mecanico.Content = problemaSeleccionado.nombreMecanico;
-                codigo_mecanico.Content = problemaSeleccionado.codigoMecanico;
                 horaInicio.Content = problemaSeleccionado.fechaInicio;
-                
-                //se evalua si ya esta abierto
+
+                //se revisa en la tabla de tiempos por mecanico quien abrio el problema 
+                string sql = "select top 1 mecanico, a.nombre from tiemposPorMecanicoTPM left join (select codigo, nombre from ingenieria.dbo.usuarios where cargo='MECANICO') a on a.codigo = mecanico where num_solicitud=" + problemaSeleccionado.id + " order by hora desc";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                if (dr.Read())
+                {
+                    mecanico.Content = Convert.ToString(dr["nombre"] is DBNull ? "----" : dr["nombre"]);
+                    codigo_mecanico.Content = Convert.ToString(dr["mecanico"] is DBNull ? "----" : dr["mecanico"]);
+                };
+                dr.Close();
+
+                //se evalua si esta pausado
                 if (problemaSeleccionado.imagen== "/imagenes/reanudar.png")
                 {
                     pausar.IsEnabled = false;
@@ -287,41 +302,71 @@ namespace Production_control_1._0.pantallasMantenimiento
                 }
             }
         }
-
         private void pausar_Click(object sender, RoutedEventArgs e)
         {
             string sql = "insert into pausasTPM(IdSolicitud, hora, accion) values('"+ solicitud.Content.ToString() +"', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '-1')";
             cnMantenimiento.Open();
             SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
             cm.ExecuteNonQuery();
-            cnMantenimiento.Close();
-            popEstadoSoli.IsOpen = false;
-            consultarReportes();
-        }
-
-        private void reanudar_Click(object sender, RoutedEventArgs e)
-        {
-            string sql = "insert into pausasTPM(IdSolicitud, hora, accion) values('" + solicitud.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '1')";
-            cnMantenimiento.Open();
-            SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
+            sql= "insert into tiemposPorMecanicoTPM (num_solicitud, mecanico, hora, tipo) values( '" + solicitud.Content + "', '" + codigo_mecanico.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+            cm = new SqlCommand(sql, cnMantenimiento);
             cm.ExecuteNonQuery();
             cnMantenimiento.Close();
             popEstadoSoli.IsOpen = false;
             consultarReportes();
         }
+        private void reanudar_Click(object sender, RoutedEventArgs e)
+        {
+            #region tamano_de_pop
+            reanudar_solicitud.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            reanudar_solicitud.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 4;
+            reanudar_solicitud.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
+            reanudar_solicitud.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 3;
 
+            codigo_mec_re.MaxWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
+            codigo_mec_re.MinWidth = (System.Windows.SystemParameters.PrimaryScreenWidth) / 8;
+            codigo_mec_re.MaxHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
+            codigo_mec_re.MinHeight = (System.Windows.SystemParameters.PrimaryScreenHeight) / 30;
+
+            #endregion
+            codigo_mec_re.SelectedIndex = -1;
+            id_3.Content = solicitud.Content.ToString();
+            reanudar_solicitud.IsOpen = true;
+            popEstadoSoli.IsOpen = false;
+        }
         private void terminar_Click(object sender, RoutedEventArgs e)
         {
-            reporteFinalTPM reporteFinalTPM = new reporteFinalTPM(Convert.ToInt32(solicitud.Content));
+            reporteFinalTPM reporteFinalTPM = new reporteFinalTPM(Convert.ToInt32(solicitud.Content), Convert.ToInt32(codigo_mecanico.Content));
             this.NavigationService.Navigate(reporteFinalTPM);
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             popEstadoSoli.IsOpen = false;
             consultarReportes();            
         }
-
         #endregion
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            reanudar_solicitud.IsOpen= false;
+            consultarReportes();
+        }
+        private void btn_reanudar_Click(object sender, RoutedEventArgs e)
+        {
+            if (codigo_mec_re.SelectedIndex > -1)
+            {
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "insert into pausasTPM(IdSolicitud, hora, accion) values('" + solicitud.Content.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '1')";
+                string sql2 = "insert into tiemposPorMecanicoTPM (num_solicitud, mecanico, hora, tipo) values( '" + id_3.Content.ToString() + "', '" + codigo_mec_re.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '-1')";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlCommand cm2 = new SqlCommand(sql2, cn);
+                cm.ExecuteNonQuery();
+                cm2.ExecuteNonQuery();
+                cn.Close();
+                codigo_mec_re.Text = "";
+                reanudar_solicitud.IsOpen = false;
+                consultarReportes();
+            }
+        }
     }
 }

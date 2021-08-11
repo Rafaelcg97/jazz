@@ -82,7 +82,7 @@ namespace Production_control_1._0.pantallasIniciales
             #region cargarListaModulos
             comboBoxCoordinadorNombre.Items.Add("-");
             cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            sql = "select modulo from orden_modulos";
+            sql = "select modulo from orden_modulos where left(modulo,1)='M'";
             cn.Open();
             cm = new SqlCommand(sql, cn);
             dr = cm.ExecuteReader();
@@ -406,6 +406,13 @@ namespace Production_control_1._0.pantallasIniciales
                         SqlDataReader dr = cm.ExecuteReader();
                         while (dr.Read())
                         {
+                            int make= Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]);
+                            int terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"]);
+                            string color_ = "Transparent";
+                            if (terminadas==make)
+                            {
+                                color_ = "Gray";                  
+                            }
                             //listViewCumplimientoProgra.Items
                             lotesProgramados.Add(new loteProgramacion
                             {
@@ -423,8 +430,9 @@ namespace Production_control_1._0.pantallasIniciales
                                 SeasonCode = dr["seasonCode"].ToString(),
                                 CompanyNumber = dr["CompanyNumber"].ToString(),
                                 QuantityOrdered = Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]),
-                                terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"])
-                            });
+                                terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"]),
+                                color = color_
+                            }); ;
                         };
                         cn.Close();
                         foreach (loteProgramacion item in lotesProgramados)
