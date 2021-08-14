@@ -496,7 +496,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -528,7 +528,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -560,7 +560,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -592,7 +592,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -624,7 +624,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -656,7 +656,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -688,7 +688,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -720,7 +720,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -752,7 +752,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -784,7 +784,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -816,7 +816,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -848,7 +848,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -891,7 +891,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -923,7 +923,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -955,7 +955,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -987,7 +987,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1019,7 +1019,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1051,7 +1051,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1083,7 +1083,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1115,7 +1115,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1148,7 +1148,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1180,7 +1180,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1212,7 +1212,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1244,7 +1244,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1276,7 +1276,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1317,7 +1317,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1349,7 +1349,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1381,7 +1381,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1413,7 +1413,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1445,7 +1445,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1477,7 +1477,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1509,7 +1509,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1541,7 +1541,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1573,7 +1573,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1605,7 +1605,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1637,7 +1637,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1669,7 +1669,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1701,7 +1701,7 @@
                                                                             <ColumnDefinition Width="30"/>
                                                                         </Grid.ColumnDefinitions>
                                                                         <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                        <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
@@ -1736,7 +1736,7 @@
                                                                     <ColumnDefinition Width="56"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1776,7 +1776,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1808,7 +1808,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1840,7 +1840,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1872,7 +1872,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1904,7 +1904,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1937,7 +1937,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -1969,7 +1969,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2001,7 +2001,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2033,7 +2033,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2065,7 +2065,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2097,7 +2097,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2129,7 +2129,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2161,7 +2161,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2202,7 +2202,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2234,7 +2234,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2266,7 +2266,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2298,7 +2298,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2330,7 +2330,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2362,7 +2362,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2394,7 +2394,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2426,7 +2426,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2458,7 +2458,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2490,7 +2490,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2522,7 +2522,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2554,7 +2554,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2586,7 +2586,7 @@
                                                                     <ColumnDefinition Width="30"/>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Label Background="Transparent" Padding="0" Margin="0" Grid.Column="0" Grid.ColumnSpan="1" Foreground="Black" Content="{Binding tituloOperacion}"/>
-                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion}" LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
+                                                                <TextBox Background="White" Margin="0,0,5,0"  Grid.Column="1" Grid.ColumnSpan="1"  Foreground="Black" Text="{Binding asignadoOperacion, StringFormat=P0}"  LostFocus="AsignadoPorOperacion" KeyDown="soloNumerosDecimales"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
@@ -2666,7 +2666,7 @@
                                         </ListView>
                                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                             <Border MinHeight="20" MinWidth="60" MaxHeight="20" MaxWidth="60" Background="Red"></Border>
-                                            <Label Content="Ajuste Externo-Externo" FontSize="15" FontWeight="Bold" Margin="10,0,0,0"></Label>
+                                            <Label Content="Ajuste Inter-Interno" FontSize="15" FontWeight="Bold" Margin="10,0,0,0"></Label>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                             <Border MinHeight="20" MinWidth="60" MaxHeight="20" MaxWidth="60" Background="Orange"></Border>
@@ -2678,7 +2678,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                             <Border MinHeight="20" MinWidth="60" MaxHeight="20" MaxWidth="60" Background="Green"></Border>
-                                            <Label Content="Ajuste Interno-Interno" FontSize="15" FontWeight="Bold" Margin="10,0,0,0"></Label>
+                                            <Label Content="Ajuste Externo-Externo" FontSize="15" FontWeight="Bold" Margin="10,0,0,0"></Label>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                             <Border MinHeight="20" MinWidth="60" MaxHeight="20" MaxWidth="60" Background="Blue"></Border>
