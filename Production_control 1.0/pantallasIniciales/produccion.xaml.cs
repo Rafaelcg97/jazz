@@ -406,10 +406,10 @@ namespace Production_control_1._0.pantallasIniciales
                         SqlDataReader dr = cm.ExecuteReader();
                         while (dr.Read())
                         {
-                            int make= Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]);
+                            int make = Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]);
                             int terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"]);
                             string color_ = "Transparent";
-                            if (terminadas==make)
+                            if (terminadas >= make || dr["estatus"].ToString()=="Manufacture")
                             {
                                 color_ = "Gray";                  
                             }

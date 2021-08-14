@@ -258,12 +258,12 @@
     <Compile Include="clases\solicitudMaquina.cs" />
     <Compile Include="clases\solicitudTPM.cs" />
     <Compile Include="clases\usuario.cs" />
-    <Compile Include="kanban\estadoPlanta.xaml.cs">
+    <Compile Include="pantallasKanban\estadoPlanta.xaml.cs">
       <DependentUpon>estadoPlanta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="kanban\NotificacionesDeTablaSQL\MessageModelPlanta.cs" />
-    <Compile Include="kanban\NotificacionesDeTablaSQL\SQLNotifierPlanta.cs" />
-    <Compile Include="kanban\solicitudMateriales.xaml.cs">
+    <Compile Include="pantallasKanban\NotificacionesDeTablaSQL\MessageModelPlanta.cs" />
+    <Compile Include="pantallasKanban\NotificacionesDeTablaSQL\SQLNotifierPlanta.cs" />
+    <Compile Include="pantallasKanban\solicitudMateriales.xaml.cs">
       <DependentUpon>solicitudMateriales.xaml</DependentUpon>
     </Compile>
     <Compile Include="pantallasIniciales\ingenieria.xaml.cs">
@@ -382,11 +382,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="kanban\estadoPlanta.xaml">
+    <Page Include="pantallasKanban\estadoPlanta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="kanban\solicitudMateriales.xaml">
+    <Page Include="pantallasKanban\solicitudMateriales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

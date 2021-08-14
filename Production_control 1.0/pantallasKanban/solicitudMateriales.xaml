@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="Production_control_1._0.kanban.solicitudMateriales"
+﻿<UserControl x:Class="Production_control_1._0.pantallasKanban.solicitudMateriales"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Production_control_1._0.kanban"
+             xmlns:local="clr-namespace:Production_control_1._0.pantallasKanban"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -173,7 +174,7 @@
                     </Border>
                     <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
-                    <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoAccesorios" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
+                    <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoAccesorios" Content="Pendiente" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
                     <Button x:Name="buttonAgregarAccesorios" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarAccesorios_Click" >
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
@@ -379,16 +380,32 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="PartNumber" Width="130">
-                                        
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding material}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Header="Requerido" Width="90">
-                                        
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding cantidad}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Header="Entregado" Width="90">
-                                        
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding solicitado}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Header="Solicitar" Width="90">
-                                        
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <xctk:IntegerUpDown Value="{Binding agregado}" Maximum="{Binding diferencia}" Minimum="0"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
@@ -397,7 +414,7 @@
                     <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoCajas" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
-                    <Button x:Name="buttonAgregarCajas" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button x:Name="buttonAgregarCajas" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarCajas_Click">
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
                 </Grid>
@@ -441,19 +458,46 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:" SizeChanged="letraAjustable4"/>
-                    <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="5" BorderBrush="Black" BorderThickness="1" Margin="15" >
-                        <ScrollViewer>
-                            <ItemsControl x:Name="ItemsControlGancho" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
-                        </ScrollViewer>
-                    </Border>
-                    <Label Grid.ColumnSpan="8" Grid.Row="7" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="Tallas:" SizeChanged="letraAjustable4"/>
-                    <Border Grid.ColumnSpan="8" Grid.Row="8" Grid.RowSpan="9" BorderBrush="Black" BorderThickness="1" Margin="15" >
-
+                    <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
+                        <ListView x:Name="listViewGancho">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="PartNumber" Width="130">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding material}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Requerido" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding cantidad}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Entregado" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding solicitado}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Solicitar" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <xctk:IntegerUpDown Value="{Binding agregado}" Maximum="{Binding diferencia}" Minimum="0"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </Border>
                     <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
-                    <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoGancho" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
-                    <Button x:Name="buttonAgregarGancho" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoGanchos" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
+                    <Button x:Name="buttonAgregarGanchos" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarGanchos_Click">
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
                 </Grid>
@@ -504,12 +548,31 @@
                     </Border>
                     <Label Grid.ColumnSpan="8" Grid.Row="7" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="Tallas:" SizeChanged="letraAjustable4"/>
                     <Border Grid.ColumnSpan="8" Grid.Row="8" Grid.RowSpan="9" BorderBrush="Black" BorderThickness="1" Margin="15" >
-
+                        <ListView x:Name="listViewTallasTela">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Talla" Width="125">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding talla}" HorizontalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Solicitado"  Width="75">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding chequeado}" IsEnabled="{Binding habilitado}"  HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </Border>
                     <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoTela" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
-                    <Button x:Name="buttonAgregarTela" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button x:Name="buttonAgregarTela" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarTela_Click">
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
                 </Grid>
@@ -561,12 +624,31 @@
                     </Border>
                     <Label Grid.ColumnSpan="8" Grid.Row="7" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="Tallas:" SizeChanged="letraAjustable4"/>
                     <Border Grid.ColumnSpan="8" Grid.Row="8" Grid.RowSpan="9" BorderBrush="Black" BorderThickness="1" Margin="15" >
-
+                        <ListView x:Name="listViewTallasBra">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Talla" Width="125">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding talla}" HorizontalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Solicitado"  Width="75">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding chequeado}" IsEnabled="{Binding habilitado}"  HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </Border>
                     <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" SizeChanged="letraAjustable4"/>
                     <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoBra" Content="Pendiente de Entrega" FontWeight="Light" Margin="1" SizeChanged="letraAjustable4"/>
-                    <Button x:Name="buttonAgregarBra" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button x:Name="buttonAgregarBra" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarBra_Click">
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
                 </Grid>

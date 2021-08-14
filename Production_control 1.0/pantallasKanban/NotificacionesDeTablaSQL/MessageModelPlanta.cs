@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Production_control_1._0.clases;
 
-namespace Production_control_1._0.kanban.NotificacionesDeTablaSQL
+namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
 {
     class MessageModelPlanta
     {

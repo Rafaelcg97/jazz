@@ -1925,10 +1925,11 @@ namespace Production_control_1._0
         private void generarListaDeOperacionesRebalance()
         {
             List<ElementoRebalance> listaOperariosRebalance = new List<ElementoRebalance>();
+            double piezasPorHora = Convert.ToDouble(piezas_por_hora.Content);
             #region Enganche
             foreach (elementoListBox item in listBoxEnganche.Items)
             {
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
             }
             #endregion
             #region areaPreparacion
@@ -1952,7 +1953,7 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion*Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
                 }
@@ -1980,7 +1981,7 @@ namespace Production_control_1._0
                         ListBox listaDeOperaciones = ((ListBox)elemento);
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
                 }
@@ -2007,7 +2008,7 @@ namespace Production_control_1._0
                         ListBox listaDeOperaciones = ((ListBox)elemento);
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
                 }
@@ -2035,7 +2036,7 @@ namespace Production_control_1._0
                         ListBox listaDeOperaciones = ((ListBox)elemento);
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
                 }
@@ -2062,7 +2063,7 @@ namespace Production_control_1._0
                         ListBox listaDeOperaciones = ((ListBox)elemento);
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
-                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+                            listaOperariosBorde.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operario, tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
                         }
                     }
                 }
@@ -2203,7 +2204,7 @@ namespace Production_control_1._0
             {
                 if (elemento.GetType() == typeof(ListBox) && informacionElemento.identificador == "operacion")
                 {
-                    ((ListBox)elemento).Items.Add(new elementoListBox() { nombreOperacion = informacionElemento.nombreOperacion, tituloOperacion = informacionElemento.tituloOperacion, asignadoOperacion = informacionElemento.requeridoOperacion, correlativoOperacion = informacionElemento.correlativoOperacion, ajusteMaquina = informacionElemento.ajusteMaquina, samOperacion = informacionElemento.samOperacion });
+                    ((ListBox)elemento).Items.Add(new elementoListBox() { nombreOperacion = informacionElemento.nombreOperacion, tituloOperacion = informacionElemento.tituloOperacion, asignadoOperacion = 1, correlativoOperacion = informacionElemento.correlativoOperacion, ajusteMaquina = informacionElemento.ajusteMaquina, samOperacion = informacionElemento.samOperacion });
                 }
                 else if (elemento.GetType() == typeof(TextBox) && informacionElemento.identificador == "operacion")
                 {
@@ -2344,6 +2345,7 @@ namespace Production_control_1._0
             List<elementoListBox> consolidadoAsignaciones = new List<elementoListBox>();
             List<elementoListBox> consolidadoOperarios = new List<elementoListBox>();
             List<maquina> consolidadoMaquinas = new List<maquina>();
+            double piezasPorHora = Convert.ToDouble(piezas_por_hora.Content);
             //Codigo para verificar asignado por operacion se recorrera por cada arteria (para facilitar especificacion de donde estan los listBox que contienen los datos)
 
             //Recorrer el areadePreparacion (cada arteria es un StackPanel)
@@ -2352,9 +2354,9 @@ namespace Production_control_1._0
             foreach (Border estacion in areaPreparacion.Children)
             {
                 string operario = "";
-                double asignado = 0;
                 string categoria = "";
                 string color = "blanco";
+                double cargaProporcional = 0;
                 #region colorEnString
                 if (estacion.Background == Brushes.Red)
                 {
@@ -2402,13 +2404,13 @@ namespace Production_control_1._0
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
                             consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                            asignado = asignado + item.asignadoOperacion;
+                            cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2))*item.asignadoOperacion;
                         }
                     }
                 }
 
                 //Por cada estacion (border) se agrega el operario y los datos que le corresponden
-                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = asignado, categoriaMaquina = categoria });
+                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
                 consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
 
             }
@@ -2419,9 +2421,9 @@ namespace Production_control_1._0
             foreach (Border estacion in arteriaUno.Children)
             {
                 string operario = "";
-                double asignado = 0;
                 string categoria = "";
                 string color = "blanco";
+                double cargaProporcional = 0;
                 #region colorEnString
                 if (estacion.Background == Brushes.Red)
                 {
@@ -2461,11 +2463,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                            asignado = asignado + item.asignadoOperacion;
+                            cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
                         }
                     }
                 }
-                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = asignado, categoriaMaquina = categoria });
+                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
                 consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
             }
             #endregion
@@ -2473,9 +2475,9 @@ namespace Production_control_1._0
             foreach (Border estacion in arteriaDos.Children)
             {
                 string operario = "";
-                double asignado = 0;
                 string categoria = "";
                 string color = "blanco";
+                double cargaProporcional = 0;
                 #region colorEnString
                 if (estacion.Background == Brushes.Red)
                 {
@@ -2515,11 +2517,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                            asignado = asignado + item.asignadoOperacion;
+                            cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
                         }
                     }
                 }
-                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = asignado, categoriaMaquina = categoria });
+                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
                 consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
             }
             #endregion
@@ -2527,9 +2529,9 @@ namespace Production_control_1._0
             foreach (Border estacion in arteriaTres.Children)
             {
                 string operario = "";
-                double asignado = 0;
                 string categoria = "";
                 string color = "blanco";
+                double cargaProporcional = 0;
                 #region colorEnString
                 if (estacion.Background == Brushes.Red)
                 {
@@ -2569,11 +2571,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                            asignado = asignado + item.asignadoOperacion;
+                            cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
                         }
                     }
                 }
-                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = asignado, categoriaMaquina = categoria });
+                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
                 consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
             }
             #endregion
@@ -2581,9 +2583,9 @@ namespace Production_control_1._0
             foreach (Border estacion in arteriaCuatro.Children)
             {
                 string operario = "";
-                double asignado = 0;
                 string categoria = "";
                 string color = "blanco";
+                double cargaProporcional = 0;
                 #region colorEnString
                 if (estacion.Background == Brushes.Red)
                 {
@@ -2623,21 +2625,21 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                            asignado = asignado + item.asignadoOperacion;
+                            cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
                         }
                     }
                 }
-                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = asignado, categoriaMaquina = categoria });
+                consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
                 consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
             }
             #endregion
             #region estacionEngancha
             //lista de operaciones para enganche se revisa directamente el listbox porque no esta dentro de las arterias
-            double asignadoEnganche = 0;
+            double cargaProporcionale = 0;
             foreach (elementoListBox item in listBoxEnganche.Items)
             {
                 consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                asignadoEnganche = asignadoEnganche + item.asignadoOperacion;
+                cargaProporcionale = cargaProporcionale + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
             }
 
             #region colorEnString
@@ -2665,7 +2667,7 @@ namespace Production_control_1._0
             #endregion
 
             //datos de enganche se cargan aparte
-            consolidadoOperarios.Add(new elementoListBox { nombreOperario = operarioEnganche.Content.ToString(), asignadoOperario = asignadoEnganche, categoriaMaquina = "manual" });
+            consolidadoOperarios.Add(new elementoListBox { nombreOperario = operarioEnganche.Content.ToString(), asignadoOperario = cargaProporcionale, categoriaMaquina = "manual" });
             consolidadoMaquinas.Add(new maquina { categoriaMaquina = textBlockEngancheCategoria.Text, colorAjuste = color_ });
             #endregion
 
@@ -2695,7 +2697,7 @@ namespace Production_control_1._0
                 }
 
 
-                nuevaListaOperaciones.Add(new elementoListBox { identificador = "operacion", correlativoOperacion = operacion.correlativoOperacion, nombreOperacion = operacion.nombreOperacion, tituloOperacion = operacion.tituloOperacion, samOperacion = operacion.samOperacion, asignadoOperacion = relacionAsignacion, requeridoOperacion = operacion.requeridoOperacion, ajusteMaquina = operacion.ajusteMaquina, categoriaMaquina = operacion.categoriaMaquina });
+                nuevaListaOperaciones.Add(new elementoListBox { identificador = "operacion", correlativoOperacion = operacion.correlativoOperacion, nombreOperacion = operacion.nombreOperacion, tituloOperacion = operacion.tituloOperacion, samOperacion = operacion.samOperacion, asignadoOperacion = asignadoTotal, requeridoOperacion = operacion.requeridoOperacion, ajusteMaquina = operacion.ajusteMaquina, categoriaMaquina = operacion.categoriaMaquina });
             }
             Operaciones.ItemsSource = nuevaListaOperaciones;
             #endregion
@@ -2759,8 +2761,6 @@ namespace Production_control_1._0
                 nuevaListaOperarios.Add(new elementoListBox() { identificador = "operario", codigoOperario = operario.codigoOperario, nombreOperario = operario.nombreOperario, asignadoOperario = asignadoTotal, planaOperario = operario.planaOperario, ranaOperario = operario.ranaOperario, flatOperario = operario.flatOperario, coverOperario = operario.coverOperario, transferOperario = operario.transferOperario, atracadoraOperario = operario.atracadoraOperario, planchaOperario = operario.planchaOperario, bondingOperario = operario.bondingOperario, zigzagOperario = operario.zigzagOperario, multiagujaOperario = operario.multiagujaOperario, manualOperario = operario.manualOperario, variasOperario = operario.variasOperario });
             }
             Operarios.ItemsSource = nuevaListaOperarios;
-
-
             #endregion
             #region crearNuevaListaMaquinas
             List<maquina> nuevaListaMaquinas = new List<maquina>();
@@ -2887,19 +2887,23 @@ namespace Production_control_1._0
         private List<operario> concatenacionOperariosOperacionA()
         {
             List<ElementoRebalance> listaOperariosRebalance = new List<ElementoRebalance>();
+            double piezasPorHora= Convert.ToDouble(piezas_por_hora.Content);
             #region Enganche
             string operacionese = "";
+            double cargaProporcionale = 0;
             foreach (elementoListBox item in listBoxEnganche.Items)
             {
                 operacionese = operacionese + item.tituloOperacion + "\n";
+                cargaProporcionale = cargaProporcionale + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
             }
-            listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = operacionese });
+            listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = operacionese, requeridoOperacion = cargaProporcionale });
             #endregion
             #region areaPreparacion
             foreach (Border estacion in areaPreparacion.Children)
             {
                 string operario = "";
                 string operaciones = "";
+                double cargaProporcional = 0;
                 //Dentro de los bordes hay un StackPanel que tiene todo 
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
@@ -2916,11 +2920,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             operaciones = operaciones + item.tituloOperacion + "\n";
+                            cargaProporcional=cargaProporcional + Math.Round(piezasPorHora/ (60 / item.samOperacion), 2);
                         }
                     }
                 }
-
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim(), requeridoOperacion=cargaProporcional });
             }
             #endregion
             #region arteriaUno
@@ -2928,6 +2932,7 @@ namespace Production_control_1._0
             {
                 string operario = "";
                 string operaciones = "";
+                double cargaProporcional = 0;
                 //Dentro de los bordes hay un StackPanel que tiene todo 
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
@@ -2944,10 +2949,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             operaciones = operaciones + item.tituloOperacion + "\n";
+                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
                         }
                     }
                 }
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim(), requeridoOperacion = cargaProporcional });
             }
             #endregion
             #region arteriaDos
@@ -2955,6 +2961,7 @@ namespace Production_control_1._0
             {
                 string operario = "";
                 string operaciones = "";
+                double cargaProporcional = 0;
                 //Dentro de los bordes hay un StackPanel que tiene todo 
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
@@ -2971,10 +2978,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             operaciones = operaciones + item.tituloOperacion + "\n";
+                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
                         }
                     }
                 }
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim(), requeridoOperacion = cargaProporcional });
             }
             #endregion
             #region arteriaTres
@@ -2982,6 +2990,7 @@ namespace Production_control_1._0
             {
                 string operario = "";
                 string operaciones = "";
+                double cargaProporcional = 0;
                 //Dentro de los bordes hay un StackPanel que tiene todo 
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
@@ -2998,10 +3007,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             operaciones = operaciones + item.tituloOperacion + "\n";
+                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
                         }
                     }
                 }
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim(), requeridoOperacion = cargaProporcional });
             }
             #endregion
             #region arteriaCuatro
@@ -3009,6 +3019,7 @@ namespace Production_control_1._0
             {
                 string operario = "";
                 string operaciones = "";
+                double cargaProporcional = 0;
                 //Dentro de los bordes hay un StackPanel que tiene todo 
                 StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
@@ -3025,10 +3036,11 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             operaciones = operaciones + item.tituloOperacion + "\n";
+                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
                         }
                     }
                 }
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim() });
+                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim(), requeridoOperacion = cargaProporcional });
             }
             #endregion
             var results = listaOperariosRebalance.Select(x => x.nombreOperario).Distinct();
@@ -3040,15 +3052,17 @@ namespace Production_control_1._0
                 if (!string.IsNullOrEmpty(item))
                 {
                     string operaciones = "";
+                    double requeridoTotal = 0;
                     foreach (ElementoRebalance subitem in listaOperariosRebalance)
                     {
                         if (item == subitem.nombreOperario)
                         {
                             operaciones = operaciones + subitem.tituloOperacion + "\n";
+                            requeridoTotal = requeridoTotal + subitem.requeridoOperacion;
                         }
                     }
 
-                    operarioOperaciones.Add(new Operacion { nombreOperario = item, tituloOperacion = item + "\n" + operaciones });
+                    operarioOperaciones.Add(new Operacion { nombreOperario = item, tituloOperacion = item + "\n" + operaciones, requeridoOperacion=requeridoTotal });
                 }
             }
             List<operario> listaFinal = new List<operario>();
@@ -3070,8 +3084,7 @@ namespace Production_control_1._0
                         asignado = asignado + subitem.asignadoOperario;
                     }
                 }
-
-                listaFinal.Add(new operario { nombreOperario = item.tituloOperacion, asignadoOperario = asignado * takt });
+                listaFinal.Add(new operario { nombreOperario = item.tituloOperacion, asignadoOperario = asignado * takt*item.requeridoOperacion});
             }
             string cadena = "";
             foreach (operario item in listaFinal)
@@ -3159,32 +3172,16 @@ namespace Production_control_1._0
             {
                 double sumaCargas = 0;
                 string operaciones = "";
-                double sumaCargas2 = 0;
-                double sumaSam = 0;
-                double sumaTiempo = 0;
-                double eficienciaTotal = 0;
                 foreach (ElementoRebalance subitem in rebalance_.Items)
                 {
                     if (item.ToString() == subitem.nombreOperario)
                     {
                         sumaCargas = sumaCargas + subitem.cargaRebalance;
-                        sumaSam = sumaSam + subitem.samOperacion;
-                        sumaTiempo = sumaTiempo + subitem.tiempoRebalance;
                         operaciones = operaciones + subitem.tituloOperacion + "\n";
-                    }
-                    if (sumaTiempo > 0)
-                    {
-                        eficienciaTotal = sumaSam / sumaTiempo;
-                        sumaCargas2 = sumaCargas / eficienciaTotal;
-                    }
-                    else
-                    {
-                        eficienciaTotal = 0;
-                        sumaCargas2 = 0;
                     }
                 };
 
-                listaConsolidada.Add(new ElementoRebalance { nombreOperario = item + "\n" + operaciones.Trim(), cargaRebalance = sumaCargas2 });
+                listaConsolidada.Add(new ElementoRebalance { nombreOperario = item + "\n" + operaciones.Trim(), cargaRebalance = sumaCargas });
             }
             return listaConsolidada;
         }

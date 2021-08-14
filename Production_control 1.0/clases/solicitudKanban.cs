@@ -25,5 +25,11 @@ namespace Production_control_1._0.clases
         public string fechaEntrega { get; set; }
         public string color { get; set; }
         public string color2 { get; set; }
+        public bool chequeado { get; set; }
+        public bool habilitado { get; set; }
+        public int solicitado { get; set; }
+
+        public int diferencia { get; set; }
+        public int agregado { get; set; }
     }
 }

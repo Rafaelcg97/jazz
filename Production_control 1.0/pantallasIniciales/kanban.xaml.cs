@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Production_control_1._0.kanban;
+using Production_control_1._0.pantallasKanban;
 
 namespace Production_control_1._0.pantallasIniciales
 {

@@ -1,5 +1,5 @@
 ﻿using Production_control_1._0.clases;
-using Production_control_1._0.kanban.NotificacionesDeTablaSQL;
+using Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0.kanban
+namespace Production_control_1._0.pantallasKanban
 {
     public partial class estadoPlanta : Page
     {
