@@ -251,6 +251,7 @@
     <Compile Include="clases\materialesEstilos.cs" />
     <Compile Include="clases\moduloAdministrado.cs" />
     <Compile Include="clases\operacion.cs" />
+    <Compile Include="clases\operacionesAgregadas.cs" />
     <Compile Include="clases\operario.cs" />
     <Compile Include="clases\registroCalidad.cs" />
     <Compile Include="clases\solicitudInsumo.cs" />
@@ -867,7 +868,10 @@
   <ItemGroup>
     <Resource Include="imagenes\busquedaMecanico.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="imagenes\flechaAbajo.png" />
+    <Resource Include="imagenes\flechaArriba.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\estadoLotes.png" />
     <Resource Include="imagenes\solicitudKanban.png" />
