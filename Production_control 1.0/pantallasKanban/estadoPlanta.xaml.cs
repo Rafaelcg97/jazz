@@ -21,6 +21,7 @@ namespace Production_control_1._0.pantallasKanban
 {
     public partial class estadoPlanta : Page
     {
+        string modulo = "";
         #region datosIniciales
         public estadoPlanta()
         {
@@ -242,16 +243,15 @@ namespace Production_control_1._0.pantallasKanban
         }
         private void buttonTerminarAccion_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "update solicitudesKanban set fechaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where id='" + labelNumeroAccion.Content + "'";
-            cn.Open();
-            SqlCommand cm = new SqlCommand(sql, cn);
-            cm.ExecuteNonQuery();
-            cn.Close();
+            passCerrar.Clear();
+            labelCodigoAutoriza.Content = "*";
+            labelNumeroAccionCerrar.Content = labelNumeroAccion.Content;
             popUpEstadoModulo.IsOpen = false;
+            popUpCerrar.IsOpen = true;
+            modulo = labelModuloAccion.Content.ToString();
         }
         #endregion
-
+        #region popUpCerrar
         private void passCodigoInicia_PasswordChanged(object sender, RoutedEventArgs e)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -269,5 +269,42 @@ namespace Production_control_1._0.pantallasKanban
             }
             cn.Close();
         }
+        private void buttonCerrarPopUpCerrar_Click(object sender, RoutedEventArgs e)
+        {
+            popUpCerrar.IsOpen = false;
+        }
+        private void buttonCerrarSolicitud_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelCodigoAutoriza.Content.ToString()!="*")
+            {
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "update solicitudesKanban set fechaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', autorizaCierre='"+ labelCodigoAutoriza.Content.ToString() +"' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                cm.ExecuteNonQuery();
+                cn.Close();
+                popUpCerrar.IsOpen = false;
+            }
+            else
+            {
+                MessageBox.Show("Codigo no valido");
+            }
+        }
+        private void passCerrar_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            labelCodigoAutoriza.Content = "*";
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select codigo from usuarios, produccion.dbo.modulosProduccion where (codigo=coordinadorCodigo or codigo=ingenieroProcesosCodigo or codigo=soporteCodigo or codigo=enganchadorCodigo) AND contrasena='" + passCerrar.Password.ToString() + "' AND modulo='" + modulo + "' and kanban=1";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                labelCodigoAutoriza.Content = dr["codigo"].ToString();
+            };
+            dr.Close();
+            cn.Close();
+        }
+        #endregion
     }
 }

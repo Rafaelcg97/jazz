@@ -2174,12 +2174,15 @@ namespace Production_control_1._0
             //se ingresan los datos nuevos de tiempo ingresados
             foreach (ElementoRebalance item in rebalance_.Items)
             {
-                cn.Open();
-                string sql2 = "insert into toma_de_tiempos (fecha, modulo, estilo, temporada, version, codigo, nombre, titulo, operacion, ajuste, sam, tiempo_objetivo) values('" + System.DateTime.Now.ToString() + "', '" + modulo_va + "', '" + estilo_.Content.ToString() + "', '" + temporada_.Content.ToString() + "', '" + version_.Text.ToString() + "', '" + item.codigoOperario+ "', '" + item.nombreOperario + "', '" + item.tituloOperacion + "', '" + item.nombreOperacion + "', '" + item.ajusteMaquina + "', '" + item.samOperacion + "', '" + item.tiempoRebalance + "')";
-                SqlCommand cm2 = new SqlCommand(sql2, cn);
-                SqlDataReader dr2 = cm2.ExecuteReader();
-                dr2.Close();
-                cn.Close();
+                if (item.tiempoRebalance > 0)
+                {
+                    cn.Open();
+                    string sql2 = "insert into toma_de_tiempos (fecha, modulo, estilo, temporada, version, codigo, nombre, titulo, operacion, ajuste, sam, tiempo_objetivo) values('" + System.DateTime.Now.ToString() + "', '" + modulo_va + "', '" + estilo_.Content.ToString() + "', '" + temporada_.Content.ToString() + "', '" + version_.Text.ToString() + "', '" + item.codigoOperario + "', '" + item.nombreOperario + "', '" + item.tituloOperacion + "', '" + item.nombreOperacion + "', '" + item.ajusteMaquina + "', '" + item.samOperacion + "', '" + item.tiempoRebalance + "')";
+                    SqlCommand cm2 = new SqlCommand(sql2, cn);
+                    SqlDataReader dr2 = cm2.ExecuteReader();
+                    dr2.Close();
+                    cn.Close();
+                }
             }
 
             MessageBox.Show("La Toma de Tiempos ha sido Cargada");
