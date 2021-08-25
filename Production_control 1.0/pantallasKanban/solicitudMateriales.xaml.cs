@@ -165,98 +165,32 @@ namespace Production_control_1._0.pantallasKanban
             }
 
             //cargar si ya se ha entregado
-            cnKanban.Open();
-            listaDeMaterialesCompleta.Clear();
-            string sql = "select material, talla from detalleSolicitudeKanban where lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "'";
-
-            SqlCommand cm = new SqlCommand(sql, cnKanban);
-            SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
+            if (listBoxLote.SelectedIndex > -1)
             {
-                switch (dr["material"].ToString())
+                cnKanban.Open();
+                listaDeMaterialesCompleta.Clear();
+                string sql = "select material, talla from detalleSolicitudeKanban where lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "'";
+
+                SqlCommand cm = new SqlCommand(sql, cnKanban);
+                SqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
                 {
-                    case "Accesorios":
-                        labelEstadoAccesorios.Content = "Solicitado";
-                        break;
-                    case "Binding":
-                        labelEstadoBinding.Content = "Solicitado";
-                        break;
-                    case "Hilos":
-                        labelEstadoHilos.Content = "Solicitado";
-                        break;
-                    case "Tela":
-                        List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
-                        foreach (solicitudKanban talla in listViewTallasTela.Items)
-                        {
-                            if (talla.talla == dr["talla"].ToString())
-                            {
-                                listaActualizadaTela.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
-                            }
-                            else
-                            {
-                                listaActualizadaTela.Add(talla);
-                            }
-                        }
-
-                        labelEstadoTela.Content = "Solicitado";
-
-                        listViewTallasTela.Items.Clear();
-                        foreach (solicitudKanban elemento in listaActualizadaTela)
-                        {
-                            listViewTallasTela.Items.Add(elemento);
-                        }
-                        break;
-                    case "Copas":
-                        List<solicitudKanban> listaActualizadaCopas = new List<solicitudKanban>();
-                        foreach (solicitudKanban talla in listViewTallasBra.Items)
-                        {
-                            if (talla.talla == dr["talla"].ToString())
-                            {
-                                listaActualizadaCopas.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
-                            }
-                            else
-                            {
-                                listaActualizadaCopas.Add(talla);
-                            }
-                        }
-
-                        labelEstadoTela.Content = "Solicitado";
-
-                        listViewTallasBra.Items.Clear();
-                        foreach (solicitudKanban elemento in listaActualizadaCopas)
-                        {
-                            listViewTallasBra.Items.Add(elemento);
-                        }
-                        break;
-                }
-            }
-            dr.Close();
-            cnKanban.Close();
-
-            //validar si ya se encuentran en la lista por solicitar
-            foreach(solicitudKanban item in listViewListaMateriales.Items)
-            {
-                if(item.lote== ((solicitudKanban)listBoxLote.SelectedItem).lote)
-                {
-                    switch (item.material)
+                    switch (dr["material"].ToString())
                     {
                         case "Accesorios":
-                            labelEstadoAccesorios.Content = "Agregado";
+                            labelEstadoAccesorios.Content = "Solicitado";
                             break;
                         case "Binding":
-                            labelEstadoBinding.Content = "Agregado";
-                            break;
-                        case "Elastico":
-                            labelEstadoElastico.Content = "Agregado";
+                            labelEstadoBinding.Content = "Solicitado";
                             break;
                         case "Hilos":
-                            labelEstadoHilos.Content = "Agregado";
+                            labelEstadoHilos.Content = "Solicitado";
                             break;
                         case "Tela":
                             List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
                             foreach (solicitudKanban talla in listViewTallasTela.Items)
                             {
-                                if (talla.talla == item.talla)
+                                if (talla.talla == dr["talla"].ToString())
                                 {
                                     listaActualizadaTela.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
                                 }
@@ -266,7 +200,7 @@ namespace Production_control_1._0.pantallasKanban
                                 }
                             }
 
-                            labelEstadoTela.Content = "Agregado";
+                            labelEstadoTela.Content = "Solicitado";
 
                             listViewTallasTela.Items.Clear();
                             foreach (solicitudKanban elemento in listaActualizadaTela)
@@ -276,244 +210,343 @@ namespace Production_control_1._0.pantallasKanban
                             break;
                         case "Copas":
                             List<solicitudKanban> listaActualizadaCopas = new List<solicitudKanban>();
-                            foreach (solicitudKanban talla2 in listViewTallasBra.Items)
+                            foreach (solicitudKanban talla in listViewTallasBra.Items)
                             {
-                                if (talla2.talla == item.talla)
+                                if (talla.talla == dr["talla"].ToString())
                                 {
-                                    listaActualizadaCopas.Add(new solicitudKanban { talla = talla2.talla, chequeado = true, habilitado = false, cantidad = talla2.cantidad });
+                                    listaActualizadaCopas.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
                                 }
                                 else
                                 {
-                                    listaActualizadaCopas.Add(talla2);
+                                    listaActualizadaCopas.Add(talla);
                                 }
                             }
-                            labelEstadoBra.Content = "Agregado";
+
+                            labelEstadoTela.Content = "Solicitado";
 
                             listViewTallasBra.Items.Clear();
-                            foreach (solicitudKanban elemento2 in listaActualizadaCopas)
+                            foreach (solicitudKanban elemento in listaActualizadaCopas)
                             {
-                                listViewTallasBra.Items.Add(elemento2);
-                            }
-                            break;
-                        default:
-                            if (item.material.Contains("BOXES"))
-                            {
-                                List<solicitudKanban> listaActualizadaCajas = new List<solicitudKanban>();
-                                foreach (solicitudKanban subitem in listViewCajas.Items)
-                                {
-                                    if (item.material == subitem.material)
-                                    {
-                                        listaActualizadaCajas.Add(new solicitudKanban { material = subitem.material, cantidad = subitem.cantidad, agregado = 0, solicitado = subitem.solicitado, diferencia = subitem.diferencia-item.cantidad});
-                                    }
-                                    else
-                                    {
-                                        listaActualizadaCajas.Add(subitem);
-                                    }
-                                }
-
-                                labelEstadoCajas.Content = "Agregado";
-
-                                listViewCajas.Items.Clear();
-
-                                foreach (solicitudKanban item4 in listaActualizadaCajas)
-                                {
-                                    listViewCajas.Items.Add(item4);
-                                }
-                            }
-                            else
-                            {
-                                List<solicitudKanban> listaActualizadaGanchos = new List<solicitudKanban>();
-                                foreach (solicitudKanban subitem in listViewGancho.Items)
-                                {
-                                    if (item.material == subitem.material)
-                                    {
-                                        listaActualizadaGanchos.Add(new solicitudKanban { material = subitem.material, cantidad = subitem.cantidad, agregado = 0, solicitado = subitem.solicitado, diferencia = subitem.diferencia - item.cantidad });
-                                    }
-                                    else
-                                    {
-                                        listaActualizadaGanchos.Add(subitem);
-                                    }
-                                }
-
-                                labelEstadoGanchos.Content = "Agregado";
-
-                                listViewGancho.Items.Clear();
-
-                                foreach (solicitudKanban item4 in listaActualizadaGanchos)
-                                {
-                                    listViewGancho.Items.Add(item4);
-                                }
+                                listViewTallasBra.Items.Add(elemento);
                             }
                             break;
                     }
                 }
+                dr.Close();
+                cnKanban.Close();
+
+
+                //validar si ya se encuentran en la lista por solicitar
+                foreach (solicitudKanban item in listViewListaMateriales.Items)
+                {
+                    if (item.lote == ((solicitudKanban)listBoxLote.SelectedItem).lote)
+                    {
+                        switch (item.material)
+                        {
+                            case "Accesorios":
+                                labelEstadoAccesorios.Content = "Agregado";
+                                break;
+                            case "Binding":
+                                labelEstadoBinding.Content = "Agregado";
+                                break;
+                            case "Elastico":
+                                labelEstadoElastico.Content = "Agregado";
+                                break;
+                            case "Hilos":
+                                labelEstadoHilos.Content = "Agregado";
+                                break;
+                            case "Tela":
+                                List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
+                                foreach (solicitudKanban talla in listViewTallasTela.Items)
+                                {
+                                    if (talla.talla == item.talla)
+                                    {
+                                        listaActualizadaTela.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
+                                    }
+                                    else
+                                    {
+                                        listaActualizadaTela.Add(talla);
+                                    }
+                                }
+
+                                labelEstadoTela.Content = "Agregado";
+
+                                listViewTallasTela.Items.Clear();
+                                foreach (solicitudKanban elemento in listaActualizadaTela)
+                                {
+                                    listViewTallasTela.Items.Add(elemento);
+                                }
+                                break;
+                            case "Copas":
+                                List<solicitudKanban> listaActualizadaCopas = new List<solicitudKanban>();
+                                foreach (solicitudKanban talla2 in listViewTallasBra.Items)
+                                {
+                                    if (talla2.talla == item.talla)
+                                    {
+                                        listaActualizadaCopas.Add(new solicitudKanban { talla = talla2.talla, chequeado = true, habilitado = false, cantidad = talla2.cantidad });
+                                    }
+                                    else
+                                    {
+                                        listaActualizadaCopas.Add(talla2);
+                                    }
+                                }
+                                labelEstadoBra.Content = "Agregado";
+
+                                listViewTallasBra.Items.Clear();
+                                foreach (solicitudKanban elemento2 in listaActualizadaCopas)
+                                {
+                                    listViewTallasBra.Items.Add(elemento2);
+                                }
+                                break;
+                            default:
+                                if (item.material.Contains("BOXES"))
+                                {
+                                    List<solicitudKanban> listaActualizadaCajas = new List<solicitudKanban>();
+                                    foreach (solicitudKanban subitem in listViewCajas.Items)
+                                    {
+                                        if (item.material == subitem.material)
+                                        {
+                                            listaActualizadaCajas.Add(new solicitudKanban { material = subitem.material, cantidad = subitem.cantidad, agregado = 0, solicitado = subitem.solicitado, diferencia = subitem.diferencia - item.cantidad });
+                                        }
+                                        else
+                                        {
+                                            listaActualizadaCajas.Add(subitem);
+                                        }
+                                    }
+
+                                    labelEstadoCajas.Content = "Agregado";
+
+                                    listViewCajas.Items.Clear();
+
+                                    foreach (solicitudKanban item4 in listaActualizadaCajas)
+                                    {
+                                        listViewCajas.Items.Add(item4);
+                                    }
+                                }
+                                else
+                                {
+                                    List<solicitudKanban> listaActualizadaGanchos = new List<solicitudKanban>();
+                                    foreach (solicitudKanban subitem in listViewGancho.Items)
+                                    {
+                                        if (item.material == subitem.material)
+                                        {
+                                            listaActualizadaGanchos.Add(new solicitudKanban { material = subitem.material, cantidad = subitem.cantidad, agregado = 0, solicitado = subitem.solicitado, diferencia = subitem.diferencia - item.cantidad });
+                                        }
+                                        else
+                                        {
+                                            listaActualizadaGanchos.Add(subitem);
+                                        }
+                                    }
+
+                                    labelEstadoGanchos.Content = "Agregado";
+
+                                    listViewGancho.Items.Clear();
+
+                                    foreach (solicitudKanban item4 in listaActualizadaGanchos)
+                                    {
+                                        listViewGancho.Items.Add(item4);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+
+
             }
+
+
+
         }
         #endregion
         #region botonesDeAgregarMaterialLista
         private void buttonAgregarAccesorios_Click(object sender, RoutedEventArgs e)
         {
-            //se verifica si aun no ha sido entregado
-            if (labelEstadoAccesorios.Content.ToString() == "Pendiente")
+            if (listBoxLote.SelectedIndex > -1)
             {
-                listViewListaMateriales.Items.Add(new solicitudKanban
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoAccesorios.Content.ToString() == "Pendiente")
                 {
-                    lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                    modulo = listBoxModulo.SelectedItem.ToString(),
-                    material = "Accesorios",
-                    cantidad = 1,
-                    talla = "Unica"
-                });
+                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    {
+                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                        modulo = listBoxModulo.SelectedItem.ToString(),
+                        material = "Accesorios",
+                        cantidad = 1,
+                        talla = "Unica"
+                    });
+                }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarBinding_Click(object sender, RoutedEventArgs e)
         {
-            //se verifica si aun no ha sido entregado
-            if (labelEstadoBinding.Content.ToString() == "Pendiente")
+            if (listBoxLote.SelectedIndex > -1)
             {
-                listViewListaMateriales.Items.Add(new solicitudKanban
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoBinding.Content.ToString() == "Pendiente")
                 {
-                    lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                    modulo = listBoxModulo.SelectedItem.ToString(),
-                    material = "Binding",
-                    cantidad = 1,
-                    talla = "Unica"
-                });
+                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    {
+                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                        modulo = listBoxModulo.SelectedItem.ToString(),
+                        material = "Binding",
+                        cantidad = 1,
+                        talla = "Unica"
+                    });
+                }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarHilo_Click(object sender, RoutedEventArgs e)
         {
-            //se verifica si aun no ha sido entregado
-            if (labelEstadoHilos.Content.ToString() == "Pendiente")
+            if (listBoxLote.SelectedIndex > -1)
             {
-                listViewListaMateriales.Items.Add(new solicitudKanban
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoHilos.Content.ToString() == "Pendiente")
                 {
-                    lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                    modulo = listBoxModulo.SelectedItem.ToString(),
-                    material = "Hilos",
-                    cantidad = 1,
-                    talla = "Unica"
-                });
+                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    {
+                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                        modulo = listBoxModulo.SelectedItem.ToString(),
+                        material = "Hilos",
+                        cantidad = 1,
+                        talla = "Unica"
+                    });
+                }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarElastico_Click(object sender, RoutedEventArgs e)
         {
-            //se verifica si aun no ha sido entregado
-            if (labelEstadoElastico.Content.ToString() == "Pendiente")
+            if (listBoxLote.SelectedIndex > -1)
             {
-                listViewListaMateriales.Items.Add(new solicitudKanban
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoElastico.Content.ToString() == "Pendiente")
                 {
-                    lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                    modulo = listBoxModulo.SelectedItem.ToString(),
-                    material = "Elastico",
-                    cantidad = 1,
-                    talla = "Unica"
-                });
+                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    {
+                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                        modulo = listBoxModulo.SelectedItem.ToString(),
+                        material = "Elastico",
+                        cantidad = 1,
+                        talla = "Unica"
+                    });
+                }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarTela_Click(object sender, RoutedEventArgs e)
         {
-            foreach (solicitudKanban item in listViewTallasTela.Items)
+            if (listBoxLote.SelectedIndex > -1)
             {
-                if (item.habilitado == true && item.chequeado == true)
+                foreach (solicitudKanban item in listViewTallasTela.Items)
                 {
-                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    if (item.habilitado == true && item.chequeado == true)
                     {
-                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                        modulo = listBoxModulo.SelectedItem.ToString(),
-                        material = "Tela",
-                        cantidad = item.cantidad,
-                        talla = item.talla
-                    });
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = "Tela",
+                            cantidad = item.cantidad,
+                            talla = item.talla
+                        });
+                    }
                 }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarBra_Click(object sender, RoutedEventArgs e)
         {
-            foreach (solicitudKanban item in listViewTallasBra.Items)
+            if (listBoxLote.SelectedIndex > -1)
             {
-                if (item.habilitado == true && item.chequeado == true)
+                foreach (solicitudKanban item in listViewTallasBra.Items)
                 {
-                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    if (item.habilitado == true && item.chequeado == true)
                     {
-                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                        modulo = listBoxModulo.SelectedItem.ToString(),
-                        material = "Copas",
-                        cantidad = item.cantidad,
-                        talla = item.talla
-                    });
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = "Copas",
+                            cantidad = item.cantidad,
+                            talla = item.talla
+                        });
+                    }
                 }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarCajas_Click(object sender, RoutedEventArgs e)
         {
-            foreach (solicitudKanban item in listViewCajas.Items)
+            if (listBoxLote.SelectedIndex > -1)
             {
-                if (item.agregado > 0)
+                foreach (solicitudKanban item in listViewCajas.Items)
                 {
-                    int cantidad = 0;
-                    solicitudKanban itemAgregado = new solicitudKanban();
-                    foreach (solicitudKanban subitem in listViewListaMateriales.Items)
+                    if (item.agregado > 0)
                     {
-                        if (item.material == subitem.material && subitem.lote == ((solicitudKanban)listBoxLote.SelectedItem).lote)
+                        int cantidad = 0;
+                        solicitudKanban itemAgregado = new solicitudKanban();
+                        foreach (solicitudKanban subitem in listViewListaMateriales.Items)
                         {
-                            cantidad = cantidad + subitem.cantidad;
-                            itemAgregado = subitem;
+                            if (item.material == subitem.material && subitem.lote == ((solicitudKanban)listBoxLote.SelectedItem).lote)
+                            {
+                                cantidad = cantidad + subitem.cantidad;
+                                itemAgregado = subitem;
+                            }
                         }
+
+                        listViewListaMateriales.Items.Remove(itemAgregado);
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = item.material,
+                            cantidad = item.agregado + cantidad,
+                            talla = "unica",
+                        });
+
                     }
-
-                    listViewListaMateriales.Items.Remove(itemAgregado);
-                    listViewListaMateriales.Items.Add(new solicitudKanban
-                    {
-                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                        modulo = listBoxModulo.SelectedItem.ToString(),
-                        material = item.material,
-                        cantidad = item.agregado + cantidad,
-                        talla = "unica",
-                    });
-
                 }
+                validarEntregados();
             }
-            validarEntregados();
         }
         private void buttonAgregarGanchos_Click(object sender, RoutedEventArgs e)
         {
-            foreach (solicitudKanban item in listViewGancho.Items)
+            if (listBoxLote.SelectedIndex > -1)
             {
-                if (item.agregado > 0)
+                foreach (solicitudKanban item in listViewGancho.Items)
                 {
-                    int cantidad = 0;
-                    solicitudKanban itemAgregado = new solicitudKanban();
-                    foreach (solicitudKanban subitem in listViewListaMateriales.Items)
+                    if (item.agregado > 0)
                     {
-                        if (item.material == subitem.material && subitem.lote == ((solicitudKanban)listBoxLote.SelectedItem).lote)
+                        int cantidad = 0;
+                        solicitudKanban itemAgregado = new solicitudKanban();
+                        foreach (solicitudKanban subitem in listViewListaMateriales.Items)
                         {
-                            cantidad = cantidad + subitem.cantidad;
-                            itemAgregado = subitem;
+                            if (item.material == subitem.material && subitem.lote == ((solicitudKanban)listBoxLote.SelectedItem).lote)
+                            {
+                                cantidad = cantidad + subitem.cantidad;
+                                itemAgregado = subitem;
+                            }
                         }
+
+                        listViewListaMateriales.Items.Remove(itemAgregado);
+                        listViewListaMateriales.Items.Add(new solicitudKanban
+                        {
+                            lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                            modulo = listBoxModulo.SelectedItem.ToString(),
+                            material = item.material,
+                            cantidad = item.agregado + cantidad,
+                            talla = "unica",
+                            diferencia = item.diferencia,
+                            solicitado = item.cantidad,
+                        });
+
                     }
-
-                    listViewListaMateriales.Items.Remove(itemAgregado);
-                    listViewListaMateriales.Items.Add(new solicitudKanban
-                    {
-                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
-                        modulo = listBoxModulo.SelectedItem.ToString(),
-                        material = item.material,
-                        cantidad = item.agregado + cantidad,
-                        talla = "unica",
-                        diferencia = item.diferencia,
-                        solicitado =item.cantidad,
-                    });
-
                 }
+                validarEntregados();
             }
-            validarEntregados();
         }
         #endregion
         #region datosGeneralesDeFormulario
@@ -674,6 +707,21 @@ namespace Production_control_1._0.pantallasKanban
         {
             if (listBoxModulo.SelectedIndex > -1)
             {
+                //limpiar datos cargados
+                listViewTallasTela.Items.Clear();
+                listViewTallasBra.Items.Clear();
+                ItemsControlAccesorios.Items.Clear();
+                ItemsControlBinding.Items.Clear();
+                ItemsControlHilos.Items.Clear();
+                ItemsControlBra.Items.Clear();
+                ItemsControlElastico.Items.Clear();
+                ItemsControlTela.Items.Clear();
+                listViewCajas.Items.Clear();
+                listViewGancho.Items.Clear();
+                listBoxLote.Items.Clear();
+                listaCompletaLotes.Clear();
+                listViewListaMateriales.Items.Clear();
+
                 //carga ubicacion de 
                 cnManto.Open();
                 string sql = "select id from orden_modulos where modulo = '" + listBoxModulo.SelectedItem.ToString() + "'";
@@ -689,8 +737,6 @@ namespace Production_control_1._0.pantallasKanban
 
                 cnKanban.Open();
                 sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes where modulo='" + listBoxModulo.SelectedItem.ToString() + "'";
-                listBoxLote.Items.Clear();
-                listaCompletaLotes.Clear();
                 cm = new SqlCommand(sql, cnKanban);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
@@ -727,8 +773,23 @@ namespace Production_control_1._0.pantallasKanban
         {
             labelUsuario.Content = "*";
             buttonEnviarSolicitud.IsEnabled = false;
+
+            //limpiar datos cargados
+            listViewTallasTela.Items.Clear();
+            listViewTallasBra.Items.Clear();
+            ItemsControlAccesorios.Items.Clear();
+            ItemsControlBinding.Items.Clear();
+            ItemsControlHilos.Items.Clear();
+            ItemsControlBra.Items.Clear();
+            ItemsControlElastico.Items.Clear();
+            ItemsControlTela.Items.Clear();
+            listViewCajas.Items.Clear();
+            listViewGancho.Items.Clear();
             listBoxModulo.Items.Clear();
             listBoxLote.Items.Clear();
+            listViewListaMateriales.Items.Clear();
+
+
             #region variablesDeConexionn
             string sql;
             SqlCommand cm;
@@ -780,5 +841,22 @@ namespace Production_control_1._0.pantallasKanban
             GridPrincipal.Content = new estadoPlanta();
         }
         #endregion
+
+        private void listViewListaMateriales_KeyDown(object sender, KeyEventArgs e)
+        {
+            // eliminar el operario con ctrl y d
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
+            {
+                List<solicitudKanban> items = new List<solicitudKanban>();
+                foreach (solicitudKanban item in listViewListaMateriales.SelectedItems)
+                {
+                    items.Add(item);
+                }
+                foreach (solicitudKanban item in items)
+                {
+                    listViewListaMateriales.Items.Remove(item);
+                }
+            }
+        }
     }
 }

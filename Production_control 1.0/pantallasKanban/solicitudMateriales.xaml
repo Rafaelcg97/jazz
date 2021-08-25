@@ -91,7 +91,7 @@
         <Label x:Name="labelPiezas" FontFamily="calibri"  FontWeight="Bold" Grid.Column="8" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2"  SizeChanged="letraAjustable4" Content="----" VerticalContentAlignment="Center"/>
 
         <Border BorderBrush="Black" BorderThickness="4" Grid.Column="10" Grid.Row="5" Grid.RowSpan="20" Grid.ColumnSpan="5" CornerRadius="10">
-            <ListView x:Name="listViewListaMateriales" FontSize="15" FontWeight="Bold" Margin="5">
+            <ListView x:Name="listViewListaMateriales" FontSize="15" FontWeight="Bold" Margin="5" KeyDown="listViewListaMateriales_KeyDown">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Lote" Width="150">

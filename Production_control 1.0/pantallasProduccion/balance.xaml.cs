@@ -157,6 +157,7 @@ namespace Production_control_1._0
                     Values= new ChartValues<double> {0},
                     Stroke = System.Windows.Media.Brushes.Blue,
                     PointGeometry= DefaultGeometries.Circle,
+                    DataLabels = true,
                 },
                  new LineSeries
                 {
@@ -3196,7 +3197,7 @@ namespace Production_control_1._0
             //se agregan los valores de las cargas en las columnas
             foreach (ElementoRebalance item in rebalance_.Items)
             {
-                DatosGraficaEficiencia[0].Values.Add(item.eficienciaRebalance);
+                DatosGraficaEficiencia[0].Values.Add(Math.Round(item.eficienciaRebalance,2));
                 DatosGraficaEficiencia[1].Values.Add(1.0);
             };
         }
