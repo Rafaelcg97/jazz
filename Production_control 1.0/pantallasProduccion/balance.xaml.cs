@@ -27,6 +27,9 @@ namespace Production_control_1._0
         public Func<double, string> FormatterRebalance { get; set; }
         public List<string> ListaDeOperarios { get; private set; }
 
+        public SeriesCollection DatosGraficaEficiencia{ get; set; }
+        public string[] etiquetasEficiencia { get; set; }
+
         int codigoUsuario = 0;
 
         #endregion
@@ -142,6 +145,27 @@ namespace Production_control_1._0
             };
             FormatterRebalance = value => value.ToString("N");
             Formatter2 = value => value.ToString("P");
+            DataContext = this;
+            #endregion
+            #region datosInicialesDeGraficaDeEficiencia
+            // se cargan los datos iniciales para la grafica_reb
+            DatosGraficaEficiencia = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title="Eficiencia",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.Blue,
+                    PointGeometry= DefaultGeometries.Circle,
+                },
+                 new LineSeries
+                {
+                    Title="100%",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.Red,
+                    PointGeometry= DefaultGeometries.Circle,
+                },
+            };
             DataContext = this;
             #endregion
             #region datosInicialesDeResumenDeMaquinas
@@ -545,9 +569,9 @@ namespace Production_control_1._0
                 Operarios.ItemsSource=listaOperarios;
                 #endregion
                 #region calculosGenerales
+                CalculoAsignadoPorOperacion();
                 actualizarGrafica();
                 operacionSobrecargadaOperacionSubutilizada();
-                CalculoAsignadoPorOperacion();
                 #endregion
             }
         }
@@ -1512,7 +1536,6 @@ namespace Production_control_1._0
                     break;
                 case 2:
                     #region imprimirGraficaTeorica
-
                     List<operario> listaDeOperarios = concatenacionOperariosOperacionA();
                     clases.balance datosBalance= new clases.balance();
                     datosBalance.sam = Convert.ToDouble(sam_.Content);
@@ -1827,15 +1850,20 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaOperaciones)
                         {
                             bool agregado = false;
+                            elementoListBox subitemValido= new elementoListBox();
                             foreach (elementoListBox subitem in Operaciones.Items)
                             {
-                                if (item.correlativoOperacion == subitem.correlativoOperacion)
+                                if (item.nombreOperacion == subitem.nombreOperacion)
                                 {
                                     agregado = true;
-                                    listaOperaciones2.Add(subitem);
+                                    subitemValido = subitem;
                                 }
                             }
-                            if (agregado == false)
+                            if (agregado == true)
+                            {
+                                listaOperaciones2.Add(subitemValido);
+                            }
+                            else if (agregado == false)
                             {
                                 listaOperaciones2.Add(item);
                             }
@@ -2142,12 +2170,14 @@ namespace Production_control_1._0
         {
             eficienciaRebalance();
             actualizarGraficaReal();
+            actualizarGraficaEficiencia();
         }
         private void rebalance_bt_Click(object sender, RoutedEventArgs e)
         {
             generarListaDeOperacionesRebalance();
             eficienciaRebalance();
             actualizarGraficaReal();
+            actualizarGraficaEficiencia();
         }
         private void actuali_balance_Click(object sender, RoutedEventArgs e)
         {
@@ -2874,7 +2904,7 @@ namespace Production_control_1._0
             {
                 if (item.asignadoOperario > 0)
                 {
-                    SeriesCollection[0].Values.Add(item.asignadoOperario);
+                    SeriesCollection[0].Values.Add(Math.Round(item.asignadoOperario, 2));
                     SeriesCollection[1].Values.Add(tkt_);
                     SeriesCollection[2].Values.Add(0.9*tkt_);
                 }
@@ -3150,6 +3180,26 @@ namespace Production_control_1._0
                 DatosGraficaRebalance[2].Values.Add(0.9*tkt_);
             };
         }
+        private void actualizarGraficaEficiencia()
+        {
+            List<string> nombres = new List<string>();
+            foreach (ElementoRebalance item in rebalance_.Items)
+            {
+                nombres.Add(item.nombreOperario + "\n" + item.tituloOperacion);
+            }
+            //se limpian los datos cargados anteriormente para poder volver a cargar
+            graficoEficiencia.AxisX.Clear();
+            DatosGraficaEficiencia[0].Values.Clear();
+            DatosGraficaEficiencia[1].Values.Clear();
+            //se agrega la lista de operarios hecha al principio
+            graficoEficiencia.AxisX.Add(new Axis() { Labels = nombres.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize = 9, Foreground = Brushes.Black });
+            //se agregan los valores de las cargas en las columnas
+            foreach (ElementoRebalance item in rebalance_.Items)
+            {
+                DatosGraficaEficiencia[0].Values.Add(item.eficienciaRebalance);
+                DatosGraficaEficiencia[1].Values.Add(1.0);
+            };
+        }
         private List<ElementoRebalance> generarListaRebalance()
         {
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
@@ -3190,9 +3240,8 @@ namespace Production_control_1._0
             actualizarGrafica();
         }
         #endregion
-
         #endregion
-
+        #region modoTabla
         private void btnArriba_Click(object sender, RoutedEventArgs e)
         {
             if (lstModoTabla.SelectedIndex > -1)
@@ -4057,6 +4106,7 @@ namespace Production_control_1._0
             }
             #endregion
         }
+        #endregion
     }
 }
 

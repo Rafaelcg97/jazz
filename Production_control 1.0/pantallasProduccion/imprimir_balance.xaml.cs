@@ -33,7 +33,6 @@ namespace Production_control_1._0
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public string[] Labels2 { get; set; }
-        public Func<double, string> Formatter { get; set; }
         #endregion
         #region datos_iniciales
         public imprimir_balance(List<operario> listaOperariosRecibidos, clases.balance datosBalanceRecibidos)
@@ -81,6 +80,9 @@ namespace Production_control_1._0
                     Title = "Carga",
                     Values = new ChartValues<double> {0},
                     Fill = System.Windows.Media.Brushes.Green,
+                    FontSize=70,
+                    DataLabels= true,
+                    MaxColumnWidth=double.PositiveInfinity,
                 },
                 new LineSeries
                 {
@@ -89,6 +91,9 @@ namespace Production_control_1._0
                     Stroke = System.Windows.Media.Brushes.Red,
                     Fill = Brushes.Transparent,
                     PointGeometry= DefaultGeometries.Circle,
+                    PointGeometrySize=40,
+                    StrokeThickness=20,
+                    FontSize=50
                 },
                  new LineSeries
                 {
@@ -97,17 +102,28 @@ namespace Production_control_1._0
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = Brushes.Transparent,
                     PointGeometry= DefaultGeometries.Circle,
+                    PointGeometrySize=40,
+                    StrokeThickness=20,
+                    FontSize=50
                 }
             };
-            Formatter = value => value.ToString("N");
             DataContext = this;
             #endregion
+
+
+
+
+
+
             #region cargarDatosDeGrafica
             //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
             List<string> listaDeOperarios = new List<string>();
             foreach (operario item in listaOperariosRecibidos)
             {
-                listaDeOperarios.Add(item.nombreOperario);
+                if (item.asignadoOperario > 0)
+                {
+                    listaDeOperarios.Add(item.nombreOperario);
+                }
             }
             //se limpian los datos cargados anteriormente para poder volver a cargar
             grafico.AxisX.Clear();
@@ -115,13 +131,16 @@ namespace Production_control_1._0
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black});
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, Separator = {Step = 1}, FontSize=60, Foreground=Brushes.Black});
             //se agregan los valores de las cargas en las columnas
             foreach (operario item in listaOperariosRecibidos)
             {
-                SeriesCollection[0].Values.Add(item.asignadoOperario);
-                SeriesCollection[1].Values.Add(tkt_);
-                SeriesCollection[2].Values.Add(tkt_*0.9);
+                if (item.asignadoOperario > 0)
+                {
+                    SeriesCollection[0].Values.Add(Math.Round(item.asignadoOperario,2));
+                    SeriesCollection[1].Values.Add(tkt_);
+                    SeriesCollection[2].Values.Add(0.9 * tkt_);
+                }
             };
             #endregion
             #region consultarBonos

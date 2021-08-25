@@ -2838,6 +2838,22 @@
                         </lvc:CartesianChart>
                     </ScrollViewer>
                 </TabItem>
+                <TabItem Header="Grafica Eficiencia" ScrollViewer.HorizontalScrollBarVisibility="Visible" TabIndex="4">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="11">
+                        <lvc:CartesianChart x:Name="graficoEficiencia" Series="{Binding DatosGraficaEficiencia}" LegendLocation="Left" Grid.ColumnSpan="11" Grid.RowSpan="10" MinWidth="600" >
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Operarios" LabelsRotation="20">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1"></lvc:Separator>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Cargas" MinValue="0"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </ScrollViewer>
+                </TabItem>
             </TabControl>
             <!--#endregion-->
         </Grid>
