@@ -20,6 +20,11 @@ using Production_control_1._0.clases;
 using System.Management;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps;
+using System.Windows.Documents.Serialization;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace Production_control_1._0
 {
@@ -29,15 +34,13 @@ namespace Production_control_1._0
         private PrintDocument printDoc = new PrintDocument();
         Double tkt_ = 0;
         #endregion
-        #region clases_para_la_grafica
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public string[] Labels2 { get; set; }
-        #endregion
         #region datos_iniciales
-        public imprimir_balance(List<operario> listaOperariosRecibidos, clases.balance datosBalanceRecibidos)
+        public imprimir_balance(string tipoBalance, clases.balance datosBalanceRecibidos, FrameworkElement visual)
         {
             InitializeComponent();
+            RenderTargetBitmap bitmap = new RenderTargetBitmap(((int)visual.ActualWidth), ((int)visual.ActualHeight), 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(visual);
+            imagen.Source = bitmap;
             tkt_ = Math.Round(3600 / (Convert.ToDouble(datosBalanceRecibidos.corrida) / Convert.ToDouble(datosBalanceRecibidos.horas)), 2);
             int categoriaDeSam = 0;
             double eficienciaDouble = 0;
@@ -45,134 +48,6 @@ namespace Production_control_1._0
             {
                 eficienciaDouble = Math.Round(Convert.ToDouble(datosBalanceRecibidos.eficiencia.Substring(0, datosBalanceRecibidos.eficiencia.Length - 1)) / 100, 2);
             }
-            #region establecerCategoriaSam
-            if (datosBalanceRecibidos.sam <= 10)
-            {
-                categoriaDeSam = 1;
-            }
-            else if(datosBalanceRecibidos.sam >10 && datosBalanceRecibidos.sam <= 13.5)
-            {
-                categoriaDeSam = 2;
-            }
-            else if (datosBalanceRecibidos.sam > 13.5 && datosBalanceRecibidos.sam <= 16.5)
-            {
-                categoriaDeSam = 3;
-            }
-            else if (datosBalanceRecibidos.sam > 16.5 && datosBalanceRecibidos.sam <=20)
-            {
-                categoriaDeSam = 4;
-            }
-            else if (datosBalanceRecibidos.sam > 20 && datosBalanceRecibidos.sam <=25)
-            {
-                categoriaDeSam = 5;
-            }
-            else if (datosBalanceRecibidos.sam > 25)
-            {
-                categoriaDeSam = 6;
-            }
-            #endregion
-            #region datosInicialesDeGraficoo
-            // se cargan los datos iniciales para la grafica
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Carga",
-                    Values = new ChartValues<double> {0},
-                    Fill = System.Windows.Media.Brushes.Green,
-                    FontSize=70,
-                    DataLabels= true,
-                    MaxColumnWidth=double.PositiveInfinity,
-                },
-                new LineSeries
-                {
-                    Title="Tkt",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.Red,
-                    Fill = Brushes.Transparent,
-                    PointGeometry= DefaultGeometries.Circle,
-                    PointGeometrySize=40,
-                    StrokeThickness=20,
-                    FontSize=50
-                },
-                 new LineSeries
-                {
-                    Title="TktO",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.Blue,
-                    Fill = Brushes.Transparent,
-                    PointGeometry= DefaultGeometries.Circle,
-                    PointGeometrySize=40,
-                    StrokeThickness=20,
-                    FontSize=50
-                }
-            };
-            DataContext = this;
-            #endregion
-
-
-
-
-
-
-            #region cargarDatosDeGrafica
-            //se crea una lista de strings para las etiquetas del eje horizontal (los nombres de los operarios) solo se agregan los que ya han sido asignados
-            List<string> listaDeOperarios = new List<string>();
-            foreach (operario item in listaOperariosRecibidos)
-            {
-                if (item.asignadoOperario > 0)
-                {
-                    listaDeOperarios.Add(item.nombreOperario);
-                }
-            }
-            //se limpian los datos cargados anteriormente para poder volver a cargar
-            grafico.AxisX.Clear();
-            SeriesCollection[0].Values.Clear();
-            SeriesCollection[1].Values.Clear();
-            SeriesCollection[2].Values.Clear();
-            //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, Separator = {Step = 1}, FontSize=60, Foreground=Brushes.Black});
-            //se agregan los valores de las cargas en las columnas
-            foreach (operario item in listaOperariosRecibidos)
-            {
-                if (item.asignadoOperario > 0)
-                {
-                    SeriesCollection[0].Values.Add(Math.Round(item.asignadoOperario,2));
-                    SeriesCollection[1].Values.Add(tkt_);
-                    SeriesCollection[2].Values.Add(0.9 * tkt_);
-                }
-            };
-            #endregion
-            #region consultarBonos
-            SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql; //Consulta que se hace en sql
-            SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
-            SqlDataReader dr; //leer los resultados del comando sql
-            sql = "select turno, bono  from bono_t where eficiencia='" +eficienciaDouble + "' and categoria='" + categoriaDeSam +"' order by turno";
-            cnProduccion.Open();
-            cm = new SqlCommand(sql, cnProduccion);
-            dr = cm.ExecuteReader();
-            string cadenaBono = "";
-            while (dr.Read())
-            {
-                cadenaBono = cadenaBono+ "$ "+ dr["bono"].ToString() + " - " ;
-            };
-            dr.Close();
-            cnProduccion.Close();
-            bonoPorTurno.Content = cadenaBono;
-            #endregion
-            #region datosEncabezado
-            creacion.Content = datosBalanceRecibidos.fechaCreacion.ToString("yyyy-MM-dd");
-            impresion.Content = DateTime.Now.ToString("yyyy-MM-dd");
-            tipo.Content = "Teorico";
-            estilo.Content = datosBalanceRecibidos.nombre;
-            sam.Content = datosBalanceRecibidos.sam;
-            operarios.Content = datosBalanceRecibidos.operarios;
-            eficiencia.Content = datosBalanceRecibidos.eficiencia;
-            modulo.Content = datosBalanceRecibidos.modulo;
-            tkt.Content =tkt_;
-            piezasPorHora.Content =Math.Round((Convert.ToDouble(datosBalanceRecibidos.corrida) / Convert.ToDouble(datosBalanceRecibidos.horas)),0);
-            #endregion
             #region formularioImprimir
             //agregar la lista de impresoras instaladas
             string impresora_instalada;
@@ -203,6 +78,62 @@ namespace Production_control_1._0
 
             //numero de copias
             copias.Text = "1";
+            #endregion
+            #region establecerCategoriaSam
+            if (datosBalanceRecibidos.sam <= 10)
+            {
+                categoriaDeSam = 1;
+            }
+            else if(datosBalanceRecibidos.sam >10 && datosBalanceRecibidos.sam <= 13.5)
+            {
+                categoriaDeSam = 2;
+            }
+            else if (datosBalanceRecibidos.sam > 13.5 && datosBalanceRecibidos.sam <= 16.5)
+            {
+                categoriaDeSam = 3;
+            }
+            else if (datosBalanceRecibidos.sam > 16.5 && datosBalanceRecibidos.sam <=20)
+            {
+                categoriaDeSam = 4;
+            }
+            else if (datosBalanceRecibidos.sam > 20 && datosBalanceRecibidos.sam <=25)
+            {
+                categoriaDeSam = 5;
+            }
+            else if (datosBalanceRecibidos.sam > 25)
+            {
+                categoriaDeSam = 6;
+            }
+            #endregion
+            #region consultarBonos
+            SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql; //Consulta que se hace en sql
+            SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
+            SqlDataReader dr; //leer los resultados del comando sql
+            sql = "select turno, bono  from bono_t where eficiencia='" +eficienciaDouble + "' and categoria='" + categoriaDeSam +"' order by turno";
+            cnProduccion.Open();
+            cm = new SqlCommand(sql, cnProduccion);
+            dr = cm.ExecuteReader();
+            string cadenaBono = "";
+            while (dr.Read())
+            {
+                cadenaBono = cadenaBono+ "$ "+ dr["bono"].ToString() + " - " ;
+            };
+            dr.Close();
+            cnProduccion.Close();
+            bonoPorTurno.Content = cadenaBono;
+            #endregion
+            #region datosEncabezado
+            creacion.Content = datosBalanceRecibidos.fechaCreacion.ToString("yyyy-MM-dd");
+            impresion.Content = DateTime.Now.ToString("yyyy-MM-dd");
+            tipo.Content = tipoBalance;
+            estilo.Content = datosBalanceRecibidos.nombre;
+            sam.Content = datosBalanceRecibidos.sam;
+            operarios.Content = datosBalanceRecibidos.operarios;
+            eficiencia.Content = datosBalanceRecibidos.eficiencia;
+            modulo.Content = datosBalanceRecibidos.modulo;
+            tkt.Content =tkt_;
+            piezasPorHora.Content =Math.Round((Convert.ToDouble(datosBalanceRecibidos.corrida) / Convert.ToDouble(datosBalanceRecibidos.horas)),0);
             #endregion
         }
         #endregion
@@ -347,13 +278,7 @@ namespace Production_control_1._0
             {
                 try
                 {
-                    PrintDialog dialog = new PrintDialog();
-                    dialog.PrintTicket.PageOrientation = orientacion;
-                    dialog.PrintTicket.PageBorderless = PageBorderless.None;
-                    dialog.PrintTicket.PageMediaSize = tamano;
-                    dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
-                    dialog.PrintVisual(area_de_impresion, "Balance: "+estilo.Content);
-                    MessageBox.Show("Enviado a Impresora");
+                    Print(area_de_impresion);
                 }
                 catch
                 {
@@ -364,33 +289,13 @@ namespace Production_control_1._0
             {
                 try
                 {
-                    PrintDialog dialog = new PrintDialog();
-                    dialog.PrintTicket.PageOrientation = orientacion;
-                    dialog.PrintTicket.PageBorderless = PageBorderless.None;
-                    dialog.PrintTicket.PageMediaSize = tamano;
-                    dialog.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
-                    dialog.PrintQueue = new PrintQueue(new PrintServer(), impresora.SelectedItem.ToString());
-                    dialog.PrintVisual(area_de_impresion, "LayOut");
-                    MessageBox.Show("Enviado a Impresora");
+                    Print(area_de_impresion,1);
                 }
                 catch
                 {
                     MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
                 }
             }
-            //try
-            //{
-            //    this.IsEnabled = false;
-            //    PrintDialog printDialog = new PrintDialog();
-            //    if (printDialog.ShowDialog() == true)
-            //    {
-            //        printDialog.PrintVisual(area_de_impresion, "layOut");
-            //    }
-            //}
-            //finally
-            //{
-            //    this.IsEnabled = true;
-            //}
         }
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {
@@ -412,5 +317,86 @@ namespace Production_control_1._0
             impresora.IsEnabled = true;
         }
         #endregion
+        private void Print(Visual v, int impresoraSeleccionada=0)
+        {
+            //varibales para hacer el switch de los tamaños de pagina y orientaciones de pagina
+            string tamano_pagina = tamano_impresion.SelectedItem.ToString();
+            string orientacion_pagina = tamano_impresion.SelectedItem.ToString();
+            PageMediaSize tamano;
+            PageOrientation orientacion;
+            //configurar el valor del tamño de pagina
+            switch (tamano_pagina)
+            {
+                case "Carta":
+                    tamano = new PageMediaSize(PageMediaSizeName.NorthAmericaLetter);
+                    break;
+                case "Oficio":
+                    tamano = new PageMediaSize(PageMediaSizeName.NorthAmericaLegal);
+                    break;
+                case "Tabloide":
+                    tamano = new PageMediaSize(PageMediaSizeName.NorthAmericaTabloid);
+                    break;
+                default:
+                    tamano = new PageMediaSize(PageMediaSizeName.NorthAmericaTabloid);
+                    break;
+            };
+            //configurar el valor de orientacion de pagina
+            switch (orientacion_pagina)
+            {
+                case "Horizontal":
+                    orientacion = PageOrientation.Landscape;
+                    break;
+                case "Vertical":
+                    orientacion = PageOrientation.Portrait;
+                    break;
+                default:
+                    orientacion = PageOrientation.Landscape;
+                    break;
+            };
+            //establecer las propiedades de impresion
+
+            System.Windows.FrameworkElement e = v as System.Windows.FrameworkElement;
+            if (e == null)
+                return;
+
+            PrintDialog pd = new PrintDialog();
+            pd.PrintTicket.PageOrientation = orientacion;
+            pd.PrintTicket.PageBorderless = PageBorderless.None;
+            pd.PrintTicket.PageMediaSize = tamano;
+            pd.PrintTicket.CopyCount = Convert.ToInt32(copias.Text);
+            if (impresoraSeleccionada != 0)
+            {
+                pd.PrintQueue = new PrintQueue(new PrintServer(), impresora.SelectedItem.ToString());
+            }
+
+
+            //store original scale
+            Transform originalScale = e.LayoutTransform;
+            //get selected printer capabilities
+            System.Printing.PrintCapabilities capabilities = pd.PrintQueue.GetPrintCapabilities(pd.PrintTicket);
+
+            //get scale of the print wrt to screen of WPF visual
+            double scale = Math.Min(capabilities.PageImageableArea.ExtentWidth / e.ActualWidth, capabilities.PageImageableArea.ExtentHeight /
+                           e.ActualHeight);
+
+            //Transform the Visual to scale
+            e.LayoutTransform = new ScaleTransform(scale, scale);
+
+            //get the size of the printer page
+            System.Windows.Size sz = new System.Windows.Size(capabilities.PageImageableArea.ExtentWidth, capabilities.PageImageableArea.ExtentHeight);
+
+            //update the layout of the visual to the printer page size.
+            e.Measure(sz);
+            e.Arrange(new System.Windows.Rect(new System.Windows.Point(capabilities.PageImageableArea.OriginWidth, capabilities.PageImageableArea.OriginHeight), sz));
+
+            //now print the visual to printer to fit on the one page.
+            pd.PrintVisual(v, "Balance " + estilo.Content.ToString());
+
+            //apply the original transform.
+            e.LayoutTransform = originalScale;
+
+            MessageBox.Show("¡Listo!");
+
+        }
     }
 }

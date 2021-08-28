@@ -11,6 +11,10 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using Production_control_1._0.clases;
 using System.Linq;
+using System.Text;
+using Microsoft.Win32;
+using System.IO;
+using System.Diagnostics;
 
 namespace Production_control_1._0
 {
@@ -19,18 +23,18 @@ namespace Production_control_1._0
         #region clasesDeGraficas
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
-        public Func<double, string> Formatter { get; set; }
-        public Func<double, string> Formatter2 { get; set; }
 
         public SeriesCollection DatosGraficaRebalance { get; set; }
         public string[] etiquetasRebalance { get; set; }
-        public Func<double, string> FormatterRebalance { get; set; }
         public List<string> ListaDeOperarios { get; private set; }
 
         public SeriesCollection DatosGraficaEficiencia{ get; set; }
         public string[] etiquetasEficiencia { get; set; }
 
         int codigoUsuario = 0;
+
+        //formatos de numero grafica
+        public Func<double, string> PorcentajeFormatter { get; set; }
 
         #endregion
         #region datos_iniciales()
@@ -39,9 +43,24 @@ namespace Production_control_1._0
             InitializeComponent();
             #region tamanoDeZoom
             //datos generales para obtener la altura del zoom
-            tamano.Value = System.Windows.SystemParameters.PrimaryScreenHeight;
-            ZoomViewbox.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
-            ZoomViewbox.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
+
+            double alturaBase = System.Windows.SystemParameters.PrimaryScreenHeight;
+
+            //valor inicial de slicer
+            tamano.Value = alturaBase;
+            //tamanio zoom layout
+            ZoomViewbox.Height = alturaBase;
+            ZoomViewbox.Width = alturaBase * 1.5;
+            //tamnio zoom grafica teorica
+            zoomGraficaTeorica.Height = alturaBase; ;
+            zoomGraficaTeorica.Width = alturaBase * 1.5;
+            //tamanio zoom grafica real
+            zoomGraficaReal.Height= alturaBase; ;
+            zoomGraficaReal.Width= alturaBase*1.5;
+            //tamanio zoom grafica eficiencia
+            zoomGraficaEficiencia.Height = alturaBase; ;
+            zoomGraficaEficiencia.Width = alturaBase * 1.5;
+
             #endregion
             #region conexionesConBasesSQL
             SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -91,9 +110,13 @@ namespace Production_control_1._0
             {
                 new ColumnSeries
                 {
-                    Title = "Carga",
+                    Title = "Ciclo",
                     Values = new ChartValues<double> {0},
                     Fill = System.Windows.Media.Brushes.Green,
+                    DataLabels=true,
+                    LabelsPosition=BarLabelPosition.Top,
+                    FontSize=25,
+                    MaxColumnWidth = double.PositiveInfinity,
                 },
                 new LineSeries
                 {
@@ -112,19 +135,21 @@ namespace Production_control_1._0
                     PointGeometry= DefaultGeometries.Circle,
                 }
             };
-            Formatter = value => value.ToString("N");
             DataContext = this;
             #endregion
             #region datosInicialesDeGraficaDeRebalance
-
             // se cargan los datos iniciales para la grafica_reb
             DatosGraficaRebalance = new SeriesCollection
             {
                 new ColumnSeries
                 {
-                    Title = "Carga",
+                    Title = "Ciclo",
                     Values = new ChartValues<double> {0},
                     Fill = System.Windows.Media.Brushes.Green,
+                    DataLabels=true,
+                    LabelsPosition=BarLabelPosition.Top,
+                    FontSize=25,
+                    MaxColumnWidth = double.PositiveInfinity,
                 },
                 new LineSeries
                 {
@@ -141,10 +166,8 @@ namespace Production_control_1._0
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = Brushes.Transparent,
                     PointGeometry= DefaultGeometries.Circle,
-                },
+                }
             };
-            FormatterRebalance = value => value.ToString("N");
-            Formatter2 = value => value.ToString("P");
             DataContext = this;
             #endregion
             #region datosInicialesDeGraficaDeEficiencia
@@ -158,6 +181,7 @@ namespace Production_control_1._0
                     Stroke = System.Windows.Media.Brushes.Blue,
                     PointGeometry= DefaultGeometries.Circle,
                     DataLabels = true,
+                    FontSize=25,
                 },
                  new LineSeries
                 {
@@ -167,6 +191,7 @@ namespace Production_control_1._0
                     PointGeometry= DefaultGeometries.Circle,
                 },
             };
+            PorcentajeFormatter = value => value.ToString("P");
             DataContext = this;
             #endregion
             #region datosInicialesDeResumenDeMaquinas
@@ -578,26 +603,27 @@ namespace Production_control_1._0
         }
         #endregion        
         #region zoom()
-
         private void UpdateViewBox(int newValue)
         {
             if ((ZoomViewbox.Width >= 0) && ZoomViewbox.Height >= 0)
             {
-                double alto = System.Windows.SystemParameters.PrimaryScreenHeight;
-                double ancho = System.Windows.SystemParameters.PrimaryScreenWidth;
-                double relacion = ancho / alto;
-
-                ZoomViewbox.Width = newValue * relacion;
+                ZoomViewbox.Width = newValue * 1.5;
                 ZoomViewbox.Height = newValue;
+
+                zoomGraficaTeorica.Width = newValue * 1.5;
+                zoomGraficaTeorica.Height = newValue;
+
+                zoomGraficaReal.Width = newValue * 1.5;
+                zoomGraficaReal.Height = newValue;
+
+                zoomGraficaEficiencia.Width = newValue * 1.5;
+                zoomGraficaEficiencia.Height = newValue;
             }
         }
-
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             UpdateViewBox(Convert.ToInt32(tamano.Value));
         }
-
-
         #endregion
         #region contro_general_programa
         #region accionesBarraDeTitulo
@@ -1148,7 +1174,7 @@ namespace Production_control_1._0
         private void ButtonImprimirBalance_Click(object sender, RoutedEventArgs e)
         {
             int impresion_seleccionada = control_tab_maquinas.SelectedIndex;
-
+            clases.balance datosBalance = new clases.balance();
             switch (impresion_seleccionada)
             {
                 case 0:
@@ -1537,8 +1563,6 @@ namespace Production_control_1._0
                     break;
                 case 2:
                     #region imprimirGraficaTeorica
-                    List<operario> listaDeOperarios = concatenacionOperariosOperacionA();
-                    clases.balance datosBalance= new clases.balance();
                     datosBalance.sam = Convert.ToDouble(sam_.Content);
                     datosBalance.nombre = estilo_.Content.ToString();
                     datosBalance.operarios = Convert.ToInt32(operarios_.Content);
@@ -1551,26 +1575,41 @@ namespace Production_control_1._0
                     GridMenu.Margin = new Thickness(-250, 0, 0, 0);
                     GridBackground.Margin = new Thickness(5, 30, 0, 0);
                     #endregion
-                    this.NavigationService.Navigate(new imprimir_balance(listaDeOperarios, datosBalance));
+                    this.NavigationService.Navigate(new imprimir_balance("Balance", datosBalance, grafico));
                     #endregion
                     break;
                 case 3:
-                    #region imprimirGraficaRealcal
-                    List<ElementoRebalance> listaDeOperariosRebalance = generarListaRebalance();
-                    clases.balance datosRebalance = new clases.balance();
-                    datosRebalance.sam = Convert.ToDouble(sam_.Content);
-                    datosRebalance.nombre = estilo_.Content.ToString();
-                    datosRebalance.operarios = Convert.ToInt32(operarios_.Content);
-                    datosRebalance.eficiencia = eficiencia_.Content.ToString();
-                    datosRebalance.modulo = modulo_2.Content.ToString();
-                    datosRebalance.fechaCreacion = Convert.ToDateTime(fecha_.Content.ToString());
-                    datosRebalance.corrida = Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
-                    datosRebalance.horas = Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
+                    #region imprimirGraficaReal
+                    datosBalance.sam = Convert.ToDouble(sam_.Content);
+                    datosBalance.nombre = estilo_.Content.ToString();
+                    datosBalance.operarios = Convert.ToInt32(operarios_.Content);
+                    datosBalance.eficiencia = eficiencia_.Content.ToString();
+                    datosBalance.modulo = modulo_2.Content.ToString();
+                    datosBalance.fechaCreacion = Convert.ToDateTime(fecha_.Content.ToString());
+                    datosBalance.corrida = Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
+                    datosBalance.horas = Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
                     #region salirPanelLatera
                     GridMenu.Margin = new Thickness(-250, 0, 0, 0);
                     GridBackground.Margin = new Thickness(5, 30, 0, 0);
                     #endregion
-                    this.NavigationService.Navigate(new imprimir_rebalance(listaDeOperariosRebalance, datosRebalance));
+                    this.NavigationService.Navigate(new imprimir_balance("Rebalance", datosBalance, graficoRebalance));
+                    #endregion
+                    break;
+                case 4:
+                    #region imprimirGraficaEficiencia
+                    datosBalance.sam = Convert.ToDouble(sam_.Content);
+                    datosBalance.nombre = estilo_.Content.ToString();
+                    datosBalance.operarios = Convert.ToInt32(operarios_.Content);
+                    datosBalance.eficiencia = eficiencia_.Content.ToString();
+                    datosBalance.modulo = modulo_2.Content.ToString();
+                    datosBalance.fechaCreacion = Convert.ToDateTime(fecha_.Content.ToString());
+                    datosBalance.corrida = Convert.ToInt32(string.IsNullOrEmpty(piezas_de_corrida.Text) ? "0" : piezas_de_corrida.Text);
+                    datosBalance.horas = Convert.ToInt32(string.IsNullOrEmpty(horas_de_corrida.Text) ? "0" : horas_de_corrida.Text);
+                    #region salirPanelLatera
+                    GridMenu.Margin = new Thickness(-250, 0, 0, 0);
+                    GridBackground.Margin = new Thickness(5, 30, 0, 0);
+                    #endregion
+                    this.NavigationService.Navigate(new imprimir_balance("Eficiencia", datosBalance, graficoEficiencia));
                     #endregion
                     break;
             }
@@ -2217,6 +2256,61 @@ namespace Production_control_1._0
             }
 
             MessageBox.Show("La Toma de Tiempos ha sido Cargada");
+        }
+        private void descargar_balance_Click(object sender, RoutedEventArgs e)
+        {
+            System.Text.StringBuilder buffer = new StringBuilder();
+            #region encabezados
+            buffer.Append("NOMBRE");
+            buffer.Append(",");
+            buffer.Append("OPERACION");
+            buffer.Append(",");
+            buffer.Append("SAM");
+            buffer.Append(",");
+            buffer.Append("ASIGNADO");
+            buffer.Append(",");
+            buffer.Append("TIEMPO OBJETIVO");
+            buffer.Append(",");
+            buffer.Append("EFICIENCIA");
+            buffer.Append(",");
+            buffer.Append("CARGA");
+            buffer.Append("\n");
+            #endregion
+            foreach (ElementoRebalance item in rebalance_.Items)
+            {
+                buffer.Append(item.nombreOperario);
+                buffer.Append(",");
+                buffer.Append(item.tituloOperacion);
+                buffer.Append(",");
+                buffer.Append(item.samOperacion);
+                buffer.Append(",");
+                buffer.Append(item.asignadoOperacion);
+                buffer.Append(",");
+                buffer.Append(item.tiempoRebalance);
+                buffer.Append(",");
+                buffer.Append(item.eficienciaRebalance);
+                buffer.Append(",");
+                buffer.Append(item.cargaRebalance);
+                buffer.Append("\n");
+            }
+            String result = buffer.ToString();
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            { }
         }
         #endregion
         #region listBoxReceptorDeDatos
@@ -2899,7 +2993,7 @@ namespace Production_control_1._0
             SeriesCollection[1].Values.Clear();
             SeriesCollection[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black });
+            grafico.AxisX.Add(new Axis() { Labels = listaDeOperarios.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=20, Foreground=Brushes.Black });
             //se agregan los valores de las cargas en las columnas
             foreach (operario item in listaOperariosConCarga)
             {
@@ -3172,11 +3266,11 @@ namespace Production_control_1._0
             DatosGraficaRebalance[1].Values.Clear();
             DatosGraficaRebalance[2].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            graficoRebalance.AxisX.Add(new Axis() { Labels = nombreOperacion.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=9, Foreground=Brushes.Black });
+            graficoRebalance.AxisX.Add(new Axis() { Labels = nombreOperacion.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize=20, Foreground=Brushes.Black });
             //se agregan los valores de las cargas en las columnas
             foreach (ElementoRebalance item in listaConsolidada)
             {
-                DatosGraficaRebalance[0].Values.Add(item.cargaRebalance*tkt_);
+                DatosGraficaRebalance[0].Values.Add(Math.Round(item.cargaRebalance*tkt_,2));
                 DatosGraficaRebalance[1].Values.Add(tkt_);
                 DatosGraficaRebalance[2].Values.Add(0.9*tkt_);
             };
@@ -3193,7 +3287,7 @@ namespace Production_control_1._0
             DatosGraficaEficiencia[0].Values.Clear();
             DatosGraficaEficiencia[1].Values.Clear();
             //se agrega la lista de operarios hecha al principio
-            graficoEficiencia.AxisX.Add(new Axis() { Labels = nombres.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize = 9, Foreground = Brushes.Black });
+            graficoEficiencia.AxisX.Add(new Axis() { Labels = nombres.ToArray(), LabelsRotation = 89, ShowLabels = true, Separator = { Step = 1 }, FontSize = 20, Foreground = Brushes.Black });
             //se agregan los valores de las cargas en las columnas
             foreach (ElementoRebalance item in rebalance_.Items)
             {

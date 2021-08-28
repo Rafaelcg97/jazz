@@ -432,6 +432,10 @@
                             <Image Source="/imagenes/expediente.png"/>
                         </Button>
                         <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="calibri" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top">Enviar</Label>
+                        <Button x:Name="descargar_balance" Grid.Column="4" Grid.Row="0" Background="Transparent" BorderBrush="Transparent"  Grid.ColumnSpan="2" Click="descargar_balance_Click">
+                            <Image Source="/imagenes/descargar.png"/>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" FontFamily="calibri" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top">Descargar</Label>
                         <!--#endregion-->
                         <!--#region list_view-->
                         <ListView x:Name="rebalance_" Grid.Row="2" Grid.RowSpan="15"  Grid.Column="0" Grid.ColumnSpan="15" Margin="0,-35,0,0" FontSize="9" >
@@ -460,12 +464,12 @@
             </TabControl>
             <!--#endregion-->
             <!--#region control_tab_maquinas-->
-            <TabControl  Grid.Row="0" Grid.Column="14" Grid.RowSpan="48" Grid.ColumnSpan="26" Margin="5,0,5,5"  x:Name="control_tab_maquinas">
+            <TabControl  Grid.Row="0" Grid.Column="14" Grid.RowSpan="48" Grid.ColumnSpan="26" Margin="5,0,5,5" x:Name="control_tab_maquinas">
                 <TabItem Header="Layout" TabIndex="0" x:Name="tab0">
-                    <ScrollViewer x:Name="espacio"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible" Grid.Row="0" Grid.Column="14" Grid.RowSpan="48" Grid.ColumnSpan="26" Height="auto" Width="auto">
-                        <Viewbox  x:Name="ZoomViewbox" Stretch="Fill" Grid.Row="0" Grid.Column="14" Grid.RowSpan="48" Grid.ColumnSpan="26">
+                    <ScrollViewer x:Name="espacio"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible">
+                        <Viewbox  x:Name="ZoomViewbox" Stretch="Fill">
                             <Border BorderBrush="White" BorderThickness="2" Margin="10" >
-                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="26" >
+                                <StackPanel Orientation="Horizontal">
                                     <!--#region areaPreparacion-->
                                     <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="areaPreparacion">
                                         <!--#region estacion1-->
@@ -2806,52 +2810,70 @@
                         </ListView>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Grafica Teorica" ScrollViewer.HorizontalScrollBarVisibility="Visible" TabIndex="2">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="11">
-                        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico"  Grid.ColumnSpan="11" Grid.RowSpan="10" MinWidth="600">
-                            <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Operarios" Labels="{Binding Labels}" LabelsRotation="20">
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator Step="1"></lvc:Separator>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisX>
-                            <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Cargas" LabelFormatter="{Binding Formatter}" MinValue="0"></lvc:Axis>
-                            </lvc:CartesianChart.AxisY>
-                        </lvc:CartesianChart>
+                <TabItem Header="Grafica Teorica" TabIndex="2">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible">
+                        <Viewbox x:Name="zoomGraficaTeorica" Stretch="Fill">
+                            <lvc:CartesianChart MaxWidth="4000" MaxHeight="2667" MinWidth="4000" MinHeight="2667" Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" FontSize="25">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Operarios" Labels="{Binding Labels}" LabelsRotation="20">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1" StrokeThickness="0"></lvc:Separator>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Cargas" MinValue="0" FontSize="25" Foreground="Black">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="5" StrokeThickness="0"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                        </Viewbox>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Grafica Real" ScrollViewer.HorizontalScrollBarVisibility="Visible" TabIndex="3">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="11">
-                        <lvc:CartesianChart Series="{Binding DatosGraficaRebalance}" LegendLocation="Left" x:Name="graficoRebalance"  Grid.ColumnSpan="11" Grid.RowSpan="10" MinWidth="600" >
-                            <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Operarios" Labels="{Binding etiquetasRebalance}" LabelsRotation="20">
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator Step="1"></lvc:Separator>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisX>
-                            <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Cargas" LabelFormatter="{Binding FormatterRebalance}" MinValue="0"></lvc:Axis>
-                            </lvc:CartesianChart.AxisY>
-                        </lvc:CartesianChart>
+                <TabItem Header="Grafica Real" TabIndex="3">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible">
+                        <Viewbox x:Name="zoomGraficaReal" Stretch="Fill">
+                            <lvc:CartesianChart MaxWidth="4000" MaxHeight="2667" MinWidth="4000" MinHeight="2667" Series="{Binding DatosGraficaRebalance}" LegendLocation="Left" x:Name="graficoRebalance" FontSize="25">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Operarios" Labels="{Binding etiquetasRebalance}" LabelsRotation="20">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1" StrokeThickness="0"></lvc:Separator>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Cargas" MinValue="0" FontSize="25" Foreground="Black">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="5" StrokeThickness="0"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                        </Viewbox>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Grafica Eficiencia" ScrollViewer.HorizontalScrollBarVisibility="Visible" TabIndex="4">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="11">
-                        <lvc:CartesianChart x:Name="graficoEficiencia" Series="{Binding DatosGraficaEficiencia}" LegendLocation="Left" Grid.ColumnSpan="11" Grid.RowSpan="10" MinWidth="600" >
-                            <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Operarios" LabelsRotation="20">
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator Step="1"></lvc:Separator>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisX>
-                            <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Cargas" MinValue="0"></lvc:Axis>
-                            </lvc:CartesianChart.AxisY>
-                        </lvc:CartesianChart>
+                <TabItem Header="Grafica Eficiencia" TabIndex="4">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible">
+                        <Viewbox x:Name="zoomGraficaEficiencia" Stretch="Fill">
+                            <lvc:CartesianChart x:Name="graficoEficiencia" MaxWidth="4000" MaxHeight="2667" MinWidth="4000" MinHeight="2667" Series="{Binding DatosGraficaEficiencia}" LegendLocation="Left" FontSize="25">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Operarios" LabelsRotation="20">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1" StrokeThickness="0"></lvc:Separator>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Cargas" MinValue="0" FontSize="25" LabelFormatter="{Binding PorcentajeFormatter}" Foreground="Black">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="0.05" StrokeThickness="0"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                        </Viewbox>
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
