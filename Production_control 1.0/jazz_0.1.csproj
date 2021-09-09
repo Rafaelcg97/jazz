@@ -227,6 +227,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="calidad\calidadIndividual.xaml.cs">
+      <DependentUpon>calidadIndividual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="calidad\resultadosCalidad.xaml.cs">
       <DependentUpon>resultadosCalidad.xaml</DependentUpon>
     </Compile>
@@ -259,6 +262,9 @@
     <Compile Include="clases\solicitudMaquina.cs" />
     <Compile Include="clases\solicitudTPM.cs" />
     <Compile Include="clases\usuario.cs" />
+    <Compile Include="pantallasIniciales\calidad.xaml.cs">
+      <DependentUpon>calidad.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasKanban\estadoPlanta.xaml.cs">
       <DependentUpon>estadoPlanta.xaml</DependentUpon>
     </Compile>
@@ -376,7 +382,15 @@
     <Compile Include="splashScreen.xaml.cs">
       <DependentUpon>splashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="calidad\calidadIndividual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="calidad\resultadosCalidad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasIniciales\calidad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -871,6 +885,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\kanban.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\calidadIndividual.png" />
+    <Resource Include="imagenes\historialCalidad.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

@@ -216,111 +216,99 @@
             </Grid.ColumnDefinitions>
             <!--#endregion-->
             <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="7">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="5">
-                        <Label Content="Fecha"  Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label Content="Estilo:"  Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label Content="Temporada:"  Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label Content="SAM:"  Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label Content="Modulo:" Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label Content="Versión:" Grid.Column="1"  FontFamily="calibri" FontWeight="Bold" Padding="0" Grid.ColumnSpan="2" Margin="0,2,0,0"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <Label x:Name="fecha_" Content="----"   Grid.Column="3"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label x:Name="estilo_" Content="----"   Grid.Column="3"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label x:Name="temporada_" Content="----"  Grid.Column="3"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"/>
-                        <Label x:Name="sam_" Content="----"   Grid.Column="3"  FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2"/>
-                        <StackPanel Orientation="Horizontal">
-                            <ComboBox x:Name="modulo"  Grid.Row="5" Grid.Column="3" FontSize="14" FontFamily="calibri" FontWeight="Medium" Padding="0" Grid.ColumnSpan="2" Width="100" SelectionChanged="modulo_SelectionChanged"/>
-                            <Button x:Name="agregarOperariosGnerale" Grid.Column="4" Grid.ColumnSpan="1" Click="agregarListaDeOperariosGenerale">
-                                <Image Source="imagenes/desconocido.png" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="1" Height="15" Width="31" UseLayoutRounding="False" RenderTransformOrigin="0.758,0.5"/>
-                            </Button>
-                            <Button x:Name="agregar_operario" Grid.Column="4" Grid.ColumnSpan="1" Click="agregar_operario_Click">
-                                <Image Source="/imagenes/nuevo_use.png" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="1" Height="15" Width="31" UseLayoutRounding="False" RenderTransformOrigin="0.758,0.5"/>
-                            </Button>
-                            <Popup x:Name="datos_operario" Width="420" Height="150">
-                                <Border Background="#F9FAFA" CornerRadius="10">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                            <Label FontWeight="Bold" Background="#F9FAFA" Width="150" Margin="0,5,0,25">Código de Operario:</Label>
-                                            <TextBox x:Name="codigo_op" Width="200" Margin="10,5,0,25" TextChanged="codigo_op_TextChanged" ></TextBox>
-                                            <Button x:Name="revision" Width="30" Height="30" Margin="0,5,0,25" Background="Transparent" BorderBrush="Transparent" IsEnabled="False" Visibility="Hidden">
-                                                <Image Source="/imagenes/apply.ico"></Image>
-                                            </Button>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label FontWeight="Bold" Background="#F9FAFA" Width="150">Nombre de Operario:</Label>
-                                            <TextBox x:Name="nombre_op" Width="200" Margin="10,0,0,0"></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
-                                            <Button x:Name="agregar_op"  Width="30" Height="30" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="agregar_op_Click">
-                                                <Image Source="/imagenes/agregar-usuario.png"></Image>
-                                            </Button>
-                                            <Button x:Name="no_nomb" Width="30" Height="30" Margin="10,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="no_nomb_Click">
-                                                <Image Source="/imagenes/desconocido.png"></Image>
-                                            </Button>
-                                            <Button x:Name="agregar_cancel" Width="30" Height="30" Margin="10,0,0,0" Click="agregar_cancel_Click" Background="Transparent" BorderBrush="Transparent">
-                                                <Image Source="/imagenes/boton-x.png"></Image>
-                                            </Button>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Border>
-                            </Popup>
+                <Viewbox>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="5">
+                            <Label Content="Fecha" FontFamily="calibri" FontWeight="Bold" Padding="0" FontSize="12" Margin="0,3,0,0"/>
+                            <Label Content="Estilo:" FontFamily="calibri" FontWeight="Bold" Padding="0" FontSize="12" Margin="0,3,0,0"/>
+                            <Label Content="Temporada:" FontFamily="calibri" FontWeight="Bold" Padding="0" FontSize="12" Margin="0,3,0,0"/>
+                            <Label Content="SAM:" FontFamily="calibri" FontWeight="Bold" Padding="0" FontSize="12" Margin="0,3,0,0"/>
+                            <Label Content="Modulo:" FontFamily="calibri" FontWeight="Bold" Padding="0" FontSize="12" Margin="0,3,0,0"/>
+                            <Label Content="Versión:" FontFamily="calibri" FontWeight="Bold" Padding="0" FontSize="12" Margin="0,3,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="version_" Grid.Column="3" FontFamily="calibri" FontWeight="Medium" Grid.ColumnSpan="2" Margin="0,2,0,0" KeyDown="solo_numeros" ></TextBox>
+                        <StackPanel Margin="5">
+                            <Label x:Name="fecha_" Content="----" FontFamily="calibri" FontWeight="Medium" Padding="0" Margin="0,3,0,0"/>
+                            <Label x:Name="estilo_" Content="----" FontFamily="calibri" FontWeight="Medium" Padding="0" Margin="0,3,0,0"/>
+                            <Label x:Name="temporada_" Content="----" FontFamily="calibri" FontWeight="Medium" Padding="0" Margin="0,3,0,0"/>
+                            <Label x:Name="sam_" Content="----" FontFamily="calibri" FontWeight="Medium" Padding="0" Margin="0,3,0,0"/>
+                            <StackPanel Orientation="Horizontal"  Margin="0,3,0,0">
+                                <ComboBox x:Name="modulo"  FontSize="12" Padding="4,0,0,0" FontFamily="calibri" FontWeight="Medium" Width="100" Height="16" SelectionChanged="modulo_SelectionChanged"/>
+                                <Button x:Name="agregarOperariosGnerale" Click="agregarListaDeOperariosGenerale" Height="16" Width="31">
+                                    <Image Source="imagenes/desconocido.png"/>
+                                </Button>
+                                <Button x:Name="agregar_operario" Click="agregar_operario_Click" Height="16" Width="31">
+                                    <Image Source="/imagenes/nuevo_use.png"/>
+                                </Button>
+                                <Popup x:Name="datos_operario" Width="420" Height="150">
+                                    <Border Background="#F9FAFA" CornerRadius="10">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                                <Label FontWeight="Bold" Background="#F9FAFA" Width="150" Margin="0,5,0,25">Código de Operario:</Label>
+                                                <TextBox x:Name="codigo_op" Width="200" Margin="10,5,0,25" TextChanged="codigo_op_TextChanged" ></TextBox>
+                                                <Button x:Name="revision" Width="30" Height="30" Margin="0,5,0,25" Background="Transparent" BorderBrush="Transparent" IsEnabled="False" Visibility="Hidden">
+                                                    <Image Source="/imagenes/apply.ico"></Image>
+                                                </Button>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label FontWeight="Bold" Background="#F9FAFA" Width="150">Nombre de Operario:</Label>
+                                                <TextBox x:Name="nombre_op" Width="200" Margin="10,0,0,0"></TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
+                                                <Button x:Name="agregar_op"  Width="30" Height="30" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="agregar_op_Click">
+                                                    <Image Source="/imagenes/agregar-usuario.png"></Image>
+                                                </Button>
+                                                <Button x:Name="no_nomb" Width="30" Height="30" Margin="10,0,10,0" Background="Transparent" BorderBrush="Transparent" Click="no_nomb_Click">
+                                                    <Image Source="/imagenes/desconocido.png"></Image>
+                                                </Button>
+                                                <Button x:Name="agregar_cancel" Width="30" Height="30" Margin="10,0,0,0" Click="agregar_cancel_Click" Background="Transparent" BorderBrush="Transparent">
+                                                    <Image Source="/imagenes/boton-x.png"></Image>
+                                                </Button>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
+                            <TextBox x:Name="version_" FontFamily="calibri" FontWeight="Medium" KeyDown="solo_numeros" Height="16" Margin="0,3,0,0"></TextBox>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </Viewbox>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="2"  Grid.Column="7" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="7" Padding="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Piezas de la corrida:"/>
-                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Horas de corrida:"/>
-                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Operarios:"/>
-                    <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Eficiencia:"/>
-                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Piezas por hora:"/>
-                    <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Regenerar:"/>
-                    <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Padding="0" FontFamily="calibri" FontWeight="Bold" Margin="5,0,0,0" Content="Modo:"/>
-
-                    <TextBox x:Name="piezas_de_corrida" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="0" Margin="2" FontFamily="calibri" FontWeight="Medium" Padding="0" TextChanged="maquinaRequerimiento" KeyDown="solo_numeros" LostFocus="piezas_de_corrida_LostFocus"/>
-                    <TextBox x:Name="horas_de_corrida" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="1" Margin="2" FontFamily="calibri" FontWeight="Medium" Padding="0"  TextChanged="maquinaRequerimiento" KeyDown="solo_numeros" LostFocus="horas_de_corrida_LostFocus"/>
-                    <Label x:Name="operarios_" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" Content="0" FontFamily="calibri" FontWeight="Medium" Padding="0"/>
-                    <Label x:Name="eficiencia_" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="3" Margin="2" Content="0" FontFamily="calibri" FontWeight="Medium" Padding="0"/>
-                    <Label x:Name="piezas_por_hora" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="4" Margin="2" Content="0" FontFamily="calibri" FontWeight="Medium" Padding="0" />
-                    <Button x:Name="regenerar" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" Padding="0" Margin="2" Background="Transparent" Click="regenerar_Click">
-                        <Image Source="/imagenes/reordenar.png"/>
-                    </Button>
-                    <ToggleButton x:Name="btnModoTabla" Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="2" Padding="0" Margin="2" Background="Transparent" Checked="btnModoTabla_Checked" Unchecked="btnModoTabla_Unchecked">
-                        <ToggleButton.Style>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Content" Value="Layout"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Setter Property="Content" Value="Tabla"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
-                </Grid>
+                <Viewbox>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Piezas de la corrida:"/>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Horas de corrida:"/>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Operarios:"/>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Eficiencia:"/>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Piezas por hora:"/>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Regenerar:"/>
+                            <Label Padding="0" Width="150" Height="20" FontFamily="calibri" FontSize="15" FontWeight="Bold" Margin="0,4,0,0" Content="Modo:"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBox x:Name="piezas_de_corrida" Width="50" Height="20" Margin="2" FontFamily="calibri" FontSize="14" FontWeight="Medium" Padding="0" TextChanged="maquinaRequerimiento" KeyDown="solo_numeros" LostFocus="piezas_de_corrida_LostFocus"/>
+                            <TextBox x:Name="horas_de_corrida" Width="50" Height="20" Margin="2" FontFamily="calibri"  FontSize="14" FontWeight="Medium" Padding="0"  TextChanged="maquinaRequerimiento" KeyDown="solo_numeros" LostFocus="horas_de_corrida_LostFocus"/>
+                            <Label x:Name="operarios_" Width="50" Height="20" Margin="2" Content="0" FontFamily="calibri"  FontSize="14" FontWeight="Medium" Padding="0"/>
+                            <Label x:Name="eficiencia_" Width="50" Height="20" Margin="2" Content="0" FontFamily="calibri"  FontSize="14" FontWeight="Medium" Padding="0"/>
+                            <Label x:Name="piezas_por_hora" Width="50" Height="20" Margin="2" Content="0" FontFamily="calibri"  FontSize="14" FontWeight="Medium" Padding="0" />
+                            <Button x:Name="regenerar" Width="50" Height="20" Padding="0" Margin="2" Background="Transparent" Click="regenerar_Click">
+                                <Image Source="/imagenes/reordenar.png"/>
+                            </Button>
+                            <ToggleButton x:Name="btnModoTabla" Width="50" Height="20" Padding="0" Margin="2" Background="Transparent" Checked="btnModoTabla_Checked" Unchecked="btnModoTabla_Unchecked">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Content" Value="Layout"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter Property="Content" Value="Tabla"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+                        </StackPanel>
+                    </StackPanel>
+                </Viewbox>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="2" Grid.Row="1" Grid.Column="12" Grid.RowSpan="7">
                 <Slider x:Name="tamano"  Grid.Row="1" Grid.Column="12" Minimum="0" Maximum="2500" Orientation="Vertical" Grid.RowSpan="7" HorizontalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
@@ -2868,7 +2856,7 @@
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Cargas" MinValue="0" FontSize="25" LabelFormatter="{Binding PorcentajeFormatter}" Foreground="Black">
                                         <lvc:Axis.Separator>
-                                            <lvc:Separator Step="0.05" StrokeThickness="0"/>
+                                            <lvc:Separator Step="0.1" StrokeThickness="0"/>
                                         </lvc:Axis.Separator>
                                     </lvc:Axis>
                                 </lvc:CartesianChart.AxisY>

@@ -47,7 +47,7 @@ namespace Production_control_1._0
                     break;
                 case 6:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new calidad.resultadosCalidad());
+                    GridPrincipal.Children.Add(new pantallasIniciales.calidad());
                     break;
                 case 7:
                     GridPrincipal.Children.Clear();

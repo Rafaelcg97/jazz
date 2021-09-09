@@ -203,5 +203,24 @@ namespace Production_control_1._0.calidad
                 MessageBox.Show(ex.ToString());
             }
         }
+        private void salir__Click(object sender, RoutedEventArgs e)
+        {
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasIniciales.calidad());
+        }
+        private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
+        {
+            //dependencia hacia la pagina
+            DependencyObject parent = startObject;
+            while (parent != null)
+            {
+                if (type.IsInstanceOfType(parent))
+                    break;
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
+            }
+            return parent;
+        }
     }
 }

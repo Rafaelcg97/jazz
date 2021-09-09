@@ -9,7 +9,9 @@ namespace Production_control_1._0.clases
     public class registroCalidad
     {
         public string fecha { get; set; }
+        public DateTime fechaDt { get; set; }
         public string codigo { get; set; }
+        public string nombre { get; set; }
         public string defecto { get; set; }
         public int anio { get; set; }
         public int semana { get; set; }

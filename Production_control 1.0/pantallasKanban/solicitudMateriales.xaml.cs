@@ -619,15 +619,14 @@ namespace Production_control_1._0.pantallasKanban
 
                 //consultar y agregar cajas, ganchos
                 sql = "select " +
-                    "a.lote, " +
                     "a.PartNumber, " +
-                    "CEILING(a.quantity) as cantidad, " +
-                    "case when b.cantidad is null then 0 else b.cantidad end as solicitado  " +
+                    "max(CEILING(a.quantity)) as cantidad, " +
+                    "case when sum(b.cantidad) is null then 0 else sum(b.cantidad) end as solicitado " +
                     "from componentesPorLote a " +
                     "left join detalleSolicitudeKanban b " +
                     "on a.lote=b.lote and a.PartNumber=b.material " +
                     "where (a.SubCategoryName='Boxes' or a.SubCategoryName='Hangers') " +
-                    "and a.lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "'";
+                    "and a.lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "' group by a.PartNumber";
 
                 cm = new SqlCommand(sql, cnKanban);
                 dr = cm.ExecuteReader();
@@ -841,7 +840,6 @@ namespace Production_control_1._0.pantallasKanban
             GridPrincipal.Content = new estadoPlanta();
         }
         #endregion
-
         private void listViewListaMateriales_KeyDown(object sender, KeyEventArgs e)
         {
             // eliminar el operario con ctrl y d
