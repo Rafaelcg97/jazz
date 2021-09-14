@@ -68,6 +68,8 @@ namespace Production_control_1._0.pantallasKanban
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
+            Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
+            ventana.Background = Brushes.White;
             // navegarInicioKanBan
             PagePrincipal pagePrincipal = new PagePrincipal();
             Grid gridInicio = (Grid)pagePrincipal.Content;
@@ -91,29 +93,18 @@ namespace Production_control_1._0.pantallasKanban
             }
             NavigationService.Navigate(pagePrincipal);
         }
-        private void ButtonSalir(object sender, RoutedEventArgs e)
+        private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
-            Application.Current.Shutdown();
-        }
-        private void ButtonMaximizar(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            //dependencia hacia la pagina
+            DependencyObject parent = startObject;
+            while (parent != null)
             {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
+                if (type.IsInstanceOfType(parent))
+                    break;
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
             }
-            else
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            };
-
-        }
-        private void ButtonMinimizar(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.MainWindow.DragMove();
+            return parent;
         }
         #endregion
         #region tamanoLetra/solonumerosenTextBox
@@ -306,5 +297,11 @@ namespace Production_control_1._0.pantallasKanban
             cn.Close();
         }
         #endregion
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
+            ventana.Background = Brushes.Black;
+        }
     }
 }

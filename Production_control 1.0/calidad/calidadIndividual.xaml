@@ -3,31 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Production_control_1._0.calidad" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Production_control_1._0.calidad" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="calidadIndividual">
 
     <Grid>
-        <!--#region control general del programa-->
-        <StackPanel VerticalAlignment="Top">
-            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
-            <Grid Margin="5">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
-                        <materialDesign:PackIcon Kind="WindowMinimize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
-                        <materialDesign:PackIcon Kind="WindowMaximize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
-                        <materialDesign:PackIcon Kind="Close"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
-        <!--#endregion-->
-        <Grid x:Name="areaDeTrabajo" Margin="0,10,0,0">
+        <Grid x:Name="areaDeTrabajo">
             <!--#region filas/columans-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -74,21 +56,58 @@
                 <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
             </Button>
             <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="16" Style="{Binding none}" Content="Historial Individual de AQL" FontFamily="calibri"  SizeChanged="letraAjustable1" Foreground="DarkGoldenrod" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <Viewbox  Grid.Row="2" Grid.Column="14" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                <Calendar x:Name="calendarFiltroFecha" SelectionMode="SingleRange" IsTodayHighlighted="False"/>
-            </Viewbox>
-            <Viewbox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5">
+            <Viewbox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Buscar Operario:" FontSize="18" FontWeight="Bold" Width="150" Height="25" Padding="0" Margin="0,0,5,0" />
-                    <TextBox x:Name="textBoxBuscar" Width="200" Height="25" Margin="5,0,0,0"/>
-                    <Button x:Name="buttonDescargarAql" Width="100" Margin="10,0,0,0">
+                    <TextBox x:Name="textBoxBuscar" Width="400" Height="25" Margin="5,0,0,0" FontSize="15" TextChanged="textBoxBuscar_TextChanged">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="ALL" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Border x:Name="borderFecha" Width="250" Height="25" Margin="5,0,0,0" BorderThickness="1" BorderBrush="Black">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Name="labelRangoFechas" Content="ALL" Padding="5,0,0,0" Width="225" VerticalAlignment="Center" FontSize="14"/>
+                            <Button x:Name="buttonMostrarPopUp" Width="25" Click="buttonMostrarPopUp_Click">
+                                <Image Source="/imagenes/descargar.png" HorizontalAlignment="Right"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Popup x:Name="popUpFecha" Width="250" Height="200" PlacementTarget="{Binding ElementName=borderFecha}" AllowsTransparency="True" Placement="Bottom"  HorizontalAlignment="Center" StaysOpen="False" >
+                        <Viewbox>
+                            <Calendar x:Name="calendarFecha" SelectionMode="SingleRange" IsTodayHighlighted="False" SelectedDatesChanged="calendarFecha_SelectedDatesChanged" />
+                        </Viewbox>
+                    </Popup>
+                    <Button x:Name="buttonBuscar" Width="100" Margin="10,0,0,0" Background="Transparent" Click="buttonBuscar_Click">
+                        <Image Source="/imagenes/lupa.png" Height="20"/>
+                    </Button>
+                    <Ellipse x:Name="indicador" Width="20" Height="20" Fill="Green" Margin="10,0,0,0" />
+                    <Button x:Name="buttonDescargarAql" Width="100" Margin="10,0,0,0" Background="Transparent" Click="buttonDescargarAql_Click">
                         <Image Source="/imagenes/descargar.png" Height="20"/>
                     </Button>
                 </StackPanel>
             </Viewbox>
-            <Border Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="14" Grid.RowSpan="15" Margin="0,25,0,0">
+            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="14" Grid.RowSpan="18" Margin="0,25,0,0">
                 <Viewbox VerticalAlignment="Top" >
-                    <ListView x:Name="listViewAqlOperarios" HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" BorderThickness="0" MinWidth="1500" MaxHeight="900">
+                    <ListView x:Name="listViewAqlOperarios" HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" BorderThickness="0" MinWidth="1700" MaxHeight="900">
                         <ListView.View>
                             <GridView>
                                 <GridView.ColumnHeaderContainerStyle>
@@ -106,53 +125,53 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="150">
+                                <GridViewColumn Width="175">
                                     <GridViewColumn.Header>
-                                        <Label Content="Código" FontSize="15" FontWeight="Bold" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkGreen" Foreground="White"/>
+                                        <Label Content="Código" FontSize="15" FontWeight="Bold" Width="175" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkGreen" Foreground="White"/>
                                     </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding codigo}" Width="250" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="LightGreen" Padding="5"/>
+                                            <Label Content="{Binding codigo}" Width="175" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="LightGreen" Padding="5"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="400">
+                                <GridViewColumn Width="500">
                                     <GridViewColumn.Header>
-                                        <Label Content="Nombre" FontSize="15" FontWeight="Bold" Width="400" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkOrange" Foreground="White"/>
+                                        <Label Content="Nombre" FontSize="15" FontWeight="Bold" Width="500" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkOrange" Foreground="White"/>
                                     </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding nombre}" Width="400" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Left" Padding="15,5,5,5" Background="#FFFBCE8C" />
+                                            <Label Content="{Binding nombre}" Width="500" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Left" Padding="15,5,5,5" Background="#FFFBCE8C" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="200">
+                                <GridViewColumn Width="225">
                                     <GridViewColumn.Header>
-                                        <Label Content="Auditado" FontSize="15" FontWeight="Bold" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkBlue" Foreground="White"/>
+                                        <Label Content="Auditado" FontSize="15" FontWeight="Bold" Width="225" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkBlue" Foreground="White"/>
                                     </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding muestraP}" Width="200" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="LightBlue" Padding="5"/>
+                                            <Label Content="{Binding muestraP}" Width="225" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="LightBlue" Padding="5"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="200">
+                                <GridViewColumn Width="225">
                                     <GridViewColumn.Header>
-                                        <Label Content="Rechazado" FontSize="15" FontWeight="Bold" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkRed" Foreground="White"/>
+                                        <Label Content="Rechazado" FontSize="15" FontWeight="Bold" Width="225" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkRed" Foreground="White"/>
                                     </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding rechazosP}" Width="200" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Pink" Padding="5"/>
+                                            <Label Content="{Binding rechazosP}" Width="225" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Pink" Padding="5"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="200">
+                                <GridViewColumn Width="300">
                                     <GridViewColumn.Header>
-                                        <Label Content="AQL" FontSize="15" FontWeight="Bold" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkViolet" Foreground="White"/>
+                                        <Label Content="AQL" FontSize="15" FontWeight="Bold" Width="300" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Background="DarkViolet" Foreground="White"/>
                                     </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding aqlP, StringFormat=P}" Width="200" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center"  Background="#FFBEA3D8" Padding="15,5,5,5"/>
+                                            <TextBlock Text="{Binding aqlP, StringFormat=P}" Width="300" FontSize="15" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center"  Background="#FFBEA3D8" Padding="130,5,5,5"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -161,7 +180,7 @@
                     </ListView>
                 </Viewbox>
             </Border>
-
         </Grid>
+
     </Grid>
 </Page>

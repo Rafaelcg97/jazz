@@ -8,28 +8,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="planta"
-      Background="#FF2A2C32">
-
-    <Grid>
-        <!--#region control general del programa-->
-        <StackPanel VerticalAlignment="Top">
-            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
-            <Grid Margin="5">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
-                        <materialDesign:PackIcon Kind="WindowMinimize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
-                        <materialDesign:PackIcon Kind="WindowMaximize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
-                        <materialDesign:PackIcon Kind="Close"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
-        <!--#endregion-->
-        <Grid x:Name="areaDeTrabajo">
+      Background="#FF2A2C32" Loaded="Page_Loaded">
+    <Grid x:Name="areaDeTrabajo">
             <!--#region filas/columans-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -927,7 +907,7 @@
                 </Border>
             </Popup>
             <!--#endregion-->
-            <!--#region pop_terminar_solicitud-->
+            <!--#region pop_ubicacion-->
             <Popup x:Name="mecanicosUbicacion" StaysOpen="False" PlacementTarget="{Binding ElementName=l6}" Placement="Bottom" AllowsTransparency="True" Width="500" Height="700">
                 <Border Background="#F9FAFA" CornerRadius="10" BorderThickness="2" BorderBrush="DodgerBlue">
                     <Grid>
@@ -1001,5 +981,4 @@
             </Popup>
             <!--#endregion-->
         </Grid>
-    </Grid>
 </Page>

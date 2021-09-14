@@ -1356,2508 +1356,2500 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
             #endregion
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                    Grid areaTrabajo = (Grid)UIGlobal.MainPage.Content;
-                    foreach (object elemento in areaTrabajo.Children)
+                Grid areaModulos = (Grid)UIGlobal.MainPage.Content;
+                foreach (object modulo in areaModulos.Children)
+                {
+                    if (modulo.GetType() == typeof(ListBox))
                     {
-                        if (elemento.GetType() == typeof(Grid))
+                        ListBox moduloLista = (ListBox)modulo;
+                        if (moduloLista.Name == "modulo_1")
                         {
-                            Grid areaModulos = (Grid)elemento;
-                            foreach (object modulo in areaModulos.Children)
+                            #region fondo
+                            if (c1 == 0)
                             {
-                                if (modulo.GetType() == typeof(ListBox))
+                                if (pm1 > 0)
                                 {
-                                    ListBox moduloLista = (ListBox)modulo;
-                                    if (moduloLista.Name == "modulo_1")
-                                    {
-                                        #region fondo
-                                        if (c1 == 0)
-                                        {
-                                            if (pm1 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm1 == 0 && ps1 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am1 > 0 || as1 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm1 == 0 && ps1 == 0 && as1 == 0 && am1 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm1 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm1 == 0 && ps1 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am1 > 0 || as1 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm1 == 0 && ps1 == 0 && as1 == 0 && am1 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c1 == 0)
-                                        {
-                                            if (ps1 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm1 > 0 && ps1 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am1 > 0 || as1 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm1 == 0 && ps1 == 0 && as1 == 0 && am1 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_2")
-                                    {
-                                        #region fondo
-                                        if (c2 == 0)
-                                        {
-                                            if (pm2 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm2 == 0 && ps2 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am2 > 0 || as2 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm2 == 0 && ps2 == 0 && as2 == 0 && am2 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm2 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm2 == 0 && ps2 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am2 > 0 || as2 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm2 == 0 && ps2 == 0 && as2 == 0 && am2 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c2 == 0)
-                                        {
-                                            if (ps2 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm2 > 0 && ps2 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am2 > 0 || as2 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm2 == 0 && ps2 == 0 && as2 == 0 && am2 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_3")
-                                    {
-                                        #region fondo
-                                        if (c3 == 0)
-                                        {
-                                            if (pm3 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm3 == 0 && ps3 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am3 > 0 || as3 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm3 == 0 && ps3 == 0 && as3 == 0 && am3 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm3 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm3 == 0 && ps3 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am3 > 0 || as3 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm3 == 0 && ps3 == 0 && as3 == 0 && am3 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c3 == 0)
-                                        {
-                                            if (ps3 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm3 > 0 && ps3 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am3 > 0 || as3 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm3 == 0 && ps3 == 0 && as3 == 0 && am3 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_4")
-                                    {
-                                        #region fondo
-                                        if (c4 == 0)
-                                        {
-                                            if (pm4 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm4 == 0 && ps4 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am4 > 0 || as4 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm4 == 0 && ps4 == 0 && as4 == 0 && am4 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm4 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm4 == 0 && ps4 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am4 > 0 || as4 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm4 == 0 && ps4 == 0 && as4 == 0 && am4 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c4 == 0)
-                                        {
-                                            if (ps4 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm4 > 0 && ps4 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am4 > 0 || as4 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm4 == 0 && ps4 == 0 && as4 == 0 && am4 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_5")
-                                    {
-                                        #region fondo
-                                        if (c5 == 0)
-                                        {
-                                            if (pm5 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm5 == 0 && ps5 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am5 > 0 || as5 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm5 == 0 && ps5 == 0 && as5 == 0 && am5 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm5 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm5 == 0 && ps5 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am5 > 0 || as5 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm5 == 0 && ps5 == 0 && as5 == 0 && am5 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c5 == 0)
-                                        {
-                                            if (ps5 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm5 > 0 && ps5 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am5 > 0 || as5 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm5 == 0 && ps5 == 0 && as5 == 0 && am5 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_6")
-                                    {
-                                        #region fondo
-                                        if (c6 == 0)
-                                        {
-                                            if (pm6 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm6 == 0 && ps6 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am6 > 0 || as6 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm6 == 0 && ps6 == 0 && as6 == 0 && am6 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm6 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm6 == 0 && ps6 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am6 > 0 || as6 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm6 == 0 && ps6 == 0 && as6 == 0 && am6 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c6 == 0)
-                                        {
-                                            if (ps6 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm6 > 0 && ps6 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am6 > 0 || as6 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm6 == 0 && ps6 == 0 && as6 == 0 && am6 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_7")
-                                    {
-                                        #region fondo
-                                        if (c7 == 0)
-                                        {
-                                            if (pm7 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm7 == 0 && ps7 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am7 > 0 || as7 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm7 == 0 && ps7 == 0 && as7 == 0 && am7 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm7 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm7 == 0 && ps7 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am7 > 0 || as7 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm7 == 0 && ps7 == 0 && as7 == 0 && am7 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c7 == 0)
-                                        {
-                                            if (ps7 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm7 > 0 && ps7 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am7 > 0 || as7 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm7 == 0 && ps7 == 0 && as7 == 0 && am7 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_8")
-                                    {
-                                        #region fondo
-                                        if (c8 == 0)
-                                        {
-                                            if (pm8 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm8 == 0 && ps8 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am8 > 0 || as8 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm8 == 0 && ps8 == 0 && as8 == 0 && am8 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm8 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm8 == 0 && ps8 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am8 > 0 || as8 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm8 == 0 && ps8 == 0 && as8 == 0 && am8 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c8 == 0)
-                                        {
-                                            if (ps8 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm8 > 0 && ps8 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am8 > 0 || as8 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm8 == 0 && ps8 == 0 && as8 == 0 && am8 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_9")
-                                    {
-                                        #region fondo
-                                        if (c9 == 0)
-                                        {
-                                            if (pm9 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm9 == 0 && ps9 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am9 > 0 || as9 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm9 == 0 && ps9 == 0 && as9 == 0 && am9 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm9 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm9 == 0 && ps9 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am9 > 0 || as9 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm9 == 0 && ps9 == 0 && as9 == 0 && am9 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c9 == 0)
-                                        {
-                                            if (ps9 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm9 > 0 && ps9 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am9 > 0 || as9 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm9 == 0 && ps9 == 0 && as9 == 0 && am9 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_10")
-                                    {
-                                        #region fondo
-                                        if (c10 == 0)
-                                        {
-                                            if (pm10 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm10 == 0 && ps10 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am10 > 0 || as10 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm10 == 0 && ps10 == 0 && as10 == 0 && am10 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm10 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm10 == 0 && ps10 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am10 > 0 || as10 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm10 == 0 && ps10 == 0 && as10 == 0 && am10 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c10 == 0)
-                                        {
-                                            if (ps10 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm10 > 0 && ps10 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am10 > 0 || as10 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm10 == 0 && ps10 == 0 && as10 == 0 && am10 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_11")
-                                    {
-                                        #region fondo
-                                        if (c11 == 0)
-                                        {
-                                            if (pm11 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm11 == 0 && ps11 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am11 > 0 || as11 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm11 == 0 && ps11 == 0 && as11 == 0 && am11 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm11 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm11 == 0 && ps11 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am11 > 0 || as11 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm11 == 0 && ps11 == 0 && as11 == 0 && am11 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c11 == 0)
-                                        {
-                                            if (ps11 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm11 > 0 && ps11 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am11 > 0 || as11 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm11 == 0 && ps11 == 0 && as11 == 0 && am11 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_12")
-                                    {
-                                        #region fondo
-                                        if (c12 == 0)
-                                        {
-                                            if (pm12 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm12 == 0 && ps12 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am12 > 0 || as12 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm12 == 0 && ps12 == 0 && as12 == 0 && am12 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm12 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm12 == 0 && ps12 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am12 > 0 || as12 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm12 == 0 && ps12 == 0 && as12 == 0 && am12 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c12 == 0)
-                                        {
-                                            if (ps12 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm12 > 0 && ps12 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am12 > 0 || as12 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm12 == 0 && ps12 == 0 && as12 == 0 && am12 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_13")
-                                    {
-                                        #region fondo
-                                        if (c13 == 0)
-                                        {
-                                            if (pm13 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm13 == 0 && ps13 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am13 > 0 || as13 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm13 == 0 && ps13 == 0 && as13 == 0 && am13 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm13 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm13 == 0 && ps13 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am13 > 0 || as13 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm13 == 0 && ps13 == 0 && as13 == 0 && am13 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c13 == 0)
-                                        {
-                                            if (ps13 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm13 > 0 && ps13 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am13 > 0 || as13 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm13 == 0 && ps13 == 0 && as13 == 0 && am13 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_14")
-                                    {
-                                        #region fondo
-                                        if (c14 == 0)
-                                        {
-                                            if (pm14 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm14 == 0 && ps14 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am14 > 0 || as14 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm14 == 0 && ps14 == 0 && as14 == 0 && am14 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm14 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm14 == 0 && ps14 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am14 > 0 || as14 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm14 == 0 && ps14 == 0 && as14 == 0 && am14 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c14 == 0)
-                                        {
-                                            if (ps14 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm14 > 0 && ps14 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am14 > 0 || as14 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm14 == 0 && ps14 == 0 && as14 == 0 && am14 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_15")
-                                    {
-                                        #region fondo
-                                        if (c15 == 0)
-                                        {
-                                            if (pm15 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm15 == 0 && ps15 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am15 > 0 || as15 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm15 == 0 && ps15 == 0 && as15 == 0 && am15 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm15 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm15 == 0 && ps15 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am15 > 0 || as15 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm15 == 0 && ps15 == 0 && as15 == 0 && am15 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c15 == 0)
-                                        {
-                                            if (ps15 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm15 > 0 && ps15 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am15 > 0 || as15 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm15 == 0 && ps15 == 0 && as15 == 0 && am15 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_16")
-                                    {
-                                        #region fondo
-                                        if (c16 == 0)
-                                        {
-                                            if (pm16 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm16 == 0 && ps16 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am16 > 0 || as16 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm16 == 0 && ps16 == 0 && as16 == 0 && am16 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm16 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm16 == 0 && ps16 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am16 > 0 || as16 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm16 == 0 && ps16 == 0 && as16 == 0 && am16 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c16 == 0)
-                                        {
-                                            if (ps16 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm16 > 0 && ps16 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am16 > 0 || as16 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm16 == 0 && ps16 == 0 && as16 == 0 && am16 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_17")
-                                    {
-                                        #region fondo
-                                        if (c17 == 0)
-                                        {
-                                            if (pm17 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm17 == 0 && ps17 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am17 > 0 || as17 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm17 == 0 && ps17 == 0 && as17 == 0 && am17 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm17 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm17 == 0 && ps17 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am17 > 0 || as17 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm17 == 0 && ps17 == 0 && as17 == 0 && am17 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c17 == 0)
-                                        {
-                                            if (ps17 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm17 > 0 && ps17 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am17 > 0 || as17 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm17 == 0 && ps17 == 0 && as17 == 0 && am17 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_18")
-                                    {
-                                        #region fondo
-                                        if (c18 == 0)
-                                        {
-                                            if (pm18 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm18 == 0 && ps18 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am18 > 0 || as18 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm18 == 0 && ps18 == 0 && as18 == 0 && am18 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm18 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm18 == 0 && ps18 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am18 > 0 || as18 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm18 == 0 && ps18 == 0 && as18 == 0 && am18 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c18 == 0)
-                                        {
-                                            if (ps18 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm18 > 0 && ps18 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am18 > 0 || as18 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm18 == 0 && ps18 == 0 && as18 == 0 && am18 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_19")
-                                    {
-                                        #region fondo
-                                        if (c19 == 0)
-                                        {
-                                            if (pm19 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm19 == 0 && ps19 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am19 > 0 || as19 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm19 == 0 && ps19 == 0 && as19 == 0 && am19 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm19 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm19 == 0 && ps19 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am19 > 0 || as19 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm19 == 0 && ps19 == 0 && as19 == 0 && am19 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c19 == 0)
-                                        {
-                                            if (ps19 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm19 > 0 && ps19 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am19 > 0 || as19 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm19 == 0 && ps19 == 0 && as19 == 0 && am19 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_20")
-                                    {
-                                        #region fondo
-                                        if (c20 == 0)
-                                        {
-                                            if (pm20 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm20 == 0 && ps20 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am20 > 0 || as20 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm20 == 0 && ps20 == 0 && as20 == 0 && am20 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm20 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm20 == 0 && ps20 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am20 > 0 || as20 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm20 == 0 && ps20 == 0 && as20 == 0 && am20 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c20 == 0)
-                                        {
-                                            if (ps20 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm20 > 0 && ps20 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am20 > 0 || as20 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm20 == 0 && ps20 == 0 && as20 == 0 && am20 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_21")
-                                    {
-                                        #region fondo
-                                        if (c21 == 0)
-                                        {
-                                            if (pm21 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm21 == 0 && ps21 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am21 > 0 || as21 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm21 == 0 && ps21 == 0 && as21 == 0 && am21 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm21 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm21 == 0 && ps21 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am21 > 0 || as21 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm21 == 0 && ps21 == 0 && as21 == 0 && am21 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c21 == 0)
-                                        {
-                                            if (ps21 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm21 > 0 && ps21 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am21 > 0 || as21 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm21 == 0 && ps21 == 0 && as21 == 0 && am21 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_22")
-                                    {
-                                        #region fondo
-                                        if (c22 == 0)
-                                        {
-                                            if (pm22 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm22 == 0 && ps22 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am22 > 0 || as22 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm22 == 0 && ps22 == 0 && as22 == 0 && am22 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm22 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm22 == 0 && ps22 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am22 > 0 || as22 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm22 == 0 && ps22 == 0 && as22 == 0 && am22 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c22 == 0)
-                                        {
-                                            if (ps22 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm22 > 0 && ps22 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am22 > 0 || as22 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm22 == 0 && ps22 == 0 && as22 == 0 && am22 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_23")
-                                    {
-                                        #region fondo
-                                        if (c23 == 0)
-                                        {
-                                            if (pm23 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm23 == 0 && ps23 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am23 > 0 || as23 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm23 == 0 && ps23 == 0 && as23 == 0 && am23 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm23 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm23 == 0 && ps23 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am23 > 0 || as23 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm23 == 0 && ps23 == 0 && as23 == 0 && am23 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c23 == 0)
-                                        {
-                                            if (ps23 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm23 > 0 && ps23 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am23 > 0 || as23 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm23 == 0 && ps23 == 0 && as23 == 0 && am23 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_24")
-                                    {
-                                        #region fondo
-                                        if (c24 == 0)
-                                        {
-                                            if (pm24 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm24 == 0 && ps24 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am24 > 0 || as24 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm24 == 0 && ps24 == 0 && as24 == 0 && am24 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm24 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm24 == 0 && ps24 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am24 > 0 || as24 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm24 == 0 && ps24 == 0 && as24 == 0 && am24 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c24 == 0)
-                                        {
-                                            if (ps24 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm24 > 0 && ps24 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am24 > 0 || as24 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm24 == 0 && ps24 == 0 && as24 == 0 && am24 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_25")
-                                    {
-                                        #region fondo
-                                        if (c25 == 0)
-                                        {
-                                            if (pm25 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm25 == 0 && ps25 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am25 > 0 || as25 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm25 == 0 && ps25 == 0 && as25 == 0 && am25 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm25 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm25 == 0 && ps25 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am25 > 0 || as25 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm25 == 0 && ps25 == 0 && as25 == 0 && am25 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c25 == 0)
-                                        {
-                                            if (ps25 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm25 > 0 && ps25 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am25 > 0 || as25 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm25 == 0 && ps25 == 0 && as25 == 0 && am25 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_26")
-                                    {
-                                        #region fondo
-                                        if (c26 == 0)
-                                        {
-                                            if (pm26 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm26 == 0 && ps26 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am26 > 0 || as26 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm26 == 0 && ps26 == 0 && as26 == 0 && am26 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm26 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm26 == 0 && ps26 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am26 > 0 || as26 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm26 == 0 && ps26 == 0 && as26 == 0 && am26 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c26 == 0)
-                                        {
-                                            if (ps26 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm26 > 0 && ps26 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am26 > 0 || as26 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm26 == 0 && ps26 == 0 && as26 == 0 && am26 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_27")
-                                    {
-                                        #region fondo
-                                        if (c27 == 0)
-                                        {
-                                            if (pm27 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm27 == 0 && ps27 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am27 > 0 || as27 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm27 == 0 && ps27 == 0 && as27 == 0 && am27 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm27 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm27 == 0 && ps27 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am27 > 0 || as27 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm27 == 0 && ps27 == 0 && as27 == 0 && am27 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c27 == 0)
-                                        {
-                                            if (ps27 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm27 > 0 && ps27 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am27 > 0 || as27 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm27 == 0 && ps27 == 0 && as27 == 0 && am27 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_28")
-                                    {
-                                        #region fondo
-                                        if (c28 == 0)
-                                        {
-                                            if (pm28 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm28 == 0 && ps28 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am28 > 0 || as28 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm28 == 0 && ps28 == 0 && as28 == 0 && am28 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm28 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm28 == 0 && ps28 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am28 > 0 || as28 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm28 == 0 && ps28 == 0 && as28 == 0 && am28 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c28 == 0)
-                                        {
-                                            if (ps28 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm28 > 0 && ps28 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am28 > 0 || as28 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm28 == 0 && ps28 == 0 && as28 == 0 && am28 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_29")
-                                    {
-                                        #region fondo
-                                        if (c29 == 0)
-                                        {
-                                            if (pm29 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm29 == 0 && ps29 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am29 > 0 || as29 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm29 == 0 && ps29 == 0 && as29 == 0 && am29 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm29 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm29 == 0 && ps29 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am29 > 0 || as29 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm29 == 0 && ps29 == 0 && as29 == 0 && am29 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c29 == 0)
-                                        {
-                                            if (ps29 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm29 > 0 && ps29 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am29 > 0 || as29 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm29 == 0 && ps29 == 0 && as29 == 0 && am29 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_30")
-                                    {
-                                        #region fondo
-                                        if (c30 == 0)
-                                        {
-                                            if (pm30 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm30 == 0 && ps30 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am30 > 0 || as30 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm30 == 0 && ps30 == 0 && as30 == 0 && am30 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm30 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm30 == 0 && ps30 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am30 > 0 || as30 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm30 == 0 && ps30 == 0 && as30 == 0 && am30 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c30 == 0)
-                                        {
-                                            if (ps30 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm30 > 0 && ps30 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am30 > 0 || as30 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm30 == 0 && ps30 == 0 && as30 == 0 && am30 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_31")
-                                    {
-                                        #region fondo
-                                        if (c31 == 0)
-                                        {
-                                            if (pm31 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm31 == 0 && ps31 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am31 > 0 || as31 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm31 == 0 && ps31 == 0 && as31 == 0 && am31 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm31 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm31 == 0 && ps31 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am31 > 0 || as31 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm31 == 0 && ps31 == 0 && as31 == 0 && am31 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c31 == 0)
-                                        {
-                                            if (ps31 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm31 > 0 && ps31 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am31 > 0 || as31 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm31 == 0 && ps31 == 0 && as31 == 0 && am31 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_32")
-                                    {
-                                        #region fondo
-                                        if (c32 == 0)
-                                        {
-                                            if (pm32 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm32 == 0 && ps32 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am32 > 0 || as32 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm32 == 0 && ps32 == 0 && as32 == 0 && am32 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm32 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm32 == 0 && ps32 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am32 > 0 || as32 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm32 == 0 && ps32 == 0 && as32 == 0 && am32 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c32 == 0)
-                                        {
-                                            if (ps32 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm32 > 0 && ps32 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am32 > 0 || as32 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm32 == 0 && ps32 == 0 && as32 == 0 && am32 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_33")
-                                    {
-                                        #region fondo
-                                        if (c33 == 0)
-                                        {
-                                            if (pm33 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm33 == 0 && ps33 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am33 > 0 || as33 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm33 == 0 && ps33 == 0 && as33 == 0 && am33 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm33 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm33 == 0 && ps33 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am33 > 0 || as33 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm33 == 0 && ps33 == 0 && as33 == 0 && am33 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c33 == 0)
-                                        {
-                                            if (ps33 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm33 > 0 && ps33 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am33 > 0 || as33 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm33 == 0 && ps33 == 0 && as33 == 0 && am33 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_34")
-                                    {
-                                        #region fondo
-                                        if (c34 == 0)
-                                        {
-                                            if (pm34 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm34 == 0 && ps34 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am34 > 0 || as34 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm34 == 0 && ps34 == 0 && as34 == 0 && am34 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (pm34 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (pm34 == 0 && ps34 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (am34 > 0 || as34 > 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm34 == 0 && ps34 == 0 && as34 == 0 && am34 == 0)
-                                            {
-                                                moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                            }
-                                        }
-                                        #endregion
-                                        #region borde
-
-                                        //colores de borde
-
-                                        if (c34 == 0)
-                                        {
-                                            if (ps34 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                            }
-                                            else if (pm34 > 0 && ps34 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                            }
-                                            else if (am34 > 0 || as34 > 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                            }
-                                            else if (pm34 == 0 && ps34 == 0 && as34 == 0 && am34 == 0)
-                                            {
-                                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                        }
-                                        #endregion
-                                    }
-                                    if (moduloLista.Name == "modulo_35")
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm1 == 0 && ps1 > 0)
                                 {
-                                    #region fondo
-                                    if (c35 == 0)
-                                    {
-                                        if (pm35 > 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                        }
-                                        else if (pm35 == 0 && ps35 > 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                        }
-                                        else if (am35 > 0 || as35 > 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                        }
-                                        else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Green);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (pm35 > 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Red);
-                                        }
-                                        else if (pm35 == 0 && ps35 > 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Orange);
-                                        }
-                                        else if (am35 > 0 || as35 > 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Yellow);
-                                        }
-                                        else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
-                                        {
-                                            moduloLista.Background = new SolidColorBrush(Colors.Blue);
-                                        }
-                                    }
-                                    #endregion
-                                    #region borde
-
-                                    //colores de borde
-
-                                    if (c35 == 0)
-                                    {
-                                        if (ps35 > 0)
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
-                                        }
-                                        else if (pm35 > 0 && ps35 == 0)
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
-                                        }
-                                        else if (am35 > 0 || as35 > 0)
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                                        }
-                                        else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
-                                        {
-                                            moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
-                                    }
-                                    #endregion
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am1 > 0 || as1 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm1 == 0 && ps1 == 0 && as1 == 0 && am1 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
                                 }
                             }
-
+                            else
+                            {
+                                if (pm1 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm1 == 0 && ps1 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am1 > 0 || as1 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm1 == 0 && ps1 == 0 && as1 == 0 && am1 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
                             }
-                        }
+                            #endregion
+                            #region borde
 
+                            //colores de borde
+
+                            if (c1 == 0)
+                            {
+                                if (ps1 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm1 > 0 && ps1 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am1 > 0 || as1 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm1 == 0 && ps1 == 0 && as1 == 0 && am1 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_2")
+                        {
+                            #region fondo
+                            if (c2 == 0)
+                            {
+                                if (pm2 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm2 == 0 && ps2 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am2 > 0 || as2 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm2 == 0 && ps2 == 0 && as2 == 0 && am2 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm2 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm2 == 0 && ps2 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am2 > 0 || as2 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm2 == 0 && ps2 == 0 && as2 == 0 && am2 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c2 == 0)
+                            {
+                                if (ps2 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm2 > 0 && ps2 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am2 > 0 || as2 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm2 == 0 && ps2 == 0 && as2 == 0 && am2 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_3")
+                        {
+                            #region fondo
+                            if (c3 == 0)
+                            {
+                                if (pm3 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm3 == 0 && ps3 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am3 > 0 || as3 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm3 == 0 && ps3 == 0 && as3 == 0 && am3 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm3 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm3 == 0 && ps3 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am3 > 0 || as3 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm3 == 0 && ps3 == 0 && as3 == 0 && am3 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c3 == 0)
+                            {
+                                if (ps3 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm3 > 0 && ps3 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am3 > 0 || as3 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm3 == 0 && ps3 == 0 && as3 == 0 && am3 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_4")
+                        {
+                            #region fondo
+                            if (c4 == 0)
+                            {
+                                if (pm4 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm4 == 0 && ps4 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am4 > 0 || as4 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm4 == 0 && ps4 == 0 && as4 == 0 && am4 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm4 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm4 == 0 && ps4 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am4 > 0 || as4 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm4 == 0 && ps4 == 0 && as4 == 0 && am4 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c4 == 0)
+                            {
+                                if (ps4 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm4 > 0 && ps4 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am4 > 0 || as4 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm4 == 0 && ps4 == 0 && as4 == 0 && am4 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_5")
+                        {
+                            #region fondo
+                            if (c5 == 0)
+                            {
+                                if (pm5 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm5 == 0 && ps5 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am5 > 0 || as5 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm5 == 0 && ps5 == 0 && as5 == 0 && am5 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm5 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm5 == 0 && ps5 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am5 > 0 || as5 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm5 == 0 && ps5 == 0 && as5 == 0 && am5 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c5 == 0)
+                            {
+                                if (ps5 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm5 > 0 && ps5 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am5 > 0 || as5 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm5 == 0 && ps5 == 0 && as5 == 0 && am5 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_6")
+                        {
+                            #region fondo
+                            if (c6 == 0)
+                            {
+                                if (pm6 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm6 == 0 && ps6 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am6 > 0 || as6 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm6 == 0 && ps6 == 0 && as6 == 0 && am6 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm6 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm6 == 0 && ps6 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am6 > 0 || as6 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm6 == 0 && ps6 == 0 && as6 == 0 && am6 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c6 == 0)
+                            {
+                                if (ps6 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm6 > 0 && ps6 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am6 > 0 || as6 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm6 == 0 && ps6 == 0 && as6 == 0 && am6 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_7")
+                        {
+                            #region fondo
+                            if (c7 == 0)
+                            {
+                                if (pm7 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm7 == 0 && ps7 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am7 > 0 || as7 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm7 == 0 && ps7 == 0 && as7 == 0 && am7 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm7 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm7 == 0 && ps7 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am7 > 0 || as7 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm7 == 0 && ps7 == 0 && as7 == 0 && am7 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c7 == 0)
+                            {
+                                if (ps7 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm7 > 0 && ps7 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am7 > 0 || as7 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm7 == 0 && ps7 == 0 && as7 == 0 && am7 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_8")
+                        {
+                            #region fondo
+                            if (c8 == 0)
+                            {
+                                if (pm8 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm8 == 0 && ps8 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am8 > 0 || as8 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm8 == 0 && ps8 == 0 && as8 == 0 && am8 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm8 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm8 == 0 && ps8 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am8 > 0 || as8 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm8 == 0 && ps8 == 0 && as8 == 0 && am8 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c8 == 0)
+                            {
+                                if (ps8 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm8 > 0 && ps8 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am8 > 0 || as8 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm8 == 0 && ps8 == 0 && as8 == 0 && am8 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_9")
+                        {
+                            #region fondo
+                            if (c9 == 0)
+                            {
+                                if (pm9 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm9 == 0 && ps9 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am9 > 0 || as9 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm9 == 0 && ps9 == 0 && as9 == 0 && am9 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm9 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm9 == 0 && ps9 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am9 > 0 || as9 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm9 == 0 && ps9 == 0 && as9 == 0 && am9 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c9 == 0)
+                            {
+                                if (ps9 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm9 > 0 && ps9 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am9 > 0 || as9 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm9 == 0 && ps9 == 0 && as9 == 0 && am9 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_10")
+                        {
+                            #region fondo
+                            if (c10 == 0)
+                            {
+                                if (pm10 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm10 == 0 && ps10 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am10 > 0 || as10 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm10 == 0 && ps10 == 0 && as10 == 0 && am10 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm10 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm10 == 0 && ps10 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am10 > 0 || as10 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm10 == 0 && ps10 == 0 && as10 == 0 && am10 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c10 == 0)
+                            {
+                                if (ps10 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm10 > 0 && ps10 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am10 > 0 || as10 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm10 == 0 && ps10 == 0 && as10 == 0 && am10 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_11")
+                        {
+                            #region fondo
+                            if (c11 == 0)
+                            {
+                                if (pm11 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm11 == 0 && ps11 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am11 > 0 || as11 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm11 == 0 && ps11 == 0 && as11 == 0 && am11 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm11 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm11 == 0 && ps11 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am11 > 0 || as11 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm11 == 0 && ps11 == 0 && as11 == 0 && am11 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c11 == 0)
+                            {
+                                if (ps11 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm11 > 0 && ps11 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am11 > 0 || as11 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm11 == 0 && ps11 == 0 && as11 == 0 && am11 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_12")
+                        {
+                            #region fondo
+                            if (c12 == 0)
+                            {
+                                if (pm12 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm12 == 0 && ps12 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am12 > 0 || as12 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm12 == 0 && ps12 == 0 && as12 == 0 && am12 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm12 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm12 == 0 && ps12 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am12 > 0 || as12 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm12 == 0 && ps12 == 0 && as12 == 0 && am12 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c12 == 0)
+                            {
+                                if (ps12 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm12 > 0 && ps12 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am12 > 0 || as12 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm12 == 0 && ps12 == 0 && as12 == 0 && am12 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_13")
+                        {
+                            #region fondo
+                            if (c13 == 0)
+                            {
+                                if (pm13 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm13 == 0 && ps13 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am13 > 0 || as13 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm13 == 0 && ps13 == 0 && as13 == 0 && am13 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm13 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm13 == 0 && ps13 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am13 > 0 || as13 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm13 == 0 && ps13 == 0 && as13 == 0 && am13 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c13 == 0)
+                            {
+                                if (ps13 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm13 > 0 && ps13 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am13 > 0 || as13 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm13 == 0 && ps13 == 0 && as13 == 0 && am13 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_14")
+                        {
+                            #region fondo
+                            if (c14 == 0)
+                            {
+                                if (pm14 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm14 == 0 && ps14 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am14 > 0 || as14 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm14 == 0 && ps14 == 0 && as14 == 0 && am14 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm14 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm14 == 0 && ps14 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am14 > 0 || as14 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm14 == 0 && ps14 == 0 && as14 == 0 && am14 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c14 == 0)
+                            {
+                                if (ps14 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm14 > 0 && ps14 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am14 > 0 || as14 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm14 == 0 && ps14 == 0 && as14 == 0 && am14 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_15")
+                        {
+                            #region fondo
+                            if (c15 == 0)
+                            {
+                                if (pm15 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm15 == 0 && ps15 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am15 > 0 || as15 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm15 == 0 && ps15 == 0 && as15 == 0 && am15 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm15 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm15 == 0 && ps15 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am15 > 0 || as15 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm15 == 0 && ps15 == 0 && as15 == 0 && am15 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c15 == 0)
+                            {
+                                if (ps15 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm15 > 0 && ps15 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am15 > 0 || as15 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm15 == 0 && ps15 == 0 && as15 == 0 && am15 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_16")
+                        {
+                            #region fondo
+                            if (c16 == 0)
+                            {
+                                if (pm16 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm16 == 0 && ps16 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am16 > 0 || as16 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm16 == 0 && ps16 == 0 && as16 == 0 && am16 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm16 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm16 == 0 && ps16 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am16 > 0 || as16 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm16 == 0 && ps16 == 0 && as16 == 0 && am16 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c16 == 0)
+                            {
+                                if (ps16 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm16 > 0 && ps16 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am16 > 0 || as16 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm16 == 0 && ps16 == 0 && as16 == 0 && am16 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_17")
+                        {
+                            #region fondo
+                            if (c17 == 0)
+                            {
+                                if (pm17 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm17 == 0 && ps17 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am17 > 0 || as17 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm17 == 0 && ps17 == 0 && as17 == 0 && am17 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm17 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm17 == 0 && ps17 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am17 > 0 || as17 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm17 == 0 && ps17 == 0 && as17 == 0 && am17 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c17 == 0)
+                            {
+                                if (ps17 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm17 > 0 && ps17 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am17 > 0 || as17 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm17 == 0 && ps17 == 0 && as17 == 0 && am17 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_18")
+                        {
+                            #region fondo
+                            if (c18 == 0)
+                            {
+                                if (pm18 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm18 == 0 && ps18 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am18 > 0 || as18 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm18 == 0 && ps18 == 0 && as18 == 0 && am18 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm18 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm18 == 0 && ps18 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am18 > 0 || as18 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm18 == 0 && ps18 == 0 && as18 == 0 && am18 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c18 == 0)
+                            {
+                                if (ps18 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm18 > 0 && ps18 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am18 > 0 || as18 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm18 == 0 && ps18 == 0 && as18 == 0 && am18 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_19")
+                        {
+                            #region fondo
+                            if (c19 == 0)
+                            {
+                                if (pm19 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm19 == 0 && ps19 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am19 > 0 || as19 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm19 == 0 && ps19 == 0 && as19 == 0 && am19 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm19 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm19 == 0 && ps19 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am19 > 0 || as19 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm19 == 0 && ps19 == 0 && as19 == 0 && am19 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c19 == 0)
+                            {
+                                if (ps19 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm19 > 0 && ps19 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am19 > 0 || as19 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm19 == 0 && ps19 == 0 && as19 == 0 && am19 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_20")
+                        {
+                            #region fondo
+                            if (c20 == 0)
+                            {
+                                if (pm20 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm20 == 0 && ps20 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am20 > 0 || as20 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm20 == 0 && ps20 == 0 && as20 == 0 && am20 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm20 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm20 == 0 && ps20 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am20 > 0 || as20 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm20 == 0 && ps20 == 0 && as20 == 0 && am20 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c20 == 0)
+                            {
+                                if (ps20 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm20 > 0 && ps20 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am20 > 0 || as20 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm20 == 0 && ps20 == 0 && as20 == 0 && am20 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_21")
+                        {
+                            #region fondo
+                            if (c21 == 0)
+                            {
+                                if (pm21 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm21 == 0 && ps21 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am21 > 0 || as21 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm21 == 0 && ps21 == 0 && as21 == 0 && am21 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm21 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm21 == 0 && ps21 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am21 > 0 || as21 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm21 == 0 && ps21 == 0 && as21 == 0 && am21 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c21 == 0)
+                            {
+                                if (ps21 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm21 > 0 && ps21 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am21 > 0 || as21 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm21 == 0 && ps21 == 0 && as21 == 0 && am21 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_22")
+                        {
+                            #region fondo
+                            if (c22 == 0)
+                            {
+                                if (pm22 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm22 == 0 && ps22 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am22 > 0 || as22 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm22 == 0 && ps22 == 0 && as22 == 0 && am22 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm22 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm22 == 0 && ps22 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am22 > 0 || as22 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm22 == 0 && ps22 == 0 && as22 == 0 && am22 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c22 == 0)
+                            {
+                                if (ps22 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm22 > 0 && ps22 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am22 > 0 || as22 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm22 == 0 && ps22 == 0 && as22 == 0 && am22 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_23")
+                        {
+                            #region fondo
+                            if (c23 == 0)
+                            {
+                                if (pm23 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm23 == 0 && ps23 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am23 > 0 || as23 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm23 == 0 && ps23 == 0 && as23 == 0 && am23 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm23 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm23 == 0 && ps23 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am23 > 0 || as23 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm23 == 0 && ps23 == 0 && as23 == 0 && am23 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c23 == 0)
+                            {
+                                if (ps23 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm23 > 0 && ps23 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am23 > 0 || as23 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm23 == 0 && ps23 == 0 && as23 == 0 && am23 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_24")
+                        {
+                            #region fondo
+                            if (c24 == 0)
+                            {
+                                if (pm24 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm24 == 0 && ps24 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am24 > 0 || as24 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm24 == 0 && ps24 == 0 && as24 == 0 && am24 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm24 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm24 == 0 && ps24 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am24 > 0 || as24 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm24 == 0 && ps24 == 0 && as24 == 0 && am24 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c24 == 0)
+                            {
+                                if (ps24 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm24 > 0 && ps24 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am24 > 0 || as24 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm24 == 0 && ps24 == 0 && as24 == 0 && am24 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_25")
+                        {
+                            #region fondo
+                            if (c25 == 0)
+                            {
+                                if (pm25 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm25 == 0 && ps25 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am25 > 0 || as25 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm25 == 0 && ps25 == 0 && as25 == 0 && am25 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm25 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm25 == 0 && ps25 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am25 > 0 || as25 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm25 == 0 && ps25 == 0 && as25 == 0 && am25 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c25 == 0)
+                            {
+                                if (ps25 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm25 > 0 && ps25 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am25 > 0 || as25 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm25 == 0 && ps25 == 0 && as25 == 0 && am25 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_26")
+                        {
+                            #region fondo
+                            if (c26 == 0)
+                            {
+                                if (pm26 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm26 == 0 && ps26 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am26 > 0 || as26 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm26 == 0 && ps26 == 0 && as26 == 0 && am26 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm26 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm26 == 0 && ps26 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am26 > 0 || as26 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm26 == 0 && ps26 == 0 && as26 == 0 && am26 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c26 == 0)
+                            {
+                                if (ps26 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm26 > 0 && ps26 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am26 > 0 || as26 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm26 == 0 && ps26 == 0 && as26 == 0 && am26 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_27")
+                        {
+                            #region fondo
+                            if (c27 == 0)
+                            {
+                                if (pm27 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm27 == 0 && ps27 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am27 > 0 || as27 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm27 == 0 && ps27 == 0 && as27 == 0 && am27 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm27 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm27 == 0 && ps27 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am27 > 0 || as27 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm27 == 0 && ps27 == 0 && as27 == 0 && am27 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c27 == 0)
+                            {
+                                if (ps27 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm27 > 0 && ps27 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am27 > 0 || as27 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm27 == 0 && ps27 == 0 && as27 == 0 && am27 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_28")
+                        {
+                            #region fondo
+                            if (c28 == 0)
+                            {
+                                if (pm28 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm28 == 0 && ps28 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am28 > 0 || as28 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm28 == 0 && ps28 == 0 && as28 == 0 && am28 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm28 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm28 == 0 && ps28 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am28 > 0 || as28 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm28 == 0 && ps28 == 0 && as28 == 0 && am28 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c28 == 0)
+                            {
+                                if (ps28 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm28 > 0 && ps28 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am28 > 0 || as28 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm28 == 0 && ps28 == 0 && as28 == 0 && am28 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_29")
+                        {
+                            #region fondo
+                            if (c29 == 0)
+                            {
+                                if (pm29 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm29 == 0 && ps29 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am29 > 0 || as29 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm29 == 0 && ps29 == 0 && as29 == 0 && am29 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm29 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm29 == 0 && ps29 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am29 > 0 || as29 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm29 == 0 && ps29 == 0 && as29 == 0 && am29 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c29 == 0)
+                            {
+                                if (ps29 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm29 > 0 && ps29 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am29 > 0 || as29 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm29 == 0 && ps29 == 0 && as29 == 0 && am29 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_30")
+                        {
+                            #region fondo
+                            if (c30 == 0)
+                            {
+                                if (pm30 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm30 == 0 && ps30 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am30 > 0 || as30 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm30 == 0 && ps30 == 0 && as30 == 0 && am30 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm30 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm30 == 0 && ps30 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am30 > 0 || as30 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm30 == 0 && ps30 == 0 && as30 == 0 && am30 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c30 == 0)
+                            {
+                                if (ps30 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm30 > 0 && ps30 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am30 > 0 || as30 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm30 == 0 && ps30 == 0 && as30 == 0 && am30 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_31")
+                        {
+                            #region fondo
+                            if (c31 == 0)
+                            {
+                                if (pm31 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm31 == 0 && ps31 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am31 > 0 || as31 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm31 == 0 && ps31 == 0 && as31 == 0 && am31 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm31 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm31 == 0 && ps31 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am31 > 0 || as31 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm31 == 0 && ps31 == 0 && as31 == 0 && am31 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c31 == 0)
+                            {
+                                if (ps31 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm31 > 0 && ps31 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am31 > 0 || as31 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm31 == 0 && ps31 == 0 && as31 == 0 && am31 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_32")
+                        {
+                            #region fondo
+                            if (c32 == 0)
+                            {
+                                if (pm32 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm32 == 0 && ps32 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am32 > 0 || as32 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm32 == 0 && ps32 == 0 && as32 == 0 && am32 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm32 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm32 == 0 && ps32 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am32 > 0 || as32 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm32 == 0 && ps32 == 0 && as32 == 0 && am32 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c32 == 0)
+                            {
+                                if (ps32 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm32 > 0 && ps32 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am32 > 0 || as32 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm32 == 0 && ps32 == 0 && as32 == 0 && am32 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_33")
+                        {
+                            #region fondo
+                            if (c33 == 0)
+                            {
+                                if (pm33 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm33 == 0 && ps33 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am33 > 0 || as33 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm33 == 0 && ps33 == 0 && as33 == 0 && am33 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm33 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm33 == 0 && ps33 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am33 > 0 || as33 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm33 == 0 && ps33 == 0 && as33 == 0 && am33 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c33 == 0)
+                            {
+                                if (ps33 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm33 > 0 && ps33 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am33 > 0 || as33 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm33 == 0 && ps33 == 0 && as33 == 0 && am33 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_34")
+                        {
+                            #region fondo
+                            if (c34 == 0)
+                            {
+                                if (pm34 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm34 == 0 && ps34 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am34 > 0 || as34 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm34 == 0 && ps34 == 0 && as34 == 0 && am34 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm34 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm34 == 0 && ps34 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am34 > 0 || as34 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm34 == 0 && ps34 == 0 && as34 == 0 && am34 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c34 == 0)
+                            {
+                                if (ps34 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm34 > 0 && ps34 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am34 > 0 || as34 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm34 == 0 && ps34 == 0 && as34 == 0 && am34 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
+                        if (moduloLista.Name == "modulo_35")
+                        {
+                            #region fondo
+                            if (c35 == 0)
+                            {
+                                if (pm35 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm35 == 0 && ps35 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am35 > 0 || as35 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                if (pm35 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (pm35 == 0 && ps35 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (am35 > 0 || as35 > 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
+                                {
+                                    moduloLista.Background = new SolidColorBrush(Colors.Blue);
+                                }
+                            }
+                            #endregion
+                            #region borde
+
+                            //colores de borde
+
+                            if (c35 == 0)
+                            {
+                                if (ps35 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Orange);
+                                }
+                                else if (pm35 > 0 && ps35 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Red);
+                                }
+                                else if (am35 > 0 || as35 > 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                                }
+                                else if (pm35 == 0 && ps35 == 0 && as35 == 0 && am35 == 0)
+                                {
+                                    moduloLista.BorderBrush = new SolidColorBrush(Colors.Green);
+                                }
+                            }
+                            else
+                            {
+                                moduloLista.BorderBrush = new SolidColorBrush(Colors.Blue);
+                            }
+                            #endregion
+                        }
                     }
+
+                }
             }));
         }
     }

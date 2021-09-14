@@ -220,30 +220,6 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             PagePrincipal PagePrincipal = new PagePrincipal();
             this.NavigationService.Navigate(PagePrincipal);
         }
-        private void ButtonSalir(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-        private void ButtonMaximizar(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            };
-
-        }
-        private void ButtonMinimizar(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.MainWindow.DragMove();
-        }
         #endregion
         #region calculos_generales
         private void habilitar_boton()

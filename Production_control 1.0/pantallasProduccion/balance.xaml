@@ -12,21 +12,9 @@
     <Grid>
         <!--#region  region control general del programa-->
         <StackPanel VerticalAlignment="Top">
-            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
             <Grid Margin="5">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10, 0" >
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
-                        <materialDesign:PackIcon Kind="WindowMinimize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
-                        <materialDesign:PackIcon Kind="WindowMaximize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
-                        <materialDesign:PackIcon Kind="Close"/>
-                    </Button>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10, 0" >
-                    <Button x:Name="ButtonOpen" HorizontalAlignment="Left" Height="30" Width="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonOpen_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0" >
+                    <Button x:Name="ButtonOpen" HorizontalAlignment="Left" Height="35" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonOpen_Click">
                         <materialDesign:PackIcon Kind="Menu" Foreground="#FF313131"/>
                     </Button>
                 </StackPanel>
@@ -34,7 +22,7 @@
         </StackPanel>
         <!--#endregion-->
         <!--#region menuLateral-->
-        <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Margin="-250 0 0 0" Background="Black" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Margin="-250,-38,0,0" Background="Black" RenderTransformOrigin="0.5,0.5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -53,7 +41,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="ButtonClose" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderBrush="Transparent" Width="30" Height="30" Padding="0" Click="ButtonClose_Click" >
+            <Button x:Name="ButtonClose" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderBrush="Transparent" Width="30" Height="30" Margin="0,37,0,0" Padding="0" Click="ButtonClose_Click" >
                 <materialDesign:PackIcon Kind="Close"/>
             </Button>
             <Label Grid.Row="1" Grid.ColumnSpan="4" FontSize="20" Foreground="White" Content="Últimas Versiones" HorizontalAlignment="Center"/>

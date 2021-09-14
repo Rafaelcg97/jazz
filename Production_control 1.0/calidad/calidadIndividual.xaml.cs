@@ -1,8 +1,11 @@
-﻿using Production_control_1._0.clases;
+﻿using Microsoft.Win32;
+using Production_control_1._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,16 +25,13 @@ namespace Production_control_1._0.calidad
     {
         #region varibalesConexion
         public SqlConnection cnCalidad = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_calidad"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        List<registroCalidad> registrosCalidad = new List<registroCalidad>();
+        string fechaInicial = DateTime.Now.ToString("yyyy-MM-dd");
+        string fechaFinal= DateTime.Now.ToString("yyyy-MM-dd");
         #endregion
         public calidadIndividual()
         {
             InitializeComponent();
             consultarDatos();
-            foreach(registroCalidad item in registrosCalidad)
-            {
-                listViewAqlOperarios.Items.Add(item);
-            }
         }
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
@@ -59,30 +59,6 @@ namespace Production_control_1._0.calidad
             }
             NavigationService.Navigate(pagePrincipal);
         }
-        private void ButtonSalir(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-        private void ButtonMaximizar(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            };
-
-        }
-        private void ButtonMinimizar(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.MainWindow.DragMove();
-        }
         #endregion
         #region tamanoLetra/solonumerosenTextBox
         private void letraAjustable1(object sender, SizeChangedEventArgs e)
@@ -101,31 +77,170 @@ namespace Production_control_1._0.calidad
             tmp.FontSize = e.NewSize.Height * 0.4 / tmp.FontFamily.LineSpacing;
         }
         #endregion
-        private void consultarDatos()
+        private void consultarDatos(int tipoConsulta=0, string fechaInicial_="", string fechaFinal_="", string operarioNombre="", int operarioCodigo=0)
         {
-            registrosCalidad.Clear();
+            listViewAqlOperarios.Items.Clear();
+            string sql="";
 
-            //int semana = System.Globalization.CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear((DateTime)calendarCalidad.SelectedDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-            //int anio = ((DateTime)calendarCalidad.SelectedDate).Year;
-            string sql = "SELECT a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo";
+            switch (tipoConsulta)
+            {
+                    //ningun filtro
+                case 0:
+                    sql = "SELECT TOP 500 a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo order by a.fecha_p1";
+                    break;
+                    //solo filtro de fecha
+                case 1:
+                    sql = "SELECT a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a " +
+                          "LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo " +
+                          "where a.fecha_p1>='" + fechaInicial_ + "' and a.fecha_p1<='" + fechaFinal_ + "' order by a.fecha_p1";
+                    break;
+                    //solo codigo
+                case 2:
+                    sql = "SELECT a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a " +
+                          "LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo " +
+                          "where a.operario_p1='" + operarioCodigo + "' order by a.fecha_p1";
+                    break;
+                    //solo nombre
+                case 3:
+                    sql = "SELECT a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a " +
+                          "LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo " +
+                          "where b.nombre LIKE '%" + operarioNombre + "%' order by a.fecha_p1";
+                    break;
+                    //fecha y nombre
+                case 4:
+                    sql = "SELECT a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a " +
+                          "LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo " +
+                          "where b.nombre LIKE '%" + operarioNombre + "%' and a.fecha_p1>='" + fechaInicial_ + "' and a.fecha_p1<='" + fechaFinal_ + "' order by a.fecha_p1";
+                    break;
+                    //fecha y codigo
+                case 5:
+                    sql = "SELECT a.fecha_p1, a.operario_p1, b.nombre, a.piezas_p1, a.rechazos_p1, a.aql_f1 FROM [dbo].[aql_i1] a " +
+                          "LEFT JOIN produccion.dbo.nomina b on a.operario_p1=b.codigo " +
+                          "where a.operario_p1='" + operarioCodigo + "' and a.fecha_p1>='" + fechaInicial_ + "' and a.fecha_p1<='" + fechaFinal_ + "' order by a.fecha_p1";
+                    break;
+
+            }
+
+
             SqlCommand cm = new SqlCommand(sql, cnCalidad);
             cnCalidad.Open();
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                registrosCalidad.Add(
+                listViewAqlOperarios.Items.Add(
                     new registroCalidad
                     {
                         fechaDt = Convert.ToDateTime(dr["fecha_p1"]),
                         fecha = Convert.ToDateTime(dr["fecha_p1"]).ToString("yyyy-MM-dd"),
-                        codigo =dr["operario_p1"].ToString(),
-                        nombre=dr["nombre"].ToString(),
-                        muestraP=Convert.ToInt32(dr["piezas_p1"] is DBNull ? 0 : dr["piezas_p1"]),
-                        rechazosP= Convert.ToInt32(dr["rechazos_p1"] is DBNull ? 0 : dr["rechazos_p1"]),
-                        aqlP= Convert.ToDouble(dr["aql_f1"] is DBNull ? 0 : dr["aql_f1"])
+                        codigo = dr["operario_p1"].ToString(),
+                        nombre = dr["nombre"].ToString(),
+                        muestraP = Convert.ToInt32(dr["piezas_p1"] is DBNull ? 0 : dr["piezas_p1"]),
+                        rechazosP = Convert.ToInt32(dr["rechazos_p1"] is DBNull ? 0 : dr["rechazos_p1"]),
+                        aqlP = Convert.ToDouble(dr["aql_f1"] is DBNull ? 0 : dr["aql_f1"])
                     });
             }
             cnCalidad.Close();
+            indicador.Fill = Brushes.Green;
+        }
+
+        private void buttonMostrarPopUp_Click(object sender, RoutedEventArgs e)
+        {
+            popUpFecha.IsOpen = true;
+        }
+
+        private void calendarFecha_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            fechaInicial = calendarFecha.SelectedDates.ToArray().First().ToString("yyyy-MM-dd");
+            fechaFinal = calendarFecha.SelectedDates.ToArray().Last().ToString("yyyy-MM-dd");
+            labelRangoFechas.Content = fechaInicial + " --> " + fechaFinal;
+            indicador.Fill = Brushes.Red;
+        }
+
+        private void buttonBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelRangoFechas.Content.ToString() == "ALL" && string.IsNullOrWhiteSpace(textBoxBuscar.Text))
+            {
+                consultarDatos(0);
+            }
+            else if (labelRangoFechas.Content.ToString() != "ALL" && string.IsNullOrWhiteSpace(textBoxBuscar.Text))
+            {
+                consultarDatos(1, fechaInicial, fechaFinal);
+            }
+            else if (labelRangoFechas.Content.ToString() == "ALL" &&  textBoxBuscar.Text.ToString().All(char.IsDigit))
+            {
+                consultarDatos(2,"","","",Convert.ToInt32(textBoxBuscar.Text));
+            }
+            else if (labelRangoFechas.Content.ToString() == "ALL" && textBoxBuscar.Text.ToString().All(char.IsDigit)==false)
+            {
+                consultarDatos(3, "", "", textBoxBuscar.Text,0);
+            }
+            else if (labelRangoFechas.Content.ToString() != "ALL" && textBoxBuscar.Text.ToString().All(char.IsDigit) == false)
+            {
+                consultarDatos(4, fechaInicial, fechaFinal, textBoxBuscar.Text, 0);
+            }
+            else if (labelRangoFechas.Content.ToString() != "ALL" && textBoxBuscar.Text.ToString().All(char.IsDigit))
+            {
+                consultarDatos(5, fechaInicial, fechaFinal, "", Convert.ToInt32(textBoxBuscar.Text));
+            }
+        }
+
+        private void textBoxBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            indicador.Fill = Brushes.Red;
+        }
+
+        private void buttonDescargarAql_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder buffer = new StringBuilder();
+            #region encabezados
+            buffer.Append("FECHA");
+            buffer.Append(",");
+            buffer.Append("CODIGO");
+            buffer.Append(",");
+            buffer.Append("NOMBRE");
+            buffer.Append(",");
+            buffer.Append("AUDITADO");
+            buffer.Append(",");
+            buffer.Append("RECHAZADO");
+            buffer.Append(",");
+            buffer.Append("AQL");
+            buffer.Append(",");
+            buffer.Append("\n");
+            #endregion
+            foreach (registroCalidad item in listViewAqlOperarios.Items)
+            {
+                buffer.Append(item.fecha);
+                buffer.Append(",");
+                buffer.Append(item.codigo);
+                buffer.Append(",");
+                buffer.Append(item.nombre);
+                buffer.Append(",");
+                buffer.Append(item.muestraP);
+                buffer.Append(",");
+                buffer.Append(item.rechazosP);
+                buffer.Append(",");
+                buffer.Append(item.aqlP);
+                buffer.Append("\n");
+            }
+            String result = buffer.ToString();
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV (*.csv)|*.csv";
+                string fileName = "";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    fileName = saveFileDialog.FileName;
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(result);
+                    sw.Close();
+
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception)
+            { }
         }
     }
 }

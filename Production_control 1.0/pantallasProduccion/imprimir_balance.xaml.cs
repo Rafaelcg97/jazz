@@ -1,30 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Printing;
 using System.Drawing.Printing;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Wpf;
-using Production_control_1._0.clases;
-using System.Management;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Windows.Xps.Packaging;
-using System.Windows.Xps;
-using System.Windows.Documents.Serialization;
-using System.Drawing.Imaging;
-using System.IO;
 
 namespace Production_control_1._0
 {
@@ -208,32 +191,6 @@ namespace Production_control_1._0
         {
             this.NavigationService.GoBack();
         }
-        #region accionesBarraDeTitulo
-        private void ButtonSalir(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-        private void ButtonMaximizar(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            };
-
-        }
-        private void ButtonMinimizar(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.MainWindow.DragMove();
-        }
-        #endregion
         #endregion
         #region formulario_impresion
         private void confirmar_impresion_Click(object sender, RoutedEventArgs e)

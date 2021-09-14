@@ -4,10 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Production_control_1._0"
-        ResizeMode="NoResize" WindowStyle="None" Background="SlateGray" WindowStartupLocation="CenterScreen"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        ResizeMode="NoResize" WindowStyle="None" 
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
         mc:Ignorable="d"
-        Title="splashScreen" Height="500" Width="450">
+        Title="splashScreen" Height="300" Width="450" Background="Transparent">
     <Grid>
-        
+        <Border CornerRadius="10" Background="Black">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.ColumnSpan="3" Grid.RowSpan="9" Source="/imagenes/logon.jpeg"/>
+                <Image Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="9" gif:ImageBehavior.AnimatedSource="/imagenes/gato.gif"/>
+                <Label Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Content="Control de producción" Foreground="White" FontSize="9" />
+            </Grid>
+        </Border>
     </Grid>
 </Window>

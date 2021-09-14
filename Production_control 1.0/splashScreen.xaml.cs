@@ -1,5 +1,7 @@
-﻿using System;
+﻿using java.nio.file;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,7 @@ namespace Production_control_1._0
         {
             InitializeComponent();
             dt.Tick += new EventHandler(dt_Tick);
-            dt.Interval = new TimeSpan(0,0,2);
+            dt.Interval = new TimeSpan(0,0,5);
             dt.Start();
         }
 

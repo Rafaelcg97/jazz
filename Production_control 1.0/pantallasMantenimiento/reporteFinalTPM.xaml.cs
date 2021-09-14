@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-
+using System.Windows.Media;
 
 namespace Production_control_1._0.pantallasMantenimiento
 {
@@ -50,31 +50,22 @@ namespace Production_control_1._0.pantallasMantenimiento
         #region control_general_del_programa()
         private void salir__Click(object sender, RoutedEventArgs e)
         {
+            Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
+            ventana.Background = Brushes.White;
             this.NavigationService.GoBack();
         }
-        private void ButtonSalir(object sender, RoutedEventArgs e)
+        private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {
-            Application.Current.Shutdown();
-        }
-        private void ButtonMaximizar(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            //dependencia hacia la pagina
+            DependencyObject parent = startObject;
+            while (parent != null)
             {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
+                if (type.IsInstanceOfType(parent))
+                    break;
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
             }
-            else
-            {
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            };
-
-        }
-        private void ButtonMinimizar(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.MainWindow.DragMove();
+            return parent;
         }
         #endregion
         #region calculosGenerales
@@ -250,5 +241,11 @@ namespace Production_control_1._0.pantallasMantenimiento
             this.NavigationService.Navigate(formularioTPM);
         }
         #endregion
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
+            ventana.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF2F3134");
+        }
     }
 }

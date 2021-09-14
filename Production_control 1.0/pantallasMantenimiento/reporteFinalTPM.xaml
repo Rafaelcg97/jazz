@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="reporteFinalTPM"
-      Background="#FF2F3134">
+      Background="#FF2F3134" Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="ToggleButton">
             <Setter Property="Template">
@@ -44,24 +44,6 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <!--#region control general del programa-->
-        <StackPanel VerticalAlignment="Top">
-            <Grid Background="#FF0069C0" Height="10" MouseLeftButtonDown="titleBar_MouseLeftButtonDown"/>
-            <Grid Margin="5">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonMinimizar">
-                        <materialDesign:PackIcon Kind="WindowMinimize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0" Click="ButtonMaximizar">
-                        <materialDesign:PackIcon Kind="WindowMaximize"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonSalir">
-                        <materialDesign:PackIcon Kind="Close"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
-        <!--#endregion-->
         <Grid x:Name="areaDeTrabajo">
             <!--#region filas/columans-->
             <Grid.ColumnDefinitions>
@@ -110,7 +92,7 @@
             </Button>
             <Label Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="Control_SizeChanged" Foreground="#FFB0A770" FontWeight="Bold" HorizontalAlignment="Center">Reporte TPM</Label>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="1">
-            <CheckBox Margin="40,0,0,0" x:Name="checkedCompleto" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Checked="checkedCompleto_Checked" Unchecked="checkedCompleto_Unchecked">
+                <CheckBox Margin="40,0,0,0" x:Name="checkedCompleto" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Checked="checkedCompleto_Checked" Unchecked="checkedCompleto_Unchecked">
                     <Label Content="Completo"  Foreground="White" FontSize="25" FontWeight="Bold" Margin="10,0,0,0" Padding="0"/>
                 </CheckBox>
                 <Label x:Name="labelSolicirud" Content="" Foreground="White" Visibility="Hidden"/>
@@ -123,19 +105,19 @@
                             <ToggleButton  x:Name="s1" IsChecked="False" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="SI" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
                             <ToggleButton  IsChecked="True" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="NO" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
                         </StackPanel>
-                        
+
                         <Label FontSize="18" Foreground="White" Content="2- Reapriete de pernos de muebles" Margin="20,25,0,0" FontWeight="Bold"/>
                         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Margin="40,0,0,0">
                             <ToggleButton  x:Name="s2" IsChecked="False" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="SI" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
                             <ToggleButton  IsChecked="True" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="NO" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
                         </StackPanel>
-                        
+
                         <Label FontSize="18" Foreground="White" Content="3- Reapriete de porta conos" Margin="20,25,0,0" FontWeight="Bold"/>
                         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Margin="40,0,0,0">
                             <ToggleButton  x:Name="s3" IsChecked="False" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="SI" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
                             <ToggleButton  IsChecked="True" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="NO" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
                         </StackPanel>
-                        
+
                         <Label FontSize="18" Foreground="White" Content="4- Revisión de pedal" Margin="20,25,0,0" FontWeight="Bold"/>
                         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Margin="40,0,0,0">
                             <ToggleButton  x:Name="s4" IsChecked="False" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="30" Content="SI" Margin="20,0,20,0" Checked="Checkear" Unchecked="Uncheckear"></ToggleButton>
@@ -357,6 +339,5 @@
                 <Image Source="/imagenes/enviar.png"/>
             </Button>
         </Grid>
-
     </Grid>
 </Page>
