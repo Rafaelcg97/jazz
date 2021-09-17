@@ -18,6 +18,7 @@ namespace Production_control_1._0.clases
         public bool mantenimiento { get; set; }
         public bool bodega { get; set; }
         public bool ingenieria { get; set; }
+        public bool kanban { get; set; }
         public int[] niveles { get; set; }
         public string[] cargos { get; set;}
     }

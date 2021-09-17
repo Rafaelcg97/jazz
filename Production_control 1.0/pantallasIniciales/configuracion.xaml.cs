@@ -24,12 +24,14 @@ namespace Production_control_1._0.pantallasIniciales
         List<string> coordinadores_ = new List<string>();
         List<string> ingenieros_ = new List<string>();
         List<string> soportes_ = new List<string>();
+        List<string> enganchadores_ = new List<string>();
+        List<string> empacadores_ = new List<string>();
         int[] acciones_ = new int[2];
         int[] niveles_ = new int[2];
         string cargo_ = "";
         #endregion
         #region datos_iniciales
-        public configuracion(string cargo)
+        public configuracion(string cargo, int modo=0)
         {
             InitializeComponent();
             cargo_ = cargo;
@@ -42,21 +44,31 @@ namespace Production_control_1._0.pantallasIniciales
             textBoxProduccion.Text = ConfigurationManager.AppSettings["base_produccion"];
             textBoxMantenimiento.Text = ConfigurationManager.AppSettings["base_manto"];
             textBoxBalance.Text = ConfigurationManager.AppSettings["base_balances"];
+            textBoxKanban.Text= ConfigurationManager.AppSettings["base_kanban"];
             textBoxGaleria.Text = ConfigurationManager.AppSettings["imagenes"];
+            textBoxPoly.Text = ConfigurationManager.AppSettings["base_poly"];
             niveles_[0] = 0;
             niveles_[1] = 1;
             acciones_[0] = 1;
             acciones_[1] = -1;
-            cargos_.Add("SOPORTE");
-            cargos_.Add("MECANICO");
-            cargos_.Add("ELECTRICISTA");
-            cargos_.Add("INGENIERO");
-            cargos_.Add("COORDINADOR");
-            cargos_.Add("LEAN");
             cargos_.Add("ADMINISTRADOR1");
             cargos_.Add("ADMINISTRADOR2");
             cargos_.Add("ADMINISTRADOR3");
+            cargos_.Add("ADMIN_KANBAN");
             cargos_.Add("ADMINISTRADORGENERAL");
+            cargos_.Add("COORDINADOR");
+            cargos_.Add("ELECTRICISTA");
+            cargos_.Add("EMPACADOR");
+            cargos_.Add("ENGANCHADOR");
+            cargos_.Add("INGENIERO");
+            cargos_.Add("LEAN");
+            cargos_.Add("MECANICO");
+            cargos_.Add("PREPARADOR");
+            cargos_.Add("SOPORTE");
+
+
+
+
             consultar(cargo);
             actualizarListas();
             consultarModulos();
@@ -240,14 +252,16 @@ namespace Production_control_1._0.pantallasIniciales
         private void consultar(string cargo)
         {
             //dependiendo de quien sea el que entre se cargan las listas
-            string sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios";
+            string sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios";
             if (cargo == "ADMINISTRADOR1")
             {
-                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='INGENIERO' or cargo='SOPORTE' or cargo='COORDINADOR'";
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in (INGENIERO','SOPORTE','COORDINADOR', 'EMPACADOR', 'ENGANCHADOR'";
                 cargos_.Clear();
-                cargos_.Add("SOPORTE");
-                cargos_.Add("INGENIERO");
                 cargos_.Add("COORDINADOR");
+                cargos_.Add("EMPACADOR");
+                cargos_.Add("ENGANCHADOR");
+                cargos_.Add("INGENIERO");
+                cargos_.Add("SOPORTE");
                 ordenMoulos.IsEnabled = false;
                 arreglarSolicitudes.IsEnabled = false;
                 arreglarSolicitudesMecanicos.IsEnabled = false;
@@ -255,16 +269,24 @@ namespace Production_control_1._0.pantallasIniciales
             }
             else if (cargo == "ADMINISTRADOR2")
             {
-                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria from usuarios where cargo='MECANICO'";
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in ('MECANICO', 'ELECTRICISTA')";
                 cargos_.Clear();
-                cargos_.Add("MECANICO");
                 cargos_.Add("ELECTRICISTA");
+                cargos_.Add("MECANICO");
+                ordenIngenieros.IsEnabled = false;
+            }
+            else if (cargo == "ADMIN_KANBAN")
+            {
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in ('AUXILIAR_KANBAN')";
+                cargos_.Clear();
+                cargos_.Add("PREPARADOR");
                 ordenIngenieros.IsEnabled = false;
             }
             bool ingenieria_ = false;
             bool produccion_ = false;
             bool bodega_ = false;
             bool mantenimiento_ = false;
+            bool kanban_ = false;
             usuariosTotales.Clear();
             cnIngenieria.Open();
             SqlCommand cm = new SqlCommand(sql, cnIngenieria);
@@ -277,7 +299,8 @@ namespace Production_control_1._0.pantallasIniciales
                 if (Convert.ToInt32(dr["produccion"] is DBNull ? 0 : dr["produccion"]) == 1) { produccion_ = true; } else { produccion_ = false; }
                 if (Convert.ToInt32(dr["bodega"] is DBNull ? 0 : dr["bodega"]) == 1) { bodega_ = true; } else { bodega_ = false; }
                 if (Convert.ToInt32(dr["mantenimiento"] is DBNull ? 0 : dr["mantenimiento"]) == 1) { mantenimiento_ = true; } else { mantenimiento_ = false; }
-                usuariosTotales.Add(new usuario { id = Convert.ToInt32(dr["id"]), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), nivel = Convert.ToInt32(dr["nivel"]), cargo = dr["cargo"].ToString(), contrasenia = dr["contrasena"].ToString(), produccion = produccion_, mantenimiento = mantenimiento_, bodega = bodega_, ingenieria = ingenieria_, niveles = niveles_, cargos = cargos_.ToArray() });
+                if (Convert.ToInt32(dr["kanban"] is DBNull ? 0 : dr["kanban"]) == 1) { kanban_ = true; } else {kanban_ = false; }
+                usuariosTotales.Add(new usuario { id = Convert.ToInt32(dr["id"]), codigo = Convert.ToInt32(dr["codigo"]), nombre = dr["nombre"].ToString(), nivel = Convert.ToInt32(dr["nivel"]), cargo = dr["cargo"].ToString(), contrasenia = dr["contrasena"].ToString(), produccion = produccion_, mantenimiento = mantenimiento_, bodega = bodega_, ingenieria = ingenieria_, niveles = niveles_, cargos = cargos_.ToArray(), kanban=kanban_ });
             };
             //se termina la conexion a la base
             dr.Close();
@@ -372,26 +395,42 @@ namespace Production_control_1._0.pantallasIniciales
         #region actualizarListas
         private void actualizarListas()
         {
+            //limpiar las listas
             coordinadores_.Clear();
             ingenieros_.Clear();
+            soportes_.Clear();
+            enganchadores_.Clear();
+            empacadores_.Clear();
+            //agregar datos nuevos
             foreach (usuario item in listViewAsignarUsuarios.Items)
             {
-                if (item.cargo == "COORDINADOR")
+                switch (item.cargo)
                 {
-                    coordinadores_.Add(item.nombre);
-                }
-                else if (item.cargo == "INGENIERO")
-                {
-                    ingenieros_.Add(item.nombre);
-                }
-                else if (item.cargo == "SOPORTE")
-                {
-                    soportes_.Add(item.nombre);
+                    case "COORDINADOR":
+                        coordinadores_.Add(item.nombre);
+                        break;
+                    case "INGENIERO":
+                        ingenieros_.Add(item.nombre);
+                        break;
+                    case "SOPORTE":
+                        soportes_.Add(item.nombre);
+                        break;
+                    case "ENGANCHADOR":
+                        enganchadores_.Add(item.nombre);
+                        break;
+                    case "EMPACADOR":
+                        empacadores_.Add(item.nombre);
+                        break;
+                    default:
+                        break;
                 }
             }
+            //agregar guiones para dejar item vacio
             coordinadores_.Add("-");
             ingenieros_.Add("-");
             soportes_.Add("-");
+            enganchadores_.Add("-");
+            empacadores_.Add("-");
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -604,5 +643,6 @@ namespace Production_control_1._0.pantallasIniciales
 
         }
         #endregion
+
     }
 }

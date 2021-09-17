@@ -31,9 +31,10 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.ColumnSpan="3" Grid.RowSpan="9" Source="/imagenes/logon.jpeg"/>
+                <Image Grid.ColumnSpan="3" Grid.RowSpan="9" Source="/imagenes/logo.png"/>
                 <Image Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="9" gif:ImageBehavior.AnimatedSource="/imagenes/gato.gif"/>
-                <Label Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Content="Control de producción" Foreground="White" FontSize="9" />
+                <Label Grid.Row="6" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" Content="AZZ" Foreground="White" FontSize="47" FontWeight="Bold" />
+                <Label Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Content="Control de producción" Foreground="White" FontSize="9" />
             </Grid>
         </Border>
     </Grid>
