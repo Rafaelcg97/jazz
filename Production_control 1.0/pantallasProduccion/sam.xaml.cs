@@ -36,7 +36,7 @@ namespace Production_control_1._0
             imageEstilo.Source = new BitmapImage(fileUri);
 
             // se cargan todas las tempordas 
-            sql = "select temporada from operaciones group by temporada";
+            sql = "select temporada from operaciones group by temporada order by RIGHT(temporada,2) desc, LEFT(temporada,1)";
             cnIngenieria.Open();
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
@@ -47,7 +47,7 @@ namespace Production_control_1._0
             dr.Close();
 
             // se cargan todas los clientes
-            sql = "select cliente from operaciones group by cliente";
+            sql = "SELECT DISTINCT cliente FROM operaciones";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())
@@ -57,7 +57,7 @@ namespace Production_control_1._0
             dr.Close();
 
             // se cargan todas los tipos
-            sql = "select tipo from operaciones group by tipo";
+            sql = "SELECT DISTINCT tipo FROM operaciones";
             cm = new SqlCommand(sql, cnIngenieria);
             dr = cm.ExecuteReader();
             while (dr.Read())

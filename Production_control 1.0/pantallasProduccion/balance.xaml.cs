@@ -781,6 +781,7 @@ namespace Production_control_1._0
                 string categoriaEstacion = "";
                 string colorEstacion = "";
                 string operarioEstacion = "";
+                string ajuste = "";
                 List<elementoListBox> operacionesEstacion = new List<elementoListBox>();
 
                 #region colorEnString
@@ -811,6 +812,11 @@ namespace Production_control_1._0
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
                 foreach (object elemento in stackPanelEstacion.Children)
                 {
+                    //Si el objeto es textBox se obtiene el ajuste
+                    if (elemento.GetType() == typeof(TextBox))
+                    {
+                        ajuste = ((TextBox)elemento).Text;
+                    }
                     //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
                     if (elemento.GetType() == typeof(TextBlock))
                     {
@@ -829,7 +835,7 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = item.ajusteMaquina });
+                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = ajuste });
                         }
                     }
                 }
@@ -852,6 +858,7 @@ namespace Production_control_1._0
                 string categoriaEstacion = "";
                 string colorEstacion = "";
                 string operarioEstacion = "";
+                string ajuste = "";
                 List<elementoListBox> operacionesEstacion = new List<elementoListBox>();
 
                 #region colorEnString
@@ -882,6 +889,11 @@ namespace Production_control_1._0
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
                 foreach (object elemento in stackPanelEstacion.Children)
                 {
+                    //Si el objeto es textBox se obtiene el ajuste
+                    if (elemento.GetType() == typeof(TextBox))
+                    {
+                        ajuste = ((TextBox)elemento).Text;
+                    }
                     //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
                     if (elemento.GetType() == typeof(TextBlock))
                     {
@@ -900,7 +912,7 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = item.ajusteMaquina });
+                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = ajuste});
                         }
                     }
                 }
@@ -923,6 +935,7 @@ namespace Production_control_1._0
                 string categoriaEstacion = "";
                 string colorEstacion = "";
                 string operarioEstacion = "";
+                string ajuste = "";
                 List<elementoListBox> operacionesEstacion = new List<elementoListBox>();
 
                 #region colorEnString
@@ -953,6 +966,11 @@ namespace Production_control_1._0
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
                 foreach (object elemento in stackPanelEstacion.Children)
                 {
+                    //Si el objeto es textBox se obtiene el ajuste
+                    if (elemento.GetType() == typeof(TextBox))
+                    {
+                        ajuste = ((TextBox)elemento).Text;
+                    }
                     //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
                     if (elemento.GetType() == typeof(TextBlock))
                     {
@@ -971,7 +989,7 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = item.ajusteMaquina });
+                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = ajuste });
                         }
                     }
                 }
@@ -994,6 +1012,7 @@ namespace Production_control_1._0
                 string categoriaEstacion = "";
                 string colorEstacion = "";
                 string operarioEstacion = "";
+                string ajuste = "";
                 List<elementoListBox> operacionesEstacion = new List<elementoListBox>();
 
                 #region colorEnString
@@ -1024,6 +1043,11 @@ namespace Production_control_1._0
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
                 foreach (object elemento in stackPanelEstacion.Children)
                 {
+                    //Si el objeto es textBox se obtiene el ajuste
+                    if (elemento.GetType() == typeof(TextBox))
+                    {
+                        ajuste = ((TextBox)elemento).Text;
+                    }
                     //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
                     if (elemento.GetType() == typeof(TextBlock))
                     {
@@ -1042,7 +1066,7 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = item.ajusteMaquina });
+                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = ajuste });
                         }
                     }
                 }
@@ -1065,6 +1089,7 @@ namespace Production_control_1._0
                 string categoriaEstacion = "";
                 string colorEstacion = "";
                 string operarioEstacion = "";
+                string ajuste = "";
                 List<elementoListBox> operacionesEstacion = new List<elementoListBox>();
 
                 #region colorEnString
@@ -1095,6 +1120,11 @@ namespace Production_control_1._0
                 //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
                 foreach (object elemento in stackPanelEstacion.Children)
                 {
+                    //Si el objeto es textBox se obtiene el ajuste
+                    if (elemento.GetType() == typeof(TextBox))
+                    {
+                        ajuste = ((TextBox)elemento).Text;
+                    }
                     //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
                     if (elemento.GetType() == typeof(TextBlock))
                     {
@@ -1113,7 +1143,7 @@ namespace Production_control_1._0
                         foreach (elementoListBox item in listaDeOperaciones.Items)
                         {
                             //Cada elemento del listBox se agrega en la lista declarada al inicio
-                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = item.ajusteMaquina });
+                            operacionesEstacion.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion, tituloOperacion = item.tituloOperacion, ajusteMaquina = ajuste});
                         }
                     }
                 }
@@ -1132,7 +1162,7 @@ namespace Production_control_1._0
             foreach (elementoListBox item in listBoxEnganche.Items)
                 {
                 cn.Open();
-                sql = "insert into maquinas(identificador, maquina, ajuste, categoria, color, correlativo, operacion, carga, operario) values('" + llave + "', '" + 66 + "', '" + item.ajusteMaquina + "', '" + textBlockEngancheCategoria.Text + "', 'azul', '" + item.correlativoOperacion + "', '" + item.tituloOperacion + "', '" + item.asignadoOperacion + "', '" + operarioEnganche.Content.ToString() + "')";
+                sql = "insert into maquinas(identificador, maquina, ajuste, categoria, color, correlativo, operacion, carga, operario) values('" + llave + "', '" + 66 + "', '" + ajusteEnganche.Text + "', '" + textBlockEngancheCategoria.Text + "', 'azul', '" + item.correlativoOperacion + "', '" + item.tituloOperacion + "', '" + item.asignadoOperacion + "', '" + operarioEnganche.Content.ToString() + "')";
                 cm = new SqlCommand(sql, cn);
                 cm.ExecuteNonQuery();
                 cn.Close();
@@ -2295,29 +2325,88 @@ namespace Production_control_1._0
 
             elementoListBox informacionElemento = informacion as elementoListBox;
 
-            foreach (Object elemento in estacion.Children)
+            foreach (Object objeto in estacion.Children)
             {
-                if (elemento.GetType() == typeof(ListBox) && informacionElemento.identificador == "operacion")
+                if (objeto.GetType() == typeof(ListBox))
                 {
-                    ((ListBox)elemento).Items.Add(new elementoListBox() { nombreOperacion = informacionElemento.nombreOperacion, tituloOperacion = informacionElemento.tituloOperacion, asignadoOperacion = 1, correlativoOperacion = informacionElemento.correlativoOperacion, ajusteMaquina = informacionElemento.ajusteMaquina, samOperacion = informacionElemento.samOperacion });
+                    try
+                    {
+                        //obtener el primer ajuste de maquinas agregado
+                        string ajusteActual = "";
+                        ajusteActual = ((elementoListBox)((ListBox)objeto).Items[0]).ajusteMaquina;
+
+                        //si el largo es cero agregar directamente (significa que no hay ningun ajuste previo agregado) 
+                        if (string.IsNullOrWhiteSpace(ajusteActual))
+                        {
+                            foreach (Object elemento in estacion.Children)
+                            {
+
+                                if (elemento.GetType() == typeof(ListBox) && informacionElemento.identificador == "operacion")
+                                {
+                                    ((ListBox)elemento).Items.Add(new elementoListBox() { nombreOperacion = informacionElemento.nombreOperacion, tituloOperacion = informacionElemento.tituloOperacion, asignadoOperacion = 1, correlativoOperacion = informacionElemento.correlativoOperacion, ajusteMaquina = informacionElemento.ajusteMaquina, samOperacion = informacionElemento.samOperacion });
+                                }
+                                else if (elemento.GetType() == typeof(TextBox) && informacionElemento.identificador == "operacion")
+                                {
+                                    ((TextBox)elemento).Text = informacionElemento.ajusteMaquina;
+                                }
+                                else if (elemento.GetType() == typeof(TextBlock) && informacionElemento.identificador == "operacion")
+                                {
+                                    ((TextBlock)elemento).Text = informacionElemento.categoriaMaquina;
+                                }
+                                else if (elemento.GetType() == typeof(Label) && informacionElemento.identificador == "operario")
+                                {
+                                    ((Label)elemento).Content = informacionElemento.nombreOperario;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //al saber cual es el de longitud mas corta, se evaluan ambos a la misma longitug con un substring 
+                            if (ajusteActual.Contains(informacionElemento.ajusteMaquina))
+                            {
+                                foreach (Object elemento in estacion.Children)
+                                {
+
+                                    if (elemento.GetType() == typeof(ListBox) && informacionElemento.identificador == "operacion")
+                                    {
+                                        ((ListBox)elemento).Items.Add(new elementoListBox() { nombreOperacion = informacionElemento.nombreOperacion, tituloOperacion = informacionElemento.tituloOperacion, asignadoOperacion = 1, correlativoOperacion = informacionElemento.correlativoOperacion, ajusteMaquina = informacionElemento.ajusteMaquina, samOperacion = informacionElemento.samOperacion });
+                                    }
+                                    else if (elemento.GetType() == typeof(TextBox) && informacionElemento.identificador == "operacion")
+                                    {
+                                        ((TextBox)elemento).Text = informacionElemento.ajusteMaquina;
+                                    }
+                                    else if (elemento.GetType() == typeof(TextBlock) && informacionElemento.identificador == "operacion")
+                                    {
+                                        ((TextBlock)elemento).Text = informacionElemento.categoriaMaquina;
+                                    }
+                                    else if (elemento.GetType() == typeof(Label) && informacionElemento.identificador == "operario")
+                                    {
+                                        ((Label)elemento).Content = informacionElemento.nombreOperario;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Esta intentando agregar ajustes diferentes en la misma máquina");
+                            }
+
+
+                        }
+                    }
+                    catch
+                    {
+
+                    }
                 }
-                else if (elemento.GetType() == typeof(TextBox) && informacionElemento.identificador == "operacion")
-                {
-                    ((TextBox)elemento).Text = informacionElemento.ajusteMaquina;
-                }
-                else if (elemento.GetType() == typeof(TextBlock) && informacionElemento.identificador == "operacion")
-                {
-                    ((TextBlock)elemento).Text = informacionElemento.categoriaMaquina;
-                }
-                else if (elemento.GetType() == typeof(Label) && informacionElemento.identificador == "operario")
-                {
-                    ((Label)elemento).Content = informacionElemento.nombreOperario;
-                }
+
+
+
+
+
             }
             CalculoAsignadoPorOperacion();
             actualizarGrafica();
             operacionSobrecargadaOperacionSubutilizada();
-
         }
         #endregion
         #region coloresDeEstacion
