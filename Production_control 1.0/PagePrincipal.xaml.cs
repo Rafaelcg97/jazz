@@ -2,6 +2,9 @@
 using System.Windows.Controls;
 using System.Configuration;
 using System.Windows.Input;
+using Microsoft.Windows.Shell;
+using com.sun.javadoc;
+using System;
 
 namespace Production_control_1._0
 {
@@ -89,5 +92,15 @@ namespace Production_control_1._0
             Application.Current.MainWindow.DragMove();
         }
         #endregion
+    }
+
+    public class Dummy
+    {
+        private static void dummy()
+        {
+            Action<System.Type> noop = _ => { };
+            var dummy = typeof(Microsoft.Windows.Shell.JumpItem);
+            noop(dummy);
+        }
     }
 }

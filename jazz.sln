@@ -12,9 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLib4", "ControlLib4\ControlLib4.csproj", "{19436F88-D12D-452D-8D02-56142FF3E8CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomChromeLibrary", "..\..\..\..\Downloads\WpfCustomChromeLib\Libraries\CustomChromeLibrary\CustomChromeLibrary.csproj", "{25990F61-A27B-4EDF-A402-B31BF952153F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomChromeLibrary", "CustomChromeLibrary\CustomChromeLibrary.csproj", "{25990F61-A27B-4EDF-A402-B31BF952153F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Windows.Shell", "..\..\..\..\Downloads\WpfCustomChromeLib\ThirdParty\WPF Shell Integration Library v2\Microsoft.Windows.Shell\Microsoft.Windows.Shell.csproj", "{55D5297C-F1DF-4B76-A3C1-D82CC294EEBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Windows.Shell", "Microsoft.Windows.Shell\Microsoft.Windows.Shell.csproj", "{55D5297C-F1DF-4B76-A3C1-D82CC294EEBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
