@@ -63,6 +63,12 @@ namespace Production_control_1._0.pantallasIniciales
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new configuracion("ADMINISTRADORGENERAL"));
                 }
+                else if (dr["cargo"].ToString() == "ADMIN_KANBAN")
+                {
+                    Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new configuracion("ADMIN_KANBAN"));
+                }
                 else
                 {
                     MessageBox.Show("Su usuario no tiene autorizacion para acceder a las configuraciones");

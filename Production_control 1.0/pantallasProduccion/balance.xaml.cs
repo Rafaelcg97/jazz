@@ -2329,14 +2329,11 @@ namespace Production_control_1._0
             {
                 if (objeto.GetType() == typeof(ListBox))
                 {
+                    int ajustesAgregados = ((ListBox)objeto).Items.Count;
                     try
                     {
-                        //obtener el primer ajuste de maquinas agregado
-                        string ajusteActual = "";
-                        ajusteActual = ((elementoListBox)((ListBox)objeto).Items[0]).ajusteMaquina;
-
                         //si el largo es cero agregar directamente (significa que no hay ningun ajuste previo agregado) 
-                        if (string.IsNullOrWhiteSpace(ajusteActual))
+                        if (ajustesAgregados==0)
                         {
                             foreach (Object elemento in estacion.Children)
                             {
@@ -2362,6 +2359,7 @@ namespace Production_control_1._0
                         else
                         {
                             //al saber cual es el de longitud mas corta, se evaluan ambos a la misma longitug con un substring 
+                            string ajusteActual = ((elementoListBox)((ListBox)objeto).Items[0]).ajusteMaquina;
                             if (ajusteActual.Contains(informacionElemento.ajusteMaquina))
                             {
                                 foreach (Object elemento in estacion.Children)

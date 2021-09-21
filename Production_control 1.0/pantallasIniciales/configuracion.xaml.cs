@@ -96,7 +96,9 @@ namespace Production_control_1._0.pantallasIniciales
                         if (node.Attributes[0].Value == "base_manto") { node.Attributes[1].Value = textBoxMantenimiento.Text; }
                         if (node.Attributes[0].Value == "base_smed") { node.Attributes[1].Value = textBoxSmed.Text; }
                         if (node.Attributes[0].Value == "base_balances") { node.Attributes[1].Value = textBoxBalance.Text; }
-                        if (node.Attributes[0].Value == "base_produccion") { node.Attributes[1].Value = textBoxProduccion.Text; }
+                        if (node.Attributes[0].Value == "base_kanban") { node.Attributes[1].Value = textBoxKanban.Text; }
+                        if (node.Attributes[0].Value == "base_poly") { node.Attributes[1].Value = textBoxPoly.Text; }
+                        if (node.Attributes[0].Value == "imagenes") { node.Attributes[1].Value = textBoxGaleria.Text; }
                         if (node.Attributes[0].Value == "imagenes") { node.Attributes[1].Value = textBoxGaleria.Text; }
                     }
                 }
@@ -122,15 +124,17 @@ namespace Production_control_1._0.pantallasIniciales
                 int mantenimiento_ = 0;
                 int bodega_ = 0;
                 int ingenieria_ = 0;
+                int kanban_ = 0;
                 if (item.produccion == true) { produccion_ = 1; } else { produccion_ = 0; }
                 if (item.bodega == true) { bodega_ = 1; } else { bodega_ = 0; }
                 if (item.mantenimiento == true) { mantenimiento_ = 1; } else { mantenimiento_ = 0; }
                 if (item.ingenieria == true) { ingenieria_ = 1; } else { ingenieria_ = 0; }
+                if (item.kanban == true) { kanban_ = 1; } else { kanban_ = 0; }
 
-                string sql = "update usuarios set codigo='"+item.codigo+"', nombre='"+item.nombre+"', nivel='"+item.nivel+"', cargo='" + item.cargo+"', contrasena='"+item.contrasenia+"', produccion='"+produccion_+"', mantenimiento='"+mantenimiento_+"', bodega='" + bodega_+"', [ingenieria/SMED]='"+ingenieria_+"' where id='" + item.id +"'";
+                string sql = "update usuarios set codigo='"+item.codigo+"', nombre='"+item.nombre+"', nivel='"+item.nivel+"', cargo='" + item.cargo+"', contrasena='"+item.contrasenia+"', produccion='"+produccion_+"', mantenimiento='"+mantenimiento_+"', bodega='" + bodega_+"', [ingenieria/SMED]='"+ingenieria_+"', kanban='"+ kanban_ +"' where id='" + item.id +"'";
                 if (item.id == 0)
                 {
-                    sql = "insert into usuarios (codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED]) values('"+item.codigo+"', '"+item.nombre+"', '" + item.nivel+"', '"+item.cargo+"', '"+item.contrasenia+"', '"+produccion_+"', '"+mantenimiento_+"', '"+bodega_+"', '"+ingenieria_+"')";
+                    sql = "insert into usuarios (codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED], kanban) values('"+item.codigo+"', '"+item.nombre+"', '" + item.nivel+"', '"+item.cargo+"', '"+item.contrasenia+"', '"+produccion_+"', '"+mantenimiento_+"', '"+bodega_+"', '"+ingenieria_+"', '" + kanban_ +"')";
                 }
                 SqlCommand cm = new SqlCommand(sql, cnIngenieria);
                 cm.ExecuteNonQuery();
@@ -153,7 +157,7 @@ namespace Production_control_1._0.pantallasIniciales
             cnProduccion.Open();
             foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
             {
-                string sql = "update modulosProduccion set coordinadorNombre='" + item.coordinadorNombre + "', coordinadorCodigo='" + item.coordinadorCodigo + "', ingenieroProcesosNombre='"+item.ingenieroNombre+"', ingenieroProcesosCodigo='"+item.ingenieroCodigo+"', soporteNombre='"+item.soporteNombre+"', soporteCodigo='"+item.soporteCodigo+"'  where id='" + item.id + "'";
+                string sql = "update modulosProduccion set coordinadorNombre='" + item.coordinadorNombre + "', coordinadorCodigo='" + item.coordinadorCodigo + "', ingenieroProcesosNombre='"+item.ingenieroNombre+"', ingenieroProcesosCodigo='"+item.ingenieroCodigo+"', soporteNombre='"+item.soporteNombre+"', soporteCodigo='"+item.soporteCodigo+"', enganchadorNombre='"+item.enganchadorNombre+"', enganchadorCodigo='"+item.enganchadorCodigo+"', empacadorNombre='"+item.empacadorNombre+"', empacadorCodigo='"+item.empacadorCodigo+"'  where id='" + item.id + "'";
                 SqlCommand cm = new SqlCommand(sql, cnProduccion);
                 cm.ExecuteNonQuery();
             }
@@ -255,7 +259,7 @@ namespace Production_control_1._0.pantallasIniciales
             string sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios";
             if (cargo == "ADMINISTRADOR1")
             {
-                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in (INGENIERO','SOPORTE','COORDINADOR', 'EMPACADOR', 'ENGANCHADOR'";
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in ('INGENIERO','SOPORTE','COORDINADOR', 'EMPACADOR', 'ENGANCHADOR')";
                 cargos_.Clear();
                 cargos_.Add("COORDINADOR");
                 cargos_.Add("EMPACADOR");
@@ -277,10 +281,13 @@ namespace Production_control_1._0.pantallasIniciales
             }
             else if (cargo == "ADMIN_KANBAN")
             {
-                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in ('AUXILIAR_KANBAN')";
+                sql = "select id, codigo, nombre, nivel, cargo, contrasena, produccion, mantenimiento, bodega, [ingenieria/SMED] as ingenieria, kanban from usuarios where cargo in ('PREPARADOR')";
                 cargos_.Clear();
                 cargos_.Add("PREPARADOR");
                 ordenIngenieros.IsEnabled = false;
+                ordenMoulos.IsEnabled = false;
+                arreglarSolicitudes.IsEnabled = false;
+                arreglarSolicitudesMecanicos.IsEnabled = false;
             }
             bool ingenieria_ = false;
             bool produccion_ = false;
@@ -313,7 +320,7 @@ namespace Production_control_1._0.pantallasIniciales
         }
         private void consultarIngenieros()
         {
-            string sql = "select id, modulo, coordinadorNombre, coordinadorCodigo, ingenieroProcesosNombre, ingenieroProcesosCodigo, soporteCodigo, soporteNombre from modulosProduccion";
+            string sql = "select id, modulo, coordinadorNombre, coordinadorCodigo, ingenieroProcesosNombre, ingenieroProcesosCodigo, soporteCodigo, soporteNombre, enganchadorNombre, enganchadorCodigo, empacadorNombre, empacadorCodigo from modulosProduccion";
             cnProduccion.Open();
             SqlCommand cm = new SqlCommand(sql, cnProduccion);
             SqlDataReader dr = cm.ExecuteReader();
@@ -322,7 +329,7 @@ namespace Production_control_1._0.pantallasIniciales
             modulos_.Clear();
             while (dr.Read())
             {
-                listViewOrdenarIngenieros.Items.Add(new moduloAdministrado {id=Convert.ToInt32(dr["id"]), modulo = dr["modulo"].ToString(), soportes=soportes_, ingenieros=ingenieros_, coordinadores=coordinadores_, coordinadorNombre = dr["coordinadorNombre"].ToString(), coordinadorCodigo = Convert.ToInt32(dr["coordinadorCodigo"] is DBNull ? 0 : dr["coordinadorCodigo"]), ingenieroNombre = dr["ingenieroProcesosNombre"].ToString(), ingenieroCodigo = Convert.ToInt32(dr["ingenieroProcesosCodigo"] is DBNull ? 0 : dr["ingenieroProcesosCodigo"]), soporteNombre=dr["soporteNombre"].ToString(), soporteCodigo=Convert.ToInt32(dr["soporteCodigo"] is DBNull? 0 : dr["soporteCodigo"] ) });
+                listViewOrdenarIngenieros.Items.Add(new moduloAdministrado {id=Convert.ToInt32(dr["id"]), modulo = dr["modulo"].ToString(), soportes=soportes_, ingenieros=ingenieros_, coordinadores=coordinadores_, empacadores=empacadores_, enganchadores=enganchadores_, coordinadorNombre = dr["coordinadorNombre"].ToString(), coordinadorCodigo = Convert.ToInt32(dr["coordinadorCodigo"] is DBNull ? 0 : dr["coordinadorCodigo"]), ingenieroNombre = dr["ingenieroProcesosNombre"].ToString(), ingenieroCodigo = Convert.ToInt32(dr["ingenieroProcesosCodigo"] is DBNull ? 0 : dr["ingenieroProcesosCodigo"]), soporteNombre=dr["soporteNombre"].ToString(), soporteCodigo=Convert.ToInt32(dr["soporteCodigo"] is DBNull? 0 : dr["soporteCodigo"] ), empacadorNombre=dr["empacadorNombre"].ToString(), empacadorCodigo=Convert.ToInt32(dr["empacadorCodigo"]), enganchadorNombre=dr["enganchadorNombre"].ToString(), enganchadorCodigo=Convert.ToInt32(dr["enganchadorCodigo"]) });
                 modulos_.Add(dr["modulo"].ToString());
             };
             //se termina la conexion a la base
@@ -344,19 +351,6 @@ namespace Production_control_1._0.pantallasIniciales
             //se termina la conexion a la base
             dr.Close();
             cnManto.Close();
-        }
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (tabControlRegistrosPermisos.SelectedIndex == 1 && cargo_=="ADMINISTRADOR1")
-            {
-                MessageBox.Show("Usted No tiene Permiso Para realiza Cambios en esta sección");
-                tabControlRegistrosPermisos.SelectedIndex = 0;
-            }
-            else if (tabControlRegistrosPermisos.SelectedIndex == 2 && cargo_ == "ADMINISTRADOR2")
-            {
-                MessageBox.Show("Usted No tiene Permiso Para realiza Cambios en esta sección");
-                tabControlRegistrosPermisos.SelectedIndex = 0;
-            }
         }
         private void consultarSolicitudes()
         {
@@ -431,97 +425,12 @@ namespace Production_control_1._0.pantallasIniciales
             soportes_.Add("-");
             enganchadores_.Add("-");
             empacadores_.Add("-");
-        }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (((ComboBox)sender).SelectedIndex > -1)
-            {
-                List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
-                //validar codigo de coordinadores
-                foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
-                {
-                    bool agregado = false;
-                    foreach (usuario subitem in listViewAsignarUsuarios.Items)
-                    {
-                        if (item.coordinadorNombre == subitem.nombre)
-                        {
-                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = subitem.codigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo, soporteCodigo=item.soporteCodigo, soporteNombre=item.soporteNombre, soportes=item.soportes });
-                            agregado = true;
-                        }
-                    }
 
-                    if (agregado == false)
-                    {
-                        listaAuxiliar.Add(item);
-                    }
-                }
-
-                listViewOrdenarIngenieros.Items.Clear();
-                foreach (moduloAdministrado item in listaAuxiliar)
-                {
-                    listViewOrdenarIngenieros.Items.Add(item);
-                }
-
-            }
-        }
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-            if (((ComboBox)sender).SelectedIndex > -1)
-            {
-                List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
-                //validar codigo de coordinadores
-                foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
-                {
-                    bool agregado = false;
-                    foreach (usuario subitem in listViewAsignarUsuarios.Items)
-                    {
-                        if (item.ingenieroNombre == subitem.nombre)
-                        {
-                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = subitem.codigo, ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo, soporteCodigo = item.soporteCodigo, soporteNombre = item.soporteNombre, soportes = item.soportes });
-                            agregado = true;
-                        }
-                    }
-                    if (agregado == false)
-                    {
-                        listaAuxiliar.Add(item);
-                    }
-                }
-                listViewOrdenarIngenieros.Items.Clear();
-                foreach (moduloAdministrado item in listaAuxiliar)
-                {
-                    listViewOrdenarIngenieros.Items.Add(item);
-                }
-            }
-        }
-        private void ComboBox_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
-        {
-            if (((ComboBox)sender).SelectedIndex > -1)
-            {
-                List<moduloAdministrado> listaAuxiliar = new List<moduloAdministrado>();
-                //validar codigo de coordinadores
-                foreach (moduloAdministrado item in listViewOrdenarIngenieros.Items)
-                {
-                    bool agregado = false;
-                    foreach (usuario subitem in listViewAsignarUsuarios.Items)
-                    {
-                        if (item.soporteNombre == subitem.nombre)
-                        {
-                            listaAuxiliar.Add(new moduloAdministrado { id = item.id, coordinadorNombre = item.coordinadorNombre, coordinadorCodigo = item.coordinadorCodigo, ingenieroNombre = item.ingenieroNombre, ingenieroCodigo = item.ingenieroCodigo , ingenieros = item.ingenieros, coordinadores = item.coordinadores, modulo = item.modulo, soporteCodigo = subitem.codigo, soporteNombre = item.soporteNombre, soportes = item.soportes });
-                            agregado = true;
-                        }
-                    }
-                    if (agregado == false)
-                    {
-                        listaAuxiliar.Add(item);
-                    }
-                }
-                listViewOrdenarIngenieros.Items.Clear();
-                foreach (moduloAdministrado item in listaAuxiliar)
-                {
-                    listViewOrdenarIngenieros.Items.Add(item);
-                }
-            }
-
+            coordinadores_.Sort();
+            ingenieros_.Sort();
+            soportes_.Sort();
+            enganchadores_.Sort();
+            empacadores_.Sort();
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -643,6 +552,123 @@ namespace Production_control_1._0.pantallasIniciales
 
         }
         #endregion
-
+        #region asignarEncargadosDeModulo
+        private void ActualizarCodigo(int codigo, string cargo)
+        {
+            moduloAdministrado lvc = (moduloAdministrado)listViewOrdenarIngenieros.SelectedItem; //la fila seleccionada del listview que estoy actualizando
+            if (lvc != null)
+            {
+                switch (cargo)
+                {
+                    case "COORDINADOR":
+                        lvc.coordinadorCodigo = codigo;
+                        break;
+                    case "INGENIERO":
+                        lvc.ingenieroCodigo = codigo;
+                        break;
+                    case "SOPORTE":
+                        lvc.soporteCodigo = codigo;
+                        break;
+                    case "ENGANCHADOR":
+                        lvc.enganchadorCodigo = codigo;
+                        break;
+                    case "EMPACADOR":
+                        lvc.empacadorCodigo = codigo;
+                        break;
+                }
+                listViewOrdenarIngenieros.Items.Refresh();
+            }
+        }
+        private void ComboBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            listViewOrdenarIngenieros.SelectedItem = comboBox.DataContext;
+        }
+        private void cboCoordinador_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex > -1)
+            {
+                string nombreSeleccionado = ((string)((ComboBox)sender).SelectedItem);
+                int codigo = 0;
+                foreach (usuario item in listViewAsignarUsuarios.Items)
+                {
+                    if (item.nombre == nombreSeleccionado)
+                    {
+                        codigo = item.codigo;
+                        break;
+                    }
+                }
+                ActualizarCodigo(codigo, "COORDINADOR");
+            }
+        }
+        private void cboIngeniero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex > -1)
+            {
+                string nombreSeleccionado = ((string)((ComboBox)sender).SelectedItem);
+                int codigo = 0;
+                foreach (usuario item in listViewAsignarUsuarios.Items)
+                {
+                    if (item.nombre == nombreSeleccionado)
+                    {
+                        codigo = item.codigo;
+                        break;
+                    }
+                }
+                ActualizarCodigo(codigo, "INGENIERO");
+            }
+        }
+        private void cboSoporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex > -1)
+            {
+                string nombreSeleccionado = ((string)((ComboBox)sender).SelectedItem);
+                int codigo = 0;
+                foreach (usuario item in listViewAsignarUsuarios.Items)
+                {
+                    if (item.nombre == nombreSeleccionado)
+                    {
+                        codigo = item.codigo;
+                        break;
+                    }
+                }
+                ActualizarCodigo(codigo, "SOPORTE");
+            }
+        }
+        private void cboEmpacador_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex > -1)
+            {
+                string nombreSeleccionado = ((string)((ComboBox)sender).SelectedItem);
+                int codigo = 0;
+                foreach (usuario item in listViewAsignarUsuarios.Items)
+                {
+                    if (item.nombre == nombreSeleccionado)
+                    {
+                        codigo = item.codigo;
+                        break;
+                    }
+                }
+                ActualizarCodigo(codigo, "EMPACADOR");
+            }
+        }
+        private void cboEnganchador_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex > -1)
+            {
+                string nombreSeleccionado = ((string)((ComboBox)sender).SelectedItem);
+                int codigo = 0;
+                foreach (usuario item in listViewAsignarUsuarios.Items)
+                {
+                    if (item.nombre == nombreSeleccionado)
+                    {
+                        codigo = item.codigo;
+                        break;
+                    }
+                }
+                ActualizarCodigo(codigo, "ENGANCHADOR");
+            }
+        }
+        #endregion
     }
 }

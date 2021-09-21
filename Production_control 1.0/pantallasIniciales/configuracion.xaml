@@ -128,7 +128,7 @@
 
 
         <Label Grid.Column="5" Grid.Row="3" Grid.ColumnSpan="15" Grid.RowSpan="1" Margin="0,0,0,0" Content="Configuraciones de Usuarios/Módulos" Padding="0" FontSize="25" Foreground="#FF898383" VerticalAlignment="Center" />
-        <TabControl x:Name="tabControlRegistrosPermisos"  Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="15" Grid.RowSpan="15" Margin="0,0,25,0" Background="Transparent" SelectionChanged="TabControl_SelectionChanged" >
+        <TabControl x:Name="tabControlRegistrosPermisos"  Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="15" Grid.RowSpan="15" Margin="0,0,25,0" Background="Transparent">
             <TabItem Header="Usuarios">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -307,7 +307,7 @@
                             <GridViewColumn Header="Modulo" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Width="400" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding modulo}"/>
+                                        <Label Width="400" FontWeight="Bold" Foreground="White" FontSize="10" Content="{Binding modulo}" Background="DarkGray"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -316,16 +316,7 @@
                             <GridViewColumn Header="Nombre de Coordinador" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Width="195" ItemsSource="{Binding coordinadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding coordinadorNombre}" SelectionChanged="ComboBox_SelectionChanged"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <!--#endregion-->
-                            <!--#region coordinadorCodigo-->
-                            <GridViewColumn Header="Codigo" Width="65">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding coordinadorCodigo}"/>
+                                        <ComboBox x:Name="cboCoordinador" Width="195" ItemsSource="{Binding coordinadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding coordinadorNombre}" SelectionChanged="cboCoordinador_SelectionChanged" GotFocus="ComboBox_GotFocus"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -334,16 +325,7 @@
                             <GridViewColumn Header="Nombre de Ingeniero" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Width="195" ItemsSource="{Binding ingenieros}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding ingenieroNombre}" SelectionChanged="ComboBox_SelectionChanged_1"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <!--#endregion-->
-                            <!--#region ingenieroCodigo-->
-                            <GridViewColumn Header="Codigo" Width="65">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding ingenieroCodigo}"/>
+                                        <ComboBox x:Name="cboIngeniero" Width="195" ItemsSource="{Binding ingenieros}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding ingenieroNombre}" SelectionChanged="cboIngeniero_SelectionChanged" GotFocus="ComboBox_GotFocus"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -352,16 +334,25 @@
                             <GridViewColumn Header="Nombre de Soporte" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Width="195" ItemsSource="{Binding soportes}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding soporteNombre}" SelectionChanged="ComboBox_SelectionChanged_2" />
+                                        <ComboBox x:Name="cboSoporte" Width="195" ItemsSource="{Binding soportes}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding soporteNombre}" SelectionChanged="cboSoporte_SelectionChanged" GotFocus="ComboBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <!--#endregion-->
-                            <!--#region soporteCodigo-->
-                            <GridViewColumn Header="Codigo" Width="65">
+                            <!--#region empacadorNombre-->
+                            <GridViewColumn Header="Nombre de Empacador" Width="210">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Width="150" FontWeight="Bold" Foreground="#FFC4CB3D" FontSize="10" Content="{Binding soporteCodigo}"/>
+                                        <ComboBox x:Name="cboEmpacador" Width="195" ItemsSource="{Binding empacadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding empacadorNombre}" SelectionChanged="cboEmpacador_SelectionChanged" GotFocus="ComboBox_GotFocus" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--#endregion-->
+                            <!--#region enganchadorNombre-->
+                            <GridViewColumn Header="Nombre de Enganchador" Width="210">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox x:Name="cboEnganchador" Width="195" ItemsSource="{Binding enganchadores}" FontWeight="Bold" Foreground="#FF4E7495" FontSize="10" SelectedItem="{Binding enganchadorNombre}" SelectionChanged="cboEnganchador_SelectionChanged" GotFocus="ComboBox_GotFocus" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
