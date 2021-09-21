@@ -131,8 +131,10 @@ namespace Production_control_1._0.pantallasKanban
             ListBox listBoxSeleccionado = (ListBox)sender;
             Uri iniciar_habilitado = new Uri("/imagenes/iniciar.png", UriKind.RelativeOrAbsolute);
             Uri terminar_habilitado = new Uri("/imagenes/terminar.png", UriKind.RelativeOrAbsolute);
+            Uri eliminar_habilitado = new Uri("/imagenes/eliminar.png", UriKind.RelativeOrAbsolute);
             Uri iniciar_inhabilitado = new Uri("/imagenes/iniciar_in.png", UriKind.RelativeOrAbsolute);
             Uri terminar_inhabilitado = new Uri("/imagenes/terminar_in.png", UriKind.RelativeOrAbsolute);
+            Uri eliminar_inhabilitado = new Uri("/imagenes/eliminar_in.png", UriKind.RelativeOrAbsolute);
 
 
             if (listBoxSeleccionado.SelectedIndex > -1)
@@ -155,8 +157,10 @@ namespace Production_control_1._0.pantallasKanban
                     labelEstadoDeAccion.Content = "Pendiente";
                     buttonTerminarAccion.IsEnabled = false;
                     buttonIniciarAccion.IsEnabled = true;
+                    buttonEliminarAccion.IsEnabled = true;
                     imageIniciar.Source =new BitmapImage(iniciar_habilitado);
                     imageTerminar.Source = new BitmapImage(terminar_inhabilitado);
+                    imageEliminar.Source = new BitmapImage(eliminar_habilitado);
                 }
                 else
                 {
@@ -164,8 +168,10 @@ namespace Production_control_1._0.pantallasKanban
                     labelEstadoDeAccion.Content = "Abierta";
                     buttonIniciarAccion.IsEnabled = false;
                     buttonTerminarAccion.IsEnabled = true;
+                    buttonEliminarAccion.IsEnabled = false;
                     imageIniciar.Source = new BitmapImage(iniciar_inhabilitado);
                     imageTerminar.Source = new BitmapImage(terminar_habilitado);
+                    imageEliminar.Source = new BitmapImage(eliminar_inhabilitado);
                 }
             }
         }
@@ -203,7 +209,7 @@ namespace Production_control_1._0.pantallasKanban
             if(labelNombreInicia.Content.ToString() != "----")
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "update solicitudesKanban set fechaInicio='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where solicitudKanbanid='" + labelNumeroAccion.Content + "'";
+                string sql = "update solicitudesKanban set fechaInicio='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', atiendeSolicitud='"+labelNombreInicia.Content+"' where solicitudKanbanid='" + labelNumeroAccion.Content + "'";
                 cn.Open();
                 SqlCommand cm = new SqlCommand(sql, cn);
                 cm.ExecuteNonQuery();
@@ -297,7 +303,53 @@ namespace Production_control_1._0.pantallasKanban
             cn.Close();
         }
         #endregion
-
+        #region popEliminar
+        private void buttonEliminarAccion_Click(object sender, RoutedEventArgs e)
+        {
+            labelNumeroAccionEliminar.Content = labelNumeroAccion.Content;
+            passEliminar.Clear();
+            labelCodigoAutorizaEliminar.Content = "*";
+            popUpEstadoModulo.IsOpen = false;
+            popUpEliminar.IsOpen = true;
+            modulo = labelModuloAccion.Content.ToString();
+        }
+        private void buttonCerrarPopUpEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            popUpEliminar.IsOpen = false;
+        }
+        private void passEliminar_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            labelCodigoAutorizaEliminar.Content = "*";
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select codigo from usuarios, produccion.dbo.modulosProduccion where (codigo=coordinadorCodigo or codigo=ingenieroProcesosCodigo or codigo=soporteCodigo or codigo=enganchadorCodigo or codigo=empacadorCodigo) AND contrasena='" + passEliminar.Password.ToString() + "' AND modulo='" + modulo + "' and kanban=1";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                labelCodigoAutorizaEliminar.Content = dr["codigo"].ToString();
+            };
+            dr.Close();
+            cn.Close();
+        }
+        private void buttonEliminarSolicitud_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelCodigoAutorizaEliminar.Content.ToString() != "*")
+            {
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                string sql = "delete from solicitudesKanban where solicitudKanbanId='"+ labelNumeroAccionEliminar.Content +"'";
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                cm.ExecuteNonQuery();
+                cn.Close();
+                popUpEliminar.IsOpen = false;
+            }
+            else
+            {
+                MessageBox.Show("Codigo no valido");
+            }
+        }
+        #endregion
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;

@@ -201,7 +201,7 @@ namespace Production_control_1._0.pantallasMantenimiento
         private void consultarReportes()
         {
             List<solicitudTPM> maquinasEnManto = new List<solicitudTPM>();
-            string sql = "select id, maquina, tipo, problema, fechaInicio, minutosPausa from resumenTiemposTPM where fechaFin is null";
+            string sql = "select id, maquina, tipo, problema, fechaInicio, minutosPausa, mecanico from resumenTiemposTPM where fechaFin is null";
             cnMantenimiento.Open();
             SqlCommand cm = new SqlCommand(sql, cnMantenimiento);
             SqlDataReader dr = cm.ExecuteReader();
@@ -213,7 +213,7 @@ namespace Production_control_1._0.pantallasMantenimiento
                     direccionImagen = "/imagenes/reanudar.png";
                 }
 
-                maquinasEnManto.Add(new solicitudTPM { id = Convert.ToInt32(dr["id"]), maquina = dr["maquina"].ToString(), problema = dr["problema"].ToString(), fechaInicio = Convert.ToDateTime(dr["fechaInicio"]).ToString("yyyy-MM-dd HH:mm:ss"), imagen = direccionImagen });
+                maquinasEnManto.Add(new solicitudTPM { id = Convert.ToInt32(dr["id"]), maquina = dr["maquina"].ToString(), problema = dr["problema"].ToString(), fechaInicio = Convert.ToDateTime(dr["fechaInicio"]).ToString("yyyy-MM-dd HH:mm:ss"), imagen = direccionImagen, codigoMecanico= Convert.ToInt32(dr["mecanico"]) });
             };
             dr.Close();
             cnMantenimiento.Close();

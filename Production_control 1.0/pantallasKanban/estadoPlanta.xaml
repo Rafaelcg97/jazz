@@ -212,21 +212,21 @@
                     <!--#region etiquetas-->
                     <Label Content="Tipo de Acción:" Margin="5,0,0,0" Grid.Row="1" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
                     <Label Content="Materiales:" Margin="5,0,0,0" Grid.Row="2" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Estado de Acción:" Margin="5,0,0,0" Grid.Row="11" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Módulo:" Margin="5,0,0,0" Grid.Row="12" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Hora de Reporte:" Margin="5,0,0,0" Grid.Row="13" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Hora de Apertura:" Margin="5,0,0,0" Grid.Row="14" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Inicia:" Margin="5,0,0,0" Grid.Row="15" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Estado de Acción:" Margin="5,0,0,0" Grid.Row="10" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Módulo:" Margin="5,0,0,0" Grid.Row="11" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Hora de Reporte:" Margin="5,0,0,0" Grid.Row="12" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Hora de Apertura:" Margin="5,0,0,0" Grid.Row="13" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Atiende solicitud:" Margin="5,0,0,0" Grid.Row="14" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
                     <!--#endregion-->
                     <!--#region datos-->
                     <Label x:Name="labelTipoDeAccion" Content="----" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelEstadoDeAccion" Content="----" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelModuloAccion" Content="----" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelHoraDeReporte" Content="----" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelHoraDeApertura" Content="----" Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <PasswordBox x:Name="passCodigoInicia"  Grid.Row="15" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15" Margin="0,5,0,5" PasswordChanged="passCodigoInicia_PasswordChanged"/>
-                    <Label x:Name="labelNombreInicia" Content="----" Grid.Row="15" Grid.Column="6" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <ListView x:Name="listViewListaMateriales" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="8">
+                    <Label x:Name="labelEstadoDeAccion" Content="----" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelModuloAccion" Content="----" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelHoraDeReporte" Content="----" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelHoraDeApertura" Content="----" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <PasswordBox x:Name="passCodigoInicia"  Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15" Margin="0,5,0,5" PasswordChanged="passCodigoInicia_PasswordChanged"/>
+                    <Label x:Name="labelNombreInicia" Content="----" Grid.Row="14" Grid.Column="6" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <ListView x:Name="listViewListaMateriales" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="6">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="125" Header="Lote">
@@ -262,10 +262,13 @@
                     </ListView>
                     <!--#endregion-->
                     <!--#region botones-->
-                    <Button x:Name="buttonIniciarAccion" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonIniciarAccion_Click">
+                    <Button x:Name="buttonEliminarAccion" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonEliminarAccion_Click">
+                        <Image x:Name="imageEliminar" Source="/imagenes/eliminar.png" Width="50" Height="50"/>
+                    </Button>
+                    <Button x:Name="buttonIniciarAccion" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonIniciarAccion_Click">
                         <Image x:Name="imageIniciar" Source="/imagenes/iniciar.png" Width="50" Height="50"/>
                     </Button>
-                    <Button x:Name="buttonTerminarAccion" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonTerminarAccion_Click">
+                    <Button x:Name="buttonTerminarAccion" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonTerminarAccion_Click">
                         <Image x:Name="imageTerminar" Source="/imagenes/terminar.png" Width="50" Height="50"/>
                     </Button>
                     <!--#endregion-->
@@ -312,6 +315,50 @@
                     <PasswordBox x:Name="passCerrar" Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="3" VerticalContentAlignment="Center" PasswordChanged="passCerrar_PasswordChanged"/>
                     <Label x:Name="labelCodigoAutoriza" Content="*" Grid.Row="6" Grid.ColumnSpan="10" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="15" Padding="0"/>
                     <Button x:Name="buttonCerrarSolicitud" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="buttonCerrarSolicitud_Click">
+                        <Image Source="/imagenes/comprobar.png" Margin="0"/>
+                    </Button>
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup x:Name="popUpEliminar" Width="500" Height="400" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False">
+            <Border Background="White" CornerRadius="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="buttonCerrarPopUpEliminar" Grid.Column="10" Background="Transparent" BorderBrush="Transparent" Width="25" Height="25" Click="buttonCerrarPopUpEliminar_Click">
+                        <Image Source="/imagenes/cerrar.png"/>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.RowSpan="2" HorizontalAlignment="Center">
+                        <Label Content="Eliminar Acción:  " FontWeight="Bold" FontSize="20" Padding="0"/>
+                        <Label x:Name="labelNumeroAccionEliminar" Content="0000" FontWeight="Bold" FontSize="20" Padding="0"/>
+                    </StackPanel>
+                    <TextBlock Text="Una vez eliminada la solicitud no podra revertirlo, por favor validelo" TextWrapping="Wrap" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="10" FontWeight="Bold" FontSize="25" Padding="0" HorizontalAlignment="Center"/>
+                    <PasswordBox x:Name="passEliminar" Grid.Row="6" Grid.ColumnSpan="4" Grid.Column="3" VerticalContentAlignment="Center" PasswordChanged="passEliminar_PasswordChanged"/>
+                    <Label x:Name="labelCodigoAutorizaEliminar" Content="*" Grid.Row="7" Grid.ColumnSpan="10" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="15" Padding="0"/>
+                    <Button x:Name="buttonEliminarSolicitud" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="buttonEliminarSolicitud_Click">
                         <Image Source="/imagenes/comprobar.png" Margin="0"/>
                     </Button>
                 </Grid>

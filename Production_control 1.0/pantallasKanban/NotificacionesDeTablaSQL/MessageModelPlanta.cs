@@ -382,6 +382,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio= Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0: dr["atiendeSolicitud"]),
                                 };
                                 this.U1.Add(itemU1);
                                 break;
@@ -396,6 +397,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U2.Add(itemU2);
                                 break;
@@ -410,6 +412,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U3.Add(itemU3);
                                 break;
@@ -424,6 +427,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U4.Add(itemU4);
                                 break;
@@ -438,6 +442,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U5.Add(itemU5);
                                 break;
@@ -452,6 +457,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U6.Add(itemU6);
                                 break;
@@ -466,6 +472,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U7.Add(itemU7);
                                 break;
@@ -480,6 +487,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U8.Add(itemU8);
                                 break;
@@ -494,6 +502,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U9.Add(itemU9);
                                 break;
@@ -508,6 +517,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U10.Add(itemU10);
                                 break;
@@ -522,6 +532,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U11.Add(itemU11);
                                 break;
@@ -536,6 +547,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U12.Add(itemU12);
                                 break;
@@ -550,6 +562,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U13.Add(itemU13);
                                 break;
@@ -564,6 +577,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U14.Add(itemU14);
                                 break;
@@ -578,6 +592,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U15.Add(itemU15);
                                 break;
@@ -592,6 +607,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U16.Add(itemU16);
                                 break;
@@ -606,6 +622,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U17.Add(itemU17);
                                 break;
@@ -620,6 +637,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U18.Add(itemU18);
                                 break;
@@ -634,6 +652,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U19.Add(itemU19);
                                 break;
@@ -648,6 +667,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U20.Add(itemU20);
                                 break;
@@ -662,6 +682,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U21.Add(itemU21);
                                 break;
@@ -676,6 +697,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U22.Add(itemU22);
                                 break;
@@ -690,6 +712,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U23.Add(itemU23);
                                 break;
@@ -704,6 +727,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U24.Add(itemU24);
                                 break;
@@ -718,6 +742,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U25.Add(itemU25);
                                 break;
@@ -732,6 +757,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U26.Add(itemU26);
                                 break;
@@ -746,6 +772,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U27.Add(itemU27);
                                 break;
@@ -760,6 +787,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U28.Add(itemU28);
                                 break;
@@ -774,6 +802,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U29.Add(itemU29);
                                 break;
@@ -788,6 +817,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U30.Add(itemU30);
                                 break;
@@ -802,6 +832,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U31.Add(itemU31);
                                 break;
@@ -816,6 +847,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
+                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
                                 };
                                 this.U32.Add(itemU32);
                                 break;
