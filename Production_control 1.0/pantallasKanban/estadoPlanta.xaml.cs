@@ -154,21 +154,41 @@ namespace Production_control_1._0.pantallasKanban
                 if (itemseleccionado.fechaInicio == "1900-01-01 12:00:00")
                 {
                     labelHoraDeApertura.Content = "----";
+                    labelNombreAcargo.Content = "----";
                     labelEstadoDeAccion.Content = "Pendiente";
                     buttonTerminarAccion.IsEnabled = false;
                     buttonIniciarAccion.IsEnabled = true;
                     buttonEliminarAccion.IsEnabled = true;
+                    passCodigoInicia.Visibility = Visibility.Visible;
+                    labelIniciar.Visibility = Visibility.Visible;
+                    labelNombreInicia.Visibility = Visibility.Visible;
                     imageIniciar.Source =new BitmapImage(iniciar_habilitado);
                     imageTerminar.Source = new BitmapImage(terminar_inhabilitado);
                     imageEliminar.Source = new BitmapImage(eliminar_habilitado);
                 }
                 else
                 {
+                    #region obtenerNombreDePreparador
+                    SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                    string sql = "select nombre from usuarios where codigo='" + itemseleccionado.atiendeSolicitud + "'";
+                    cn.Open();
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        labelNombreAcargo.Content = dr["nombre"].ToString();
+                    };
+                    dr.Close();
+                    cn.Close();
+                    #endregion
                     labelHoraDeApertura.Content = Convert.ToDateTime(itemseleccionado.fechaInicio).ToString("yyyy-MM-dd HH:mm:ss");
                     labelEstadoDeAccion.Content = "Abierta";
                     buttonIniciarAccion.IsEnabled = false;
                     buttonTerminarAccion.IsEnabled = true;
                     buttonEliminarAccion.IsEnabled = false;
+                    passCodigoInicia.Visibility = Visibility.Hidden;
+                    labelIniciar.Visibility = Visibility.Hidden;
+                    labelNombreInicia.Visibility = Visibility.Hidden;
                     imageIniciar.Source = new BitmapImage(iniciar_inhabilitado);
                     imageTerminar.Source = new BitmapImage(terminar_habilitado);
                     imageEliminar.Source = new BitmapImage(eliminar_inhabilitado);

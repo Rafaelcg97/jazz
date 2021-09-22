@@ -212,18 +212,20 @@
                     <!--#region etiquetas-->
                     <Label Content="Tipo de Acción:" Margin="5,0,0,0" Grid.Row="1" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
                     <Label Content="Materiales:" Margin="5,0,0,0" Grid.Row="2" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Estado de Acción:" Margin="5,0,0,0" Grid.Row="10" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Módulo:" Margin="5,0,0,0" Grid.Row="11" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Hora de Reporte:" Margin="5,0,0,0" Grid.Row="12" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Hora de Apertura:" Margin="5,0,0,0" Grid.Row="13" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
-                    <Label Content="Atiende solicitud:" Margin="5,0,0,0" Grid.Row="14" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Estado de Acción:" Margin="5,0,0,0" Grid.Row="9" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Módulo:" Margin="5,0,0,0" Grid.Row="10" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Hora de Reporte:" Margin="5,0,0,0" Grid.Row="11" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Hora de Apertura:" Margin="5,0,0,0" Grid.Row="12" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label Content="Atiende solicitud:" Margin="5,0,0,0" Grid.Row="13" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
+                    <Label x:Name="labelIniciar" Content="Iniciar Solicitud:" Margin="5,0,0,0" Grid.Row="14" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="15"/>
                     <!--#endregion-->
                     <!--#region datos-->
                     <Label x:Name="labelTipoDeAccion" Content="----" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelEstadoDeAccion" Content="----" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelModuloAccion" Content="----" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelHoraDeReporte" Content="----" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <Label x:Name="labelHoraDeApertura" Content="----" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelEstadoDeAccion" Content="----" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelModuloAccion" Content="----" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelHoraDeReporte" Content="----" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelHoraDeApertura" Content="----" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
+                    <Label x:Name="labelNombreAcargo" Content="----" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="5" FontWeight="SemiBold" FontSize="15"/>
                     <PasswordBox x:Name="passCodigoInicia"  Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15" Margin="0,5,0,5" PasswordChanged="passCodigoInicia_PasswordChanged"/>
                     <Label x:Name="labelNombreInicia" Content="----" Grid.Row="14" Grid.Column="6" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
                     <ListView x:Name="listViewListaMateriales" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="6">

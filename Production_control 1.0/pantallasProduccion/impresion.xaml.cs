@@ -339,19 +339,6 @@ namespace Production_control_1._0
                     MessageBox.Show("No se reconoce la impresora o el número de copias es invalido");
                 }
             }
-            //try
-            //{
-            //    this.IsEnabled = false;
-            //    PrintDialog printDialog = new PrintDialog();
-            //    if (printDialog.ShowDialog() == true)
-            //    {
-            //        printDialog.PrintVisual(area_de_impresion, "layOut");
-            //    }
-            //}
-            //finally
-            //{
-            //    this.IsEnabled = true;
-            //}
         }
         private void aumentar_copias_Click(object sender, RoutedEventArgs e)
         {
