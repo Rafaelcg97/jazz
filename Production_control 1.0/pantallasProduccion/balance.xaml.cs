@@ -28,7 +28,7 @@ namespace Production_control_1._0
         public string[] etiquetasRebalance { get; set; }
         public List<string> ListaDeOperarios { get; private set; }
 
-        public SeriesCollection DatosGraficaEficiencia{ get; set; }
+        public SeriesCollection DatosGraficaEficiencia { get; set; }
         public string[] etiquetasEficiencia { get; set; }
 
         int codigoUsuario = 0;
@@ -38,6 +38,12 @@ namespace Production_control_1._0
 
         #endregion
         #region datos_iniciales()
+        string modulo_ = "";
+        string nomre = "";
+        string temporada = "";
+        int version = 0;
+
+
         public balance(clases.balance datosBalance)
         {
             InitializeComponent();
@@ -55,8 +61,8 @@ namespace Production_control_1._0
             zoomGraficaTeorica.Height = alturaBase; ;
             zoomGraficaTeorica.Width = alturaBase * 1.5;
             //tamanio zoom grafica real
-            zoomGraficaReal.Height= alturaBase; ;
-            zoomGraficaReal.Width= alturaBase*1.5;
+            zoomGraficaReal.Height = alturaBase; ;
+            zoomGraficaReal.Width = alturaBase * 1.5;
             //tamanio zoom grafica eficiencia
             zoomGraficaEficiencia.Height = alturaBase; ;
             zoomGraficaEficiencia.Width = alturaBase * 1.5;
@@ -75,7 +81,7 @@ namespace Production_control_1._0
             estilo_2.Content = datosBalance.nombre;
             temporada_.Content = datosBalance.temporada;
             temporada_2.Content = datosBalance.temporada;
-            sam_.Content = Math.Round(datosBalance.sam,4).ToString();
+            sam_.Content = Math.Round(datosBalance.sam, 4).ToString();
             sam_2.Content = Math.Round(datosBalance.sam, 4).ToString();
             #endregion
             #region cargarListaDeModulos
@@ -219,18 +225,18 @@ namespace Production_control_1._0
                 sql = "select correlativo, nombre, titulo, sam, maquina, categoria from operaciones where temporada= '" + datosBalance.temporada + "' and estilo= '" + datosBalance.nombre + "' and sam is not null";
                 cm = new SqlCommand(sql, cnIngenieria);
                 dr = cm.ExecuteReader();
-                List<elementoListBox> listaOperaciones = new List<elementoListBox>();
+                List<elementoListBox> listaOperaciones2 = new List<elementoListBox>();
                 //agregar operaciones de consulta
                 while (dr.Read())
                 {
-                    listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = Convert.ToInt32(dr["correlativo"]), nombreOperacion = dr["nombre"].ToString(), tituloOperacion = dr["titulo"].ToString().Replace("'",""), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = dr["maquina"].ToString(), categoriaMaquina = dr["categoria"].ToString() });
+                    listaOperaciones2.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = Convert.ToInt32(dr["correlativo"]), nombreOperacion = dr["nombre"].ToString(), tituloOperacion = dr["titulo"].ToString().Replace("'", ""), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = dr["maquina"].ToString(), categoriaMaquina = dr["categoria"].ToString() });
                 };
                 dr.Close();
                 cnIngenieria.Close();
                 //agregar operacion de empaque
 
-                listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = 0, nombreOperacion = "empaque", tituloOperacion = datosBalance.nombreEmpaque, samOperacion = datosBalance.samEmpaque, asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
-                Operaciones.ItemsSource = listaOperaciones;
+                listaOperaciones2.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = 0, nombreOperacion = "empaque", tituloOperacion = datosBalance.nombreEmpaque, samOperacion = datosBalance.samEmpaque, asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
+                Operaciones.ItemsSource = listaOperaciones2;
                 #endregion
                 #region agregarDatosDeEncabezado
                 //se cargan los datos generales de las variables globales
@@ -241,367 +247,19 @@ namespace Production_control_1._0
             }
             else if (datosBalance.tipo == "edicion")
             {
-                string llave = datosBalance.modulo + datosBalance.nombre + datosBalance.temporada + datosBalance.version;
-                #region llenarEncabezado
-                sql = "select fecha_creacion, estilo, temporada, sam, modulo, corrida, horas, operarios, ingeniero, version from lista_balances where identificador='" + llave + "'";
-                cnBalances.Open();
-                cm = new SqlCommand(sql, cnBalances);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                // modulo.SelectedItem = dr["modulo"].ToString();
-                fecha_.Content = Convert.ToDateTime(dr["fecha_creacion"]).ToString("yyyy-MM-dd");
-                version_.Text = dr["version"].ToString();
-                piezas_de_corrida.Text = dr["corrida"].ToString();
-                horas_de_corrida.Text = dr["horas"].ToString();
-                sam_.Content = dr["sam"].ToString();
-                sam_2.Content = dr["sam"].ToString();
-                modulo.SelectedItem = dr["modulo"].ToString();
-                operarios_.Content = dr["operarios"].ToString();
-                operarios_2.Content = dr["operarios"].ToString();
-                cnBalances.Close();
-                dr.Close();
-                #endregion
-                #region llenarListaDeMaquinas
-                int numeroEstacion = 0;
-                #region areaPreparacion
-                foreach (Border estacion in areaPreparacion.Children)
-                {
-                    numeroEstacion = numeroEstacion + 1;
-                    sql = "select ajuste, categoria, color, correlativo, operacion, codigo, sam, carga, operario from consultaDeMaquinas where identificador='" + llave + "' and maquina='" + numeroEstacion + "'";
-                    cnBalances.Open();
-                    cm = new SqlCommand(sql, cnBalances);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        string color = dr["color"].ToString();
-                        #region colorEnString
-                        switch (color)
-                        {
-                            case "rojo":
-                                estacion.Background = Brushes.Red;
-                                break;
-                            case "azul":
-                                estacion.Background = Brushes.Blue;
-                                break;
-                            case "verde":
-                                estacion.Background = Brushes.Green;
-                                break;
-                            case "amarillo":
-                                estacion.Background = Brushes.Yellow;
-                                break;
-                            case "anaranjado":
-                                estacion.Background = Brushes.Orange;
-                                break;
-                        }
-                        #endregion
-                        StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                        foreach (object elemento in stackPanelEstacion.Children)
-                        {
-                            if (elemento.GetType() == typeof(TextBlock))
-                            {
-                                ((TextBlock)elemento).Text = dr["categoria"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(Label))
-                            {
-                                ((Label)elemento).Content = dr["operario"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(TextBox))
-                            {
-                                ((TextBox)elemento).Text = dr["ajuste"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(ListBox))
-                            {
-                                ListBox listaDeOperaciones = ((ListBox)elemento);
-                                listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), tituloOperacion = dr["operacion"].ToString(), nombreOperacion = dr["codigo"].ToString(), asignadoOperacion = Convert.ToDouble(dr["carga"]), samOperacion = Convert.ToDouble(dr["sam"]), ajusteMaquina = dr["ajuste"].ToString() });
-                            }
-                        }
-                    };
-                    dr.Close();
-                    cnBalances.Close();
-                }
-                #endregion
-                #region arteriaUno
-                foreach (Border estacion in arteriaUno.Children)
-                {
-                    numeroEstacion = numeroEstacion + 1;
-                    sql = "select ajuste, categoria, color, correlativo, operacion, codigo, sam, carga, operario from consultaDeMaquinas where identificador='" + llave + "' and maquina='" + numeroEstacion + "'";
-                    cnBalances.Open();
-                    cm = new SqlCommand(sql, cnBalances);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        string color = dr["color"].ToString();
-                        #region colorEnString
-                        switch (color)
-                        {
-                            case "rojo":
-                                estacion.Background = Brushes.Red;
-                                break;
-                            case "azul":
-                                estacion.Background = Brushes.Blue;
-                                break;
-                            case "verde":
-                                estacion.Background = Brushes.Green;
-                                break;
-                            case "amarillo":
-                                estacion.Background = Brushes.Yellow;
-                                break;
-                            case "anaranjado":
-                                estacion.Background = Brushes.Orange;
-                                break;
-                        }
-                        #endregion
-                        StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                        foreach (object elemento in stackPanelEstacion.Children)
-                        {
-                            if (elemento.GetType() == typeof(TextBlock))
-                            {
-                                ((TextBlock)elemento).Text = dr["categoria"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(Label))
-                            {
-                                ((Label)elemento).Content = dr["operario"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(TextBox))
-                            {
-                                ((TextBox)elemento).Text = dr["ajuste"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(ListBox))
-                            {
-                                ListBox listaDeOperaciones = ((ListBox)elemento);
-                                listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), tituloOperacion = dr["operacion"].ToString(), nombreOperacion = dr["codigo"].ToString(), asignadoOperacion = Convert.ToDouble(dr["carga"]), samOperacion = Convert.ToDouble(dr["sam"]), ajusteMaquina = dr["ajuste"].ToString() });
-                            }
-                        }
-                    };
-                    dr.Close();
-                    cnBalances.Close();
-                }
-                #endregion
-                #region arteriaDos
-                foreach (Border estacion in arteriaDos.Children)
-                {
-                    numeroEstacion = numeroEstacion + 1;
-                    sql = "select ajuste, categoria, color, correlativo, operacion, codigo, sam, carga, operario from consultaDeMaquinas where identificador='" + llave + "' and maquina='" + numeroEstacion + "'";
-                    cnBalances.Open();
-                    cm = new SqlCommand(sql, cnBalances);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        string color = dr["color"].ToString();
-                        #region colorEnString
-                        switch (color)
-                        {
-                            case "rojo":
-                                estacion.Background = Brushes.Red;
-                                break;
-                            case "azul":
-                                estacion.Background = Brushes.Blue;
-                                break;
-                            case "verde":
-                                estacion.Background = Brushes.Green;
-                                break;
-                            case "amarillo":
-                                estacion.Background = Brushes.Yellow;
-                                break;
-                            case "anaranjado":
-                                estacion.Background = Brushes.Orange;
-                                break;
-                        }
-                        #endregion
-                        StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                        foreach (object elemento in stackPanelEstacion.Children)
-                        {
-                            if (elemento.GetType() == typeof(TextBlock))
-                            {
-                                ((TextBlock)elemento).Text = dr["categoria"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(Label))
-                            {
-                                ((Label)elemento).Content = dr["operario"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(TextBox))
-                            {
-                                ((TextBox)elemento).Text = dr["ajuste"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(ListBox))
-                            {
-                                ListBox listaDeOperaciones = ((ListBox)elemento);
-                                listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), tituloOperacion = dr["operacion"].ToString(), nombreOperacion = dr["codigo"].ToString(), asignadoOperacion = Convert.ToDouble(dr["carga"]), samOperacion = Convert.ToDouble(dr["sam"]), ajusteMaquina = dr["ajuste"].ToString() });
-                            }
-                        }
-                    };
-                    dr.Close();
-                    cnBalances.Close();
-                }
-                #endregion
-                #region arteriaTres
-                foreach (Border estacion in arteriaTres.Children)
-                {
-                    numeroEstacion = numeroEstacion + 1;
-                    sql = "select ajuste, categoria, color, correlativo, operacion, codigo, sam, carga, operario from consultaDeMaquinas where identificador='" + llave + "' and maquina='" + numeroEstacion + "'";
-                    cnBalances.Open();
-                    cm = new SqlCommand(sql, cnBalances);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        string color = dr["color"].ToString();
-                        #region colorEnString
-                        switch (color)
-                        {
-                            case "rojo":
-                                estacion.Background = Brushes.Red;
-                                break;
-                            case "azul":
-                                estacion.Background = Brushes.Blue;
-                                break;
-                            case "verde":
-                                estacion.Background = Brushes.Green;
-                                break;
-                            case "amarillo":
-                                estacion.Background = Brushes.Yellow;
-                                break;
-                            case "anaranjado":
-                                estacion.Background = Brushes.Orange;
-                                break;
-                        }
-                        #endregion
-                        StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                        foreach (object elemento in stackPanelEstacion.Children)
-                        {
-                            if (elemento.GetType() == typeof(TextBlock))
-                            {
-                                ((TextBlock)elemento).Text = dr["categoria"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(Label))
-                            {
-                                ((Label)elemento).Content = dr["operario"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(TextBox))
-                            {
-                                ((TextBox)elemento).Text = dr["ajuste"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(ListBox))
-                            {
-                                ListBox listaDeOperaciones = ((ListBox)elemento);
-                                listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), tituloOperacion = dr["operacion"].ToString(), nombreOperacion = dr["codigo"].ToString(), asignadoOperacion = Convert.ToDouble(dr["carga"]), samOperacion = Convert.ToDouble(dr["sam"]), ajusteMaquina = dr["ajuste"].ToString() });
-                            }
-                        }
-                    };
-                    dr.Close();
-                    cnBalances.Close();
-                }
-                #endregion
-                #region arteriaCuatro
-                foreach (Border estacion in arteriaCuatro.Children)
-                {
-                    numeroEstacion = numeroEstacion + 1;
-                    sql = "select ajuste, categoria, color, correlativo, operacion, codigo, sam, carga, operario from consultaDeMaquinas where identificador='" + llave + "' and maquina='" + numeroEstacion + "'";
-                    cnBalances.Open();
-                    cm = new SqlCommand(sql, cnBalances);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        string color = dr["color"].ToString();
-                        #region colorEnString
-                        switch (color)
-                        {
-                            case "rojo":
-                                estacion.Background = Brushes.Red;
-                                break;
-                            case "azul":
-                                estacion.Background = Brushes.Blue;
-                                break;
-                            case "verde":
-                                estacion.Background = Brushes.Green;
-                                break;
-                            case "amarillo":
-                                estacion.Background = Brushes.Yellow;
-                                break;
-                            case "anaranjado":
-                                estacion.Background = Brushes.Orange;
-                                break;
-                        }
-                        #endregion
-                        StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                        foreach (object elemento in stackPanelEstacion.Children)
-                        {
-                            if (elemento.GetType() == typeof(TextBlock))
-                            {
-                                ((TextBlock)elemento).Text = dr["categoria"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(Label))
-                            {
-                                ((Label)elemento).Content = dr["operario"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(TextBox))
-                            {
-                                ((TextBox)elemento).Text = dr["ajuste"].ToString();
-                            }
-                            if (elemento.GetType() == typeof(ListBox))
-                            {
-                                ListBox listaDeOperaciones = ((ListBox)elemento);
-                                listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), tituloOperacion = dr["operacion"].ToString(), nombreOperacion = dr["codigo"].ToString(), asignadoOperacion = Convert.ToDouble(dr["carga"]), samOperacion = Convert.ToDouble(dr["sam"]), ajusteMaquina = dr["ajuste"].ToString() });
-                            }
-                        }
-                    };
-                    dr.Close();
-                    cnBalances.Close();
-                }
-                #endregion
-                #region Enganche
-                numeroEstacion = numeroEstacion + 1;
-                borderEstacionEnganche.Background = Brushes.Blue;
-                sql = "select ajuste, categoria, color, correlativo, operacion, codigo, sam, carga, operario from consultaDeMaquinas where identificador='" + llave + "' and maquina='" + numeroEstacion + "'";
-                cnBalances.Open();
-                cm = new SqlCommand(sql, cnBalances);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    textBlockEngancheCategoria.Text = dr["categoria"].ToString();
-                    operarioEnganche.Content = dr["operario"].ToString();
-                    ajusteEnganche.Text = dr["ajuste"].ToString();
-                    listBoxEnganche.Items.Add(new elementoListBox { correlativoOperacion = Convert.ToInt32(dr["correlativo"]), tituloOperacion = dr["operacion"].ToString(), nombreOperacion = dr["codigo"].ToString(), asignadoOperacion = Convert.ToDouble(dr["carga"]), samOperacion = Convert.ToDouble(dr["sam"]), ajusteMaquina = dr["ajuste"].ToString() });
-                }
-                dr.Close();
-                cnBalances.Close();
-                #endregion
-                #endregion
-                #region llenarListaDeOperaciones
-                sql = "select correlativo, codigo, titulo, sam, ajuste, categoria, requerimiento, asignado from operaciones where identificador='"+llave+"'";
-                cnBalances.Open();
-                cm = new SqlCommand(sql, cnBalances);
-                dr = cm.ExecuteReader();
-                List<elementoListBox> listaOperaciones = new List<elementoListBox>();
-                while (dr.Read())
-                {
-                    listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = Convert.ToInt32(dr["correlativo"]), nombreOperacion = dr["codigo"].ToString(), tituloOperacion = dr["titulo"].ToString(), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = Convert.ToDouble(dr["asignado"]), requeridoOperacion = Convert.ToDouble(dr["requerimiento"]), ajusteMaquina = dr["ajuste"].ToString(), categoriaMaquina = dr["categoria"].ToString() });
-                };
-                dr.Close();
-                cnBalances.Close();
-                Operaciones.ItemsSource = listaOperaciones;
-                #endregion
-                #region llenarListaDeOperarios
-                sql = "select codigo, nombre, asignado, plana, rana, flat, cover, transfer, atracadora, plancha, bonding, zig_zag, multiaguja, manual, varias from operarios_2 where identificador='" + llave + "'";
-                cnBalances.Open();
-                cm = new SqlCommand(sql, cnBalances);
-                dr = cm.ExecuteReader();
-                List<elementoListBox> listaOperarios = new List<elementoListBox>();
-                while (dr.Read())
-                {
-                    listaOperarios.Add(new elementoListBox() { identificador = "operario", codigoOperario = Convert.ToInt32(dr["codigo"]), nombreOperario = dr["nombre"].ToString(), asignadoOperario = Convert.ToDouble(dr["asignado"] is DBNull ? 0 : dr["asignado"]), planaOperario = Convert.ToDouble(dr["plana"] is DBNull ? 0.9 : dr["plana"]), ranaOperario = Convert.ToDouble(dr["rana"] is DBNull ? 0.9 : dr["rana"]), flatOperario = Convert.ToDouble(dr["flat"] is DBNull ? 0.9 : dr["flat"]), coverOperario = Convert.ToDouble(dr["cover"] is DBNull ? 0.9 : dr["cover"]), transferOperario = Convert.ToDouble(dr["transfer"] is DBNull ? 0.9 : dr["transfer"]), atracadoraOperario = Convert.ToDouble(dr["atracadora"] is DBNull ? 0.9 : dr["atracadora"]), planchaOperario = Convert.ToDouble(dr["plancha"] is DBNull ? 0.9 : dr["plancha"]), bondingOperario = Convert.ToDouble(dr["bonding"] is DBNull ? 0.9 : dr["bonding"]), zigzagOperario = Convert.ToDouble(dr["zig_zag"] is DBNull ? 0.9 : dr["zig_zag"]), multiagujaOperario = Convert.ToDouble(dr["multiaguja"] is DBNull ? 0.9 : dr["multiaguja"]), manualOperario = Convert.ToDouble(dr["manual"] is DBNull ? 0.9 : dr["manual"]), variasOperario = Convert.ToDouble(dr["varias"] is DBNull ? 0.9 : dr["varias"]) });
-                };
-                dr.Close();
-                cnBalances.Close();
-                Operarios.ItemsSource=listaOperarios;
-                #endregion
-                #region calculosGenerales
-                CalculoAsignadoPorOperacion();
-                actualizarGrafica();
-                operacionSobrecargadaOperacionSubutilizada();
-                #endregion
-            }
+                //datos se cargan en evento loaded
+                modulo_ = datosBalance.modulo;
+                nomre = datosBalance.nombre;
+                temporada = datosBalance.temporada;
+                version = datosBalance.version;
+            };
+            #region calculosGenerales
+            CalculoAsignadoPorOperacion();
+            actualizarGrafica();
+            operacionSobrecargadaOperacionSubutilizada();
+            #endregion
         }
-        #endregion        
+        #endregion
         #region zoom()
         private void UpdateViewBox(int newValue)
         {
@@ -1159,14 +817,14 @@ namespace Production_control_1._0
             }
             #endregion
             #region enganche
-            foreach (elementoListBox item in listBoxEnganche.Items)
-                {
-                cn.Open();
-                sql = "insert into maquinas(identificador, maquina, ajuste, categoria, color, correlativo, operacion, carga, operario) values('" + llave + "', '" + 66 + "', '" + ajusteEnganche.Text + "', '" + textBlockEngancheCategoria.Text + "', 'azul', '" + item.correlativoOperacion + "', '" + item.tituloOperacion + "', '" + item.asignadoOperacion + "', '" + operarioEnganche.Content.ToString() + "')";
-                cm = new SqlCommand(sql, cn);
-                cm.ExecuteNonQuery();
-                cn.Close();
-                }
+            //foreach (elementoListBox item in listBoxEnganche.Items)
+            //    {
+            //    cn.Open();
+            //    sql = "insert into maquinas(identificador, maquina, ajuste, categoria, color, correlativo, operacion, carga, operario) values('" + llave + "', '" + 66 + "', '" + ajusteEnganche.Text + "', '" + textBlockEngancheCategoria.Text + "', 'azul', '" + item.correlativoOperacion + "', '" + item.tituloOperacion + "', '" + item.asignadoOperacion + "', '" + operarioEnganche.Content.ToString() + "')";
+            //    cm = new SqlCommand(sql, cn);
+            //    cm.ExecuteNonQuery();
+            //    cn.Close();
+            //    }
             #endregion
             #endregion
             #region salirPanelLatera
@@ -1527,10 +1185,10 @@ namespace Production_control_1._0
                     GridMenu.Margin = new Thickness(-250, 0, 0, 0);
                     GridBackground.Margin = new Thickness(5, 30, 0, 0);
                     #endregion
-                    foreach (elementoListBox item in listBoxEnganche.Items)
-                    {
-                        listaDeMaquinas.Add(new elementoListBox { correlativoOperacion = 66, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, ajusteMaquina =ajusteEnganche.Text, colorAjuste = "azul" });
-                    }
+                    //foreach (elementoListBox item in listBoxEnganche.Items)
+                    //{
+                    //    listaDeMaquinas.Add(new elementoListBox { correlativoOperacion = 66, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, ajusteMaquina =ajusteEnganche.Text, colorAjuste = "azul" });
+                    //}
                     #endregion
                     #region agregarResumenMaquinas
                     foreach(maquina item in resumen_maquinas.Items)
@@ -1992,10 +1650,10 @@ namespace Production_control_1._0
             List<ElementoRebalance> listaOperariosRebalance = new List<ElementoRebalance>();
             double piezasPorHora = Convert.ToDouble(piezas_por_hora.Content);
             #region Enganche
-            foreach (elementoListBox item in listBoxEnganche.Items)
-            {
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
-            }
+            //foreach (elementoListBox item in listBoxEnganche.Items)
+            //{
+            //    listaOperariosRebalance.Add(new ElementoRebalance { nombreOperacion = item.nombreOperacion, nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = item.tituloOperacion, asignadoOperacion = item.asignadoOperacion * Math.Round(piezasPorHora / (60 / item.samOperacion), 2), samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina, tiempoRebalance = 0, eficienciaRebalance = 0, cargaRebalance = 0 });
+            //}
             #endregion
             #region areaPreparacion
             foreach (Border estacion in areaPreparacion.Children)
@@ -2436,61 +2094,30 @@ namespace Production_control_1._0
         }
         #endregion
         #region coloresDeEstacion
-        private void colorVerde(object sender, RoutedEventArgs e)
+        private void ColorEstacion(object sender, RoutedEventArgs e)
         {
-
-            
-            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
             RadioButton radioButton = (RadioButton)sender;
-            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese debe tener el color
-            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.Green;
-            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
-            CalculoAsignadoPorOperacion();
-        }
-        private void colorRojo(object sender, RoutedEventArgs e)
-        {
-            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
-            RadioButton radioButton = (RadioButton)sender;
-            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese debe tener el color
-            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.Red;
-            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
-            CalculoAsignadoPorOperacion();
-        }
-        private void colorAzul(object sender, RoutedEventArgs e)
-        {
-            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
-            RadioButton radioButton = (RadioButton)sender;
-            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese dentro del borde que debe tener el color
-            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.Blue;
-            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
-            CalculoAsignadoPorOperacion();
-        }
-        private void colorAnaranjado(object sender, RoutedEventArgs e)
-        {
-            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
-            RadioButton radioButton = (RadioButton)sender;
-            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese dentro del borde que debe tener el color
-            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.Orange;
-            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
-            CalculoAsignadoPorOperacion();
-        }
-        private void colorAmarillo(object sender, RoutedEventArgs e)
-        {
-            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
-            RadioButton radioButton = (RadioButton)sender;
-            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese dentro del borde que debe tener el color
-            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.Yellow;
-            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
-            CalculoAsignadoPorOperacion();
-        }
-
-        private void colorBlanco(object sender, RoutedEventArgs e)
-        {
-            //se determina el tipo de objeto que realiza la accion (el objeto es el radioButton)
-            RadioButton radioButton = (RadioButton)sender;
-            //se sacan los objetos dentro del que esta contenido (el radioButton esta dentro de un stackPanel y ese stackPanel dento de otro y ese dentro del borde que debe tener el color
-            (((radioButton.Parent as StackPanel).Parent as StackPanel).Parent as Border).Background = Brushes.White;
-            //se ejecuta el calculo del resumen de operacion para obtener el resumen de maquina
+            switch (radioButton.Name)
+            {
+                case "Green":
+                    ((radioButton.Parent as StackPanel).Parent as StackPanel).Background = Brushes.LightGreen;
+                    break;
+                case "Yellow":
+                    ((radioButton.Parent as StackPanel).Parent as StackPanel).Background = Brushes.Yellow;
+                    break;
+                case "Red":
+                    ((radioButton.Parent as StackPanel).Parent as StackPanel).Background = Brushes.Pink;
+                    break;
+                case "Orange":
+                    ((radioButton.Parent as StackPanel).Parent as StackPanel).Background = Brushes.Orange;
+                    break;
+                case "Blue":
+                    ((radioButton.Parent as StackPanel).Parent as StackPanel).Background = Brushes.LightBlue;
+                    break;
+                case "White":
+                    ((radioButton.Parent as StackPanel).Parent as StackPanel).Background = Brushes.White;
+                    break;
+            }
             CalculoAsignadoPorOperacion();
         }
         #endregion
@@ -2513,6 +2140,24 @@ namespace Production_control_1._0
         }
         #endregion
         #region calculosGenerales
+        #region obtenerObjetosHijosDeDataTemplate
+        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+
+                    if (child != null && child is T)
+                        yield return (T)child;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
+        }
+        #endregion
         #region soloIngresarNumerosenTextBox
         private void solo_numeros(object sender, KeyEventArgs e)
         {
@@ -2561,335 +2206,424 @@ namespace Production_control_1._0
             //Codigo para verificar asignado por operacion se recorrera por cada arteria (para facilitar especificacion de donde estan los listBox que contienen los datos)
 
             //Recorrer el areadePreparacion (cada arteria es un StackPanel)
-            //Dentro de cada arteria hay bordes que contienen todos los elementos de una estacion de trabajo
+            //Dentro de cada arteria las estaciones estan formadas dentro de stack panels
             #region areaPreparacion
             foreach (GroupBox groupBox in areaPreparacion.Children)
             {
-                groupBox.ContentTemplate.VisualTree.ch
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
 
+                        string operario = "";
+                        string categoria = "";
+                        string color = "blanco";
+                        double cargaProporcional = 0;
 
-               // MessageBox.Show(contentPresenter.Name);
+                        #region colorEnString
+                        if (estacion.Background == Brushes.Red)
+                        {
+                            color = "rojo";
+                        }
+                        else if (estacion.Background == Brushes.Blue)
+                        {
+                            color = "azul";
+                        }
+                        else if (estacion.Background == Brushes.Green)
+                        {
+                            color = "verde";
+                        }
+                        if (estacion.Background == Brushes.Orange)
+                        {
+                            color = "anaranjado";
+                        }
+                        if (estacion.Background == Brushes.Yellow)
+                        {
+                            color = "amarillo";
+                        }
+                        #endregion
 
-                string operario = "";
-                string categoria = "";
-                string color = "blanco";
-                double cargaProporcional = 0;
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
+                        {
+                            //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
+                            if (elemento.GetType() == typeof(TextBlock))
+                            {
+                                categoria = ((TextBlock)elemento).Text;
+                            }
+                            //si es label se carga operario
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
 
-
-
-                #region colorEnString
-                //if (estacion.Background == Brushes.Red)
-                //{
-                //    color = "rojo";
-                //}
-                //else if (estacion.Background == Brushes.Blue)
-                //{
-                //    color = "azul";
-                //}
-                //else if (estacion.Background == Brushes.Green)
-                //{
-                //    color = "verde";
-                //}
-                //if (estacion.Background == Brushes.Orange)
-                //{
-                //    color = "anaranjado";
-                //}
-                //if (estacion.Background == Brushes.Yellow)
-                //{
-                //    color = "amarillo";
-                //}
-                #endregion
-
-                ////Dentro de los bordes hay un StackPanel que tiene todo 
-                //StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                ////Se recorre el StackPanel ya que tiene mas de un tipo de objeto
-                //foreach (object elemento in stackPanelEstacion.Children)
-                //{
-                //    //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
-                //    if (elemento.GetType() == typeof(TextBlock))
-                //    {
-                //        categoria = ((TextBlock)elemento).Text;
-                //    }
-                //    //si es label se carga operario
-                //    if (elemento.GetType() == typeof(Label))
-                //    {
-                //        operario = ((Label)elemento).Content.ToString();
-                //    }
-                //    //Si el objeto es el listBox se analizan los valores de las operaciones en el
-                //    if (elemento.GetType() == typeof(ListBox))
-                //    {
-                //        ListBox listaDeOperaciones = ((ListBox)elemento);
-
-                //        foreach (elementoListBox item in listaDeOperaciones.Items)
-                //        {
-                //            //Cada elemento del listBox se agrega en la lista declarada al inicio
-                //            consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-                //            cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2))*item.asignadoOperacion;
-                //        }
-                //    }
-                //}
-
-                ////Por cada estacion (border) se agrega el operario y los datos que le corresponden
-                //consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
-                //consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
-
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    //Cada elemento del listBox se agrega en la lista declarada al inicio
+                                    consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
+                                    cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
+                                }
+                            }
+                        }
+                        //Por cada estacion (stackPanel) se agrega el operario y los datos que le corresponden
+                        consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
+                        consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
+                    }
+                }
             }
             #endregion
+            #region arteriaUno
+            foreach (GroupBox groupBox in arteriaUno.Children)
+            {
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
 
-            //Repetir codigo para demas arterias y para el anganche
-            //#region arteriaUno
-            //foreach (Border estacion in arteriaUno.Children)
-            //{
-            //    string operario = "";
-            //    string categoria = "";
-            //    string color = "blanco";
-            //    double cargaProporcional = 0;
-            //    #region colorEnString
-            //    if (estacion.Background == Brushes.Red)
-            //    {
-            //        color = "rojo";
-            //    }
-            //    else if (estacion.Background == Brushes.Blue)
-            //    {
-            //        color = "azul";
-            //    }
-            //    else if (estacion.Background == Brushes.Green)
-            //    {
-            //        color = "verde";
-            //    }
-            //    if (estacion.Background == Brushes.Orange)
-            //    {
-            //        color = "anaranjado";
-            //    }
-            //    if (estacion.Background == Brushes.Yellow)
-            //    {
-            //        color = "amarillo";
-            //    }
-            //    #endregion
-            //    StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-            //    foreach (object elemento in stackPanelEstacion.Children)
-            //    {
-            //        if (elemento.GetType() == typeof(TextBlock))
-            //        {
-            //            categoria = ((TextBlock)elemento).Text;
-            //        }
-            //        if (elemento.GetType() == typeof(Label))
-            //        {
-            //            operario = ((Label)elemento).Content.ToString();
-            //        }
-            //        if (elemento.GetType() == typeof(ListBox))
-            //        {
-            //            ListBox listaDeOperaciones = ((ListBox)elemento);
-            //            foreach (elementoListBox item in listaDeOperaciones.Items)
-            //            {
-            //                consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-            //                cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
-            //            }
-            //        }
-            //    }
-            //    consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
-            //    consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
-            //}
-            //#endregion
-            //#region arteriaDos
-            //foreach (Border estacion in arteriaDos.Children)
-            //{
-            //    string operario = "";
-            //    string categoria = "";
-            //    string color = "blanco";
-            //    double cargaProporcional = 0;
-            //    #region colorEnString
-            //    if (estacion.Background == Brushes.Red)
-            //    {
-            //        color = "rojo";
-            //    }
-            //    else if (estacion.Background == Brushes.Blue)
-            //    {
-            //        color = "azul";
-            //    }
-            //    else if (estacion.Background == Brushes.Green)
-            //    {
-            //        color = "verde";
-            //    }
-            //    if (estacion.Background == Brushes.Orange)
-            //    {
-            //        color = "anaranjado";
-            //    }
-            //    if (estacion.Background == Brushes.Yellow)
-            //    {
-            //        color = "amarillo";
-            //    }
-            //    #endregion
-            //    StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-            //    foreach (object elemento in stackPanelEstacion.Children)
-            //    {
-            //        if (elemento.GetType() == typeof(TextBlock))
-            //        {
-            //            categoria = ((TextBlock)elemento).Text;
-            //        }
-            //        if (elemento.GetType() == typeof(Label))
-            //        {
-            //            operario = ((Label)elemento).Content.ToString();
-            //        }
-            //        if (elemento.GetType() == typeof(ListBox))
-            //        {
-            //            ListBox listaDeOperaciones = ((ListBox)elemento);
-            //            foreach (elementoListBox item in listaDeOperaciones.Items)
-            //            {
-            //                consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-            //                cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
-            //            }
-            //        }
-            //    }
-            //    consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
-            //    consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
-            //}
-            //#endregion
-            //#region arteriaTres
-            //foreach (Border estacion in arteriaTres.Children)
-            //{
-            //    string operario = "";
-            //    string categoria = "";
-            //    string color = "blanco";
-            //    double cargaProporcional = 0;
-            //    #region colorEnString
-            //    if (estacion.Background == Brushes.Red)
-            //    {
-            //        color = "rojo";
-            //    }
-            //    else if (estacion.Background == Brushes.Blue)
-            //    {
-            //        color = "azul";
-            //    }
-            //    else if (estacion.Background == Brushes.Green)
-            //    {
-            //        color = "verde";
-            //    }
-            //    if (estacion.Background == Brushes.Orange)
-            //    {
-            //        color = "anaranjado";
-            //    }
-            //    if (estacion.Background == Brushes.Yellow)
-            //    {
-            //        color = "amarillo";
-            //    }
-            //    #endregion
-            //    StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-            //    foreach (object elemento in stackPanelEstacion.Children)
-            //    {
-            //        if (elemento.GetType() == typeof(TextBlock))
-            //        {
-            //            categoria = ((TextBlock)elemento).Text;
-            //        }
-            //        if (elemento.GetType() == typeof(Label))
-            //        {
-            //            operario = ((Label)elemento).Content.ToString();
-            //        }
-            //        if (elemento.GetType() == typeof(ListBox))
-            //        {
-            //            ListBox listaDeOperaciones = ((ListBox)elemento);
-            //            foreach (elementoListBox item in listaDeOperaciones.Items)
-            //            {
-            //                consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-            //                cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
-            //            }
-            //        }
-            //    }
-            //    consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
-            //    consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
-            //}
-            //#endregion
-            //#region arteriaCuatro
-            //foreach (Border estacion in arteriaCuatro.Children)
-            //{
-            //    string operario = "";
-            //    string categoria = "";
-            //    string color = "blanco";
-            //    double cargaProporcional = 0;
-            //    #region colorEnString
-            //    if (estacion.Background == Brushes.Red)
-            //    {
-            //        color = "rojo";
-            //    }
-            //    else if (estacion.Background == Brushes.Blue)
-            //    {
-            //        color = "azul";
-            //    }
-            //    else if (estacion.Background == Brushes.Green)
-            //    {
-            //        color = "verde";
-            //    }
-            //    if (estacion.Background == Brushes.Orange)
-            //    {
-            //        color = "anaranjado";
-            //    }
-            //    if (estacion.Background == Brushes.Yellow)
-            //    {
-            //        color = "amarillo";
-            //    }
-            //    #endregion
-            //    StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-            //    foreach (object elemento in stackPanelEstacion.Children)
-            //    {
-            //        if (elemento.GetType() == typeof(TextBlock))
-            //        {
-            //            categoria = ((TextBlock)elemento).Text;
-            //        }
-            //        if (elemento.GetType() == typeof(Label))
-            //        {
-            //            operario = ((Label)elemento).Content.ToString();
-            //        }
-            //        if (elemento.GetType() == typeof(ListBox))
-            //        {
-            //            ListBox listaDeOperaciones = ((ListBox)elemento);
-            //            foreach (elementoListBox item in listaDeOperaciones.Items)
-            //            {
-            //                consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-            //                cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
-            //            }
-            //        }
-            //    }
-            //    consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
-            //    consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
-            //}
-            //#endregion
-            //#region estacionEngancha
-            ////lista de operaciones para enganche se revisa directamente el listbox porque no esta dentro de las arterias
-            //double cargaProporcionale = 0;
-            //foreach (elementoListBox item in listBoxEnganche.Items)
-            //{
-            //    consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
-            //    cargaProporcionale = cargaProporcionale + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
-            //}
+                        string operario = "";
+                        string categoria = "";
+                        string color = "blanco";
+                        double cargaProporcional = 0;
 
-            //#region colorEnString
-            //string color_ = "";
-            //if (borderEstacionEnganche.Background == Brushes.Red)
-            //{
-            //    color_ = "rojo";
-            //}
-            //else if (borderEstacionEnganche.Background == Brushes.Blue)
-            //{
-            //    color_ = "azul";
-            //}
-            //else if (borderEstacionEnganche.Background == Brushes.Green)
-            //{
-            //    color_ = "verde";
-            //}
-            //if (borderEstacionEnganche.Background == Brushes.Orange)
-            //{
-            //    color_ = "anaranjado";
-            //}
-            //if (borderEstacionEnganche.Background == Brushes.Yellow)
-            //{
-            //    color_ = "amarillo";
-            //}
-            //#endregion
+                        #region colorEnString
+                        if (estacion.Background == Brushes.Red)
+                        {
+                            color = "rojo";
+                        }
+                        else if (estacion.Background == Brushes.Blue)
+                        {
+                            color = "azul";
+                        }
+                        else if (estacion.Background == Brushes.Green)
+                        {
+                            color = "verde";
+                        }
+                        if (estacion.Background == Brushes.Orange)
+                        {
+                            color = "anaranjado";
+                        }
+                        if (estacion.Background == Brushes.Yellow)
+                        {
+                            color = "amarillo";
+                        }
+                        #endregion
 
-            ////datos de enganche se cargan aparte
-            //consolidadoOperarios.Add(new elementoListBox { nombreOperario = operarioEnganche.Content.ToString(), asignadoOperario = cargaProporcionale, categoriaMaquina = "manual" });
-            //consolidadoMaquinas.Add(new maquina { categoriaMaquina = textBlockEngancheCategoria.Text, colorAjuste = color_ });
-            //#endregion
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
+                        {
+                            //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
+                            if (elemento.GetType() == typeof(TextBlock))
+                            {
+                                categoria = ((TextBlock)elemento).Text;
+                            }
+                            //si es label se carga operario
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    //Cada elemento del listBox se agrega en la lista declarada al inicio
+                                    consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
+                                    cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
+                                }
+                            }
+                        }
+                        //Por cada estacion (stackPanel) se agrega el operario y los datos que le corresponden
+                        consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
+                        consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
+                    }
+                }
+            }
+            #endregion
+            #region arteriaDos
+            foreach (GroupBox groupBox in arteriaDos.Children)
+            {
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        string operario = "";
+                        string categoria = "";
+                        string color = "blanco";
+                        double cargaProporcional = 0;
+
+                        #region colorEnString
+                        if (estacion.Background == Brushes.Red)
+                        {
+                            color = "rojo";
+                        }
+                        else if (estacion.Background == Brushes.Blue)
+                        {
+                            color = "azul";
+                        }
+                        else if (estacion.Background == Brushes.Green)
+                        {
+                            color = "verde";
+                        }
+                        if (estacion.Background == Brushes.Orange)
+                        {
+                            color = "anaranjado";
+                        }
+                        if (estacion.Background == Brushes.Yellow)
+                        {
+                            color = "amarillo";
+                        }
+                        #endregion
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
+                        {
+                            //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
+                            if (elemento.GetType() == typeof(TextBlock))
+                            {
+                                categoria = ((TextBlock)elemento).Text;
+                            }
+                            //si es label se carga operario
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    //Cada elemento del listBox se agrega en la lista declarada al inicio
+                                    consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
+                                    cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
+                                }
+                            }
+                        }
+                        //Por cada estacion (stackPanel) se agrega el operario y los datos que le corresponden
+                        consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
+                        consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
+                    }
+                }
+            }
+            #endregion
+            #region arteriaTres
+            foreach (GroupBox groupBox in arteriaTres.Children)
+            {
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        string operario = "";
+                        string categoria = "";
+                        string color = "blanco";
+                        double cargaProporcional = 0;
+
+                        #region colorEnString
+                        if (estacion.Background == Brushes.Red)
+                        {
+                            color = "rojo";
+                        }
+                        else if (estacion.Background == Brushes.Blue)
+                        {
+                            color = "azul";
+                        }
+                        else if (estacion.Background == Brushes.Green)
+                        {
+                            color = "verde";
+                        }
+                        if (estacion.Background == Brushes.Orange)
+                        {
+                            color = "anaranjado";
+                        }
+                        if (estacion.Background == Brushes.Yellow)
+                        {
+                            color = "amarillo";
+                        }
+                        #endregion
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
+                        {
+                            //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
+                            if (elemento.GetType() == typeof(TextBlock))
+                            {
+                                categoria = ((TextBlock)elemento).Text;
+                            }
+                            //si es label se carga operario
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    //Cada elemento del listBox se agrega en la lista declarada al inicio
+                                    consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
+                                    cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
+                                }
+                            }
+                        }
+                        //Por cada estacion (stackPanel) se agrega el operario y los datos que le corresponden
+                        consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
+                        consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
+                    }
+                }
+            }
+            #endregion
+            #region arteriaCuatro
+            foreach (GroupBox groupBox in arteriaCuatro.Children)
+            {
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        string operario = "";
+                        string categoria = "";
+                        string color = "blanco";
+                        double cargaProporcional = 0;
+
+                        #region colorEnString
+                        if (estacion.Background == Brushes.Red)
+                        {
+                            color = "rojo";
+                        }
+                        else if (estacion.Background == Brushes.Blue)
+                        {
+                            color = "azul";
+                        }
+                        else if (estacion.Background == Brushes.Green)
+                        {
+                            color = "verde";
+                        }
+                        if (estacion.Background == Brushes.Orange)
+                        {
+                            color = "anaranjado";
+                        }
+                        if (estacion.Background == Brushes.Yellow)
+                        {
+                            color = "amarillo";
+                        }
+                        #endregion
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
+                        {
+                            //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
+                            if (elemento.GetType() == typeof(TextBlock))
+                            {
+                                categoria = ((TextBlock)elemento).Text;
+                            }
+                            //si es label se carga operario
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    //Cada elemento del listBox se agrega en la lista declarada al inicio
+                                    consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
+                                    cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
+                                }
+                            }
+                        }
+                        //Por cada estacion (stackPanel) se agrega el operario y los datos que le corresponden
+                        consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
+                        consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
+                    }
+                }
+            }
+            #endregion
+            #region enganche
+            foreach (var objeto in FindVisualChildren<StackPanel>(enganche))
+            {
+                if (objeto.Name == "stackPanelContenedor")
+                {
+                    StackPanel estacion = (StackPanel)objeto;
+
+                    string operario = "";
+                    string categoria = "";
+                    string color = "blanco";
+                    double cargaProporcional = 0;
+
+                    #region colorEnString
+                    if (estacion.Background == Brushes.Red)
+                    {
+                        color = "rojo";
+                    }
+                    else if (estacion.Background == Brushes.Blue)
+                    {
+                        color = "azul";
+                    }
+                    else if (estacion.Background == Brushes.Green)
+                    {
+                        color = "verde";
+                    }
+                    if (estacion.Background == Brushes.Orange)
+                    {
+                        color = "anaranjado";
+                    }
+                    if (estacion.Background == Brushes.Yellow)
+                    {
+                        color = "amarillo";
+                    }
+                    #endregion
+
+                    //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                    foreach (object elemento in estacion.Children)
+                    {
+                        //Si el objeto es textBlock se carga la categoria (el operario tiene eficiencia historia por categoria)
+                        if (elemento.GetType() == typeof(TextBlock))
+                        {
+                            categoria = ((TextBlock)elemento).Text;
+                        }
+                        //si es label se carga operario
+                        if (elemento.GetType() == typeof(Label))
+                        {
+                            operario = ((Label)elemento).Content.ToString();
+                        }
+                        //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                        if (elemento.GetType() == typeof(ListBox))
+                        {
+                            ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                            foreach (elementoListBox item in listaDeOperaciones.Items)
+                            {
+                                //Cada elemento del listBox se agrega en la lista declarada al inicio
+                                consolidadoAsignaciones.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, asignadoOperacion = item.asignadoOperacion });
+                                cargaProporcional = cargaProporcional + (Math.Round(piezasPorHora / (60 / item.samOperacion), 2)) * item.asignadoOperacion;
+                            }
+                        }
+                    }
+                    //Por cada estacion (stackPanel) se agrega el operario y los datos que le corresponden
+                    consolidadoOperarios.Add(new elementoListBox { nombreOperario = operario, asignadoOperario = cargaProporcional, categoriaMaquina = categoria });
+                    consolidadoMaquinas.Add(new maquina { categoriaMaquina = categoria, colorAjuste = color });
+                }
+            }
+            #endregion
 
             //se hacen las nuevas listas
             #region crearNuevaListaDeOperaciones
@@ -3109,67 +2843,66 @@ namespace Production_control_1._0
             List<ElementoRebalance> listaOperariosRebalance = new List<ElementoRebalance>();
             double piezasPorHora= Convert.ToDouble(piezas_por_hora.Content);
             #region Enganche
+            string operarioe = "";
             string operacionese = "";
             double cargaProporcionale = 0;
-            foreach (elementoListBox item in listBoxEnganche.Items)
+            foreach (var objeto in FindVisualChildren<StackPanel>(enganche))
             {
-                operacionese = operacionese + item.tituloOperacion + "\n";
-                cargaProporcionale = cargaProporcionale + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
-            }
-            listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operarioEnganche.Content.ToString(), tituloOperacion = operacionese, requeridoOperacion = cargaProporcionale });
-            #endregion
-            #region areaPreparacion
-            foreach (Border estacion in areaPreparacion.Children)
-            {
-                string operario = "";
-                string operaciones = "";
-                double cargaProporcional = 0;
-                //Dentro de los bordes hay un StackPanel que tiene todo 
-                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
-                foreach (object elemento in stackPanelEstacion.Children)
+                if (objeto.Name == "stackPanelContenedor")
                 {
-                    if (elemento.GetType() == typeof(Label))
+                    StackPanel estacion = (StackPanel)objeto;
+                    foreach (object elemento in estacion.Children)
                     {
-                        operario = ((Label)elemento).Content.ToString();
-                    }
-                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
-                    if (elemento.GetType() == typeof(ListBox))
-                    {
-                        ListBox listaDeOperaciones = ((ListBox)elemento);
-                        foreach (elementoListBox item in listaDeOperaciones.Items)
+
+                        if (elemento.GetType() == typeof(Label))
                         {
-                            operaciones = operaciones + item.tituloOperacion + "\n";
-                            cargaProporcional=cargaProporcional + Math.Round(piezasPorHora/ (60 / item.samOperacion), 2);
+                            operarioe = ((Label)elemento).Content.ToString();
+                        }
+                        if (elemento.GetType() == typeof(ListBox))
+                        {
+                            ListBox listaDeOperaciones = ((ListBox)elemento);
+
+                            foreach (elementoListBox item in listaDeOperaciones.Items)
+                            {
+                                operacionese = operacionese + item.tituloOperacion + "\n";
+                                cargaProporcionale = cargaProporcionale + Math.Round(piezasPorHora / (60 / item.samOperacion));
+                            }
                         }
                     }
+
                 }
-                listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operario, tituloOperacion = operaciones.Trim(), requeridoOperacion=cargaProporcional });
             }
+            listaOperariosRebalance.Add(new ElementoRebalance { nombreOperario = operarioe, tituloOperacion = operacionese, requeridoOperacion = cargaProporcionale });
             #endregion
             #region arteriaUno
-            foreach (Border estacion in arteriaUno.Children)
+            foreach (GroupBox groupBox in arteriaUno.Children)
             {
                 string operario = "";
                 string operaciones = "";
                 double cargaProporcional = 0;
-                //Dentro de los bordes hay un StackPanel que tiene todo 
-                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
-                foreach (object elemento in stackPanelEstacion.Children)
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
                 {
-                    if (elemento.GetType() == typeof(Label))
+                    if (objeto.Name == "stackPanelContenedor")
                     {
-                        operario = ((Label)elemento).Content.ToString();
-                    }
-                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
-                    if (elemento.GetType() == typeof(ListBox))
-                    {
-                        ListBox listaDeOperaciones = ((ListBox)elemento);
-                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
                         {
-                            operaciones = operaciones + item.tituloOperacion + "\n";
-                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    operaciones = operaciones + item.tituloOperacion + "\n";
+                                    cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                                }
+                            }
                         }
                     }
                 }
@@ -3177,28 +2910,34 @@ namespace Production_control_1._0
             }
             #endregion
             #region arteriaDos
-            foreach (Border estacion in arteriaDos.Children)
+            foreach (GroupBox groupBox in arteriaDos.Children)
             {
                 string operario = "";
                 string operaciones = "";
                 double cargaProporcional = 0;
-                //Dentro de los bordes hay un StackPanel que tiene todo 
-                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
-                foreach (object elemento in stackPanelEstacion.Children)
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
                 {
-                    if (elemento.GetType() == typeof(Label))
+                    if (objeto.Name == "stackPanelContenedor")
                     {
-                        operario = ((Label)elemento).Content.ToString();
-                    }
-                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
-                    if (elemento.GetType() == typeof(ListBox))
-                    {
-                        ListBox listaDeOperaciones = ((ListBox)elemento);
-                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
                         {
-                            operaciones = operaciones + item.tituloOperacion + "\n";
-                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    operaciones = operaciones + item.tituloOperacion + "\n";
+                                    cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                                }
+                            }
                         }
                     }
                 }
@@ -3206,28 +2945,34 @@ namespace Production_control_1._0
             }
             #endregion
             #region arteriaTres
-            foreach (Border estacion in arteriaTres.Children)
+            foreach (GroupBox groupBox in arteriaTres.Children)
             {
                 string operario = "";
                 string operaciones = "";
                 double cargaProporcional = 0;
-                //Dentro de los bordes hay un StackPanel que tiene todo 
-                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
-                foreach (object elemento in stackPanelEstacion.Children)
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
                 {
-                    if (elemento.GetType() == typeof(Label))
+                    if (objeto.Name == "stackPanelContenedor")
                     {
-                        operario = ((Label)elemento).Content.ToString();
-                    }
-                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
-                    if (elemento.GetType() == typeof(ListBox))
-                    {
-                        ListBox listaDeOperaciones = ((ListBox)elemento);
-                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
                         {
-                            operaciones = operaciones + item.tituloOperacion + "\n";
-                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    operaciones = operaciones + item.tituloOperacion + "\n";
+                                    cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                                }
+                            }
                         }
                     }
                 }
@@ -3235,28 +2980,34 @@ namespace Production_control_1._0
             }
             #endregion
             #region arteriaCuatro
-            foreach (Border estacion in arteriaCuatro.Children)
+            foreach (GroupBox groupBox in arteriaCuatro.Children)
             {
                 string operario = "";
                 string operaciones = "";
                 double cargaProporcional = 0;
-                //Dentro de los bordes hay un StackPanel que tiene todo 
-                StackPanel stackPanelEstacion = (estacion.Child as StackPanel);
-                //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
-                foreach (object elemento in stackPanelEstacion.Children)
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
                 {
-                    if (elemento.GetType() == typeof(Label))
+                    if (objeto.Name == "stackPanelContenedor")
                     {
-                        operario = ((Label)elemento).Content.ToString();
-                    }
-                    //Si el objeto es el listBox se analizan los valores de las operaciones en el
-                    if (elemento.GetType() == typeof(ListBox))
-                    {
-                        ListBox listaDeOperaciones = ((ListBox)elemento);
-                        foreach (elementoListBox item in listaDeOperaciones.Items)
+                        StackPanel estacion = (StackPanel)objeto;
+
+                        //Se recorre el StackPanel ya que tiene mas de un tipo de objeto
+                        foreach (object elemento in estacion.Children)
                         {
-                            operaciones = operaciones + item.tituloOperacion + "\n";
-                            cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                            if (elemento.GetType() == typeof(Label))
+                            {
+                                operario = ((Label)elemento).Content.ToString();
+                            }
+                            //Si el objeto es el listBox se analizan los valores de las operaciones en el
+                            if (elemento.GetType() == typeof(ListBox))
+                            {
+                                ListBox listaDeOperaciones = ((ListBox)elemento);
+                                foreach (elementoListBox item in listaDeOperaciones.Items)
+                                {
+                                    operaciones = operaciones + item.tituloOperacion + "\n";
+                                    cargaProporcional = cargaProporcional + Math.Round(piezasPorHora / (60 / item.samOperacion), 2);
+                                }
+                            }
                         }
                     }
                 }
@@ -4301,6 +4052,430 @@ namespace Production_control_1._0
             #endregion
         }
         #endregion
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            #region conexionesConBasesSQL
+            SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            SqlConnection cnBalances = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_balances"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql; //Consulta que se hace en sql
+            SqlCommand cm; //comando sql (base en la que se ejecutara la consulta sql)
+            SqlDataReader dr; //leer los resultados del comando sql
+            #endregion
+            string llave = modulo_ + nomre + temporada + version;
+            #region llenarEncabezado
+            sql = "select fecha_creacion, estilo, temporada, sam, modulo, corrida, horas, operarios, ingeniero, version from lista_balances where identificador='" + llave + "'";
+            cnBalances.Open();
+            cm = new SqlCommand(sql, cnBalances);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            // modulo.SelectedItem = dr["modulo"].ToString();
+            fecha_.Content = Convert.ToDateTime(dr["fecha_creacion"]).ToString("yyyy-MM-dd");
+            version_.Text = dr["version"].ToString();
+            piezas_de_corrida.Text = dr["corrida"].ToString();
+            horas_de_corrida.Text = dr["horas"].ToString();
+            sam_.Content = dr["sam"].ToString();
+            sam_2.Content = dr["sam"].ToString();
+            modulo.SelectedItem = dr["modulo"].ToString();
+            operarios_.Content = dr["operarios"].ToString();
+            operarios_2.Content = dr["operarios"].ToString();
+            cnBalances.Close();
+            dr.Close();
+            #endregion
+            #region llenarListaDeMaquinas
+            List<elementoListBox> listaDeMaquinas = new List<elementoListBox>();
+            sql = "select ajuste, categoria, color, maquina, correlativo, operacion, codigo, sam, carga, operario, codigoMaquina from consultaDeMaquinas where identificador='" + llave + "'";
+            cnBalances.Open();
+            cm = new SqlCommand(sql, cnBalances);
+            dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                listaDeMaquinas.Add(
+                    new elementoListBox
+                    {
+                        correlativoMaquina = Convert.ToInt32(dr["maquina"]),
+                        colorAjuste = dr["color"].ToString(),
+                        categoriaMaquina = dr["categoria"].ToString(),
+                        nombreOperario = dr["operario"].ToString(),
+                        ajusteMaquina = dr["ajuste"].ToString(),
+                        correlativoOperacion = Convert.ToInt32(dr["correlativo"]),
+                        tituloOperacion = dr["operacion"].ToString(),
+                        nombreOperacion = dr["codigo"].ToString(),
+                        asignadoOperacion = Convert.ToDouble(dr["carga"]),
+                        samOperacion = Convert.ToDouble(dr["sam"]),
+                        codigoMaquina=dr["codigoMaquina"].ToString()
+                    });
+            }
+            dr.Close();
+            cnBalances.Close();
+            #endregion
+            int numeroEstacion = 0;
+            #region areaPreparacion
+            foreach (GroupBox groupBox in areaPreparacion.Children)
+            {
+                numeroEstacion = numeroEstacion + 1;
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+                        foreach (elementoListBox item in listaDeMaquinas)
+                        {
+                            foreach (object elemento in estacion.Children)
+                            {
+                                if (item.correlativoMaquina == numeroEstacion)
+                                {
+                                    if (elemento.GetType() == typeof(TextBlock))
+                                    {
+                                        ((TextBlock)elemento).Text = item.categoriaMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(Label))
+                                    {
+                                        ((Label)elemento).Content = item.nombreOperario;
+                                    }
+                                    if (elemento.GetType() == typeof(TextBox))
+                                    {
+                                        ((TextBox)elemento).Text = item.ajusteMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(ListBox))
+                                    {
+                                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                                        listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaUno
+            foreach (GroupBox groupBox in arteriaUno.Children)
+            {
+                numeroEstacion = numeroEstacion + 1;
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+                        foreach (elementoListBox item in listaDeMaquinas)
+                        {
+                            foreach (object elemento in estacion.Children)
+                            {
+                                if (item.correlativoMaquina == numeroEstacion)
+                                {
+                                    string color = item.colorAjuste;
+                                    #region colorEnString
+                                    switch (color)
+                                    {
+                                        case "rojo":
+                                            estacion.Background = Brushes.Pink;
+                                            break;
+                                        case "azul":
+                                            estacion.Background = Brushes.LightBlue;
+                                            break;
+                                        case "verde":
+                                            estacion.Background = Brushes.LightGreen;
+                                            break;
+                                        case "amarillo":
+                                            estacion.Background = Brushes.Yellow;
+                                            break;
+                                        case "anaranjado":
+                                            estacion.Background = Brushes.Orange;
+                                            break;
+                                    }
+                                    #endregion
+                                    if (elemento.GetType() == typeof(TextBlock))
+                                    {
+                                        ((TextBlock)elemento).Text = item.categoriaMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(Label))
+                                    {
+                                        ((Label)elemento).Content = item.nombreOperario;
+                                    }
+                                    if (elemento.GetType() == typeof(TextBox))
+                                    {
+                                        ((TextBox)elemento).Text = item.ajusteMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(ListBox))
+                                    {
+                                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                                        listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaDos
+            foreach (GroupBox groupBox in arteriaDos.Children)
+            {
+                numeroEstacion = numeroEstacion + 1;
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+                        foreach (elementoListBox item in listaDeMaquinas)
+                        {
+                            foreach (object elemento in estacion.Children)
+                            {
+                                if (item.correlativoMaquina == numeroEstacion)
+                                {
+                                    string color = item.colorAjuste;
+                                    #region colorEnString
+                                    switch (color)
+                                    {
+                                        case "rojo":
+                                            estacion.Background = Brushes.Pink;
+                                            break;
+                                        case "azul":
+                                            estacion.Background = Brushes.LightBlue;
+                                            break;
+                                        case "verde":
+                                            estacion.Background = Brushes.LightGreen;
+                                            break;
+                                        case "amarillo":
+                                            estacion.Background = Brushes.Yellow;
+                                            break;
+                                        case "anaranjado":
+                                            estacion.Background = Brushes.Orange;
+                                            break;
+                                    }
+                                    #endregion
+                                    if (elemento.GetType() == typeof(TextBlock))
+                                    {
+                                        ((TextBlock)elemento).Text = item.categoriaMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(Label))
+                                    {
+                                        ((Label)elemento).Content = item.nombreOperario;
+                                    }
+                                    if (elemento.GetType() == typeof(TextBox))
+                                    {
+                                        ((TextBox)elemento).Text = item.ajusteMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(ListBox))
+                                    {
+                                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                                        listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaTres
+            foreach (GroupBox groupBox in arteriaTres.Children)
+            {
+                numeroEstacion = numeroEstacion + 1;
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+                        foreach (elementoListBox item in listaDeMaquinas)
+                        {
+                            foreach (object elemento in estacion.Children)
+                            {
+                                if (item.correlativoMaquina == numeroEstacion)
+                                {
+                                    string color = item.colorAjuste;
+                                    #region colorEnString
+                                    switch (color)
+                                    {
+                                        case "rojo":
+                                            estacion.Background = Brushes.Pink;
+                                            break;
+                                        case "azul":
+                                            estacion.Background = Brushes.LightBlue;
+                                            break;
+                                        case "verde":
+                                            estacion.Background = Brushes.LightGreen;
+                                            break;
+                                        case "amarillo":
+                                            estacion.Background = Brushes.Yellow;
+                                            break;
+                                        case "anaranjado":
+                                            estacion.Background = Brushes.Orange;
+                                            break;
+                                    }
+                                    #endregion
+                                    if (elemento.GetType() == typeof(TextBlock))
+                                    {
+                                        ((TextBlock)elemento).Text = item.categoriaMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(Label))
+                                    {
+                                        ((Label)elemento).Content = item.nombreOperario;
+                                    }
+                                    if (elemento.GetType() == typeof(TextBox))
+                                    {
+                                        ((TextBox)elemento).Text = item.ajusteMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(ListBox))
+                                    {
+                                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                                        listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaCuatro
+            foreach (GroupBox groupBox in arteriaCuatro.Children)
+            {
+                numeroEstacion = numeroEstacion + 1;
+                foreach (var objeto in FindVisualChildren<StackPanel>(groupBox))
+                {
+                    if (objeto.Name == "stackPanelContenedor")
+                    {
+                        StackPanel estacion = (StackPanel)objeto;
+                        foreach (elementoListBox item in listaDeMaquinas)
+                        {
+                            foreach (object elemento in estacion.Children)
+                            {
+                                if (item.correlativoMaquina == numeroEstacion)
+                                {
+                                    string color = item.colorAjuste;
+                                    #region colorEnString
+                                    switch (color)
+                                    {
+                                        case "rojo":
+                                            estacion.Background = Brushes.Pink;
+                                            break;
+                                        case "azul":
+                                            estacion.Background = Brushes.LightBlue;
+                                            break;
+                                        case "verde":
+                                            estacion.Background = Brushes.LightGreen;
+                                            break;
+                                        case "amarillo":
+                                            estacion.Background = Brushes.Yellow;
+                                            break;
+                                        case "anaranjado":
+                                            estacion.Background = Brushes.Orange;
+                                            break;
+                                    }
+                                    #endregion
+                                    if (elemento.GetType() == typeof(TextBlock))
+                                    {
+                                        ((TextBlock)elemento).Text = item.categoriaMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(Label))
+                                    {
+                                        ((Label)elemento).Content = item.nombreOperario;
+                                    }
+                                    if (elemento.GetType() == typeof(TextBox))
+                                    {
+                                        ((TextBox)elemento).Text = item.ajusteMaquina;
+                                    }
+                                    if (elemento.GetType() == typeof(ListBox))
+                                    {
+                                        ListBox listaDeOperaciones = ((ListBox)elemento);
+                                        listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region arteriaUno
+            numeroEstacion = numeroEstacion + 1;
+            foreach (var objeto in FindVisualChildren<StackPanel>(enganche))
+            {
+                if (objeto.Name == "stackPanelContenedor")
+                {
+                    StackPanel estacion = (StackPanel)objeto;
+                    foreach (elementoListBox item in listaDeMaquinas)
+                    {
+                        foreach (object elemento in estacion.Children)
+                        {
+                            if (item.correlativoMaquina == numeroEstacion)
+                            {
+                                string color = item.colorAjuste;
+                                #region colorEnString
+                                switch (color)
+                                {
+                                    case "rojo":
+                                        estacion.Background = Brushes.Pink;
+                                        break;
+                                    case "azul":
+                                        estacion.Background = Brushes.LightBlue;
+                                        break;
+                                    case "verde":
+                                        estacion.Background = Brushes.LightGreen;
+                                        break;
+                                    case "amarillo":
+                                        estacion.Background = Brushes.Yellow;
+                                        break;
+                                    case "anaranjado":
+                                        estacion.Background = Brushes.Orange;
+                                        break;
+                                }
+                                #endregion
+                                if (elemento.GetType() == typeof(TextBlock))
+                                {
+                                    ((TextBlock)elemento).Text = item.categoriaMaquina;
+                                }
+                                if (elemento.GetType() == typeof(Label))
+                                {
+                                    ((Label)elemento).Content = item.nombreOperario;
+                                }
+                                if (elemento.GetType() == typeof(TextBox))
+                                {
+                                    ((TextBox)elemento).Text = item.ajusteMaquina;
+                                }
+                                if (elemento.GetType() == typeof(ListBox))
+                                {
+                                    ListBox listaDeOperaciones = ((ListBox)elemento);
+                                    listaDeOperaciones.Items.Add(new elementoListBox { correlativoOperacion = item.correlativoOperacion, tituloOperacion = item.tituloOperacion, nombreOperacion = item.nombreOperacion, asignadoOperacion = item.asignadoOperacion, samOperacion = item.samOperacion, ajusteMaquina = item.ajusteMaquina });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region llenarListaDeOperaciones
+            sql = "select correlativo, codigo, titulo, sam, ajuste, categoria, requerimiento, asignado from operaciones where identificador='" + llave + "'";
+            cnBalances.Open();
+            cm = new SqlCommand(sql, cnBalances);
+            dr = cm.ExecuteReader();
+            List<elementoListBox> listaOperaciones = new List<elementoListBox>();
+            while (dr.Read())
+            {
+                listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = Convert.ToInt32(dr["correlativo"]), nombreOperacion = dr["codigo"].ToString(), tituloOperacion = dr["titulo"].ToString(), samOperacion = Convert.ToDouble(dr["sam"]), asignadoOperacion = Convert.ToDouble(dr["asignado"]), requeridoOperacion = Convert.ToDouble(dr["requerimiento"]), ajusteMaquina = dr["ajuste"].ToString(), categoriaMaquina = dr["categoria"].ToString() });
+            };
+            dr.Close();
+            cnBalances.Close();
+            Operaciones.ItemsSource = listaOperaciones;
+            #endregion
+            #region llenarListaDeOperarios
+            sql = "select codigo, nombre, asignado, plana, rana, flat, cover, transfer, atracadora, plancha, bonding, zig_zag, multiaguja, manual, varias from operarios_2 where identificador='" + llave + "'";
+            cnBalances.Open();
+            cm = new SqlCommand(sql, cnBalances);
+            dr = cm.ExecuteReader();
+            List<elementoListBox> listaOperarios = new List<elementoListBox>();
+            while (dr.Read())
+            {
+                listaOperarios.Add(new elementoListBox() { identificador = "operario", codigoOperario = Convert.ToInt32(dr["codigo"]), nombreOperario = dr["nombre"].ToString(), asignadoOperario = Convert.ToDouble(dr["asignado"] is DBNull ? 0 : dr["asignado"]), planaOperario = Convert.ToDouble(dr["plana"] is DBNull ? 0.9 : dr["plana"]), ranaOperario = Convert.ToDouble(dr["rana"] is DBNull ? 0.9 : dr["rana"]), flatOperario = Convert.ToDouble(dr["flat"] is DBNull ? 0.9 : dr["flat"]), coverOperario = Convert.ToDouble(dr["cover"] is DBNull ? 0.9 : dr["cover"]), transferOperario = Convert.ToDouble(dr["transfer"] is DBNull ? 0.9 : dr["transfer"]), atracadoraOperario = Convert.ToDouble(dr["atracadora"] is DBNull ? 0.9 : dr["atracadora"]), planchaOperario = Convert.ToDouble(dr["plancha"] is DBNull ? 0.9 : dr["plancha"]), bondingOperario = Convert.ToDouble(dr["bonding"] is DBNull ? 0.9 : dr["bonding"]), zigzagOperario = Convert.ToDouble(dr["zig_zag"] is DBNull ? 0.9 : dr["zig_zag"]), multiagujaOperario = Convert.ToDouble(dr["multiaguja"] is DBNull ? 0.9 : dr["multiaguja"]), manualOperario = Convert.ToDouble(dr["manual"] is DBNull ? 0.9 : dr["manual"]), variasOperario = Convert.ToDouble(dr["varias"] is DBNull ? 0.9 : dr["varias"]) });
+            };
+            dr.Close();
+            cnBalances.Close();
+            Operarios.ItemsSource = listaOperarios;
+            #endregion
+        }
     }
 }
 

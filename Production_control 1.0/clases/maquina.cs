@@ -8,6 +8,7 @@ namespace Production_control_1._0.clases
 {
    public class maquina:operario
     {
+        public int correlativoMaquina { get; set; }
         public string ajusteMaquina { get; set; }
         public string categoriaMaquina { get; set; }
         public string colorAjuste { get; set; }
