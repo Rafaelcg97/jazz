@@ -20,11 +20,11 @@
                         <RadioButton x:Name="Red" Background="red" Checked="ColorEstacion"/>
                         <RadioButton x:Name="Blue" Background="blue" Checked="ColorEstacion"/>
                         <RadioButton x:Name="White" Background="white" Checked="ColorEstacion"/>
-                        <TextBox Width="55" Height="14" BorderThickness="1" Margin="34,0,0,0" />
+                        <TextBox Width="55" Height="14" BorderThickness="1" Margin="34,0,0,0" MaxLength="10" />
                     </StackPanel>
                     <Separator Margin="0" Background="Black"/>
                     <TextBlock Padding="0" Height="0" Text="" Visibility="Hidden"/>
-                    <TextBox x:Name="txtAjuste" Height="15" Width="180" BorderThickness="0" Background="Transparent"/>
+                    <TextBox x:Name="txtAjuste" Height="15" Width="180" BorderThickness="0" Background="Transparent" IsReadOnly="True"/>
                     <Separator Margin="0" Background="Black"/>
                     <ListBox Background="Transparent" Padding="-5,1,-5,0" Height="55" Width="180" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" FontSize="8"  MouseDoubleClick="eliminarItem" BorderThickness="0">
                         <ListBox.ItemTemplate>
@@ -509,7 +509,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <!--#region arteriaUno-->
                                             <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="arteriaUno">
-                                                <GroupBox Header="Estación 1" FontSize="9" FontWeight="Bold" ContentTemplate="{StaticResource MyTemplate}" Padding="-3,0,-3,-3" BorderThickness="0" />
+                                                <GroupBox Header="Estación 1" FontSize="9" FontWeight="Bold" ContentTemplate="{StaticResource MyTemplate}" Padding="-3,0,-3,-3" BorderThickness="0"/>
                                                 <GroupBox Header="Estación 2" FontSize="9" FontWeight="Bold" ContentTemplate="{StaticResource MyTemplate}" Padding="-3,0,-3,-3" BorderThickness="0" />
                                                 <GroupBox Header="Estación 3" FontSize="9" FontWeight="Bold" ContentTemplate="{StaticResource MyTemplate}" Padding="-3,0,-3,-3" BorderThickness="0" />
                                                 <GroupBox Header="Estación 4" FontSize="9" FontWeight="Bold" ContentTemplate="{StaticResource MyTemplate}" Padding="-3,0,-3,-3" BorderThickness="0" />
