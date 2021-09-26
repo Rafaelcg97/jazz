@@ -481,7 +481,7 @@
                 <TabItem Header="Layout" TabIndex="0" x:Name="tab0">
                     <ScrollViewer x:Name="espacio"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible">
                         <Viewbox  x:Name="ZoomViewbox" Stretch="Fill">
-                            <Border BorderBrush="White" BorderThickness="2" Margin="10" >
+                            <Border BorderBrush="White" BorderThickness="2" Margin="10" x:Name="layout" >
                                 <StackPanel Orientation="Horizontal">
                                     <!--#region areaPreparacion-->
                                     <StackPanel Grid.Row="0" Grid.Column="14" Grid.RowSpan="49" Grid.ColumnSpan="4" x:Name="areaPreparacion">

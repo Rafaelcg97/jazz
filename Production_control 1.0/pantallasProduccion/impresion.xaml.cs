@@ -33,88 +33,93 @@ namespace Production_control_1._0
             #region datosMaquinaa
             foreach (object elemento in prueba.Children)
             {
-                if(elemento.GetType() == typeof(Label))
+                if (elemento.GetType() == typeof(Label))
                 {
                     Label label = ((Label)elemento);
-                    foreach(elementoListBox item in listaOperariosRecibidos)
-                    {
-                        #region determinarColor
-                        Brush color = Brushes.White;
-                        switch (item.colorAjuste)
-                        {
-                            case "rojo":
-                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFF8080");
-                                break;
-                            case "azul":
-                                color =(SolidColorBrush)new BrushConverter().ConvertFromString("#FF89BFF5");
-                                break;
-                            case "verde":
-                                color =(SolidColorBrush)new BrushConverter().ConvertFromString("#FF7FE483");
-                                break;
-                            case "amarillo":
-                                color = Brushes.Yellow;
-                                break;
-                            case "anaranjado":
-                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFFC662");
-                                break;
-                            default:
-                                color = Brushes.White;
-                                break;
-                        }
-                        #endregion
-                        if (label.Name.ToString() == "mp" + item.correlativoOperacion)
-                        {
-                            label.Content = item.ajusteMaquina;
-                            label.Background = color;
-                        }
-                        if (label.Name.ToString() == "o" + item.correlativoOperacion)
-                        {
-                            label.Content = item.nombreOperario;
-                            label.Background = color;
-                        }
-                    }
-                }
-                if(elemento.GetType() == typeof(ListBox))
-                {
-                    ListBox listBox = ((ListBox)elemento);
                     foreach (elementoListBox item in listaOperariosRecibidos)
                     {
                         #region determinarColor
                         Brush color = Brushes.White;
                         switch (item.colorAjuste)
                         {
-                            case "rojo":
-                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFF8080");
+                            case "Pink":
+                                color = Brushes.Pink;
                                 break;
-                            case "azul":
-                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF89BFF5");
+                            case "LightBlue":
+                                color = Brushes.LightBlue;
+                                // color =(SolidColorBrush)new BrushConverter().ConvertFromString("#FF89BFF5");
                                 break;
-                            case "verde":
-                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF7FE483");
+                            case "LightGreen":
+                                color = Brushes.LightGreen;
                                 break;
-                            case "amarillo":
+                            case "Yellow":
                                 color = Brushes.Yellow;
                                 break;
-                            case "anaranjado":
-                                color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFFC662");
+                            case "Orange":
+                                color = Brushes.Orange;
                                 break;
                             default:
                                 color = Brushes.White;
                                 break;
                         }
                         #endregion
-                        if (listBox.Name.ToString() == "op" + item.correlativoOperacion)
+                        if (label.Name.ToString() == "mp" + item.correlativoMaquina)
                         {
-                            listBox.Items.Add(item.tituloOperacion);
-                            listBox.Background = color;
+                            label.Content = item.ajusteMaquina + " - " + item.codigoMaquina ;
+                            label.Background = color;
                         }
-                        else
+                        if (label.Name.ToString() == "o" + item.correlativoMaquina)
                         {
-
+                            label.Content = item.nombreOperario;
+                            label.Background = color;
                         }
                     }
                 }
-            }
+                    if (elemento.GetType() == typeof(ListBox))
+                    {
+                        ListBox listBox = ((ListBox)elemento);
+                        foreach (elementoListBox item in listaOperariosRecibidos)
+                        {
+                            #region determinarColor
+                            Brush color = Brushes.White;
+                            switch (item.colorAjuste)
+                            {
+                                case "Pink":
+                                    color = Brushes.Pink;
+                                    break;
+                                case "LightBlue":
+                                    color = Brushes.LightBlue;
+                                    // color =(SolidColorBrush)new BrushConverter().ConvertFromString("#FF89BFF5");
+                                    break;
+                                case "LightGreen":
+                                    color = Brushes.LightGreen;
+                                    break;
+                                case "Yellow":
+                                    color = Brushes.Yellow;
+                                    break;
+                                case "Orange":
+                                    color = Brushes.Orange;
+                                    break;
+                                default:
+                                    color = Brushes.White;
+                                    break;
+                            }
+                            #endregion
+                            if (listBox.Name.ToString() == "op" + item.correlativoMaquina)
+                            {
+                                foreach(operacionesAgregadas subitem in item.operacionesAgregadas)
+                                {
+                                    listBox.Items.Add(subitem.tituloOperacion);
+                                }
+                                listBox.Background = color;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+                }
             #endregion
             #region datosGenerales
             resumen_maquinas.ItemsSource = resumenMaquinas;
