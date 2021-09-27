@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Production_control_1._0.pantallasProduccion
     {
         List<lote> listaDeLotes = new List<lote>();
         public string[] _motivos = new string[9];
+        ObservableCollection<horaProduccion> datosLotes = new ObservableCollection<horaProduccion>();
+
         #region varibalesConexion
         public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -93,6 +96,7 @@ namespace Production_control_1._0.pantallasProduccion
 
             labelFecha.Content = fecha;
             buttonGuardar.IsEnabled = false;
+            listViewLotes.ItemsSource = datosLotes;
         }
         #endregion
         #region control_general_del_programa()
@@ -343,8 +347,8 @@ namespace Production_control_1._0.pantallasProduccion
             {
                 lote item = (lote)listBoxLote.SelectedItem;
                 lote item2 = (lote)listBoxEmpaqueLo.SelectedItem;
-                listViewLotes.Items.Add(new horaProduccion { lote = item.numeroLote, estilo=item.estilo, temporada=item.temporada, piezas = item.piezas, terminadas = piezasReportadas, motivoParo = "-", motivos = _motivos, sam=Convert.ToDouble(popUpLabelSamT.Content), empaque=item2.empaque, descripcion=item2.descripcion });
-                calculosLotes();
+                datosLotes.Add(new horaProduccion { lote = item.numeroLote, estilo=item.estilo, temporada=item.temporada, piezas = item.piezas, terminadas = piezasReportadas,  motivoParo = "-", motivos = _motivos, sam=Convert.ToDouble(popUpLabelSamT.Content), empaque=item2.empaque, descripcion=item2.descripcion });
+                RefreshListView();
             }
             else
             {
@@ -401,43 +405,6 @@ namespace Production_control_1._0.pantallasProduccion
         }
         #endregion
         #region calculosGenerales
-        private void calculosLotes()
-        {
-            List<horaProduccion> listaCalculada = new List<horaProduccion>();
-            double minutosLote = 0;
-            int conteoLote = 0;
-            double minutosHora = 0;
-            double minutosHoraEfectivos = 0;
-            string _color = "Transparent";
-            int piezasLote = 0;
-            int totalPiezasTerminadas = 0;
-            double minutosParoHora = 0;
-            double _sam = 0;
-            int totalDePiezas = 0;
-            foreach(horaProduccion item in listViewLotes.Items)
-            {
-                 _sam = item.sam;
-                conteoLote = conteoLote + 1;
-                piezasLote= item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl;
-                totalPiezasTerminadas = item.terminadas + piezasLote;
-                minutosLote = _sam * piezasLote;
-                minutosHora = minutosHora + minutosLote;
-                minutosParoHora = minutosParoHora + item.tiempoParo;
-                totalDePiezas = totalDePiezas + piezasLote;
-                listaCalculada.Add(new horaProduccion {lote=item.lote, estilo=item.estilo, temporada=item.temporada, empaque=item.empaque, descripcion=item.descripcion, piezas=item.piezas, terminadas=totalPiezasTerminadas, minutosEfectivos=minutosLote, motivos=item.motivos, tiempoParo=item.tiempoParo, motivoParo=item.motivoParo, sam=_sam, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl});
-            }
-            labelPiezas.Content = totalDePiezas;
-            listViewPiezas.Items.Clear();
-            foreach(horaProduccion item2 in listaCalculada)
-            {
-                if (minutosHora > 0) { minutosLote = (60-minutosParoHora) * (item2.minutosEfectivos / minutosHora); } else {  minutosLote= ((60 - minutosParoHora) / conteoLote); };
-                if (item2.terminadas > item2.piezas) { _color = "Red"; } else { _color = "Transparent"; }
-                minutosHoraEfectivos = minutosHoraEfectivos + minutosLote;
-                listViewPiezas.Items.Add(new horaProduccion {lote = item2.lote, colorLote=_color, estilo=item2.estilo, empaque=item2.empaque, descripcion=item2.descripcion, temporada=item2.temporada, tiempoParo=item2.tiempoParo, motivoParo=item2.motivoParo, motivos=item2.motivos, piezas = item2.piezas, terminadas = item2.terminadas, minutosEfectivos = minutosLote, sam=item2.sam, xxs=item2.xxs, xs=item2.xs, s=item2.s, m=item2.m, l=item2.l, xl=item2.xl, xxl=item2.xxl, xxxl=item2.xxxl });
-            }
-            labelMinutos.Content =Math.Round(minutosHoraEfectivos,2);
-
-        }
         private void LostFocusElemento(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -446,48 +413,24 @@ namespace Production_control_1._0.pantallasProduccion
                 textBox.Clear();
                 textBox.Text = "0";
             }
-            calculosLotes();
+            RefreshListView();
         }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
+            listViewLotes.SelectedItem = textBox.DataContext;
             if (textBox.Text == "0")
             {
                 textBox.Clear();
             }
-            else
-            {
-
-            }
-
         }
         private void listViewLotes_KeyDown(object sender, KeyEventArgs e)
         {
             // eliminar el lote con ctrl y d
             if ((Keyboard.Modifiers == ModifierKeys.Control) && (e.Key == Key.D))
             {
-                int elementoSeleccionado = listViewLotes.SelectedIndex + 1;
-                List<horaProduccion> items = new List<horaProduccion>();
-                int conteo = 0;
-                foreach (horaProduccion item in listViewLotes.Items)
-                {
-                    conteo = conteo + 1;
-                    if (conteo == elementoSeleccionado)
-                    {
-                    }
-                    else
-                    {
-                        items.Add(item);
-                    }
-                }
-
-                listViewLotes.Items.Clear();
-                foreach (horaProduccion item2 in items)
-                {
-                    listViewLotes.Items.Add(item2);
-                }
-
-                calculosLotes();
+                datosLotes.RemoveAt(listViewLotes.SelectedIndex);
+                RefreshListView();
             }
         }
         #endregion
@@ -553,7 +496,7 @@ namespace Production_control_1._0.pantallasProduccion
                 if(checkBoxCambio.IsChecked == true) { cambioEstilo = "Si"; }
                 //consultar si todos los lotes son validos
                 int conteoLotesInvalidos = 0;
-                foreach (horaProduccion item in listViewPiezas.Items)
+                foreach (horaProduccion item in listViewLotes.Items)
                 {
                     if (item.colorLote == "Red")
                     {
@@ -570,7 +513,7 @@ namespace Production_control_1._0.pantallasProduccion
                 else
                 {
                     cnProduccion.Open();
-                    foreach (horaProduccion item in listViewPiezas.Items)
+                    foreach (horaProduccion item in datosLotes)
                     {
                         if (item.colorLote != "Red")
                         {
@@ -655,7 +598,7 @@ namespace Production_control_1._0.pantallasProduccion
             if (checkBoxCambio.IsChecked == true) { cambioEstilo = "Si"; }
 
             cnProduccion.Open();
-            foreach (horaProduccion item in listViewPiezas.Items)
+            foreach (horaProduccion item in datosLotes)
             {
                 if (item.colorLote != "Red")
                 {
@@ -714,6 +657,36 @@ namespace Production_control_1._0.pantallasProduccion
         {
             Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
             ventana.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF383B42");
+        }
+        private void ComboBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            listViewLotes.SelectedItem = comboBox.DataContext;
+            RefreshListView();
+        }
+        private void RefreshListView()
+        {
+            int conteo = 0;
+            double _samPonderado = 0;
+            double _minutosPausa = 0;
+            int totalDePiezas = 0;
+            foreach(horaProduccion item in datosLotes)
+            {
+                _samPonderado = _samPonderado + item.samPonderado;
+                if (item.motivoParo != "Máquina Mala")
+                {
+                    _minutosPausa = _minutosPausa + item.tiempoParo;
+                }
+                totalDePiezas = totalDePiezas + item.xxs + item.xs + item.s + item.m + item.l + item.xl + item.xxl + item.xxxl;
+                conteo++;
+            }
+            labelMinutos.Content = (60 - _minutosPausa).ToString();
+            labelPiezas.Content = totalDePiezas.ToString();
+
+            foreach (horaProduccion item in datosLotes)
+            {
+                if (_samPonderado > 0) { item.minutosEfectivos = (60 - _minutosPausa) * (item.samPonderado / _samPonderado); } else { item.minutosEfectivos = ((60 - _minutosPausa) / conteo); };
+            }
         }
     }
 }

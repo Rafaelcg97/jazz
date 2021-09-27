@@ -1,13 +1,29 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Production_control_1._0.clases
 {
-    public class horaProduccion
+    public class horaProduccion : INotifyPropertyChanged
     {
+        // boiler-plate
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        protected bool SetField<T>(ref T field, T value, string propertyName)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
         public int num_hh { get; set; }
         public string fecha { get; set; }
         public string turno { get; set; }
@@ -30,7 +46,22 @@ namespace Production_control_1._0.clases
         public string lote { get; set; }
         public int piezas { get; set; }
         public int terminadas { get; set; }
-        public string colorLote { get; set; }
+        public string colorLote 
+        {
+
+            get
+            {
+                string color = "Transparent";
+
+                if (piezasReportadas > piezas)
+                {
+                    color = "Red";
+                }
+
+                return color;
+            }
+
+        }
         public int xxs { get; set; }
         public int xs { get; set; }
         public int s { get; set; }
@@ -40,6 +71,20 @@ namespace Production_control_1._0.clases
         public int xxl { get; set; }
         public int xxxl { get; set; }
         public int totalDePiezas { get; set; }
+        public int piezasReportadas        
+        {
+            get
+            {
+                return terminadas+ xxs + xs + s + m + l + xl + xxl + xxxl;
+            }
+        }
+        public double samPonderado
+        {
+            get
+            {
+                return sam * (xxs + xs + s + m + l + xl + xxl + xxxl);
+            }
+        }
         public double tiempoParo { get; set; }
         public string motivoParo { get; set; }
         public string custom { get; set; }
