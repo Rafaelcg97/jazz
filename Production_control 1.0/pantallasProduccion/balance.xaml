@@ -293,7 +293,7 @@
                                     </Border>
                                 </Popup>
                             </StackPanel>
-                            <TextBox x:Name="version_" FontFamily="calibri" FontWeight="Medium" KeyDown="solo_numeros" Height="16" Margin="0,3,0,0"></TextBox>
+                            <TextBox x:Name="version_" FontFamily="calibri" FontWeight="Medium" KeyDown="solo_numeros" Height="16" Margin="0,3,0,0" TextChanged="version__TextChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </Viewbox>

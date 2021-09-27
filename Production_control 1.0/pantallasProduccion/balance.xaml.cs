@@ -4229,6 +4229,11 @@ namespace Production_control_1._0
             #endregion
             return lista;
         }
+
+        private void version__TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LabelVersionGuardar.Content = version_.Text;
+        }
     }
 }
 
