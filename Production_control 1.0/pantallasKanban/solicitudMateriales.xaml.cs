@@ -355,20 +355,25 @@ namespace Production_control_1._0.pantallasKanban
                 //validar cajas
 
                 List<solicitudKanban> listaCajas = new List<solicitudKanban>();
+                int conteoTiposCajas = 0;
                 foreach(solicitudKanban item in listViewCajas.Items)
                 {
+                    conteoTiposCajas++;
                     listaCajas.Add(item);
                 }
                 int minvalue = Convert.ToInt32(listaCajas.Min(x => x.cantidad));
-                foreach (solicitudKanban item in listViewCajas.Items)
+                if (conteoTiposCajas > 1)
                 {
-                    if (item.cantidad == minvalue)
+                    foreach (solicitudKanban item in listViewCajas.Items)
                     {
-                        item.diferencia = 10;
+                        if (item.cantidad == minvalue)
+                        {
+                            item.diferencia = 10;
+                        }
                     }
+                    listViewCajas.Items.Refresh();
                 }
 
-                listViewCajas.Items.Refresh();
             }
         }
         #endregion
