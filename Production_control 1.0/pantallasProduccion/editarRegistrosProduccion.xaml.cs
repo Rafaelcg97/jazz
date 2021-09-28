@@ -202,21 +202,38 @@ namespace Production_control_1._0.pantallasProduccion
             dr.Close();
             cnProduccion.Close();
 
+            //datos de estilo y temporada agrupados para consultar los empaques disponibles
+            var listaAgrupada = lista.GroupBy(x => new { x.estilo, x.temporada }).Select(x => new estilo() { nombre=x.Key.estilo, temporada=x.Key.temporada });
+
+            //obtener lista con los empaques disponibles
+            List<estilo> empaques = new List<estilo>();
             cnIngenieria.Open();
-            foreach (horaProduccion item in lista)
+            foreach (estilo item in listaAgrupada)
             {
-                List<string> empaques = new List<string>();
-                sql = "select tipo_empaque from lotesconsamempaque where lote='" + item.lote + "'";
+                sql = "select estilo, temporada, tipo_empaque from samtotalPorEstilo where estilo='" + item.nombre + "' and temporada='"+ item.temporada +"'";
                 cm = new SqlCommand(sql, cnIngenieria);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    empaques.Add(dr["tipo_empaque"].ToString());
+                    empaques.Add(new estilo { nombre=dr["estilo"].ToString(), temporada=dr["temporada"].ToString(), nombreEmpaque=dr["tipo_empaque"].ToString() });
                 };
                 dr.Close();
-                listViewRegistros.Items.Add(new horaProduccion {fecha=item.fecha, turno=item.turno, hora=item.hora, modulo=item.modulo, arteria=item.arteria, lote=item.lote, empaque=item.empaque, empaques=empaques, estilo=item.estilo, temporada=item.temporada, sam=item.sam, incapacitados=item.incapacitados, permisos=item.permisos, cita=item.cita, inasistencia=item.inasistencia, opeCostura=item.opeCostura, opeManuales=item.opeManuales, xxs=item.xxs, xs=item.xs, s=item.s, m=item.m, l=item.l, xl=item.xl, xxl=item.xxl, xxxl=item.xxxl, totalDePiezas=item.totalDePiezas, motivoParo=item.motivoParo, tiempoParo=item.tiempoParo, custom=item.custom, minutosEfectivos=item.minutosEfectivos, cambioEstilo=item.cambioEstilo, ingresadoPor=item.ingresadoPor, num_hh=item.num_hh, arterias=item.arterias, turnos=item.turnos, modulos=item.modulos, horas=item.horas, eleccion=item.eleccion, motivos=item.motivos});
             }
             cnIngenieria.Close();
+
+            foreach(horaProduccion item in lista)
+            {
+                List<string> _empaques = new List<string>();
+                foreach (estilo subitem in empaques)
+                {
+                    if(item.estilo==subitem.nombre && item.temporada == subitem.temporada)
+                    {
+                        _empaques.Add(subitem.nombreEmpaque);
+                    }
+                }
+                item.empaques = _empaques;
+                listViewRegistros.Items.Add(item);
+            }
             MessageBox.Show("Datos Cargados");
         }
         private void comboBoxModulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -421,16 +438,24 @@ namespace Production_control_1._0.pantallasProduccion
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            List<horaProduccion> listaSinEmpaques = new List<horaProduccion>();
-            foreach (horaProduccion item in listViewRegistros.Items)
+            horaProduccion item = (horaProduccion)listViewRegistros.SelectedItem;
+            item.empaques.Clear();
+            item.empaque = "";
+            item.sam = 0;
+            string sql = "select estilo, temporada, tipo_empaque from lotesConSamEmpaque where lote='"+ item.lote +"'";
+            cnIngenieria.Open();
+            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
             {
-                listaSinEmpaques.Add(new horaProduccion { num_hh = item.num_hh, fecha = item.fecha, turno = item.turno, turnos = item.turnos, hora = item.hora, horas = item.horas, modulo = item.modulo, modulos = item.modulos, arteria = item.arteria, arterias = item.arterias, estilo = item.estilo, temporada = item.temporada, empaque = "", sam = 0, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl, totalDePiezas = item.totalDePiezas, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos = item.motivos, custom = item.custom, eleccion = item.eleccion, cambioEstilo = item.cambioEstilo, minutosEfectivos = item.minutosEfectivos, ingresadoPor = item.ingresadoPor });
-            }
-            listViewRegistros.Items.Clear();
-            foreach (horaProduccion item in listaSinEmpaques)
-            {
-                listViewRegistros.Items.Add(item);
-            }
+                item.empaques.Add(dr["tipo_empaque"].ToString());
+                item.estilo = dr["estilo"].ToString();
+                item.temporada = dr["temporada"].ToString();
+            };
+            dr.Close();
+            cnIngenieria.Close();
+            listViewRegistros.Items.Refresh();
+
         }
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
@@ -516,5 +541,33 @@ namespace Production_control_1._0.pantallasProduccion
             }
         }
         #endregion
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            listViewRegistros.SelectedItem = textBox.DataContext;
+        }
+
+        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            horaProduccion item = (horaProduccion)listViewRegistros.SelectedItem;
+            string sql = "select samtotal from samtotalporestilo where estilo='" + item.estilo + "' and temporada='" + item.temporada + "' and tipo_empaque='" + item.empaque + "'";
+            cnIngenieria.Open();
+            SqlCommand cm = new SqlCommand(sql, cnIngenieria);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                item.sam= (Convert.ToDouble(dr["samtotal"]));
+            };
+            dr.Close();
+            cnIngenieria.Close();
+            listViewRegistros.Items.Refresh();
+        }
+
+        private void ComboBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            listViewRegistros.SelectedItem = combo.DataContext;
+        }
     }
 }

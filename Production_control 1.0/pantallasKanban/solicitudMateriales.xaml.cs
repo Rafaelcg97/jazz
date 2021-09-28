@@ -352,11 +352,24 @@ namespace Production_control_1._0.pantallasKanban
                     }
                 }
 
+                //validar cajas
 
+                List<solicitudKanban> listaCajas = new List<solicitudKanban>();
+                foreach(solicitudKanban item in listViewCajas.Items)
+                {
+                    listaCajas.Add(item);
+                }
+                int minvalue = Convert.ToInt32(listaCajas.Min(x => x.cantidad));
+                foreach (solicitudKanban item in listViewCajas.Items)
+                {
+                    if (item.cantidad == minvalue)
+                    {
+                        item.diferencia = 10;
+                    }
+                }
+
+                listViewCajas.Items.Refresh();
             }
-
-
-
         }
         #endregion
         #region botonesDeAgregarMaterialLista
