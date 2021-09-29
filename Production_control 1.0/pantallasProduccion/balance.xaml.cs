@@ -998,12 +998,6 @@ namespace Production_control_1._0
             cn.Close();
             #endregion
             #region datosParaTablaOperaciones
-            //eliminar registros anteriores
-            cn.Open();
-            sql = "delete from operaciones where identificador= '" + llave + "'";
-            cm = new SqlCommand(sql, cn);
-            cm.ExecuteNonQuery();
-            cn.Close();
             //insertar nuevos registros con datos actualizados
             cn.Open();
             foreach (elementoListBox item in Operaciones.Items)
@@ -1015,12 +1009,6 @@ namespace Production_control_1._0
             cn.Close();
             #endregion
             #region datosParaTablaOperarios
-            //eliminar registros anteriores
-            cn.Open();
-            sql = "delete from operarios where identificador= '" + llave + "'";
-            cm = new SqlCommand(sql, cn);
-            cm.ExecuteNonQuery();
-            cn.Close();
             //insertar nuevos registros con datos actualizados
             cn.Open();
             foreach (elementoListBox item in Operarios.Items)
@@ -1032,12 +1020,6 @@ namespace Production_control_1._0
             cn.Close();
             #endregion
             #region datosParaTablaMaquinas
-            //eliminar registros anteriores
-            cn.Open();
-            sql = "delete from maquinas where identificador= '" + llave + "'";
-            cm = new SqlCommand(sql, cn);
-            cm.ExecuteNonQuery();
-            cn.Close();
             //agregar nuevos registros
             List<elementoListBox> listaOperacionesAgregadas_ = listaDeOperacionesAgregadas();
             cn.Open();
@@ -1438,17 +1420,27 @@ namespace Production_control_1._0
                         //agregar operacion de empaque
                         listaOperaciones.Add(new elementoListBox() { identificador = "operacion", correlativoOperacion = 0, nombreOperacion = "empaque", tituloOperacion = nombreEmpaque, samOperacion = samEmpaque, asignadoOperacion = 0, requeridoOperacion = 0, ajusteMaquina = "Mesa de Empaque", categoriaMaquina = "manual" });
                         #endregion
+
+                        List<elementoListBox> agregadas = new List<elementoListBox>();
+                        foreach (elementoListBox item in Operaciones.Items)
+                        {
+                            agregadas.Add(item);
+                        }
+                        double sam = 0;
                         #region calcularAsignaciones
                         foreach (elementoListBox item in listaOperaciones)
                         {
+                            sam = sam + item.samOperacion;
                             bool agregado = false;
                             elementoListBox subitemValido= new elementoListBox();
-                            foreach (elementoListBox subitem in Operaciones.Items)
+                            foreach (elementoListBox subitem in agregadas)
                             {
-                                if (item.nombreOperacion == subitem.nombreOperacion)
+                                if (item.nombreOperacion == subitem.nombreOperacion && item.samOperacion == subitem.samOperacion)
                                 {
                                     agregado = true;
                                     subitemValido = subitem;
+                                    agregadas.Remove(subitem);
+                                    break;
                                 }
                             }
                             if (agregado == true)
@@ -1461,6 +1453,8 @@ namespace Production_control_1._0
                             }
                         }
 
+                        sam_.Content = Math.Round(sam,4);
+                        sam_2.Content = Math.Round(sam, 4);
                         // se obtienen las piezas por hora
                         Double piezasRequeridasHora = Math.Round(Convert.ToDouble(piezas_de_corrida.Text) / Convert.ToDouble(horas_de_corrida.Text), 0);
                         piezas_por_hora.Content = piezasRequeridasHora;

@@ -140,77 +140,96 @@ namespace Production_control_1._0.pantallasKanban
             if (listBoxSeleccionado.SelectedIndex > -1)
             {
                 solicitudKanban itemseleccionado = (solicitudKanban)listBoxSeleccionado.SelectedItem;
-                popUpEstadoModulo.IsOpen = true;
-                labelNumeroAccion.Content = itemseleccionado.solicitudKanbanId;
-                labelModuloAccion.Content = itemseleccionado.modulo;
-                labelTipoDeAccion.Content = itemseleccionado.tipo;
-                labelHoraDeReporte.Content = Convert.ToDateTime(itemseleccionado.fechaSolicitud).ToString("yyyy-MM-dd HH:mm:ss");
-                passCodigoInicia.Clear();
-                labelNombreInicia.Content = "----";
 
-                //consultar materiales solicitados
-                consultarMaterialesSolicitados(itemseleccionado.solicitudKanbanId);
-
-                if (itemseleccionado.fechaInicio == "1900-01-01 12:00:00")
+                if (itemseleccionado.validadoSmed == true)
                 {
-                    labelHoraDeApertura.Content = "----";
-                    labelNombreAcargo.Content = "----";
-                    labelEstadoDeAccion.Content = "Pendiente";
-                    buttonTerminarAccion.IsEnabled = false;
-                    buttonIniciarAccion.IsEnabled = true;
-                    buttonEliminarAccion.IsEnabled = true;
-                    passCodigoInicia.Visibility = Visibility.Visible;
-                    labelIniciar.Visibility = Visibility.Visible;
-                    labelNombreInicia.Visibility = Visibility.Visible;
-                    imageIniciar.Source =new BitmapImage(iniciar_habilitado);
-                    imageTerminar.Source = new BitmapImage(terminar_inhabilitado);
-                    imageEliminar.Source = new BitmapImage(eliminar_habilitado);
+                    popUpEstadoModulo.IsOpen = true;
+                    labelNumeroAccion.Content = itemseleccionado.solicitudKanbanId;
+                    labelModuloAccion.Content = itemseleccionado.modulo;
+                    labelTipoDeAccion.Content = itemseleccionado.tipo;
+                    labelHoraDeReporte.Content = Convert.ToDateTime(itemseleccionado.fechaSolicitud).ToString("yyyy-MM-dd HH:mm:ss");
+                    passCodigoInicia.Clear();
+                    labelNombreInicia.Content = "----";
+
+                    //consultar materiales solicitados
+                    consultarMaterialesSolicitados(itemseleccionado.solicitudKanbanId);
+
+                    if (itemseleccionado.fechaInicio == "1900-01-01 12:00:00")
+                    {
+                        labelHoraDeApertura.Content = "----";
+                        labelNombreAcargo.Content = "----";
+                        labelEstadoDeAccion.Content = "Pendiente";
+                        buttonTerminarAccion.IsEnabled = false;
+                        buttonIniciarAccion.IsEnabled = true;
+                        buttonEliminarAccion.IsEnabled = true;
+                        passCodigoInicia.Visibility = Visibility.Visible;
+                        labelIniciar.Visibility = Visibility.Visible;
+                        labelNombreInicia.Visibility = Visibility.Visible;
+                        imageIniciar.Source = new BitmapImage(iniciar_habilitado);
+                        imageTerminar.Source = new BitmapImage(terminar_inhabilitado);
+                        imageEliminar.Source = new BitmapImage(eliminar_habilitado);
+                    }
+                    else
+                    {
+                        #region obtenerNombreDePreparador
+                        SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                        string sql = "select nombre from usuarios where codigo='" + itemseleccionado.atiendeSolicitud + "'";
+                        cn.Open();
+                        SqlCommand cm = new SqlCommand(sql, cn);
+                        SqlDataReader dr = cm.ExecuteReader();
+                        if (dr.Read())
+                        {
+                            labelNombreAcargo.Content = dr["nombre"].ToString();
+                        };
+                        dr.Close();
+                        cn.Close();
+                        #endregion
+                        labelHoraDeApertura.Content = Convert.ToDateTime(itemseleccionado.fechaInicio).ToString("yyyy-MM-dd HH:mm:ss");
+                        labelEstadoDeAccion.Content = "Abierta";
+                        buttonIniciarAccion.IsEnabled = false;
+                        buttonTerminarAccion.IsEnabled = true;
+                        buttonEliminarAccion.IsEnabled = false;
+                        passCodigoInicia.Visibility = Visibility.Hidden;
+                        labelIniciar.Visibility = Visibility.Hidden;
+                        labelNombreInicia.Visibility = Visibility.Hidden;
+                        imageIniciar.Source = new BitmapImage(iniciar_inhabilitado);
+                        imageTerminar.Source = new BitmapImage(terminar_habilitado);
+                        imageEliminar.Source = new BitmapImage(eliminar_inhabilitado);
+
+                    }
                 }
                 else
                 {
-                    #region obtenerNombreDePreparador
-                    SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                    string sql = "select nombre from usuarios where codigo='" + itemseleccionado.atiendeSolicitud + "'";
-                    cn.Open();
-                    SqlCommand cm = new SqlCommand(sql, cn);
-                    SqlDataReader dr = cm.ExecuteReader();
-                    if (dr.Read())
-                    {
-                        labelNombreAcargo.Content = dr["nombre"].ToString();
-                    };
-                    dr.Close();
-                    cn.Close();
-                    #endregion
-                    labelHoraDeApertura.Content = Convert.ToDateTime(itemseleccionado.fechaInicio).ToString("yyyy-MM-dd HH:mm:ss");
-                    labelEstadoDeAccion.Content = "Abierta";
-                    buttonIniciarAccion.IsEnabled = false;
-                    buttonTerminarAccion.IsEnabled = true;
-                    buttonEliminarAccion.IsEnabled = false;
-                    passCodigoInicia.Visibility = Visibility.Hidden;
-                    labelIniciar.Visibility = Visibility.Hidden;
-                    labelNombreInicia.Visibility = Visibility.Hidden;
-                    imageIniciar.Source = new BitmapImage(iniciar_inhabilitado);
-                    imageTerminar.Source = new BitmapImage(terminar_habilitado);
-                    imageEliminar.Source = new BitmapImage(eliminar_inhabilitado);
+                    popUpValidar.IsOpen = true;
+                    //consultar materiales solicitados
+                    consultarMaterialesSolicitados(itemseleccionado.solicitudKanbanId);
+                    labelNumeroAccionSmed.Content = itemseleccionado.solicitudKanbanId;
                 }
             }
         }
         private void consultarMaterialesSolicitados(int id)
         {
             listViewListaMateriales.Items.Clear();
+            listViewListaMaterialesValidar.Items.Clear();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select detalleKanbanId, solicitudKanbanId, lote, material, talla, cantidad, diferencia from detalleSolicitudeKanban where solicitudKanbanId="+id ;
+            string sql = "select detalleKanbanId, solicitudKanbanId, lote, material, talla, cantidad, diferencia, entregado from detalleSolicitudeKanban where solicitudKanbanId="+id ;
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 bool habilitado = false;
+                bool habilitadoEntrega = true;
                 if (dr["material"].ToString().Contains("HANGER"))
                 {
                     habilitado = true;
                 }
-                listViewListaMateriales.Items.Add(new solicitudKanban {solicitudKanbanId=Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado= Convert.ToInt32(dr["cantidad"]), habilitado=habilitado, diferencia=Convert.ToInt32(dr["diferencia"] is DBNull? 0: dr["diferencia"])+ Convert.ToInt32(dr["cantidad"]) });
+                if (Convert.ToBoolean(dr["entregado"])==true)
+                {
+                    habilitadoEntrega = false;
+                }
+                listViewListaMateriales.Items.Add(new solicitudKanban {solicitudKanbanId=Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado= Convert.ToInt32(dr["cantidad"]), habilitado=habilitado, diferencia=Convert.ToInt32(dr["diferencia"] is DBNull? 0: dr["diferencia"])+ Convert.ToInt32(dr["cantidad"]), chequeado= Convert.ToBoolean(dr["entregado"]), habilitadoEntrega=habilitadoEntrega });
+                listViewListaMaterialesValidar.Items.Add(new solicitudKanban { solicitudKanbanId = Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado = Convert.ToInt32(dr["cantidad"]), habilitado = habilitado, diferencia = Convert.ToInt32(dr["diferencia"] is DBNull ? 0 : dr["diferencia"]) + Convert.ToInt32(dr["cantidad"]), chequeado = Convert.ToBoolean(dr["entregado"]), habilitadoEntrega = habilitadoEntrega });
             }
             dr.Close();
             cn.Close();
@@ -295,10 +314,32 @@ namespace Production_control_1._0.pantallasKanban
             if (labelCodigoAutoriza.Content.ToString()!="*")
             {
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-                string sql = "update solicitudesKanban set fechaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', autorizaCierre='"+ labelCodigoAutoriza.Content.ToString() +"' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
+                bool terminarSolicitud = true;
+                string ahora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 cn.Open();
-                SqlCommand cm = new SqlCommand(sql, cn);
-                cm.ExecuteNonQuery();
+                foreach (solicitudKanban item in listViewListaMateriales.Items)
+                {
+                    if(item.habilitadoEntrega==true && item.chequeado == true)
+                    {
+                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + " where detalleKanbanId="+item.solicitudKanbanId ;
+                        SqlCommand cm = new SqlCommand(sql, cn);
+                        cm.ExecuteNonQuery();
+
+                        sql = "update solicitudesKanban set fechaParcial='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
+                        cm = new SqlCommand(sql, cn);
+                        cm.ExecuteNonQuery();
+                    }
+                    else if(item.chequeado == false)
+                    {
+                        terminarSolicitud = false;
+                    }
+                }
+                if(terminarSolicitud == true)
+                {
+                    string sql = "update solicitudesKanban set fechaEntrega='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    cm.ExecuteNonQuery();
+                }
                 cn.Close();
                 popUpCerrar.IsOpen = false;
             }
@@ -374,6 +415,19 @@ namespace Production_control_1._0.pantallasKanban
         {
             Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
             ventana.Background = Brushes.Black;
+        }
+        private void buttonCerrarPopUpValidarSmed_Click(object sender, RoutedEventArgs e)
+        {
+            popUpValidar.IsOpen = false;
+        }
+        private void buttonEliminarAccionSmed_Click(object sender, RoutedEventArgs e)
+        {
+            labelNumeroAccionEliminar.Content = labelNumeroAccionSmed.Content;
+            passEliminar.Clear();
+            labelCodigoAutorizaEliminar.Content = "*";
+            popUpValidar.IsOpen = false;
+            popUpEliminar.IsOpen = true;
+            modulo = labelModuloAccion.Content.ToString();
         }
     }
 }

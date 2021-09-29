@@ -361,17 +361,24 @@ namespace Production_control_1._0.pantallasKanban
                     conteoTiposCajas++;
                     listaCajas.Add(item);
                 }
-                int minvalue = Convert.ToInt32(listaCajas.Min(x => x.cantidad));
-                if (conteoTiposCajas > 1)
+                try
                 {
-                    foreach (solicitudKanban item in listViewCajas.Items)
+                    int minvalue = Convert.ToInt32(listaCajas.Min(x => x.cantidad));
+                    if (conteoTiposCajas > 1)
                     {
-                        if (item.cantidad == minvalue)
+                        foreach (solicitudKanban item in listViewCajas.Items)
                         {
-                            item.diferencia = 10;
+                            if (item.cantidad == minvalue)
+                            {
+                                item.diferencia = 10;
+                            }
                         }
+                        listViewCajas.Items.Refresh();
                     }
-                    listViewCajas.Items.Refresh();
+                }
+                catch
+                {
+
                 }
 
             }
@@ -833,7 +840,7 @@ namespace Production_control_1._0.pantallasKanban
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') SELECT SCOPE_IDENTITY()";
+            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + chBoxLoteSmed.IsChecked + "') SELECT SCOPE_IDENTITY()";
             cnKanban.Open();
             SqlCommand cm = new SqlCommand(sql, cnKanban);
             SqlDataReader dr = cm.ExecuteReader();
@@ -844,10 +851,10 @@ namespace Production_control_1._0.pantallasKanban
             //ingresar detalles de la orden
             foreach (solicitudKanban item in listViewListaMateriales.Items)
             {
-                sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad) values('" + idIngreso + "', '" + item.lote + "', '" + item.material + "', '" + item.talla + "', '" + item.cantidad + "')";
+                sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad, entregado) values('" + idIngreso + "', '" + item.lote + "', '" + item.material + "', '" + item.talla + "', '" + item.cantidad + "', 0)";
                 if (item.material.Contains("HANGER"))
                 {
-                    sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad, diferencia, requerido) values('" + idIngreso + "', '" + item.lote + "', '" + item.material + "', '" + item.talla + "', '" + item.cantidad + "', '" + (item.diferencia - item.cantidad) + "','" + item.solicitado + "')";
+                    sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad, diferencia, requerido, entregado) values('" + idIngreso + "', '" + item.lote + "', '" + item.material + "', '" + item.talla + "', '" + item.cantidad + "', '" + (item.diferencia - item.cantidad) + "','" + item.solicitado + "', 0)";
                 }
                 cm = new SqlCommand(sql, cnKanban);
                 cm.ExecuteNonQuery();

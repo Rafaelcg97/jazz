@@ -357,9 +357,17 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                     foreach (DataRow dr in consultado.Rows)
                     {
                         string color_ = "";
-                        if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()))
+                        if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"])==true)
                         {
                             color_ = "Red";
+                        }
+                        else if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"]) == false)
+                        {
+                            color_ = "Orange";
+                        }
+                        else if (dr["tipo"].ToString() == "solicitud" && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
+                        {
+                            color_ = "LightGreen";
                         }
                         else if (dr["tipo"].ToString() == "devolucion" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()))
                         {
@@ -367,7 +375,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                         }
                         else
                         {
-                            color_ = "#FFC1CB5C";
+                            color_ = "Yellow";
                         }
                         switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
                         {
@@ -383,6 +391,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0: dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U1.Add(itemU1);
                                 break;
@@ -398,6 +407,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U2.Add(itemU2);
                                 break;
@@ -413,6 +423,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U3.Add(itemU3);
                                 break;
@@ -428,6 +439,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U4.Add(itemU4);
                                 break;
@@ -443,6 +455,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U5.Add(itemU5);
                                 break;
@@ -458,6 +471,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U6.Add(itemU6);
                                 break;
@@ -473,6 +487,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U7.Add(itemU7);
                                 break;
@@ -488,6 +503,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U8.Add(itemU8);
                                 break;
@@ -503,6 +519,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U9.Add(itemU9);
                                 break;
@@ -518,6 +535,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U10.Add(itemU10);
                                 break;
@@ -533,6 +551,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U11.Add(itemU11);
                                 break;
@@ -548,6 +567,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U12.Add(itemU12);
                                 break;
@@ -563,6 +583,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U13.Add(itemU13);
                                 break;
@@ -578,6 +599,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U14.Add(itemU14);
                                 break;
@@ -593,6 +615,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U15.Add(itemU15);
                                 break;
@@ -608,6 +631,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U16.Add(itemU16);
                                 break;
@@ -623,6 +647,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U17.Add(itemU17);
                                 break;
@@ -638,6 +663,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U18.Add(itemU18);
                                 break;
@@ -653,6 +679,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U19.Add(itemU19);
                                 break;
@@ -668,6 +695,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U20.Add(itemU20);
                                 break;
@@ -683,6 +711,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U21.Add(itemU21);
                                 break;
@@ -698,6 +727,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U22.Add(itemU22);
                                 break;
@@ -713,6 +743,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U23.Add(itemU23);
                                 break;
@@ -728,6 +759,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U24.Add(itemU24);
                                 break;
@@ -743,6 +775,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U25.Add(itemU25);
                                 break;
@@ -758,6 +791,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U26.Add(itemU26);
                                 break;
@@ -773,6 +807,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U27.Add(itemU27);
                                 break;
@@ -788,6 +823,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U28.Add(itemU28);
                                 break;
@@ -803,6 +839,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U29.Add(itemU29);
                                 break;
@@ -818,6 +855,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U30.Add(itemU30);
                                 break;
@@ -833,6 +871,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U31.Add(itemU31);
                                 break;
@@ -848,6 +887,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                     fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
                                     color = color_,
                                     atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                                 };
                                 this.U32.Add(itemU32);
                                 break;
