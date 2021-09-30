@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Documents.Serialization;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 
 namespace Production_control_1._0.pantallasKanban
 {
@@ -201,6 +205,7 @@ namespace Production_control_1._0.pantallasKanban
                 else
                 {
                     popUpValidar.IsOpen = true;
+                    modulo = itemseleccionado.modulo;
                     //consultar materiales solicitados
                     consultarMaterialesSolicitados(itemseleccionado.solicitudKanbanId);
                     labelNumeroAccionSmed.Content = itemseleccionado.solicitudKanbanId;
@@ -427,7 +432,112 @@ namespace Production_control_1._0.pantallasKanban
             labelCodigoAutorizaEliminar.Content = "*";
             popUpValidar.IsOpen = false;
             popUpEliminar.IsOpen = true;
-            modulo = labelModuloAccion.Content.ToString();
+        }
+
+        private void buttonValidarAccionSmed_Click(object sender, RoutedEventArgs e)
+        {
+            popUpValidar.IsOpen = false;
+            popUpAutorizar.IsOpen = true;
+            labelNumeroAccionAutorizar.Content = labelNumeroAccionSmed.Content;
+        }
+
+        private void buttonCerrarPopUpAutorizar_Click(object sender, RoutedEventArgs e)
+        {
+            popUpAutorizar.IsOpen = false;
+        }
+
+        private void passAutorizar_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            labelCodigoAutorizaAuto.Content = "*";
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "select codigo from usuarios where contrasena='" + passAutorizar.Password.ToString() + "' AND nivel=1 and [ingenieria/SMED]=1";
+            cn.Open();
+            SqlCommand cm = new SqlCommand(sql, cn);
+            SqlDataReader dr = cm.ExecuteReader();
+            while (dr.Read())
+            {
+                labelCodigoAutorizaAuto.Content = dr["codigo"].ToString();
+            };
+            dr.Close();
+            cn.Close();
+        }
+        private void buttonAutorizarSolicitud_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelCodigoAutorizaAuto.Content.ToString() != "*")
+            {
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                bool terminarSolicitud = true;
+                string ahora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                cn.Open();
+                if (terminarSolicitud == true)
+                {
+                    string sql = "update solicitudesKanban set validadoSmed=" + 1 + " where solicitudKanbanId='" + labelNumeroAccionAutorizar.Content + "'";
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    cm.ExecuteNonQuery();
+                }
+                cn.Close();
+                popUpAutorizar.IsOpen = false;
+            }
+            else
+            {
+                MessageBox.Show("Codigo no valido");
+            }
+        }
+
+        public void Print_WPF_Preview(FrameworkElement wpf_Element, string nomre)
+
+        {
+
+            //------------< WPF_Print_current_Window >------------
+
+            //--< create xps document >--
+
+            XpsDocument doc = new XpsDocument(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments) + @"\" + nomre, FileAccess.ReadWrite);
+
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
+
+            SerializerWriterCollator preview_Document = writer.CreateVisualsCollator();
+
+            preview_Document.BeginBatchWrite();
+
+            preview_Document.Write(wpf_Element);  //*this or wpf xaml control
+
+            preview_Document.EndBatchWrite();
+
+            //--</ create xps document >--
+
+
+
+            //var doc2 = new XpsDocument("Druckausgabe.xps", FileAccess.Read);
+
+
+
+            FixedDocumentSequence preview = doc.GetFixedDocumentSequence();
+
+
+
+            var window = new Window();
+
+            window.Content = new DocumentViewer { Document = preview };
+
+            window.ShowDialog();
+
+
+
+            doc.Close();
+
+            //------------</ WPF_Print_current_Window >------------
+
+
+
+
+
+        }
+
+        private void buttonImprimir_Click(object sender, RoutedEventArgs e)
+        {
+            string nombre = labelModuloAccion.Content+"_"+ labelNumeroAccion.Content +"_"+ Guid.NewGuid().ToString("n").Substring(0, 8)+".xps";
+            Print_WPF_Preview(area_imp,nombre);
         }
     }
 }

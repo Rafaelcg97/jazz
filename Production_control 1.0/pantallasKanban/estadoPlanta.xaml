@@ -167,8 +167,8 @@
             <Label Grid.Row="11" Grid.Column="15" x:Name="l32" Style="{StaticResource labelExterna}">MODULO 32</Label>
             <!--#endregion-->
         </Grid>
-        <Popup x:Name="popUpEstadoModulo" Width="500" Height="600" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False">
-            <Border Background="White" CornerRadius="8">
+        <Popup x:Name="popUpEstadoModulo" Width="500" Height="600" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False" >
+            <Border Background="White" CornerRadius="8" x:Name="area_imp">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -234,28 +234,28 @@
                                 <GridViewColumn Width="110" Header="Lote">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding lote}"/>
+                                            <Label Content="{Binding lote}" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Width="110" Header="Material">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding material}"/>
+                                            <Label Content="{Binding material}" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Width="55" Header="Talla">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding talla}"/>
+                                            <Label Content="{Binding talla}" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Width="65" Header="Cantidad">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <xctk:IntegerUpDown Value="{Binding cantidad}" IsEnabled="{Binding habilitado}" Minimum="{Binding solicitado}" Maximum="{Binding diferencia}" />
+                                            <xctk:IntegerUpDown Value="{Binding cantidad}" IsEnabled="{Binding habilitado}" Minimum="{Binding solicitado}" Maximum="{Binding diferencia}" FontWeight="Bold" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -271,14 +271,17 @@
                     </ListView>
                     <!--#endregion-->
                     <!--#region botones-->
-                    <Button x:Name="buttonEliminarAccion" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonEliminarAccion_Click">
+                    <Button x:Name="buttonEliminarAccion" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonEliminarAccion_Click">
                         <Image x:Name="imageEliminar" Source="/imagenes/eliminar.png" Width="50" Height="50"/>
                     </Button>
-                    <Button x:Name="buttonIniciarAccion" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonIniciarAccion_Click">
+                    <Button x:Name="buttonIniciarAccion" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonIniciarAccion_Click">
                         <Image x:Name="imageIniciar" Source="/imagenes/iniciar.png" Width="50" Height="50"/>
                     </Button>
-                    <Button x:Name="buttonTerminarAccion" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonTerminarAccion_Click">
+                    <Button x:Name="buttonTerminarAccion" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonTerminarAccion_Click">
                         <Image x:Name="imageTerminar" Source="/imagenes/terminar.png" Width="50" Height="50"/>
+                    </Button>
+                    <Button x:Name="buttonImprimir" Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="16" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonImprimir_Click">
+                        <Image Source="/imagenes/impresora.png" Width="50" Height="50"/>
                     </Button>
                     <!--#endregion-->
                 </Grid>
@@ -453,10 +456,54 @@
                     <Button x:Name="buttonEliminarAccionSmed" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="12" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonEliminarAccionSmed_Click">
                         <Image x:Name="imageEliminarSmed" Source="/imagenes/eliminar.png" Width="50" Height="50"/>
                     </Button>
-                    <Button x:Name="buttonValidarAccionSmed" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="12" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonTerminarAccion_Click">
+                    <Button x:Name="buttonValidarAccionSmed" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="12" Grid.RowSpan="3" Margin="0" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonValidarAccionSmed_Click">
                         <Image x:Name="imageTerminarSmed" Source="/imagenes/comprobar.png" Width="50" Height="50"/>
                     </Button>
                     <!--#endregion-->
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup x:Name="popUpAutorizar" Width="500" Height="400" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False">
+            <Border Background="White" CornerRadius="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="buttonCerrarPopUpAutorizar" Grid.Column="10" Background="Transparent" BorderBrush="Transparent" Width="25" Height="25" Click="buttonCerrarPopUpAutorizar_Click">
+                        <Image Source="/imagenes/cerrar.png"/>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.RowSpan="2" HorizontalAlignment="Center">
+                        <Label Content="Cerrar Acción:  " FontWeight="Bold" FontSize="20" Padding="0"/>
+                        <Label x:Name="labelNumeroAccionAutorizar" Content="0000" FontWeight="Bold" FontSize="20" Padding="0"/>
+                    </StackPanel>
+                    <Label Content="Autorización de solicitud" Grid.Row="3" Grid.ColumnSpan="10" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="25" Padding="0"/>
+                    <PasswordBox x:Name="passAutorizar" Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="3" VerticalContentAlignment="Center" PasswordChanged="passAutorizar_PasswordChanged"/>
+                    <Label x:Name="labelCodigoAutorizaAuto" Content="*" Grid.Row="6" Grid.ColumnSpan="10" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="15" Padding="0"/>
+                    <Button x:Name="buttonAutorizarSolicitud" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="buttonAutorizarSolicitud_Click">
+                        <Image Source="/imagenes/comprobar.png" Margin="0"/>
+                    </Button>
                 </Grid>
             </Border>
         </Popup>

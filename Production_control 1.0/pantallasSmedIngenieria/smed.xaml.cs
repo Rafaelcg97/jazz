@@ -22,7 +22,6 @@ namespace Production_control_1._0.pantallasSmedIngenieria
     public partial class smed : Page
     {
         int ubicacion_ = 0;
-        int codigo_ = 0;
         #region clases_especiales
         public SqlConnection cn_smed = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_smed"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
         public SqlConnection cn_manto = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -45,7 +44,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         public smed()
         {
             InitializeComponent();
-            string sql = "select nombre from usuarios where [ingenieria/SMED]='1' and (cargo='SOPORTE' or cargo='MECANICO') order by nombre";
+            string sql = "select codigo, nombre from usuarios where [ingenieria/SMED]='1' and (cargo='SOPORTE' or cargo='MECANICO') order by cargo, nombre";
             string sql2 = "select accion from acciones";
             string sql3 = "select movimientos.codigo, usuarios.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo = movimientos.id_movimiento inner join ingenieria.dbo.usuarios on movimientos.codigo = usuarios.codigo order by hora desc";
             string sql4 = "select modulo from orden_modulos group by modulo";
@@ -55,7 +54,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                codigo.Items.Add(dr["nombre"].ToString());
+                codigo.Items.Add( new nuevo_movimiento { nombre = dr["nombre"].ToString(), codigo = Convert.ToInt32(dr["codigo"] is DBNull ? 0 : dr["codigo"]) });
             };
             dr.Close();
             cnIngenieria.Close();
@@ -247,8 +246,9 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             }
             else
             {
+                nuevo_movimiento item = (nuevo_movimiento)codigo.SelectedItem;
                 //ingresar nueva actividad de soporte smed
-                string sql = "insert into movimientos  values('" + codigo_ + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+                string sql = "insert into movimientos  values('" + item.codigo + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
                 cn_smed.Open();
                 SqlCommand cm = new SqlCommand(sql, cn_smed);
                 cm.ExecuteNonQuery();
@@ -269,21 +269,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         }
         private void codigo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (codigo.SelectedIndex > -1)
-            {
-                string sql = "select codigo from usuarios where nombre='" + codigo.SelectedItem.ToString() + "'";
-                cnIngenieria.Open();
-                SqlCommand cm = new SqlCommand(sql, cnIngenieria);
-                //agregar codigos de soportes smed
-                SqlDataReader dr = cm.ExecuteReader();
-                if (dr.Read())
-                {
-                    codigo_ = Convert.ToInt32(dr["codigo"].ToString());
-                };
-                dr.Close();
-                cnIngenieria.Close();
-                habilitar_boton();
-            }
+            habilitar_boton();
         }
         private void accion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -323,8 +309,9 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         }
         private void buttonIngresarActividad_Click(object sender, RoutedEventArgs e)
         {
+            nuevo_movimiento item = (nuevo_movimiento)codigo.SelectedItem;
             //ingresar nueva actividad de soporte smed
-            string sql = "insert into movimientos  values('" + codigo_ + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+            string sql = "insert into movimientos  values('" + item.codigo + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
             cn_smed.Open();
             SqlCommand cm = new SqlCommand(sql, cn_smed);
             cm.ExecuteNonQuery();
@@ -366,5 +353,34 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             }
         }
         #endregion
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            cnIngenieria.Open();
+            foreach (nuevo_movimiento item in codigo.Items)
+            {
+                string sql = "select codigo from usuarios where nombre='" + item.codigo + "'";
+                //ingresar nueva actividad de soporte smed
+                sql = "insert into movimientos  values('" + item.codigo + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+                SqlCommand cm = new SqlCommand(sql, cn_smed);
+                cm.ExecuteNonQuery();
+            }
+
+            //refrescar tabla de ultimas actividades
+            string sql2 = "select movimientos.codigo, personal.nombre, movimientos.movimiento, movimientos.hora from movimientos inner join(select codigo, max(id_movimiento) as id_maximo from movimientos group by codigo) as max_actividad on max_actividad.id_maximo=movimientos.id_movimiento inner join personal on movimientos.codigo = personal.codigo order by hora desc";
+            List<nuevo_movimiento> ultimos_movimientos = new List<nuevo_movimiento>();
+            SqlCommand cm2 = new SqlCommand(sql2, cn_smed);
+            SqlDataReader dr2 = cm2.ExecuteReader();
+            while (dr2.Read())
+            {
+                ultimos_movimientos.Add(new nuevo_movimiento { codigo = Convert.ToInt32(dr2["codigo"]), nombre = dr2["nombre"].ToString(), movimiento = dr2["movimiento"].ToString(), hora = Convert.ToDateTime(dr2["hora"]) });
+            };
+            dr2.Close();
+            cn_smed.Close();
+            movimientos.ItemsSource = ultimos_movimientos;
+            popUpValidarUsuario.IsOpen = false;
+
+            cnIngenieria.Close();
+            habilitar_boton();
+        }
     }
 }

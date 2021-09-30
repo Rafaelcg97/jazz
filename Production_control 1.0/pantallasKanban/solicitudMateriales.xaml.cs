@@ -840,14 +840,13 @@ namespace Production_control_1._0.pantallasKanban
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + chBoxLoteSmed.IsChecked + "') SELECT SCOPE_IDENTITY()";
+            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + !chBoxLoteSmed.IsChecked + "') SELECT SCOPE_IDENTITY()";
             cnKanban.Open();
             SqlCommand cm = new SqlCommand(sql, cnKanban);
             SqlDataReader dr = cm.ExecuteReader();
             dr.Read();
             int idIngreso = Convert.ToInt32(dr[0]);
             dr.Close();
-
             //ingresar detalles de la orden
             foreach (solicitudKanban item in listViewListaMateriales.Items)
             {
