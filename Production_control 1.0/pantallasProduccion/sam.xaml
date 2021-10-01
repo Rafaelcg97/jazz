@@ -28,10 +28,7 @@
                 </Setter.Value>
             </Setter>
             <!-- para que no muestre el scroll horizontal -->
-            <Setter 
-        Property="ScrollViewer.HorizontalScrollBarVisibility" 
-        Value="Disabled" 
-        />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         </Style>
         <Style TargetType="ListBoxItem">
             <Style.Triggers>

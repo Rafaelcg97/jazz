@@ -162,7 +162,7 @@
                         <GridViewColumn Header="SAM" Width="75">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding Path=sam}" Width="65" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
+                                    <TextBlock Text="{Binding Path=sam}" Width="65" FontWeight="Bold" Foreground="#FF4E7495" FontSize="15"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

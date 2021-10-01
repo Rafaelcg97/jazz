@@ -367,74 +367,8 @@ namespace Production_control_1._0.pantallasProduccion
             }
             else
             {
-                MessageBox.Show("Actualiza los SAM antes de guardar");
+                MessageBox.Show("Existen SAM no validos, corrijalo antes de guardar");
             }
-        }
-        private void buttonActualizarEmpaques_Click(object sender, RoutedEventArgs e)
-        {
-            #region variablesConexion
-            string sql;
-            SqlCommand cm;
-            SqlDataReader dr;
-            #endregion
-            List<horaProduccion> listaAuxiliar = new List<horaProduccion>();
-            cnIngenieria.Open();
-            foreach (horaProduccion item in listViewRegistros.Items)
-            {
-                List<string> _empaques = new List<string>();
-                string _estilo = "";
-                string _temporada = "";
-                sql = "select estilo, temporada, tipo_empaque from lotesconsamempaque where lote='" + item.lote + "'";
-                cm = new SqlCommand(sql, cnIngenieria);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    _empaques.Add(dr["tipo_empaque"].ToString());
-                    _estilo = dr["estilo"].ToString();
-                    _temporada = dr["temporada"].ToString();
-                }
-                dr.Close();
-                listaAuxiliar.Add(new horaProduccion { num_hh = item.num_hh, fecha = item.fecha, turno = item.turno, turnos = item.turnos, hora = item.hora, horas = item.horas, modulo = item.modulo, modulos = item.modulos, arteria = item.arteria, arterias = item.arterias, estilo = _estilo, empaque = item.empaque, empaques = _empaques, temporada = _temporada, sam = 0, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl, totalDePiezas=item.totalDePiezas, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos = item.motivos, custom = item.custom, eleccion = item.eleccion, cambioEstilo = item.cambioEstilo, minutosEfectivos = item.minutosEfectivos, ingresadoPor = item.ingresadoPor });
-            }
-            cnIngenieria.Close();
-            //limpiar listVien y agregar nuevos
-            listViewRegistros.Items.Clear();
-            foreach (horaProduccion item2 in listaAuxiliar)
-            {
-                listViewRegistros.Items.Add(item2);
-            }
-            MessageBox.Show("Empaques Actualizados");
-        }
-        private void buttonActualizarSam_Click(object sender, RoutedEventArgs e)
-        {
-            #region variablesConexion
-            string sql;
-            SqlCommand cm;
-            SqlDataReader dr;
-            double _sam = 0;
-            #endregion
-            List<horaProduccion> listaAuxiliar = new  List<horaProduccion>();
-            cnIngenieria.Open();
-            foreach (horaProduccion item in listViewRegistros.Items)
-            {
-                sql = "select sam from lotesconsamempaque where lote='" + item.lote+"' and tipo_empaque='"+item.empaque+"'";
-                cm = new SqlCommand(sql, cnIngenieria);
-                dr = cm.ExecuteReader();
-                if (dr.Read())
-                {
-                    _sam = Convert.ToDouble(dr["sam"]);
-                }
-                dr.Close();
-                listaAuxiliar.Add(new horaProduccion { num_hh = item.num_hh, fecha = item.fecha, turno = item.turno, turnos = item.turnos, hora = item.hora, horas = item.horas, modulo = item.modulo, modulos = item.modulos, arteria = item.arteria, arterias = item.arterias, estilo=item.estilo, empaque=item.empaque, empaques=item.empaques, temporada=item.temporada, sam = _sam, incapacitados = item.incapacitados, permisos = item.permisos, cita = item.cita, inasistencia = item.inasistencia, opeCostura = item.opeCostura, opeManuales = item.opeManuales, lote = item.lote, xxs = item.xxs, xs = item.xs, s = item.s, m = item.m, l = item.l, xl = item.xl, xxl = item.xxl, xxxl = item.xxxl, totalDePiezas=item.totalDePiezas, tiempoParo = item.tiempoParo, motivoParo = item.motivoParo, motivos = item.motivos, custom = item.custom, eleccion = item.eleccion, cambioEstilo = item.cambioEstilo, minutosEfectivos = item.minutosEfectivos, ingresadoPor = item.ingresadoPor });
-            }
-            cnIngenieria.Close();
-            //limpiar listVien y agregar nuevos
-            listViewRegistros.Items.Clear();
-            foreach(horaProduccion item2 in listaAuxiliar)
-            {
-                listViewRegistros.Items.Add(item2);
-            }
-            MessageBox.Show("SAM Actualizado");
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -442,7 +376,7 @@ namespace Production_control_1._0.pantallasProduccion
             item.empaques.Clear();
             item.empaque = "";
             item.sam = 0;
-            string sql = "select estilo, temporada, tipo_empaque from lotesConSamEmpaque where lote='"+ item.lote +"'";
+            string sql = "select estilo, temporada, tipo_empaque, piezas from lotesConSamEmpaque where lote='"+ item.lote +"'";
             cnIngenieria.Open();
             SqlCommand cm = new SqlCommand(sql, cnIngenieria);
             SqlDataReader dr = cm.ExecuteReader();
@@ -451,6 +385,7 @@ namespace Production_control_1._0.pantallasProduccion
                 item.empaques.Add(dr["tipo_empaque"].ToString());
                 item.estilo = dr["estilo"].ToString();
                 item.temporada = dr["temporada"].ToString();
+                item.piezas = Convert.ToInt32(dr["piezas"]);
             };
             dr.Close();
             cnIngenieria.Close();
@@ -558,6 +493,7 @@ namespace Production_control_1._0.pantallasProduccion
             while (dr.Read())
             {
                 item.sam= (Convert.ToDouble(dr["samtotal"]));
+                MessageBox.Show(Convert.ToDouble(dr["samtotal"]).ToString());
             };
             dr.Close();
             cnIngenieria.Close();
