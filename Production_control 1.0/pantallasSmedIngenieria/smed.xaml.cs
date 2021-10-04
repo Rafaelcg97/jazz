@@ -355,12 +355,12 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         #endregion
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            cnIngenieria.Open();
+            cn_smed.Open();
             foreach (nuevo_movimiento item in codigo.Items)
             {
                 string sql = "select codigo from usuarios where nombre='" + item.codigo + "'";
                 //ingresar nueva actividad de soporte smed
-                sql = "insert into movimientos  values('" + item.codigo + "', '" + accion.SelectedItem.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
+                sql = "insert into movimientos  values('" + item.codigo + "', 'Final de Jornada', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '1')";
                 SqlCommand cm = new SqlCommand(sql, cn_smed);
                 cm.ExecuteNonQuery();
             }
@@ -379,7 +379,7 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             movimientos.ItemsSource = ultimos_movimientos;
             popUpValidarUsuario.IsOpen = false;
 
-            cnIngenieria.Close();
+            cn_smed.Close();
             habilitar_boton();
         }
     }

@@ -26,6 +26,8 @@ namespace Production_control_1._0.pantallasKanban
     public partial class estadoPlanta : Page
     {
         string modulo = "";
+        string[] motivos_ = new string[4];
+        string[] areas_ = new string[6];
         #region datosIniciales
         public estadoPlanta()
         {
@@ -54,6 +56,19 @@ namespace Production_control_1._0.pantallasKanban
             this.CreatePermission();
             MessageModelPlanta model = new MessageModelPlanta(this.Dispatcher);
             this.DataContext = model;
+
+            motivos_[0] = "-";
+            motivos_[1] = "Pendiente de preparación";
+            motivos_[2] = "Pendiente de aprobación";
+            motivos_[3] = "Falta de materiales";
+
+            areas_[0] = "-";
+            areas_[1] = "BMP";
+            areas_[2] = "Corte";
+            areas_[3] = "Product Id";
+            areas_[4] = "Receiving";
+            areas_[5] = "Calidad";
+
         }
         public void CreatePermission()
         {
@@ -217,7 +232,7 @@ namespace Production_control_1._0.pantallasKanban
             listViewListaMateriales.Items.Clear();
             listViewListaMaterialesValidar.Items.Clear();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select detalleKanbanId, solicitudKanbanId, lote, material, talla, cantidad, diferencia, entregado from detalleSolicitudeKanban where solicitudKanbanId="+id ;
+            string sql = "select detalleKanbanId, solicitudKanbanId, lote, material, talla, cantidad, diferencia, entregado, motivoEntregaParcial, areaResponsable from detalleSolicitudeKanban where solicitudKanbanId="+id ;
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
@@ -233,7 +248,7 @@ namespace Production_control_1._0.pantallasKanban
                 {
                     habilitadoEntrega = false;
                 }
-                listViewListaMateriales.Items.Add(new solicitudKanban {solicitudKanbanId=Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado= Convert.ToInt32(dr["cantidad"]), habilitado=habilitado, diferencia=Convert.ToInt32(dr["diferencia"] is DBNull? 0: dr["diferencia"])+ Convert.ToInt32(dr["cantidad"]), chequeado= Convert.ToBoolean(dr["entregado"]), habilitadoEntrega=habilitadoEntrega });
+                listViewListaMateriales.Items.Add(new solicitudKanban {solicitudKanbanId=Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado= Convert.ToInt32(dr["cantidad"]), habilitado=habilitado, diferencia=Convert.ToInt32(dr["diferencia"] is DBNull? 0: dr["diferencia"])+ Convert.ToInt32(dr["cantidad"]), chequeado= Convert.ToBoolean(dr["entregado"]), habilitadoEntrega=habilitadoEntrega, motivos=motivos_, areas=areas_, motivo=Convert.ToString(dr["motivoEntregaParcial"] is DBNull? "-": dr["motivoEntregaParcial"]), area= Convert.ToString(dr["areaResponsable"] is DBNull ? "-" : dr["areaResponsable"]) });
                 listViewListaMaterialesValidar.Items.Add(new solicitudKanban { solicitudKanbanId = Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado = Convert.ToInt32(dr["cantidad"]), habilitado = habilitado, diferencia = Convert.ToInt32(dr["diferencia"] is DBNull ? 0 : dr["diferencia"]) + Convert.ToInt32(dr["cantidad"]), chequeado = Convert.ToBoolean(dr["entregado"]), habilitadoEntrega = habilitadoEntrega });
             }
             dr.Close();
@@ -326,7 +341,7 @@ namespace Production_control_1._0.pantallasKanban
                 {
                     if(item.habilitadoEntrega==true && item.chequeado == true)
                     {
-                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + " where detalleKanbanId="+item.solicitudKanbanId ;
+                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + ", motivoEntregaParcial='"+ item.motivo +"', areaResponsable='" + item.area + "', horaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where detalleKanbanId="+item.solicitudKanbanId ;
                         SqlCommand cm = new SqlCommand(sql, cn);
                         cm.ExecuteNonQuery();
 
@@ -337,6 +352,10 @@ namespace Production_control_1._0.pantallasKanban
                     else if(item.chequeado == false)
                     {
                         terminarSolicitud = false;
+
+                        string sql = "update detalleSolicitudeKanban set motivoEntregaParcial='" + item.motivo + "', areaResponsable='" + item.area + "' where detalleKanbanId=" + item.solicitudKanbanId;
+                        SqlCommand cm = new SqlCommand(sql, cn);
+                        cm.ExecuteNonQuery();
                     }
                 }
                 if(terminarSolicitud == true)
@@ -538,6 +557,40 @@ namespace Production_control_1._0.pantallasKanban
         {
             string nombre = labelModuloAccion.Content+"_"+ labelNumeroAccion.Content +"_"+ Guid.NewGuid().ToString("n").Substring(0, 8)+".xps";
             Print_WPF_Preview(area_imp,nombre);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            listViewListaMateriales.SelectedItem = checkBox.DataContext;
+
+            solicitudKanban item = (solicitudKanban)listViewListaMateriales.SelectedItem;
+
+            item.area = "-";
+            item.motivo = "-";
+
+            listViewListaMateriales.Items.Refresh();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            listViewListaMateriales.SelectedItem = comboBox.DataContext;
+
+            solicitudKanban item = (solicitudKanban)listViewListaMateriales.SelectedItem;
+
+            if (item.chequeado != null)
+            {
+                if (item.chequeado == true)
+                {
+                    item.area = "-";
+                    item.motivo = "-";
+
+                    listViewListaMateriales.Items.Refresh();
+                }
+            }
+
+
         }
     }
 }

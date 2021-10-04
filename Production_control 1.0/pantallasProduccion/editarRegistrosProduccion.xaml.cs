@@ -483,7 +483,7 @@ namespace Production_control_1._0.pantallasProduccion
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                item.sam= (Convert.ToDouble(dr["samtotal"]));());
+                item.sam= (Convert.ToDouble(dr["samtotal"] is DBNull?0:dr["samtotal"]));
             };
             dr.Close();
             cnIngenieria.Close();

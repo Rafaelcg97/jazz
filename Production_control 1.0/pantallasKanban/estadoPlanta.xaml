@@ -54,22 +54,25 @@
         <Grid x:Name="areaDeTrabajo">
             <!--#region filas/columans-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -131,6 +134,18 @@
             <ListBox ItemsSource="{Binding U30}" Grid.Row="12" Grid.Column="13"/>
             <ListBox ItemsSource="{Binding U31}" Grid.Row="12" Grid.Column="14"/>
             <ListBox ItemsSource="{Binding U32}" Grid.Row="12" Grid.Column="15"/>
+            <ItemsControl ItemsSource="{Binding P}" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="16" Grid.RowSpan="16" Background="Transparent" Margin="10" BorderThickness="4" BorderBrush="DarkOrchid">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="15" Height="15" Fill="{Binding color}" Margin="7"/>
+                            <Label Content="{Binding modulo}" Foreground="White" Width="85"/>
+                            <Label Content="{Binding solicitudKanbanId}" Foreground="White"/>
+                            <Label Content="{Binding fechaSolicitud}" Foreground="{Binding color}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <!--#endregion-->
             <!--#region nombres de los modulos-->
             <Label Grid.Row="2" Grid.Column="0" x:Name="l1" Style="{StaticResource labelExterna}">MODULO 1</Label>
@@ -165,9 +180,10 @@
             <Label Grid.Row="11" Grid.Column="13" x:Name="l30" Style="{StaticResource labelExterna}">MODULO 30</Label>
             <Label Grid.Row="11" Grid.Column="14" x:Name="l31" Style="{StaticResource labelExterna}">MODULO 31</Label>
             <Label Grid.Row="11" Grid.Column="15" x:Name="l32" Style="{StaticResource labelExterna}">MODULO 32</Label>
+            <Label Grid.Row="2" Grid.Column="16" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Style="{StaticResource labelExterna}">PRIORIDADES</Label>
             <!--#endregion-->
         </Grid>
-        <Popup x:Name="popUpEstadoModulo" Width="500" Height="600" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False" >
+        <Popup x:Name="popUpEstadoModulo" Width="600" Height="650" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False" >
             <Border Background="White" CornerRadius="8" x:Name="area_imp">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -228,7 +244,7 @@
                     <Label x:Name="labelNombreAcargo" Content="----" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="5" FontWeight="SemiBold" FontSize="15"/>
                     <PasswordBox x:Name="passCodigoInicia"  Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15" Margin="0,5,0,5" PasswordChanged="passCodigoInicia_PasswordChanged"/>
                     <Label x:Name="labelNombreInicia" Content="----" Grid.Row="14" Grid.Column="6" Grid.ColumnSpan="3" FontWeight="SemiBold" FontSize="15"/>
-                    <ListView x:Name="listViewListaMateriales" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="6">
+                    <ListView x:Name="listViewListaMateriales" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="6" Margin="7,0,7,0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="110" Header="Lote">
@@ -259,10 +275,24 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="50" Header="Validar">
+                                <GridViewColumn Width="45" Header="Validar">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding chequeado}" IsEnabled="{Binding habilitadoEntrega}"/>
+                                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding chequeado}" IsEnabled="{Binding habilitadoEntrega}" Checked="CheckBox_Checked"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Motivo">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Width="87" ItemsSource="{Binding motivos}" SelectedItem="{Binding motivo}" IsEnabled="{Binding habilitadoEntrega}" SelectionChanged="ComboBox_SelectionChanged"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="90" Header="Area">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Width="77" ItemsSource="{Binding areas}" SelectedItem="{Binding area}" IsEnabled="{Binding habilitadoEntrega}" SelectionChanged="ComboBox_SelectionChanged"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

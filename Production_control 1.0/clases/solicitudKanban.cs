@@ -33,5 +33,9 @@ namespace Production_control_1._0.clases
         public int diferencia { get; set; }
         public int agregado { get; set; }
         public bool validadoSmed { get; set; }
+        public string[] areas { get; set; }
+        public string[] motivos { get; set; }
+        public string area { get; set; }
+        public string motivo { get; set; }
     }
 }

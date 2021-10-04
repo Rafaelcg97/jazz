@@ -124,10 +124,7 @@
                                 <Label Content="{Binding nombre}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                        <ListBoxItem>
-                            
-                        </ListBoxItem>
-                </ListBox>
+                    </ListBox>
                 <ListBox x:Name="accion" Grid.Row="2" Grid.RowSpan="9" Grid.Column="6" Grid.ColumnSpan="5" SizeChanged="letra_pequena_2" SelectionChanged="accion_SelectionChanged"></ListBox>
                 <ListView x:Name="movimientos" Grid.Row="2" Grid.RowSpan="12" Grid.Column="12" Grid.ColumnSpan="12" SizeChanged="letra_pequena" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                     <ListView.View>

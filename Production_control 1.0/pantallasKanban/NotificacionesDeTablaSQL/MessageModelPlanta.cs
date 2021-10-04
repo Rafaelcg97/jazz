@@ -43,6 +43,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
         private ObservableCollection<solicitudKanban> u30 = null;
         private ObservableCollection<solicitudKanban> u31 = null;
         private ObservableCollection<solicitudKanban> u32 = null;
+        private ObservableCollection<solicitudKanban> p = null;
         #endregion
         #region coleccionesObservablesPub
         public ObservableCollection<solicitudKanban> U1
@@ -301,6 +302,14 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                 return u32;
             }
         }
+        public ObservableCollection<solicitudKanban> P
+        {
+            get
+            {
+                p = p ?? new ObservableCollection<solicitudKanban>();
+                return p;
+            }
+        }
         #endregion
         public Dispatcher UIDispatcher { get; set; }
         public SQLNotifierPlanta Notifier { get; set; }
@@ -351,7 +360,8 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                     this.U29.Clear();
                     this.U30.Clear();
                     this.U31.Clear();
-                    this.U32.Clear();                  
+                    this.U32.Clear();
+                    this.P.Clear();
                     #endregion
                     #region agregarDatosLista
                     foreach (DataRow dr in consultado.Rows)
@@ -367,7 +377,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                         }
                         else if (dr["tipo"].ToString() == "solicitud" && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
                         {
-                            color_ = "LightGreen";
+                            color_ = "Yellow";
                         }
                         else if (dr["tipo"].ToString() == "devolucion" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()))
                         {
@@ -375,7 +385,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                         }
                         else
                         {
-                            color_ = "Yellow";
+                            color_ = "LightGreen";
                         }
                         switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
                         {
@@ -892,6 +902,34 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                 this.U32.Add(itemU32);
                                 break;
                         }
+
+                        if(string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"])==true)
+                        {
+                            TimeSpan diferencia = DateTime.Now - Convert.ToDateTime(dr["fechaSolicitud"]);
+                            double diferenciaenminutos = diferencia.TotalMinutes;
+
+                            string color = "Green";
+                            if (diferenciaenminutos >= 120)
+                            {
+                                color = "Red";
+                            }
+                            else if(diferenciaenminutos>=80)
+                            {
+                                color = "Yellow";
+                            }
+
+                            solicitudKanban itemP = new solicitudKanban
+                            {
+                                solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                tipo = dr["tipo"].ToString(),
+                                modulo = dr["modulo"].ToString(),
+                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                color = color,
+                                validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                            };
+                            this.P.Add(itemP);
+                        }
+
                     }
                     #endregion
                 }
