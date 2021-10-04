@@ -43,6 +43,7 @@ namespace Production_control_1._0.clases
         public double permisos { get; set; }
         public double cita { get; set; }
         public double inasistencia { get; set; }
+        public string loteOriginal { get; set; }
         public string lote { get; set; }
         public int piezas { get; set; }
         public int terminadas { get; set; }

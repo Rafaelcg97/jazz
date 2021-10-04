@@ -397,12 +397,12 @@
                         <Image Source="/imagenes/cerrar.png"/>
                     </Button>
                     <Label FontSize="20" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Content="Validación de Usuario" HorizontalAlignment="Center" FontWeight="Bold" VerticalContentAlignment="Center"/>
-                    <TextBlock FontSize="10" Grid.RowSpan="2" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10" Text="Hay Lotes con sobreproducción por lo que se requiere la autorización de un usuario Nivel 1 para ingresarlos, si no posee autorización elmine los lotes marcados en rojo y vuelva a dar click en guardar" HorizontalAlignment="Center" FontWeight="Bold" TextWrapping="Wrap" Margin="10,0,10,0"/>
-                    <Label x:Name="labelListDeLotesConMasPiezas" FontSize="10" Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBlock FontSize="10" Grid.RowSpan="4" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10" Text="Parece que algunos registros hacen que se exceda la cantidad de piezas de make de sus lotes, el id de los registros con problemas se muestra abajo (recuerda el id es la columna num_hh, la ultima de la tabla), para aprobar el ingreso de esos registros tal y como estan debes ser usuario nivel 1, de lo contrario ingresa una cantidad valida" HorizontalAlignment="Center" FontWeight="Bold" TextWrapping="Wrap" Margin="10,0,10,0"/>
+                    <Label x:Name="labelListDeLotesConMasPiezas" FontSize="10" Grid.Row="5" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
 
-                    <Label Grid.Column="0" Grid.ColumnSpan="10" Grid.Row="7" Content="Autoriza" FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.RowSpan="2"/>
-                    <PasswordBox x:Name="passWordBoxValidarUsuario" Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="9" PasswordChanged="PasswordBox_PasswordChanged" />
-                    <Label x:Name="labelNombreAutoriza" Grid.Column="0" Grid.ColumnSpan="10" Grid.Row="10" Content="----" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.RowSpan="1" Padding="0"/>
+                    <Label Grid.Column="0" Grid.ColumnSpan="10" Grid.Row="9" Content="Autoriza" FontSize="15" Padding="2" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.RowSpan="2"/>
+                    <PasswordBox x:Name="passWordBoxValidarUsuario" Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="10" PasswordChanged="PasswordBox_PasswordChanged" />
+                    <Label x:Name="labelNombreAutoriza" Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="10" Content="----" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.RowSpan="1" Padding="0"/>
                     <Button x:Name="buttonIngresarLotesRojos" Grid.Column="3" Grid.Row="11" Grid.ColumnSpan="4" Grid.RowSpan="3" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" IsEnabled="False" Click="buttonIngresarLotesRojos_Click">
                         <Image Source="/imagenes/mas.png"/>
                     </Button>
