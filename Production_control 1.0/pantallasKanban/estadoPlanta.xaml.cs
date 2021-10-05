@@ -341,13 +341,10 @@ namespace Production_control_1._0.pantallasKanban
                 {
                     if(item.habilitadoEntrega==true && item.chequeado == true)
                     {
-                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + ", horaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where detalleKanbanId="+item.solicitudKanbanId ;
+                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + ", horaEntrega='" + ahora + "' where detalleKanbanId="+item.solicitudKanbanId ;
                         SqlCommand cm = new SqlCommand(sql, cn);
                         cm.ExecuteNonQuery();
 
-                        sql = "update solicitudesKanban set fechaParcial='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
-                        cm = new SqlCommand(sql, cn);
-                        cm.ExecuteNonQuery();
                     }
                     else if(item.chequeado == false)
                     {
@@ -361,6 +358,12 @@ namespace Production_control_1._0.pantallasKanban
                 if(terminarSolicitud == true)
                 {
                     string sql = "update solicitudesKanban set fechaEntrega='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    cm.ExecuteNonQuery();
+                }
+                else
+                {
+                    string sql = "update solicitudesKanban set fechaParcial='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
                     SqlCommand cm = new SqlCommand(sql, cn);
                     cm.ExecuteNonQuery();
                 }
@@ -555,8 +558,20 @@ namespace Production_control_1._0.pantallasKanban
 
         private void buttonImprimir_Click(object sender, RoutedEventArgs e)
         {
+            buttonCerrarPopUpEstadoModulo.Visibility = Visibility.Hidden;
+            buttonEliminarAccion.Visibility = Visibility.Hidden;
+            buttonIniciarAccion.Visibility = Visibility.Hidden;
+            buttonTerminarAccion.Visibility = Visibility.Hidden;
+            buttonImprimir.Visibility = Visibility.Hidden;
+
             string nombre = labelModuloAccion.Content+"_"+ labelNumeroAccion.Content +"_"+ Guid.NewGuid().ToString("n").Substring(0, 8)+".xps";
             Print_WPF_Preview(area_imp,nombre);
+
+            buttonCerrarPopUpEstadoModulo.Visibility = Visibility.Visible;
+            buttonEliminarAccion.Visibility = Visibility.Visible;
+            buttonIniciarAccion.Visibility = Visibility.Visible;
+            buttonTerminarAccion.Visibility = Visibility.Visible;
+            buttonImprimir.Visibility = Visibility.Visible;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

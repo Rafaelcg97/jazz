@@ -45,6 +45,13 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Content = formularioTPM;
 
         }
+
+        private void BorderProgramacionMantenimiento_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            calendarioProgramacion calendarioProgramacion = new calendarioProgramacion();
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = calendarioProgramacion;
+        }
         #endregion
 
         #region calculos_generals
@@ -62,7 +69,20 @@ namespace Production_control_1._0.pantallasIniciales
             return parent;
         }
 
+
         #endregion
+
+        private void Border_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Border borde = (Border)sender;
+            borde.Opacity = 0.7;
+        }
+
+        private void Border_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border borde = (Border)sender;
+            borde.Opacity = 1;
+        }
 
 
     }

@@ -44,6 +44,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
         private ObservableCollection<solicitudKanban> u31 = null;
         private ObservableCollection<solicitudKanban> u32 = null;
         private ObservableCollection<solicitudKanban> p = null;
+        private ObservableCollection<solicitudKanban> pp = null;
         #endregion
         #region coleccionesObservablesPub
         public ObservableCollection<solicitudKanban> U1
@@ -310,6 +311,14 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                 return p;
             }
         }
+        public ObservableCollection<solicitudKanban> PP
+        {
+            get
+            {
+                pp = pp ?? new ObservableCollection<solicitudKanban>();
+                return pp;
+            }
+        }
         #endregion
         public Dispatcher UIDispatcher { get; set; }
         public SQLNotifierPlanta Notifier { get; set; }
@@ -362,6 +371,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                     this.U31.Clear();
                     this.U32.Clear();
                     this.P.Clear();
+                    this.PP.Clear();
                     #endregion
                     #region agregarDatosLista
                     foreach (DataRow dr in consultado.Rows)
@@ -385,7 +395,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                         }
                         else
                         {
-                            color_ = "LightGreen";
+                            color_ = "#FF6FC136";
                         }
                         switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
                         {
@@ -908,7 +918,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                             TimeSpan diferencia = DateTime.Now - Convert.ToDateTime(dr["fechaSolicitud"]);
                             double diferenciaenminutos = diferencia.TotalMinutes;
 
-                            string color = "Green";
+                            string color = "#FF6FC136";
                             if (diferenciaenminutos >= 120)
                             {
                                 color = "Red";
@@ -923,11 +933,23 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                 solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
                                 tipo = dr["tipo"].ToString(),
                                 modulo = dr["modulo"].ToString(),
-                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd hh:mm"),
                                 color = color,
                                 validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
                             };
                             this.P.Add(itemP);
+                        }
+                        else if(!string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
+                        {
+                            solicitudKanban itemPP = new solicitudKanban
+                            {
+                                solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                tipo = dr["tipo"].ToString(),
+                                modulo = dr["modulo"].ToString(),
+                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd"),
+                                validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                            };
+                            this.PP.Add(itemPP);
                         }
 
                     }

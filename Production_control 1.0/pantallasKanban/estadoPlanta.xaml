@@ -16,7 +16,7 @@
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <Label Content="{Binding solicitudKanbanId}" SizeChanged="letraAjustable2" Foreground="Black"/>
+                        <Label Content="{Binding solicitudKanbanId}" SizeChanged="letraAjustable2" Foreground="Black" FontWeight="Bold" FontSize="14"/>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -36,7 +36,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
                                 <Border BorderBrush="Black" Height="25" Background="{Binding color}" Opacity="0.5">
-                                    <Label FontWeight="Bold" Content="{Binding solicitudKanbanId}" Foreground="Black"/>
+                                    <Label FontWeight="Bold" Content="{Binding solicitudKanbanId}" Foreground="Black" FontSize="13"/>
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>
@@ -100,7 +100,16 @@
             <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
             </Button>
-            <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="16" Style="{Binding none}" Content="Solicitudes Kanban" FontFamily="calibri"  SizeChanged="letraAjustable1" Foreground="DarkGoldenrod" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="16" Style="{Binding none}" Content="Solicitudes Producción-Kanban" FontFamily="calibri"  SizeChanged="letraAjustable1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="16" Grid.Row="1" Grid.ColumnSpan="3" >
+                <Ellipse Width="20" Height="20" Fill="Red"/>
+                <ItemsControl Width="50"/>
+                <Ellipse Width="20" Height="20" Fill="Yellow"/>
+                <ItemsControl Width="50"/>
+                <Ellipse Width="20" Height="20" Fill="Green"/>
+                <ItemsControl Width="50"/>
+            </StackPanel>
+
             <!--#region modulos-->
             <ListBox ItemsSource="{Binding U1}" Grid.Row="3" Grid.Column="0"/>
             <ListBox ItemsSource="{Binding U2}" Grid.Row="3" Grid.Column="1"/>
@@ -134,18 +143,36 @@
             <ListBox ItemsSource="{Binding U30}" Grid.Row="12" Grid.Column="13"/>
             <ListBox ItemsSource="{Binding U31}" Grid.Row="12" Grid.Column="14"/>
             <ListBox ItemsSource="{Binding U32}" Grid.Row="12" Grid.Column="15"/>
-            <ItemsControl ItemsSource="{Binding P}" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="16" Grid.RowSpan="16" Background="Transparent" Margin="10" BorderThickness="4" BorderBrush="DarkOrchid">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse Width="15" Height="15" Fill="{Binding color}" Margin="7"/>
-                            <Label Content="{Binding modulo}" Foreground="White" Width="85"/>
-                            <Label Content="{Binding solicitudKanbanId}" Foreground="White"/>
-                            <Label Content="{Binding fechaSolicitud}" Foreground="{Binding color}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="16" Grid.RowSpan="7">
+                <ItemsControl ItemsSource="{Binding P}"  Background="Transparent" Margin="10" BorderThickness="0" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="15" Height="15" Fill="Red" Margin="7"/>
+                                <Label Content="{Binding modulo}" Foreground="White" Width="85"/>
+                                <Label Content="{Binding solicitudKanbanId}" Foreground="White" Width="55"/>
+                                <Label Content="{Binding fechaSolicitud}" Foreground="White"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="12" Grid.ColumnSpan="3" Grid.Column="16" Grid.RowSpan="7">
+                <ItemsControl ItemsSource="{Binding PP}"  Background="Transparent" Margin="10" BorderThickness="0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="15" Height="15" Fill="Yellow" Margin="7"/>
+                                <Label Content="{Binding modulo}" Foreground="White" Width="80"/>
+                                <Label Content="{Binding solicitudKanbanId}" Foreground="White" Width="50"/>
+                                <Label Content="{Binding fechaSolicitud}" Foreground="White" Width="65"/>
+                                <Label Content="AREA" Foreground="White"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
             <!--#endregion-->
             <!--#region nombres de los modulos-->
             <Label Grid.Row="2" Grid.Column="0" x:Name="l1" Style="{StaticResource labelExterna}">MODULO 1</Label>
@@ -180,7 +207,8 @@
             <Label Grid.Row="11" Grid.Column="13" x:Name="l30" Style="{StaticResource labelExterna}">MODULO 30</Label>
             <Label Grid.Row="11" Grid.Column="14" x:Name="l31" Style="{StaticResource labelExterna}">MODULO 31</Label>
             <Label Grid.Row="11" Grid.Column="15" x:Name="l32" Style="{StaticResource labelExterna}">MODULO 32</Label>
-            <Label Grid.Row="2" Grid.Column="16" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Style="{StaticResource labelExterna}">PRIORIDADES</Label>
+            <TextBlock Grid.Row="2" Grid.Column="16" Grid.ColumnSpan="3" Margin="0,0,0,0" FontSize="18" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFD12020" TextWrapping="Wrap" FontWeight="Bold">ORDEN DE ATENCIÓN DE SOLICITUDES EN COLA</TextBlock>
+            <TextBlock Grid.Row="11" Grid.Column="16" Grid.ColumnSpan="3" Margin="0,0,0,0" FontSize="18" FontWeight="Bold" Foreground="#FFF1F177" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Center">SOLICITUDES EN PAUSA POR MATERIAL PENDIENTE</TextBlock>
             <!--#endregion-->
         </Grid>
         <Popup x:Name="popUpEstadoModulo" Width="600" Height="650" AllowsTransparency="True" PlacementTarget="{Binding areaDeTrabajo}" Placement="Center" StaysOpen="False" >

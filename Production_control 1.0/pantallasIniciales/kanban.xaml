@@ -91,7 +91,7 @@
                 <Label Content="Estado de Lotes" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="White" Margin="5,5,5,0"/>
             </Grid>
         </Border>
-        <Border Grid.Column="7" Grid.ColumnSpan="7" Grid.Row="2" Grid.RowSpan="11" x:Name="borderKanban" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderKanban_MouseUp">
+        <Border Grid.Column="7" Grid.ColumnSpan="7" Grid.Row="2" Grid.RowSpan="11" x:Name="borderKanban" Background="Transparent" Margin="25" BorderBrush="Black" BorderThickness="9" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderKanban_MouseUp">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -113,7 +113,7 @@
                     <RowDefinition Height="0*"/>
                 </Grid.RowDefinitions>
                 <Image Source="/imagenes/kanban.png" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="7"/>
-                <Label Content="Estado de Modulos de Costura" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="White"  Margin="5,10,5,0"/>
+                <Label Content="Estado de Modulos de Costura" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="Black"  Margin="5,10,5,0"/>
             </Grid>
         </Border>
     </Grid>
