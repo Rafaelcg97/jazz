@@ -341,7 +341,7 @@ namespace Production_control_1._0.pantallasKanban
                 {
                     if(item.habilitadoEntrega==true && item.chequeado == true)
                     {
-                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + ", motivoEntregaParcial='"+ item.motivo +"', areaResponsable='" + item.area + "', horaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where detalleKanbanId="+item.solicitudKanbanId ;
+                        string sql = "update detalleSolicitudeKanban set entregado="+ 1 + ", horaEntrega='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where detalleKanbanId="+item.solicitudKanbanId ;
                         SqlCommand cm = new SqlCommand(sql, cn);
                         cm.ExecuteNonQuery();
 
@@ -578,19 +578,6 @@ namespace Production_control_1._0.pantallasKanban
             listViewListaMateriales.SelectedItem = comboBox.DataContext;
 
             solicitudKanban item = (solicitudKanban)listViewListaMateriales.SelectedItem;
-
-            if (item.chequeado != null)
-            {
-                if (item.chequeado == true)
-                {
-                    item.area = "-";
-                    item.motivo = "-";
-
-                    listViewListaMateriales.Items.Refresh();
-                }
-            }
-
-
         }
     }
 }

@@ -275,13 +275,6 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="45" Header="Validar">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding chequeado}" IsEnabled="{Binding habilitadoEntrega}" Checked="CheckBox_Checked"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
                                 <GridViewColumn Width="100" Header="Motivo">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -293,6 +286,13 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <ComboBox Width="77" ItemsSource="{Binding areas}" SelectedItem="{Binding area}" IsEnabled="{Binding habilitadoEntrega}" SelectionChanged="ComboBox_SelectionChanged"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="45" Header="Entregar">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding chequeado}" IsEnabled="{Binding habilitadoEntrega}" Checked="CheckBox_Checked"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
