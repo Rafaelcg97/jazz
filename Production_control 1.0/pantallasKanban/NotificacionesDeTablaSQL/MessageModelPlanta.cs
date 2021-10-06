@@ -45,6 +45,9 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
         private ObservableCollection<solicitudKanban> u32 = null;
         private ObservableCollection<solicitudKanban> p = null;
         private ObservableCollection<solicitudKanban> pp = null;
+        private ObservableCollection<solicitudKanban> a = null;
+        private ObservableCollection<solicitudKanban> r = null;
+        private ObservableCollection<solicitudKanban> v = null;
         #endregion
         #region coleccionesObservablesPub
         public ObservableCollection<solicitudKanban> U1
@@ -319,6 +322,30 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                 return pp;
             }
         }
+        public ObservableCollection<solicitudKanban> A
+        {
+            get
+            {
+                a = a ?? new ObservableCollection<solicitudKanban>();
+                return a;
+            }
+        }
+        public ObservableCollection<solicitudKanban> R
+        {
+            get
+            {
+                r = r ?? new ObservableCollection<solicitudKanban>();
+                return r;
+            }
+        }
+        public ObservableCollection<solicitudKanban> V
+        {
+            get
+            {
+                v = v ?? new ObservableCollection<solicitudKanban>();
+                return v;
+            }
+        }
         #endregion
         public Dispatcher UIDispatcher { get; set; }
         public SQLNotifierPlanta Notifier { get; set; }
@@ -372,14 +399,21 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                     this.U32.Clear();
                     this.P.Clear();
                     this.PP.Clear();
+                    this.A.Clear();
+                    this.R.Clear();
+                    this.V.Clear();
                     #endregion
                     #region agregarDatosLista
+                    int conteoRojo = 0;
+                    int conteoVerde = 0;
+                    int conteoAmarrillo = 0;
                     foreach (DataRow dr in consultado.Rows)
                     {
                         string color_ = "";
                         if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"])==true)
                         {
                             color_ = "Red";
+                            conteoRojo++;
                         }
                         else if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"]) == false)
                         {
@@ -388,6 +422,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                         else if (dr["tipo"].ToString() == "solicitud" && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
                         {
                             color_ = "Yellow";
+                            conteoAmarrillo++;
                         }
                         else if (dr["tipo"].ToString() == "devolucion" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()))
                         {
@@ -396,7 +431,9 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                         else
                         {
                             color_ = "#FF6FC136";
+                            conteoVerde++;
                         }
+
                         switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
                         {
                             case 1:
@@ -918,24 +955,11 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                             TimeSpan diferencia = DateTime.Now - Convert.ToDateTime(dr["fechaSolicitud"]);
                             double diferenciaenminutos = diferencia.TotalMinutes;
 
-                            string color = "#FF6FC136";
-                            if (diferenciaenminutos >= 120)
-                            {
-                                color = "Red";
-                            }
-                            else if(diferenciaenminutos>=80)
-                            {
-                                color = "Yellow";
-                            }
-
                             solicitudKanban itemP = new solicitudKanban
                             {
                                 solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                tipo = dr["tipo"].ToString(),
                                 modulo = dr["modulo"].ToString(),
-                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd hh:mm"),
-                                color = color,
-                                validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd   hh:mm"),
                             };
                             this.P.Add(itemP);
                         }
@@ -944,15 +968,32 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                             solicitudKanban itemPP = new solicitudKanban
                             {
                                 solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                tipo = dr["tipo"].ToString(),
                                 modulo = dr["modulo"].ToString(),
                                 fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd"),
-                                validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                motivo=dr["motivoParcial"].ToString()
                             };
                             this.PP.Add(itemPP);
                         }
 
                     }
+
+                    solicitudKanban itemR = new solicitudKanban
+                    {
+                        solicitado = conteoRojo,
+                    };
+                    this.R.Add(itemR);
+
+                    solicitudKanban itemV = new solicitudKanban
+                    {
+                        solicitado = conteoVerde,
+                    };
+                    this.V.Add(itemV);
+
+                    solicitudKanban itemA = new solicitudKanban
+                    {
+                        solicitado = conteoAmarrillo,
+                    };
+                    this.A.Add(itemA);
                     #endregion
                 }
             });

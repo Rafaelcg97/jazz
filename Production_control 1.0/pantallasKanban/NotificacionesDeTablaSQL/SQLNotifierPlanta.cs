@@ -51,7 +51,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select [solicitudKanbanId], [tipo], [modulo], [ubicacion], [atiendeSolicitud], [fechaSolicitud], [fechaInicio], [fechaParcial], [fechaEntrega], [validadoSmed] from dbo.solicitudesKanban where [fechaEntrega] is null order by [loteSmed] Desc, [solicitudKanbanId] Asc", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [solicitudKanbanId], [tipo], [modulo], [ubicacion], [atiendeSolicitud], [fechaSolicitud], [fechaInicio], [fechaParcial], [motivoParcial], [fechaEntrega], [validadoSmed] from dbo.solicitudesKanban where [fechaEntrega] is null order by [loteSmed] Desc, [solicitudKanbanId] Asc", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 

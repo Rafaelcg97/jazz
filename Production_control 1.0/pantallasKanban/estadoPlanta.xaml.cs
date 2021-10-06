@@ -27,7 +27,7 @@ namespace Production_control_1._0.pantallasKanban
     {
         string modulo = "";
         string[] motivos_ = new string[4];
-        string[] areas_ = new string[6];
+        string[] areas_ = new string[7];
         #region datosIniciales
         public estadoPlanta()
         {
@@ -63,11 +63,12 @@ namespace Production_control_1._0.pantallasKanban
             motivos_[3] = "Falta de materiales";
 
             areas_[0] = "-";
-            areas_[1] = "BMP";
+            areas_[1] = "Trims";
             areas_[2] = "Corte";
-            areas_[3] = "Product Id";
-            areas_[4] = "Receiving";
-            areas_[5] = "Calidad";
+            areas_[3] = "Pro.Id";
+            areas_[4] = "Recibo";
+            areas_[5] = "QA";
+            areas_[6] = "Subli";
 
         }
         public void CreatePermission()
@@ -336,6 +337,8 @@ namespace Production_control_1._0.pantallasKanban
                 SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                 bool terminarSolicitud = true;
                 string ahora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                HashSet<string> motivos = new HashSet<string>();
+                string motivo = "";
                 cn.Open();
                 foreach (solicitudKanban item in listViewListaMateriales.Items)
                 {
@@ -350,11 +353,13 @@ namespace Production_control_1._0.pantallasKanban
                     {
                         terminarSolicitud = false;
 
+                        motivos.Add(item.area);
                         string sql = "update detalleSolicitudeKanban set motivoEntregaParcial='" + item.motivo + "', areaResponsable='" + item.area + "' where detalleKanbanId=" + item.solicitudKanbanId;
                         SqlCommand cm = new SqlCommand(sql, cn);
                         cm.ExecuteNonQuery();
                     }
                 }
+
                 if(terminarSolicitud == true)
                 {
                     string sql = "update solicitudesKanban set fechaEntrega='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
@@ -363,7 +368,12 @@ namespace Production_control_1._0.pantallasKanban
                 }
                 else
                 {
-                    string sql = "update solicitudesKanban set fechaParcial='" + ahora + "', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
+                    foreach(string item in motivos)
+                    {
+                        motivo = motivo + item + "\n";
+                    }
+
+                    string sql = "update solicitudesKanban set fechaParcial='" + ahora + "', motivoParcial='" + motivo +"', autorizaCierre='" + labelCodigoAutoriza.Content.ToString() + "' where solicitudKanbanId='" + labelNumeroAccion.Content + "'";
                     SqlCommand cm = new SqlCommand(sql, cn);
                     cm.ExecuteNonQuery();
                 }

@@ -378,17 +378,17 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="PO Number" Width="100">
+                                <GridViewColumn Header="Make" Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding PONumber}" Background="{Binding color}" Width="200" FontSize="12"/>
+                                            <Label Content="{Binding QuantityOrdered}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Style Name" Width="187">
+                                <GridViewColumn Header="Terminadas" Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding StyleName}" Background="{Binding color}" Width="200" FontSize="12"/>
+                                            <Label Content="{Binding terminadas}" FontSize="12" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkRed" Foreground="White"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -406,17 +406,10 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Empaque" Width="100">
+                                <GridViewColumn Header="Style Name" Width="187">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding tipoEmpaque}" Background="{Binding color}" Width="200" FontSize="12"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Pcs Empaq" Width="85">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Label Content="{Binding packQuantity}" Background="{Binding color}" Width="200" FontSize="12"/>
+                                            <Label Content="{Binding StyleName}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -434,17 +427,24 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Make" Width="85">
+                                <GridViewColumn Header="PO Number" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding QuantityOrdered}" Background="{Binding color}" Width="200" FontSize="12"/>
+                                            <Label Content="{Binding PONumber}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Terminadas" Width="85">
+                                <GridViewColumn Header="Empaque" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding terminadas}" FontSize="12" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Background="DarkRed" Foreground="White"/>
+                                            <Label Content="{Binding tipoEmpaque}" Background="{Binding color}" Width="200" FontSize="12"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Pcs Empaq" Width="85">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding packQuantity}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
