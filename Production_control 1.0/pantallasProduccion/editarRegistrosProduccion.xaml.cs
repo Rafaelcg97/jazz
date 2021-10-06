@@ -294,7 +294,7 @@ namespace Production_control_1._0.pantallasProduccion
                             if (dr.Read())
                             {
                                 totalDePiezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]);
-                                make = totalDePiezas = Convert.ToInt32(dr["make"] is DBNull ? 0 : dr["make"]);
+                                make = Convert.ToInt32(dr["make"] is DBNull ? 0 : dr["make"]);
                             };
                             dr.Close();
                             cnProduccion.Close();
