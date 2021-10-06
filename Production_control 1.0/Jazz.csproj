@@ -1014,6 +1014,15 @@
   <ItemGroup>
     <Resource Include="imagenes\calendario.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\grafico1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\grafico2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\grafico3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
