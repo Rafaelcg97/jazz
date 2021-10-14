@@ -12,6 +12,7 @@ namespace Production_control_1._0.clases
         public string nombre { get; set;}
         public string modulo { get; set;}
         public int arteria { get; set; }
+        public int arteriaAsignada { get; set; }
         public double tiempo { get; set; }
         public string puesto { get; set; }
         public string observaciones { get; set;}

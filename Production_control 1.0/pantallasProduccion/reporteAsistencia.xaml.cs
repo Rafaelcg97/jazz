@@ -1,23 +1,15 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Production_control_1._0.clases;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
-using Production_control_1._0.clases;
 
 namespace Production_control_1._0.pantallasProduccion
 {
@@ -132,13 +124,13 @@ namespace Production_control_1._0.pantallasProduccion
                 calendarAsistencia.SelectedDate = DateTime.Now;
                 //llenar datos de asistencia guardada
                 cnProduccion.Open();
-                sql = "select fecha_at, turno_at, asignado_at, codigo_at, nombre_at, modulo_at, arteria_at, tiempo_at, base_at, puesto_at, observaciones_at, movimiento_at from asistencia where asignado_at='" + comboBoxModulo.SelectedItem.ToString() + "' and turno_at='" + comboBoxTurno.SelectedItem.ToString() + "' and fecha_at='" + labelFecha.Content.ToString() + "'";
+                sql = "select fecha_at, turno_at, asignado_at, artasig_at, codigo_at, nombre_at, modulo_at, arteria_at, tiempo_at, base_at, puesto_at, observaciones_at, movimiento_at from asistencia where asignado_at='" + comboBoxModulo.SelectedItem.ToString() + "' and turno_at='" + comboBoxTurno.SelectedItem.ToString() + "' and fecha_at='" + labelFecha.Content.ToString() + "'";
                 cm = new SqlCommand(sql, cnProduccion);
                 dr = cm.ExecuteReader();
                 listViewAsistencia.Items.Clear();
                 while (dr.Read())
                 {
-                    listViewAsistencia.Items.Add(new asistencia {codigo=Convert.ToInt32(dr["codigo_at"]), modulos=modulosCompletos, arterias=arterias_, puestos=puestos_, nombre=dr["nombre_at"].ToString(), modulo=dr["modulo_at"].ToString(), arteria=Convert.ToInt32(dr["arteria_at"]), tiempo=Convert.ToDouble(dr["tiempo_at"]), movimiento=dr["movimiento_at"].ToString(), puesto=dr["puesto_at"].ToString(), observaciones=dr["observaciones_at"].ToString(), movimientos=movimientos_ });
+                    listViewAsistencia.Items.Add(new asistencia {codigo=Convert.ToInt32(dr["codigo_at"]), arteriaAsignada=Convert.ToInt32(dr["artasig_At"]is DBNull?1:dr["artasig_at"]), modulos=modulosCompletos, arterias=arterias_, puestos=puestos_, nombre=dr["nombre_at"].ToString(), modulo=dr["modulo_at"].ToString(), arteria=Convert.ToInt32(dr["arteria_at"]), tiempo=Convert.ToDouble(dr["tiempo_at"]), movimiento=dr["movimiento_at"].ToString(), puesto=dr["puesto_at"].ToString(), observaciones=dr["observaciones_at"].ToString(), movimientos=movimientos_ });
                     comboBoxTurnoLista.SelectedItem = dr["turno_at"].ToString();
                     comboBoxBase.SelectedItem = dr["base_at"].ToString();
                     comboBoxAsignado.SelectedItem = dr["asignado_at"].ToString();
@@ -242,7 +234,7 @@ namespace Production_control_1._0.pantallasProduccion
                     cm.ExecuteNonQuery();
                     foreach(asistencia item in listViewAsistencia.Items)
                     {
-                        sql = "insert into asistencia(fecha_at, asignado_at, codigo_at, nombre_at, modulo_at, arteria_at, tiempo_at, turno_at, base_at, puesto_at, observaciones_at, movimiento_at) values('"+ Convert.ToDateTime(calendarAsistencia.SelectedDate).ToString("yyyy-MM-dd")+"', '"+comboBoxAsignado.SelectedItem.ToString()+"', '"+item.codigo+"', '"+item.nombre+"', '"+item.modulo+"', '"+item.arteria+"', '"+item.tiempo+"', '"+ comboBoxTurnoLista.SelectedItem.ToString()+"', '"+comboBoxBase.SelectedItem.ToString()+"', '"+item.puesto+"', '"+item.observaciones+"', '"+item.movimiento+"')";
+                        sql = "insert into asistencia(fecha_at, asignado_at, artasig_at, codigo_at, nombre_at, modulo_at, arteria_at, tiempo_at, turno_at, base_at, puesto_at, observaciones_at, movimiento_at) values('"+ Convert.ToDateTime(calendarAsistencia.SelectedDate).ToString("yyyy-MM-dd")+"', '"+comboBoxAsignado.SelectedItem.ToString()+"', '"+item.arteriaAsignada+"', '"+item.codigo+"', '"+item.nombre+"', '"+item.modulo+"', '"+item.arteria+"', '"+item.tiempo+"', '"+ comboBoxTurnoLista.SelectedItem.ToString()+"', '"+comboBoxBase.SelectedItem.ToString()+"', '"+item.puesto+"', '"+item.observaciones+"', '"+item.movimiento+"')";
                         cm = new SqlCommand(sql, cnProduccion);
                         cm.ExecuteNonQuery();
                     }

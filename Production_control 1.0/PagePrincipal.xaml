@@ -57,6 +57,12 @@
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TableMultiple"  Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="BMP" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="QualityHigh"  Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Calidad" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>

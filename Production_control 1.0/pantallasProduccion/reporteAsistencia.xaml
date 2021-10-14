@@ -79,6 +79,15 @@
             <ListView x:Name="listViewAsistencia" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="11" Grid.RowSpan="17" Margin="15,0,0,15" KeyDown="listViewAsistencia_KeyDown">
                 <ListView.View>
                     <GridView>
+                        <!--#region arteriaAsignada-->
+                        <GridViewColumn Header="Art Asig" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding arterias}" SelectedItem="{Binding Path=arteriaAsignada}" Width="35" Background="Gray"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <!--#endregion-->
                         <!--#region Codigo-->
                         <GridViewColumn Header="Codigo" Width="100">
                             <GridViewColumn.CellTemplate>
@@ -89,7 +98,7 @@
                         </GridViewColumn>
                         <!--#endregion-->
                         <!--#region Nombre-->
-                        <GridViewColumn Header="Nombre" Width="320">
+                        <GridViewColumn Header="Nombre" Width="315">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Label  Content="{Binding Path=nombre}" Width="350" Background="DarkGreen" Foreground="White"/>
@@ -143,10 +152,10 @@
                         </GridViewColumn>
                         <!--#endregion-->
                         <!--#region Movimiento-->
-                        <GridViewColumn Header="Movimiento" Width="220">
+                        <GridViewColumn Header="Movimiento" Width="185">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding movimientos}" SelectedItem="{Binding Path=movimiento}" Width="205" Background="Gray"/>
+                                    <ComboBox ItemsSource="{Binding movimientos}" SelectedItem="{Binding Path=movimiento}" Width="170" Background="Gray"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
