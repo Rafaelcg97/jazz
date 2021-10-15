@@ -46,11 +46,21 @@
         <Button x:Name="btnAtras" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
         </Button>
+        <Viewbox Grid.ColumnSpan="11" >
+            <Label Content="Control de SAM Kanban" FontWeight="Bold" FontSize="55" HorizontalContentAlignment="Center" Padding="0" Margin="0"/>
+        </Viewbox>
         <Border Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="15" Margin="15,0,0,0" BorderBrush="Black" BorderThickness="2" CornerRadius="8">
             <Viewbox VerticalAlignment="Top">
                 <StackPanel>
                     <Label FontWeight="Bold" FontSize="15" HorizontalContentAlignment="Center" Content="Categorias de PartNumbers" Margin="10,0,0,0"/>
-                    <ListView x:Name="lstvCategorias">
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,20">
+                        <Label Content="Buscar PartNumber:" FontWeight="Bold" FontSize="15" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtBuscarCategoria" Width="200" Height="25" TextChanged="txtBuscarCategoria_TextChanged"/>
+                        <Button x:Name="btnGuardarCategoria" Height="35" Width="35" Background="Transparent" Margin="325,0,0,0" BorderBrush="Transparent">
+                            <Image Source="/imagenes/guardar.png"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView x:Name="lstvCategorias" BorderBrush="Transparent">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Nombre de la categoria" Width="150">
@@ -105,11 +115,14 @@
             <Viewbox VerticalAlignment="Top">
                 <StackPanel>
                     <Label  FontWeight="Bold" FontSize="25" HorizontalContentAlignment="Center" Content="PartNumbers pendientes de clasificar"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
-                        <Label Content="Buscar PartNumber:         " FontWeight="Bold" FontSize="14"/>
-                        <TextBox x:Name="txtBuscarPartNumber" Width="200"/>
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,20">
+                        <Label Content="Buscar PartNumber:" FontWeight="Bold" FontSize="15" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtBuscarPartNumber" Width="200" Height="25"/>
+                        <Button x:Name="btnAgregarPartNumber" Height="35" Width="35" Background="Transparent" Margin="220,0,0,0" BorderBrush="Transparent">
+                            <Image Source="/imagenes/guardar.png"/>
+                        </Button>
                     </StackPanel>
-                    <ListView x:Name="lstvPartNumbers" MaxHeight="900" Width="650" BorderBrush="Transparent">
+                    <ListView x:Name="lstvPartNumbers" MaxHeight="1000" Width="650" BorderBrush="Transparent">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Part Number" Width="230">
@@ -143,9 +156,6 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="btnAgregarPartNumber" Height="75" Width="100" Margin="7 " Background="Transparent" BorderBrush="Transparent">
-                        <Image Source="/imagenes/disquete.png"/>
-                    </Button>
                 </StackPanel>
             </Viewbox>
         </Border>
@@ -153,8 +163,8 @@
             <Viewbox VerticalAlignment="Top">
                 <StackPanel>
                     <Label FontWeight="Bold" FontSize="25" HorizontalContentAlignment="Center" Content="Historial de PartNumbers"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
-                        <Label Content="Buscar PartNumber:         " FontWeight="Bold" FontSize="14"/>
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,20">
+                        <Label Content="Buscar PartNumber:" FontWeight="Bold" FontSize="14" Margin="0,0,20,0"/>
                         <TextBox x:Name="txtBuscarPartNumberAgregado" Width="200" Height="20"/>
                     </StackPanel>
                     <ListView x:Name="lstvPartNumbersAgregados" MaxHeight="900" Width="600" BorderBrush="Transparent">

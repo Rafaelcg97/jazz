@@ -208,19 +208,62 @@ namespace Production_control_1._0
             cn.Open();
             if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
             {
-                string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "' and arteria='" + comboBoxArteria.SelectedItem.ToString() + "'";
+                string sql = "select TOP 1 hora_cierre from solicitudes where problema_reportado='CAMBIO' AND modulo='" + modulo_reporte.SelectedItem.ToString() + "'  AND arteria='" + comboBoxArteria.SelectedItem.ToString() + "' ORDER BY hora_cierre DESC";
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlDataReader dr = cm.ExecuteReader();
                 //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+
                 if (dr.Read())
                 {
-                    corresponde_reporte.Content = "SMED";
+                    DateTime horaCierre = Convert.ToDateTime(dr["hora_cierre"]);
+                    DateTime ahora = DateTime.Now;
+                    double diferenciaHoras= (ahora - horaCierre).TotalDays * 24;
+
+                    //validar si el dia de cierre del ultimo cambio es igual al dia del reporte
+                    if (ahora.Date == horaCierre.Date)
+                    {
+                        if (diferenciaHoras <= 2)
+                        {
+                            corresponde_reporte.Content = "SMED";
+                        }
+                        else
+                        {
+                            corresponde_reporte.Content = "MANTENIMIENTO";
+                        }
+                    }
+                    //si los dias son diferentes validar si el cambio fue viernes
+                    else
+                    {
+                        //si el cambio fue viernes quitar el tiempo de fin de semana
+                        if (horaCierre.DayOfWeek == DayOfWeek.Friday)
+                        {
+                            if (diferenciaHoras - 62.7 <= 2)
+                            {
+                                corresponde_reporte.Content = "SMED";
+                            }
+                            else
+                            {
+                                corresponde_reporte.Content = "MANTENIMIENTO";
+                            }
+                        }
+                        else
+                        {
+                            if (diferenciaHoras - 14.7 <= 2)
+                            {
+                                corresponde_reporte.Content = "SMED";
+                            }
+                            else
+                            {
+                                corresponde_reporte.Content = "MANTENIMIENTO";
+                            }
+                        }
+                    }
+
                 }
                 else
                 {
                     corresponde_reporte.Content = "MANTENIMIENTO";
-                }
-                ;
+                };
                 dr.Close();
             }
 
@@ -251,19 +294,63 @@ namespace Production_control_1._0
             if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
             {
                 cn.Open();
-                string sql = "select modulo from tiempo_desde_cambios where modulo= '" + modulo_reporte.SelectedItem.ToString() + "' and arteria='" + comboBoxArteria.SelectedItem.ToString() + "'";
+                string sql = "select TOP 1 hora_cierre from solicitudes where problema_reportado='CAMBIO' AND modulo='" + modulo_reporte.SelectedItem.ToString() + "'  AND arteria='" + comboBoxArteria.SelectedItem.ToString() + "' ORDER BY hora_cierre DESC";
                 SqlCommand cm = new SqlCommand(sql, cn);
                 SqlDataReader dr = cm.ExecuteReader();
                 //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+
                 if (dr.Read())
                 {
-                    corresponde_reporte.Content = "SMED";
+                    DateTime horaCierre = Convert.ToDateTime(dr["hora_cierre"]);
+                    DateTime ahora = DateTime.Now;
+                    double diferenciaHoras = (ahora - horaCierre).TotalDays * 24;
+                    //validar si el dia de cierre del ultimo cambio es igual al dia del reporte
+                    if (ahora.Date == horaCierre.Date)
+                    {
+                        if (diferenciaHoras<=2)
+                        {
+                            corresponde_reporte.Content = "SMED";
+                        }
+                        else
+                        {
+                            corresponde_reporte.Content = "MANTENIMIENTO";
+                        }
+                    }
+                    //si los dias son diferentes validar si el cambio fue viernes
+                    else
+                    {
+                        //si el cambio fue viernes quitar el tiempo de fin de semana
+                        if (horaCierre.DayOfWeek==DayOfWeek.Friday)
+                        {
+                            if (diferenciaHoras - 62.7 <= 2)
+                            {
+                                corresponde_reporte.Content = "SMED";
+                            }
+                            else
+                            {
+                                corresponde_reporte.Content = "MANTENIMIENTO";
+                            }
+                        }
+                        else
+                        {
+                            if (diferenciaHoras - 14.7 <= 2)
+                            {
+                                corresponde_reporte.Content = "SMED";
+                            }
+                            else
+                            {
+                                corresponde_reporte.Content = "MANTENIMIENTO";
+                            }
+                        }
+                    }
+
                 }
                 else
                 {
                     corresponde_reporte.Content = "MANTENIMIENTO";
                 };
                 dr.Close();
+                cn.Close();
                 habilitar_boton();
             }
         }

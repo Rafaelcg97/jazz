@@ -503,7 +503,7 @@ namespace Production_control_1._0.pantallasKanban
                 cn.Open();
                 if (terminarSolicitud == true)
                 {
-                    string sql = "update solicitudesKanban set validadoSmed=" + 1 + " where solicitudKanbanId='" + labelNumeroAccionAutorizar.Content + "'";
+                    string sql = "update solicitudesKanban set validadoSmed=" + 1 + ", horaValidacion='"+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") +"' where solicitudKanbanId='" + labelNumeroAccionAutorizar.Content + "'";
                     SqlCommand cm = new SqlCommand(sql, cn);
                     cm.ExecuteNonQuery();
                 }

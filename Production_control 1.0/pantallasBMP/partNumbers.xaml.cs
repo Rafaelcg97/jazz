@@ -89,5 +89,30 @@ namespace Production_control_1._0.pantallasBMP
             }
         }
 
+        private void txtBuscarCategoria_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<partNumber> categoriasBuscadas = new List<partNumber>();
+            string letrasIntroducidas = "";
+            if (letrasIntroducidas == "")
+            {
+                foreach (partNumber item in categoriasPartNumber)
+                {
+                    categoriasBuscadas.Add(item);
+                }
+            }
+            else
+            {
+                foreach (partNumber item in categoriasPartNumber)
+                {
+                    if (item.categoria.Contains(letrasIntroducidas))
+                    {
+                        categoriasBuscadas.Add(item);
+                    }
+                }
+            }
+
+            lstvCategorias.ItemsSource = categoriasBuscadas;
+            lstvCategorias.Items.Refresh();
+        }
     }
 }
