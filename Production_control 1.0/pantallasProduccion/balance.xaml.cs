@@ -866,6 +866,8 @@ namespace Production_control_1._0
                 actualizarGrafica();
                 operacionSobrecargadaOperacionSubutilizada();
                 #endregion
+
+                tipo = "";
             }
         }
         #endregion

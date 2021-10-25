@@ -23,5 +23,9 @@ namespace Production_control_1._0.pantallasBMP
             NavigationService.Navigate(new partNumbers());
         }
 
+        private void btnAccesorios_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new programacionTrims());
+        }
     }
 }
