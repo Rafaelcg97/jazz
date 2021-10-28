@@ -21,6 +21,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -49,7 +51,9 @@
         <Viewbox Grid.ColumnSpan="11" >
             <Label Content="Programación Trims" FontWeight="Bold" FontSize="55" HorizontalContentAlignment="Center" Padding="0" Margin="0"/>
         </Viewbox>
-        <Label Grid.Row="2" Grid.ColumnSpan="2" FontSize="19" FontWeight="Bold" Margin="15,0,0,0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Tarjetas Kanban Disponibles</Label>
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="2" >
+            <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Tarjetas Kanban Disponibles</Label>
+        </Viewbox>
         <Viewbox Grid.Row="3" Grid.ColumnSpan="2" Margin="15,10,15,0">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Buscar" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" Height="25" Padding="0" Margin="0,0,10,0"/>
@@ -57,69 +61,184 @@
                 <ToggleButton x:Name="btnSeleccionarTodo" BorderBrush="Black" Background="Transparent" Height="25" Margin="0,0,10,0" Unchecked="btnSeleccionarTodo_Unchecked" Checked="btnSeleccionarTodo_Checked">
                     <Image x:Name="imgSeleccionar" Source="/imagenes/combinar.png"/>
                 </ToggleButton>
-                <Button BorderBrush="Black" Background="Transparent" Height="25">
+                <Button BorderBrush="Black" Background="Transparent" Height="25" Click="Button_Click">
                     <Image Source="/imagenes/apply.ico"/>
                 </Button>
             </StackPanel>
         </Viewbox>
-        <ListView x:Name="lstTarjetas" Grid.Row="4" Grid.ColumnSpan="2" Margin="15,0,15,0" Grid.RowSpan="13">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Tarjeta" Width="225">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding tarjeta}" Width="255"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Seleccionar" Width="70">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding seleccionado}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="18,0,0,0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Viewbox Grid.Row="4" Grid.ColumnSpan="2" Margin="15,0,15,0" Grid.RowSpan="13" VerticalAlignment="Top">
+            <ListView x:Name="lstTarjetas" Width="460" Height="1300" FontSize="25">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tarjeta" Width="270">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding tarjeta}" Width="230" FontSize="24"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Seleccionar" Width="135">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Viewbox Height="40" Width="40">
+                                        <CheckBox IsChecked="{Binding seleccionado}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" />
+                                    </Viewbox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Viewbox>
 
 
-        <Button Grid.Column="2" Grid.Row="8" Grid.RowSpan="2" MaxWidth="75" MinWidth="50" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent">
-            <Image Source="/imagenes/flechaArriba.png"/>
-        </Button>
 
-        <Button Grid.Column="2" Grid.Row="11" Grid.RowSpan="2" MaxWidth="75" MinWidth="50" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent">
-            <Image Source="/imagenes/flechaAbajo.png"/>
-        </Button>
-
-        <Label Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="5" FontSize="19" FontWeight="Bold" Margin="15,0,0,0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Asignación de Tandas</Label>
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Margin="15,10,15,0">
-            <Button BorderBrush="Black" Background="Transparent" Height="25">
-                <Image Source="/imagenes/limpiar.png"/>
+        <Viewbox Grid.Column="2" Grid.Row="8" Grid.RowSpan="2" HorizontalAlignment="Right">
+            <Button x:Name="btnSubir" Background="Transparent" BorderBrush="Transparent" Width="25" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btbSubir_Click">
+                <Image Source="/imagenes/flechaArriba.png"/>
             </Button>
-            <Button BorderBrush="Black" Background="Transparent" Height="25" Margin="10,0,0,0">
-                <Image Source="/imagenes/guardar.png"/>
+        </Viewbox>
+
+        <Viewbox Grid.Column="2" Grid.Row="10" Grid.RowSpan="2" HorizontalAlignment="Right">
+            <Button x:Name="btnBajar" Background="Transparent" BorderBrush="Transparent" Width="25" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnBajar_Click">
+                <Image Source="/imagenes/flechaAbajo.png"/>
             </Button>
-        </StackPanel>
-        <ListView Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="5" Margin="15,0,15,0" Grid.RowSpan="13">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Tarjeta" Width="225">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding tarjeta}" Width="250"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Seleccionar" Width="90">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding seleccionado}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        </Viewbox>
+
+
+
+
+        <Viewbox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" >
+            <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Asignación de Tandas</Label>
+        </Viewbox>
+        <Viewbox  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Margin="15,10,15,15" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Height="23">
+                <Button x:Name="btnLimpiar" BorderBrush="Black" Background="Transparent" Height="20" Click="btnLimpiar_Click" >
+                    <Image Source="/imagenes/limpiar.png"/>
+                </Button>
+                <DatePicker x:Name="datePickerFecha" Margin="10,0,0,0"  Height="20" FontSize="10"/>
+                <Button x:Name="btnGenerarTandas" BorderBrush="Black" Background="Transparent" Margin="10,0,0,0" Height="20" Click="btnGenerarTandas_Click" >
+                    <Image Source="/imagenes/colageno.png"/>
+                </Button>
+                <Button BorderBrush="Black" Background="Transparent" Margin="10,0,0,0" Height="20" >
+                    <Image Source="/imagenes/guardar.png"/>
+                </Button>
+            </StackPanel>
+        </Viewbox>
+        <Viewbox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="6" Margin="15,0,15,0" Grid.RowSpan="13" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView x:Name="lstTandas" Width="1500"  Height="1300" FontSize="25">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tanda" Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding tanda}" Width="225"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Lote" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding lote}" Width="200"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Estilo" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding estilo}" Width="250"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Temporada" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding temporada}" Width="250"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Color" Width="275">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding color}" Width="275"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Copa" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding copa}" Width="110"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Make" Width="125">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding make}" Width="130" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tiempo" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding sam}" Width="130" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Viewbox>
+
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="4" Grid.Column="9" >
+            <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Partnumbers no clasificados</Label>
+        </Viewbox>
+
+        <Viewbox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Margin="15,0,15,0" Grid.RowSpan="5" VerticalAlignment="Top">
+            <ListView x:Name="lstPartnumbersNoClasificados" Width="700" Height="500" FontSize="25"/>
+        </Viewbox>
+
+
+        <Viewbox Grid.Row="10" Grid.ColumnSpan="4" Grid.Column="9" >
+            <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Orden de prioridad de las Tandas</Label>
+        </Viewbox>
+
+
+        <Viewbox Grid.Column="9" Grid.Row="12" Grid.RowSpan="1" HorizontalAlignment="Right">
+            <Button Background="Transparent" BorderBrush="Transparent" Width="25" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/imagenes/flechaArriba.png"/>
+            </Button>
+        </Viewbox>
+
+        <Viewbox Grid.Column="9" Grid.Row="13" Grid.RowSpan="1" HorizontalAlignment="Right">
+            <Button Background="Transparent" BorderBrush="Transparent" Width="25" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/imagenes/flechaAbajo.png"/>
+            </Button>
+        </Viewbox>
+        <Viewbox Grid.Row="11" Grid.Column="10" Grid.ColumnSpan="4" Margin="15" Grid.RowSpan="6" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView x:Name="lstOrden" Width="525" Height="500" FontSize="25">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tarjeta" Width="270">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding tarjeta}" Width="230" FontSize="24"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Seleccionar" Width="135">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Viewbox Height="40" Width="40">
+                                        <CheckBox IsChecked="{Binding seleccionado}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" />
+                                    </Viewbox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Viewbox>
+
     </Grid>
 </Page>

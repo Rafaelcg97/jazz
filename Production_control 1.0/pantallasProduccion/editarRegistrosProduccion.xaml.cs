@@ -226,7 +226,7 @@ namespace Production_control_1._0.pantallasProduccion
                 List<string> _empaques = new List<string>();
                 foreach (estilo subitem in empaques)
                 {
-                    if(item.estilo==subitem.nombre && item.temporada == subitem.temporada)
+                    if (item.estilo==subitem.nombre && item.temporada == subitem.temporada)
                     {
                         _empaques.Add(subitem.nombreEmpaque);
                     }

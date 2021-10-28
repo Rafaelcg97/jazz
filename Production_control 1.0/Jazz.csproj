@@ -1060,6 +1060,12 @@
     <Resource Include="imagenes\combinar.png" />
     <Resource Include="imagenes\separar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\colageno.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\ordenTandas.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
