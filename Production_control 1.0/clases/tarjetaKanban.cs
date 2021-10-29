@@ -9,6 +9,7 @@ namespace Production_control_1._0.clases
     public class tarjetaKanban
     {
         public string tarjeta { get; set; }
+        public int ordenPrioridad { get; set; }
         public string tanda { get; set; }
         public string lote { get; set; }
         public string cliente { get; set; }

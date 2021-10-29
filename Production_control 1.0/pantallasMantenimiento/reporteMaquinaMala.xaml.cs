@@ -86,6 +86,12 @@ namespace Production_control_1._0
             Formatter = value => value.ToString("N");
             DataContext = this;
         }
+        private void salir__Click(object sender, RoutedEventArgs e)
+        {
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasIniciales.mantenimiento());
+        }
         #endregion
         #region tamanos_de_letra_/_tipo_de_texto
 

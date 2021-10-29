@@ -23,21 +23,18 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new mantenimientoPreventivo());
         }
-
         private void BorderReporteMaquinaMala_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new reporteMaquinaMala());
         }
-
         private void BorderEstadoPlanta_MouseUp(object sender, MouseButtonEventArgs e)
         {
             estadoPlantaProduccion estadoPlantaProduccion = new estadoPlantaProduccion();
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = estadoPlantaProduccion;
         }
-
         private void BorderReporteTPM_MouseUp(object sender, MouseButtonEventArgs e)
         {
             formularioTPM formularioTPM = new formularioTPM();
@@ -45,12 +42,17 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Content = formularioTPM;
 
         }
-
         private void BorderProgramacionMantenimiento_MouseUp(object sender, MouseButtonEventArgs e)
         {
             calendarioProgramacion calendarioProgramacion = new calendarioProgramacion();
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = calendarioProgramacion;
+        }
+        private void BorderControlActividades_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            controlTiemposMecanicos controlTiemposMecanicos = new controlTiemposMecanicos();
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = controlTiemposMecanicos;
         }
         #endregion
 

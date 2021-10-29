@@ -25,8 +25,11 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border x:Name="BorderReporteMaquinaMala" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderBrush="Black" Background="#FF222222" CornerRadius="5" MouseUp="BorderReporteMaquinaMala_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+        <Border x:Name="BorderReporteMaquinaMala" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" BorderBrush="Black" Background="#FF222222" CornerRadius="5" MouseUp="BorderReporteMaquinaMala_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -56,7 +59,7 @@
                 <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Máquina Mala" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,15,0,0"/>
             </Grid>
         </Border>
-        <Border x:Name="BorderMantenimientoPreventivo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderMantenimientoPreventivo_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+        <Border x:Name="BorderMantenimientoPreventivo" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderMantenimientoPreventivo_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -86,7 +89,7 @@
                 <Label Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Content="Reporte de Mantenimiento Preventivo" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,15,0,0"/>
             </Grid>
         </Border>
-        <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="5"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp" Margin="50,0,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+        <Border x:Name="BorderEstadoPlanta" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="8"  BorderBrush="Black" Background="Black" CornerRadius="5" MouseUp="BorderEstadoPlanta_MouseUp" Margin="50,0,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -146,7 +149,37 @@
                 <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Formulario TPM" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
-        <Border x:Name="BorderProgramacionMantenimiento" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5"  Margin="50,0,0,0" MouseUp="BorderProgramacionMantenimiento_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+        <Border x:Name="BorderControlActividades" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5"  Margin="50,0,0,0" MouseUp="BorderControlActividades_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/controlDeTiempos.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Control de Actividades" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <Border x:Name="BorderProgramacionMantenimiento" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderBrush="Black" Background="Black" CornerRadius="5"  Margin="50,0,0,0" MouseUp="BorderProgramacionMantenimiento_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

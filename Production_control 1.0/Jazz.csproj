@@ -419,6 +419,9 @@
     <Compile Include="pantallasMantenimiento\calendarioProgramacion.xaml.cs">
       <DependentUpon>calendarioProgramacion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasMantenimiento\controlTiemposMecanicos.xaml.cs">
+      <DependentUpon>controlTiemposMecanicos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasMantenimiento\formularioTPM.xaml.cs">
       <DependentUpon>formularioTPM.xaml</DependentUpon>
     </Compile>
@@ -575,6 +578,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasMantenimiento\calendarioProgramacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasMantenimiento\controlTiemposMecanicos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1065,6 +1072,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\ordenTandas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\controlDeTiempos.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

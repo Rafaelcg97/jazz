@@ -20,50 +20,26 @@ namespace Production_control_1._0.pantallasBMP
 {
     public partial class programacionTrims : Page
     {
+        #region listasGenerales
         public List<tarjetaKanban> tarjetas = new List<tarjetaKanban>();
         public List<tarjetaKanban> lotes = new List<tarjetaKanban>();
         public List<String> partnumbersNoClasificados = new List<string>();
+        List<tarjetaKanban> ordenTandasResultante = new List<tarjetaKanban>();
+        #endregion
         public programacionTrims()
         {
             InitializeComponent();
             cargarListaDeTarjetas();
+            datePickerFecha.DisplayDateStart = DateTime.Now;
+            datePickerFecha.DisplayDateEnd = DateTime.Now.AddDays(5);
         }
-
+        #region controlesGenerales
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new menuBMP());
         }
-
-
-        private void cargarListaDeTarjetas()
-        {
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT DISTINCT kanban FROM lotesNoProgramadosTrims";
-            try
-            {
-                tarjetas.Clear();
-                cn.Open();
-                SqlCommand cm = new SqlCommand(sql, cn);
-                SqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    tarjetas.Add(new tarjetaKanban
-                    {
-                        tarjeta = dr["kanban"].ToString(),
-                        seleccionado = false
-                    }) ;
-                };
-                dr.Close();
-                cn.Close();
-
-                lstTarjetas.ItemsSource = tarjetas;
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
-            }
-        }
-
+        #endregion
+        #region controlesListViewTarjetas
         private void txtBuscarTarjeta_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<tarjetaKanban> coincidencias = new List<tarjetaKanban>();
@@ -157,11 +133,37 @@ namespace Production_control_1._0.pantallasBMP
             }
 
         }
+        #endregion
+        #region metodosDeConsultaSQL
+        private void cargarListaDeTarjetas()
+        {
+            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+            string sql = "SELECT DISTINCT kanban FROM lotesNoProgramadosTrims";
+            try
+            {
+                tarjetas.Clear();
+                cn.Open();
+                SqlCommand cm = new SqlCommand(sql, cn);
+                SqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    tarjetas.Add(new tarjetaKanban
+                    {
+                        tarjeta = dr["kanban"].ToString(),
+                        seleccionado = false
+                    });
+                };
+                dr.Close();
+                cn.Close();
 
-
-
-
-
+                lstTarjetas.ItemsSource = tarjetas;
+                lstTarjetas.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
         private List<tarjetaKanban> consultarLotes(string cadenaTarjetas)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
@@ -220,7 +222,7 @@ namespace Production_control_1._0.pantallasBMP
         {
             List<tarjetaKanban> tiemposResultado = new List<tarjetaKanban>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT lote, sum(sam) as sam  FROM samPartNumbers where celula='trims' AND LOTE IN(" + cadenaLotes + ") GROUP BY lote";
+            string sql = "SELECT lote, round(sum(sam),5) as sam  FROM samPartNumbers where celula='trims' AND LOTE IN(" + cadenaLotes + ") GROUP BY lote";
             try
             {
                 cn.Open();
@@ -239,13 +241,15 @@ namespace Production_control_1._0.pantallasBMP
             }
             return tiemposResultado;
         }
+        #endregion
+        #region controlesListViewTandas
         private void generadorDeTandas(List<tarjetaKanban> listaLotes, DateTime fecha)
         {
-            List<tarjetaKanban> listaOrdenada= (lotes.OrderBy(o => o.estilo).ThenBy(o=>o.temporada).ThenBy(o=>o.color)).ToList();
+            List<tarjetaKanban> listaOrdenada = (lotes.OrderBy(o => o.estilo).ThenBy(o => o.temporada).ThenBy(o => o.color)).ToList();
             lotes = listaOrdenada;
             lstTandas.ItemsSource = lotes;
             lstTandas.Items.Refresh();
-            string idTandas = "A-" + fecha.Year + fecha.Month + fecha.Day + "-";
+            string idTandas = "A-" + fecha.Year + fecha.Month.ToString("00") + fecha.Day.ToString("00") + "-";
             string estilo = (lotes.First()).estilo;
             string temporada = (lotes.First()).temporada;
             string cliente = (lotes.First()).cliente;
@@ -262,51 +266,85 @@ namespace Production_control_1._0.pantallasBMP
 
             foreach (tarjetaKanban item in lotes)
             {
-                if (item.estilo==estilo && item.temporada==temporada && make<=3500)
+                //validar si es REI pra verificar si debe o no tomarse en cuenta el color
+                if (item.cliente == "REI")
                 {
-                    //determinar tamanio del lote
-                    #region determinarTamanioDeLote
-                    if (item.make <= 100)
+                    if (item.estilo == estilo && item.temporada == temporada && item.color==color && make <= 3500 && sam<=150)
                     {
-                        conteoPequenios = conteoPequenios + 1;
-                    }
-                    else if (item.make <= 600)
-                    {
-                        conteoMedianos = conteoMedianos + 1;
-                    }
-                    else
-                    {
-                        conteoGrandes = conteoGrandes + 1;
-                    }
-                    #endregion
-
-                    if (conteoGrandes > 0)
-                    {
-                        lotesMaximosDeTanda = 3;
-                    }
-                    else if (conteoMedianos > 0)
-                    {
-                        lotesMaximosDeTanda = 4;
-                    }
-                    else
-                    {
-                        lotesMaximosDeTanda = 5;
-                    }
-
-                    conteoGeneral = conteoGeneral + 1;
-
-                    if (conteoGeneral <= lotesMaximosDeTanda)
-                    {
-                        if (conteoGrandes <= 3 && conteoMedianos <= 4 && conteoPequenios <= 5)
+                        //determinar tamanio del lote
+                        #region determinarTamanioDeLote
+                        if (item.make <= 100)
                         {
-                            item.tanda = idTandas + tanda;
+                            conteoPequenios = conteoPequenios + 1;
+                        }
+                        else if (item.make <= 600)
+                        {
+                            conteoMedianos = conteoMedianos + 1;
                         }
                         else
                         {
+                            conteoGrandes = conteoGrandes + 1;
+                        }
+                        #endregion
+
+                        if (conteoGrandes > 0)
+                        {
+                            lotesMaximosDeTanda = 3;
+                        }
+                        else if (conteoMedianos > 0)
+                        {
+                            lotesMaximosDeTanda = 4;
+                        }
+                        else
+                        {
+                            lotesMaximosDeTanda = 5;
+                        }
+
+                        conteoGeneral = conteoGeneral + 1;
+
+                        if (conteoGeneral <= lotesMaximosDeTanda)
+                        {
+                            if (conteoGrandes <= 3 && conteoMedianos <= 4 && conteoPequenios <= 5)
+                            {
+                                item.tanda = idTandas + tanda;
+                                sam = sam + item.sam;
+                            }
+                            else
+                            {
+                                tanda = tanda + 1;
+                                make = 0;
+                                item.tanda = idTandas + tanda;
+                                sam = item.sam;
+                            }
+                        }
+                        else
+                        {
+                            conteoGrandes = 0;
+                            conteoMedianos = 0;
+                            conteoPequenios = 0;
+                            conteoGeneral = 0;
+
+                            //determinar tamanio del lote
+                            #region determinarTamanio
+                            if (item.make <= 100)
+                            {
+                                conteoPequenios = conteoPequenios + 1;
+                            }
+                            else if (item.make <= 600)
+                            {
+                                conteoMedianos = conteoMedianos + 1;
+                            }
+                            else
+                            {
+                                conteoGrandes = conteoGrandes + 1;
+                            }
+                            #endregion
+
                             tanda = tanda + 1;
                             make = 0;
                             item.tanda = idTandas + tanda;
                         }
+
                     }
                     else
                     {
@@ -335,43 +373,237 @@ namespace Production_control_1._0.pantallasBMP
                         make = 0;
                         item.tanda = idTandas + tanda;
                     }
-
                 }
+                //si no es REI
                 else
                 {
-                    conteoGrandes = 0;
-                    conteoMedianos = 0;
-                    conteoPequenios = 0;
-                    conteoGeneral = 0;
+                    //validar si tiene copa para los limites
+                    if (item.copa == false)
+                    {
+                        if (item.estilo == estilo && item.temporada == temporada && make <= 3500 && sam<150)
+                        {
+                            //determinar tamanio del lote
+                            #region determinarTamanioDeLote
+                            if (item.make <= 100)
+                            {
+                                conteoPequenios = conteoPequenios + 1;
+                            }
+                            else if (item.make <= 600)
+                            {
+                                conteoMedianos = conteoMedianos + 1;
+                            }
+                            else
+                            {
+                                conteoGrandes = conteoGrandes + 1;
+                            }
+                            #endregion
 
-                    //determinar tamanio del lote
-                    #region determinarTamanio
-                    if (item.make <= 100)
-                    {
-                        conteoPequenios = conteoPequenios + 1;
-                    }
-                    else if (item.make <= 600)
-                    {
-                        conteoMedianos = conteoMedianos + 1;
+                            if (conteoGrandes > 0)
+                            {
+                                lotesMaximosDeTanda = 3;
+                            }
+                            else if (conteoMedianos > 0)
+                            {
+                                lotesMaximosDeTanda = 4;
+                            }
+                            else
+                            {
+                                lotesMaximosDeTanda = 5;
+                            }
+
+                            conteoGeneral = conteoGeneral + 1;
+
+                            if (conteoGeneral <= lotesMaximosDeTanda)
+                            {
+                                if (conteoGrandes <= 3 && conteoMedianos <= 4 && conteoPequenios <= 5)
+                                {
+                                    item.tanda = idTandas + tanda;
+                                    sam = sam+ item.sam;
+                                }
+                                else
+                                {
+                                    tanda = tanda + 1;
+                                    make = 0;
+                                    item.tanda = idTandas + tanda;
+                                    sam = item.sam;
+                                }
+                            }
+                            else
+                            {
+                                conteoGrandes = 0;
+                                conteoMedianos = 0;
+                                conteoPequenios = 0;
+                                conteoGeneral = 0;
+
+                                //determinar tamanio del lote
+                                #region determinarTamanio
+                                if (item.make <= 100)
+                                {
+                                    conteoPequenios = conteoPequenios + 1;
+                                }
+                                else if (item.make <= 600)
+                                {
+                                    conteoMedianos = conteoMedianos + 1;
+                                }
+                                else
+                                {
+                                    conteoGrandes = conteoGrandes + 1;
+                                }
+                                #endregion
+
+                                tanda = tanda + 1;
+                                make = 0;
+                                item.tanda = idTandas + tanda;
+                                sam = item.sam;
+                            }
+
+                        }
+                        else
+                        {
+                            conteoGrandes = 0;
+                            conteoMedianos = 0;
+                            conteoPequenios = 0;
+                            conteoGeneral = 0;
+
+                            //determinar tamanio del lote
+                            #region determinarTamanio
+                            if (item.make <= 100)
+                            {
+                                conteoPequenios = conteoPequenios + 1;
+                            }
+                            else if (item.make <= 600)
+                            {
+                                conteoMedianos = conteoMedianos + 1;
+                            }
+                            else
+                            {
+                                conteoGrandes = conteoGrandes + 1;
+                            }
+                            #endregion
+
+                            tanda = tanda + 1;
+                            make = 0;
+                            item.tanda = idTandas + tanda;
+                            sam = item.sam;
+                        }
                     }
                     else
                     {
-                        conteoGrandes = conteoGrandes + 1;
-                    }
-                    #endregion
+                        if (item.estilo == estilo && item.temporada == temporada && make <= 2400)
+                        {
+                            //determinar tamanio del lote
+                            #region determinarTamanioDeLote
+                            if (item.make <= 100)
+                            {
+                                conteoPequenios = conteoPequenios + 1;
+                            }
+                            else if (item.make <= 300)
+                            {
+                                conteoMedianos = conteoMedianos + 1;
+                            }
+                            else
+                            {
+                                conteoGrandes = conteoGrandes + 1;
+                            }
+                            #endregion
 
-                    tanda = tanda + 1;
-                    make = 0;
-                    item.tanda = idTandas + tanda;
+                            if (conteoGrandes > 0)
+                            {
+                                lotesMaximosDeTanda = 2;
+                            }
+                            else if (conteoMedianos > 0)
+                            {
+                                lotesMaximosDeTanda = 4;
+                            }
+                            else
+                            {
+                                lotesMaximosDeTanda = 5;
+                            }
+
+                            conteoGeneral = conteoGeneral + 1;
+
+                            if (conteoGeneral <= lotesMaximosDeTanda)
+                            {
+                                if (conteoGrandes <= 2 && conteoMedianos <= 4 && conteoPequenios <= 5)
+                                {
+                                    item.tanda = idTandas + tanda;
+                                    sam = sam+item.sam;
+                                }
+                                else
+                                {
+                                    tanda = tanda + 1;
+                                    make = 0;
+                                    item.tanda = idTandas + tanda;
+                                    sam = item.sam;
+                                }
+                            }
+                            else
+                            {
+                                conteoGrandes = 0;
+                                conteoMedianos = 0;
+                                conteoPequenios = 0;
+                                conteoGeneral = 0;
+
+                                //determinar tamanio del lote
+                                #region determinarTamanio
+                                if (item.make <= 100)
+                                {
+                                    conteoPequenios = conteoPequenios + 1;
+                                }
+                                else if (item.make <= 300)
+                                {
+                                    conteoMedianos = conteoMedianos + 1;
+                                }
+                                else
+                                {
+                                    conteoGrandes = conteoGrandes + 1;
+                                }
+                                #endregion
+
+                                tanda = tanda + 1;
+                                make = 0;
+                                item.tanda = idTandas + tanda;
+                                sam = item.sam;
+                            }
+
+                        }
+                        else
+                        {
+                            conteoGrandes = 0;
+                            conteoMedianos = 0;
+                            conteoPequenios = 0;
+                            conteoGeneral = 0;
+
+                            //determinar tamanio del lote
+                            #region determinarTamanio
+                            if (item.make <= 100)
+                            {
+                                conteoPequenios = conteoPequenios + 1;
+                            }
+                            else if (item.make <= 300)
+                            {
+                                conteoMedianos = conteoMedianos + 1;
+                            }
+                            else
+                            {
+                                conteoGrandes = conteoGrandes + 1;
+                            }
+                            #endregion
+
+                            tanda = tanda + 1;
+                            make = 0;
+                            item.tanda = idTandas + tanda;
+                            sam = item.sam;
+                        }
+                    }
                 }
                 estilo = item.estilo;
                 temporada = item.temporada;
                 make = item.make;
+                color = item.color;
+                sam = item.sam;
             }
         }
-
-
-        #region controlesListViewTandas
         private void btbSubir_Click(object sender, RoutedEventArgs e)
         {
             int indexSeleccionado = lstTandas.SelectedIndex;
@@ -404,8 +636,6 @@ namespace Production_control_1._0.pantallasBMP
                 }
             }
         }
-        #endregion
-
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {
             btnSeleccionarTodo.IsChecked = false;
@@ -414,13 +644,150 @@ namespace Production_control_1._0.pantallasBMP
             lstTandas.Items.Refresh();
             lstPartnumbersNoClasificados.Items.Refresh();
             partnumbersNoClasificados.Clear();
-            lstOrden.Items.Clear();
+            ordenTandasResultante.Clear();
+            lstOrden.Items.Refresh();
         }
-
         private void btnGenerarTandas_Click(object sender, RoutedEventArgs e)
         {
-            generadorDeTandas(lotes, datePickerFecha.SelectedDate.Value);
-            lstTandas.Items.Refresh();
+            if (lotes.Count > 0 && datePickerFecha.SelectedDate != null)
+            {
+                generadorDeTandas(lotes, datePickerFecha.SelectedDate.Value);
+                lstTandas.Items.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Asegures de tener lotes agregados y una fecha valida seleccionada", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+        private void btnOrdenarTandas_Click(object sender, RoutedEventArgs e)
+        {
+            int conteoDatosVacios = 0;
+            foreach (tarjetaKanban item in lotes)
+            {
+                if (string.IsNullOrEmpty(item.tanda))
+                {
+                    conteoDatosVacios = conteoDatosVacios + 1;
+                }
+            }
+            if (conteoDatosVacios == 0)
+            {
+                lstOrden.ItemsSource = generarOrdenPrioridadesTandas((lotes.Select(o => o.tanda).Distinct().ToArray()).ToList());
+                lstOrden.Items.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Parece que hay lotes con un codigo de tanda no valido");
+            }
+
+        }
+        private void btnGuardarProgramacion_Click(object sender, RoutedEventArgs e)
+        {
+            if (ordenTandasResultante.Count > 0)
+            {
+
+                SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                try
+                {
+                    cn.Open();
+                    foreach (tarjetaKanban item in ordenTandasResultante)
+                    {
+                        string sql = "INSERT INTO ordenTandaTrims VALUES('" + item.tanda + "','" + item.ordenPrioridad + "')";
+                        SqlCommand cm = new SqlCommand(sql, cn);
+                        cm.ExecuteNonQuery();
+                    }
+                    cn.Close();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+                try
+                {
+                    cn.Open();
+                    foreach (tarjetaKanban item in lotes)
+                    {
+                        string sql = "INSERT INTO programacionTandasTrims VALUES('" + item.lote + "', '" + item.tanda + "', '" + item.estilo + "', '" + item.temporada + "', '" + item.color + "', '" + item.copa + "', '" + item.make + "', '" + item.sam + "')";
+                        SqlCommand cm = new SqlCommand(sql, cn);
+                        cm.ExecuteNonQuery();
+                    }
+                    cn.Close();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+                MessageBox.Show("Operacion Terminada");
+            }
+            else
+            {
+                MessageBox.Show("Genere el orden de las tandas antes de guardar", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ordenTandasResultante.Clear();
+            lstOrden.Items.Refresh();
+        }
+        private List<tarjetaKanban> generarOrdenPrioridadesTandas(List<string> listaTandas)
+        {
+            ordenTandasResultante.Clear();
+            if (listaTandas.Count > 0)
+            {
+                int orden = 0;
+                ordenTandasResultante.Clear();
+                foreach (string item in listaTandas)
+                {
+                    orden = orden + 1;
+                    ordenTandasResultante.Add(new tarjetaKanban { ordenPrioridad = orden, tanda = item });
+                }
+            }
+            return ordenTandasResultante;
+        }
+        #endregion
+        #region controlesListViewOrdenTandas
+        private void btnSubirTanda_Click(object sender, RoutedEventArgs e)
+        {
+            int indiceSeleccionado = lstOrden.SelectedIndex;
+            if (indiceSeleccionado > -1)
+            {
+                tarjetaKanban itemSeleccionado = (tarjetaKanban)lstOrden.SelectedItem;
+
+                if (indiceSeleccionado - 1 > -1)
+                {
+                    ordenTandasResultante.Remove(itemSeleccionado);
+                    ordenTandasResultante.Insert(indiceSeleccionado - 1, itemSeleccionado);
+                    int orden = 0;
+                    foreach (tarjetaKanban item in ordenTandasResultante)
+                    {
+                        orden = orden + 1;
+                        item.ordenPrioridad = orden;
+                    }
+                    lstOrden.Items.Refresh();
+                }
+            }
+        }
+        private void btnBajarTanda_Click(object sender, RoutedEventArgs e)
+        {
+            int indiceSeleccionado = lstOrden.SelectedIndex;
+            if (indiceSeleccionado > -1)
+            {
+                tarjetaKanban itemSeleccionado = (tarjetaKanban)lstOrden.SelectedItem;
+
+                if (indiceSeleccionado + 1 < lstOrden.Items.Count)
+                {
+                    ordenTandasResultante.Remove(itemSeleccionado);
+                    ordenTandasResultante.Insert(indiceSeleccionado + 1, itemSeleccionado);
+
+                    int orden= 0;
+                    foreach(tarjetaKanban item in ordenTandasResultante)
+                    {
+                        orden = orden + 1;
+                        item.ordenPrioridad = orden;
+                    }
+                    lstOrden.Items.Refresh();
+                }
+            }
+        }
+        #endregion
     }
 }

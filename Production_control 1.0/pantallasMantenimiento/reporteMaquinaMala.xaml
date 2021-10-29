@@ -52,6 +52,9 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <!--#endregion-->
+        <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
+        </Button>
         <!--#region etiquetas-->
         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="10" Margin="0,10,0,0" FontFamily="calibri"  SizeChanged="letra_grande" Foreground="Green" FontWeight="Bold">Reporte de Máquina Mala</Label>
         <Label Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="2" SizeChanged="letra_mediana" FontWeight="Bold" HorizontalAlignment="Center">Datos Generales del Reporte</Label>

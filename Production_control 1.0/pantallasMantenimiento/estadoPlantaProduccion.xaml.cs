@@ -82,8 +82,28 @@ namespace Production_control_1._0
         {
             Window ventana = GetDependencyObjectFromVisualTree(this, typeof(Window)) as Window;
             ventana.Background = Brushes.White;
-            PagePrincipal PagePrincipal = new PagePrincipal();
-            this.NavigationService.Navigate(PagePrincipal);
+
+            PagePrincipal pagePrincipal = new PagePrincipal();
+            Grid gridInicio = (Grid)pagePrincipal.Content;
+            foreach (object objeto in gridInicio.Children)
+            {
+                if (objeto.GetType() == typeof(Grid))
+                {
+                    Grid grid = (Grid)objeto;
+                    if (grid.Name == "gridListaAreas")
+                    {
+                        foreach (object objeto2 in grid.Children)
+                        {
+                            if (objeto2.GetType() == typeof(ListView))
+                            {
+                                ListView listviewMenu = (ListView)objeto2;
+                                listviewMenu.SelectedIndex = 2;
+                            }
+                        }
+                    }
+                }
+            }
+            NavigationService.Navigate(pagePrincipal);
         }
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
         {

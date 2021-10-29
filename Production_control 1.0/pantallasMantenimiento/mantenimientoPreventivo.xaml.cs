@@ -10,6 +10,7 @@ using TableDependency.SqlClient.Base.EventArgs;
 using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
 using Production_control_1._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo;
 using Production_control_1._0.clases;
+using System.Windows.Media;
 
 namespace Production_control_1._0
 {
@@ -214,6 +215,25 @@ namespace Production_control_1._0
                 enviar.IsEnabled = false;
                 img_enviar.Source = new BitmapImage(inhabilitado);
             }
+        }
+        private void salir__Click(object sender, RoutedEventArgs e)
+        {
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasIniciales.mantenimiento());
+        }
+        private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
+        {
+            //dependencia hacia la pagina
+            DependencyObject parent = startObject;
+            while (parent != null)
+            {
+                if (type.IsInstanceOfType(parent))
+                    break;
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
+            }
+            return parent;
         }
         #endregion
         #region control_de_formulario
