@@ -24,5 +24,7 @@ namespace Production_control_1._0.clases
         public int h10 { get; set; }
         public int h11 { get; set; }
         public int h12 { get; set; }
+        public double fallos { get; set; }
+        public double cambio { get; set; }
     }
 }

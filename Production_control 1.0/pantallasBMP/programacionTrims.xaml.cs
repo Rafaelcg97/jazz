@@ -167,7 +167,7 @@ namespace Production_control_1._0.pantallasBMP
         private List<tarjetaKanban> consultarLotes(string cadenaTarjetas)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT lote, estilo, color, temporada, cliente, make, copa FROM lotesNoProgramadosTrims WHERE kanban IN(" + cadenaTarjetas+ ") ORDER BY estilo, temporada, color";
+            string sql = "SELECT lote, modulo, estilo, color, temporada, cliente, make, copa FROM lotesNoProgramadosTrims WHERE kanban IN(" + cadenaTarjetas+ ") ORDER BY estilo, temporada, color";
             try
             {
                 cn.Open();
@@ -178,6 +178,7 @@ namespace Production_control_1._0.pantallasBMP
                     lotes.Add(new tarjetaKanban
                     {
                         lote = dr["lote"].ToString(),
+                        modulo=dr["modulo"].ToString(),
                         cliente = dr["cliente"].ToString(),
                         estilo = dr["estilo"].ToString(),
                         color = dr["color"].ToString(),
@@ -706,7 +707,7 @@ namespace Production_control_1._0.pantallasBMP
                     cn.Open();
                     foreach (tarjetaKanban item in lotes)
                     {
-                        string sql = "INSERT INTO programacionTandasTrims VALUES('" + item.lote + "', '" + item.tanda + "', '" + item.estilo + "', '" + item.temporada + "', '" + item.color + "', '" + item.copa + "', '" + item.make + "', '" + item.sam + "')";
+                        string sql = "INSERT INTO programacionTandasTrims VALUES('" + item.lote + "', '" + item.tanda + "', '"+item.cliente+"', '" + item.estilo + "', '"+item.modulo+"', '" + item.temporada + "', '" + item.color + "', '" + item.copa + "', '" + item.make + "', '" + item.sam + "')";
                         SqlCommand cm = new SqlCommand(sql, cn);
                         cm.ExecuteNonQuery();
                     }

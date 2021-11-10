@@ -42,7 +42,7 @@ namespace Production_control_1._0.pantallasIniciales
             {
                 new ColumnSeries
                 {
-                    Title = "Producción",
+                    Title = "Piezas",
                     Values = new ChartValues<int> {0},
                     Fill = System.Windows.Media.Brushes.DarkGreen,
                     DataLabels=true,
@@ -58,9 +58,31 @@ namespace Production_control_1._0.pantallasIniciales
                     ScalesYAt=1,
                     DataLabels=true,
                 },
+                new LineSeries
+                {
+                    Title="Fallos",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.DarkOrange,
+                    PointGeometry = DefaultGeometries.Circle,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 15,
+                    ScalesYAt=2,
+                    DataLabels=true,
+                },
+                new LineSeries
+                {
+                    Title="Cambios",
+                    Values= new ChartValues<double> {0},
+                    Stroke = System.Windows.Media.Brushes.Blue,
+                    PointGeometry = DefaultGeometries.Circle,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 15,
+                    ScalesYAt=2,
+                    DataLabels=true,
+                },
             };
             Formatter = value => value.ToString("N");
-            Formatter2 = value => value.ToString("P");
+            Formatter2 = value => value.ToString("P2");
             DataContext = this;
             #endregion
             radioButtomDiurno.IsChecked = true;
@@ -282,14 +304,14 @@ namespace Production_control_1._0.pantallasIniciales
             double disponible = 0;
             List<elemento_grafica> modulosProduccionEficiencia = new List<elemento_grafica>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
+            string sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, piezasNetas, minutosTrabajados, minutosDisponibles, eficiencia, trabajadoNeto, disponibleNeto, fallos, cambios from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
             if (comboBoxCoordinadorNombre.SelectedIndex>0)
             {
-                sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='" + fecha + "' and turno='" + turno +  "' and coordinador='"+ comboBoxCoordinadorNombre.SelectedItem.ToString() + "'";
+                sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, piezasNetas, minutosTrabajados, minutosDisponibles, eficiencia, trabajadoNeto, disponibleNeto, fallos, cambios from vistaKPI where fecha='" + fecha + "' and turno='" + turno +  "' and coordinador='"+ comboBoxCoordinadorNombre.SelectedItem.ToString() + "'";
             }
             else
             {
-               sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, minutosTrabajados, minutosDisponibles, eficiencia from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
+               sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, piezasNetas, minutosTrabajados, minutosDisponibles, eficiencia, trabajadoNeto, disponibleNeto, fallos, cambios from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
             }
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
@@ -297,10 +319,30 @@ namespace Production_control_1._0.pantallasIniciales
             while (dr.Read())
             {
                 modulos.Add(dr["modart"].ToString());
-                totalPiezas = totalPiezas + Convert.ToInt32(dr["totalDePiezas"] is DBNull? 0: dr["totalDePiezas"]);
-                trabajado = trabajado + Convert.ToDouble(dr["minutosTrabajados"] is DBNull? 0: dr["minutosTrabajados"]);
-                disponible = disponible + Convert.ToDouble(dr["minutosDisponibles"] is DBNull? 0: dr["minutosDisponibles"]);
-                modulosProduccionEficiencia.Add(new elemento_grafica { modulo = dr["modart"].ToString(), eficiencia = Convert.ToDouble(dr["eficiencia"] is DBNull? 0: dr["eficiencia"]), piezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), coordinador = dr["coordinador"].ToString(), h1 = Convert.ToInt32(dr["H1"] is DBNull ? 0 : dr["H1"]), h2 = Convert.ToInt32(dr["H2"] is DBNull ? 0 :dr["H2"]), h3 = Convert.ToInt32(dr["H3"] is DBNull ? 0 : dr["H3"]), h4 = Convert.ToInt32(dr["H4"] is DBNull ? 0 : dr["H4"]), h5 = Convert.ToInt32(dr["H5"] is DBNull ? 0 : dr["H5"]), h6 = Convert.ToInt32(dr["H6"] is DBNull ? 0 : dr["H6"]), h7 = Convert.ToInt32(dr["H7"] is DBNull ? 0 : dr["H7"]), h8 = Convert.ToInt32(dr["H8"] is DBNull ? 0 : dr["H8"]), h9 = Convert.ToInt32(dr["H9"] is DBNull ? 0 : dr["H9"]), h10 = Convert.ToInt32(dr["H10"] is DBNull ? 0 : dr["H10"]), h11 = Convert.ToInt32(dr["H11"] is DBNull ? 0 : dr["H11"]), h12 = Convert.ToInt32(dr["H12"] is DBNull ? 0 : dr["H12"]) });
+                totalPiezas = totalPiezas + Convert.ToInt32(dr["piezasNetas"] is DBNull? 0: dr["piezasNetas"]);
+                trabajado = trabajado + Convert.ToDouble(dr["trabajadoNeto"] is DBNull? 0: dr["trabajadoNeto"]);
+                disponible = disponible + Convert.ToDouble(dr["disponibleNeto"] is DBNull? 0: dr["disponibleNeto"]);
+                modulosProduccionEficiencia.Add(
+                    new elemento_grafica { 
+                        modulo = dr["modart"].ToString(), 
+                        eficiencia = Convert.ToDouble(dr["eficiencia"] is DBNull? 0: dr["eficiencia"]), 
+                        piezas = Convert.ToInt32(dr["totalDePiezas"] is DBNull ? 0 : dr["totalDePiezas"]), 
+                        coordinador = dr["coordinador"].ToString(), 
+                        h1 = Convert.ToInt32(dr["H1"] is DBNull ? 0 : dr["H1"]), 
+                        h2 = Convert.ToInt32(dr["H2"] is DBNull ? 0 :dr["H2"]), 
+                        h3 = Convert.ToInt32(dr["H3"] is DBNull ? 0 : dr["H3"]), 
+                        h4 = Convert.ToInt32(dr["H4"] is DBNull ? 0 : dr["H4"]), 
+                        h5 = Convert.ToInt32(dr["H5"] is DBNull ? 0 : dr["H5"]), 
+                        h6 = Convert.ToInt32(dr["H6"] is DBNull ? 0 : dr["H6"]), 
+                        h7 = Convert.ToInt32(dr["H7"] is DBNull ? 0 : dr["H7"]), 
+                        h8 = Convert.ToInt32(dr["H8"] is DBNull ? 0 : dr["H8"]), 
+                        h9 = Convert.ToInt32(dr["H9"] is DBNull ? 0 : dr["H9"]), 
+                        h10 = Convert.ToInt32(dr["H10"] is DBNull ? 0 : dr["H10"]), 
+                        h11 = Convert.ToInt32(dr["H11"] is DBNull ? 0 : dr["H11"]), 
+                        h12 = Convert.ToInt32(dr["H12"] is DBNull ? 0 : dr["H12"]),
+                        fallos= Convert.ToDouble(dr["fallos"]),
+                        cambio= Convert.ToDouble(dr["cambios"])
+                        });
             };
             dr.Close();
             cn.Close();
@@ -308,14 +350,18 @@ namespace Production_control_1._0.pantallasIniciales
             grafico.AxisX.Clear();
             SeriesCollection[0].Values.Clear();
             SeriesCollection[1].Values.Clear();
+            SeriesCollection[2].Values.Clear();
+            SeriesCollection[3].Values.Clear();
             grafico.AxisX.Add(new Axis() { Labels = modulos.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
             foreach (elemento_grafica item in modulosProduccionEficiencia)
             {
                 SeriesCollection[0].Values.Add(item.piezas);
                 SeriesCollection[1].Values.Add(item.eficiencia);
+                SeriesCollection[2].Values.Add(item.fallos);
+                SeriesCollection[3].Values.Add(item.cambio);
             };
             labelTotalPiezas.Content = totalPiezas;
-            labelTotalEficiencia.Content = (trabajado / disponible).ToString("P");
+            labelTotalEficiencia.Content = (trabajado / disponible).ToString("P0");
             gridProduccion.Children.Clear();
             gridProduccion.Children.Add(new produccionHora(modulosProduccionEficiencia));
         }

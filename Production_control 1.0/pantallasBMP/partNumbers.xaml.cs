@@ -84,7 +84,6 @@ namespace Production_control_1._0.pantallasBMP
             {
                 System.Windows.MessageBox.Show(ex.Message);
             }
-
         }
         private void txtBuscarCategoria_TextChanged(object sender, TextChangedEventArgs e)
         {

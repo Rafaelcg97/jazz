@@ -46,17 +46,33 @@
             <Image Source="/imagenes/home.png" Width="50" Height="50"/>
         </Button>
 
-        <Button x:Name="btnAccesorios" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="2" Background="Transparent" Click="btnAccesorios_Click">
-            <StackPanel>
-                <Image Source="/imagenes/programacionTrims.png" MaxHeight="100"/>
-                <Label Content="Programación Trims" FontWeight="Bold" FontSize="15" Padding="0" Margin="0,9,0,0"/>
-            </StackPanel>
+        <Viewbox Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="2" >
+            <Label HorizontalAlignment="Center" Margin="2" VerticalAlignment="Top" FontWeight="Bold">Menpu Principal BMP-Trims</Label>
+        </Viewbox>
+        
+        <Button x:Name="btnTiemposTrims" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="2" Background="Transparent" Click="btnTiemposTrims_Click">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/tomaDeTiempoTrims.png" MaxHeight="100"/>
+                    <Label Content="Control Trims" FontWeight="Bold" FontSize="15" Padding="0" Margin="5,9,5,0"/>
+                </StackPanel>
+            </Viewbox>
         </Button>
-        <Button x:Name="btnPartNumbers" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="2" Background="Transparent" Click="btnPartNumbers_Click">
-            <StackPanel>
-                <Image Source="/imagenes/tiempoTrims.png" MaxHeight="100"/>
-                <Label Content="SAM por Partnumber" FontWeight="Bold" FontSize="15" Padding="0" Margin="0,9,0,0"/>
-            </StackPanel>
+        <Button x:Name="btnAccesorios" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="2" Background="Transparent" Click="btnAccesorios_Click">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/programacionTrims.png" MaxHeight="100"/>
+                    <Label Content="Programación Trims" FontWeight="Bold" FontSize="15" Padding="0" Margin="5,9,5,0"/>
+                </StackPanel>
+            </Viewbox>
+        </Button>
+        <Button x:Name="btnPartNumbers" Grid.Column="5" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="2" Background="Transparent" Click="btnPartNumbers_Click">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/tiempoTrims.png" MaxHeight="100"/>
+                    <Label Content="SAM por Partnumber" FontWeight="Bold" FontSize="15" Padding="0" Margin="5,9,5,0"/>
+                </StackPanel>
+            </Viewbox>
         </Button>
     </Grid>
 </Page>

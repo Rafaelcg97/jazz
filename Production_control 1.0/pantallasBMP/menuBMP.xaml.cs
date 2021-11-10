@@ -27,5 +27,10 @@ namespace Production_control_1._0.pantallasBMP
         {
             NavigationService.Navigate(new programacionTrims());
         }
+
+        private void btnTiemposTrims_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new controlTiemposTrims());
+        }
     }
 }

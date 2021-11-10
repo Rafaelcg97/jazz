@@ -14,6 +14,7 @@ namespace Production_control_1._0.clases
         public string lote { get; set; }
         public string cliente { get; set; }
         public string estilo { get; set; }
+        public string modulo { get; set; }
         public string temporada { get; set; }
         public string color { get; set; }
         public int make { get; set; }

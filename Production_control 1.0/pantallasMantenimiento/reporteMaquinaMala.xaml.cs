@@ -40,6 +40,7 @@ namespace Production_control_1._0
             InitializeComponent();
             comboBoxArteria.Items.Add(1);
             comboBoxArteria.Items.Add(2);
+            comboBoxArteria.Items.Add(3);
             //se cargan los datos de las listas de modulos y de problemas
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "select modulo from orden_modulos group by modulo";

@@ -1,21 +1,13 @@
-﻿using System;
+﻿using Production_control_1._0.clases;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Production_control_1._0.clases;
-using Production_control_1._0.pantallasIniciales;
 
 namespace Production_control_1._0.pantallasKanban
 {
@@ -617,26 +609,34 @@ namespace Production_control_1._0.pantallasKanban
                 }
                 dr.Close();
 
-                sql = "select " +
-                    "a.talla, " +
+                sql = "select a.talla, " +
                     "make, " +
-                    "case when cantidad is null then 0 else cantidad end as cantidad " +
+                    "case when b.cantidad is null then 0 else b.cantidad end as cantidadTela, " +
+                    "case when c.cantidad is null then 0 else c.cantidad end as cantidadBra " +
                     "from tallasLotes a " +
-                    "left join detalleSolicitudeKanban  b " +
-                    "on a.lote=b.lote and a.talla=b.talla where a.lote='"+ loteSeleccionado.lote +"'";
+                    "left join (SELECT* FROM detalleSolicitudeKanban WHERE material = 'tela') b on a.lote = b.lote and a.talla = b.talla " +
+                    "left join(SELECT* FROM detalleSolicitudeKanban WHERE material= 'copas') c on a.lote = c.lote and c.talla = b.talla" +
+                    " where a.lote = '"+loteSeleccionado.lote+"'";
                 cm = new SqlCommand(sql, cnKanban);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    bool chequeado_ = false;
-                    bool habilitado_ = true;
-                    if(Convert.ToInt32(dr["make"])== Convert.ToInt32(dr["cantidad"]))
+                    bool chequeadoTela_ = false;
+                    bool habilitadoTela_ = true;
+                    bool chequeadoBra_ = false;
+                    bool habilitadoBra_ = true;
+                    if (Convert.ToInt32(dr["make"])== Convert.ToInt32(dr["cantidadTela"]))
                     {
-                        chequeado_ = true;
-                        habilitado_ = false;
+                        chequeadoTela_ = true;
+                        habilitadoTela_ = false;
                     }
-                    solicitudKanban item = new solicitudKanban {talla=dr["talla"].ToString(), chequeado=chequeado_, habilitado=habilitado_, cantidad= Convert.ToInt32(dr["make"]) };
-                    solicitudKanban item2 = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeado_, habilitado = habilitado_, cantidad = Convert.ToInt32(dr["make"]) };
+                    if (Convert.ToInt32(dr["make"]) == Convert.ToInt32(dr["cantidadBra"]))
+                    {
+                        chequeadoBra_ = true;
+                        habilitadoBra_ = false;
+                    }
+                    solicitudKanban item = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeadoTela_, habilitado = habilitadoTela_, cantidad= Convert.ToInt32(dr["make"]) };
+                    solicitudKanban item2 = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeadoBra_, habilitado = habilitadoBra_, cantidad = Convert.ToInt32(dr["make"]) };
                     listViewTallasTela.Items.Add(item);
                     listViewTallasBra.Items.Add(item2);
                 }

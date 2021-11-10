@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Microsoft.Windows.Shell;
 using com.sun.javadoc;
 using System;
+using System.Diagnostics;
 
 namespace Production_control_1._0
 {
@@ -57,6 +58,13 @@ namespace Production_control_1._0
                     GridPrincipal.Children.Add(new pantallasIniciales.calidad());
                     break;
                 case 8:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new pantallasIniciales.muestras());
+                    Process p = new Process();
+                    p.StartInfo.FileName = @"\\FS-DESACOMP\Planificacion Desarrollo\Programacion Master\Archivos de Acceso\Control Desarrollo.accde";
+                    p.Start();
+                    break;
+                case 9:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new pantallasIniciales.validacionUsuarioConfiguraciones());
                     break;

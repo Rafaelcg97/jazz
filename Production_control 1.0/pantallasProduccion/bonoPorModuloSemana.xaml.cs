@@ -65,13 +65,31 @@ namespace Production_control_1._0.pantallasProduccion
             listViewBomoPorModulo.ItemsSource = lista;
             foreach(bonoPorModulo item in lista)
             {
-                piezasLunes = piezasLunes + item.piezasLunes;
-                piezasMartes = piezasMartes + item.piezasMartes;
-                piezasMiercoles = piezasMiercoles + item.piezasMiercoles;
-                piezasJueves = piezasJueves + item.piezasJueves;
-                piezasViernes = piezasViernes + item.piezasViernes;
-                piezasSabado = piezasSabado + item.piezasSabado;
-                piezas = piezas + item.totalDePiezas;
+                if (!item.modart.Contains("-3"))
+                {
+                    piezasLunes = piezasLunes + item.piezasLunes;
+                    piezasMartes = piezasMartes + item.piezasMartes;
+                    piezasMiercoles = piezasMiercoles + item.piezasMiercoles;
+                    piezasJueves = piezasJueves + item.piezasJueves;
+                    piezasViernes = piezasViernes + item.piezasViernes;
+                    piezasSabado = piezasSabado + item.piezasSabado;
+                    piezas = piezas + item.totalDePiezas;
+                    mtLunes = mtLunes + item.mtLunes;
+                    mtMartes = mtMartes + item.mtMartes;
+                    mtMiercoles = mtMiercoles + item.mtMiercoles;
+                    mtJueves = mtJueves + item.mtJueves;
+                    mtViernes = mtViernes + item.mtViernes;
+                    mtSabado = mtSabado + item.mtSabado;
+                    mt = mt + item.mt;
+
+                    mdLunes = mdLunes + item.mdLunes;
+                    mdMartes = mdMartes + item.mdMartes;
+                    mdMiercoles = mdMiercoles + item.mdMiercoles;
+                    mdJueves = mdJueves + item.mdJueves;
+                    mdViernes = mdViernes + item.mdViernes;
+                    mdSabado = mdSabado + item.mdSabado;
+                    md = md + item.md;
+                }
 
                 bonoLunes = bonoLunes + item.bonoLunesD;
                 bonoMartes = bonoMartes + item.bonoMartesD;
@@ -89,21 +107,8 @@ namespace Production_control_1._0.pantallasProduccion
                 operariosSabado = operariosSabado + item.operariosSabado;
                 operarios = operarios + item.operarios;
 
-                mtLunes = mtLunes + item.mtLunes;
-                mtMartes = mtMartes + item.mtMartes;
-                mtMiercoles = mtMiercoles + item.mtMiercoles;
-                mtJueves = mtJueves + item.mtJueves;
-                mtViernes = mtViernes + item.mtViernes;
-                mtSabado = mtSabado + item.mtSabado;
-                mt = mt + item.mt;
 
-                mdLunes = mdLunes + item.mdLunes;
-                mdMartes = mdMartes + item.mdMartes;
-                mdMiercoles = mdMiercoles + item.mdMiercoles;
-                mdJueves = mdJueves + item.mdJueves;
-                mdViernes = mdViernes + item.mdViernes;
-                mdSabado = mdSabado + item.mdSabado;
-                md = md + item.md;
+
             }
             listViewFooter.piezasLunes = piezasLunes;
             listViewFooter.piezasMartes = piezasMartes;

@@ -126,31 +126,42 @@
             </RadioButton>
             <Label Margin="60,0,0,0"  FontSize="20" FontWeight="Bold" Content="Coordinador:" />
             <ComboBox x:Name="comboBoxCoordinadorNombre" Margin="20,0,0,0" Width="265" Height="25" SelectionChanged="comboBoxCoordinadorNombre_SelectionChanged"/>
+            <CheckBox Margin="50,0,0,0" VerticalAlignment="Center" Content="Piezas" FontSize="20" VerticalContentAlignment="Center"/>
+            <CheckBox Margin="20,0,0,0" VerticalAlignment="Center" Content="Eficiencia" FontSize="20" VerticalContentAlignment="Center"/>
+            <CheckBox Margin="20,0,0,0" VerticalAlignment="Center" Content="Fallos" FontSize="20" VerticalContentAlignment="Center"/>
+            <CheckBox Margin="20,0,0,0" VerticalAlignment="Center" Content="Cambios" FontSize="20" VerticalContentAlignment="Center"/>
         </StackPanel>
         <!--#endregion-->
         <TabControl x:Name="tabControlInicio" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="6" Margin="10,0,20,10" SelectionChanged="TabControl_SelectionChanged" >
-            <TabItem Header="Eficiencia Del Día">
-                <lvc:CartesianChart  Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" Background="Transparent" Margin="10">
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Modulos" Labels="{Binding Labels, StringFormat=\{0:d\}}" LabelsRotation="20">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Produccion" LabelFormatter="{Binding Formatter}" MinValue="0" ShowLabels="True">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                        <lvc:Axis Title="Eficiencia" LabelFormatter="{Binding Formatter2}" MinValue="0" Position="RightTop" ShowLabels="True" Margin="0,0,10,0">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                </lvc:CartesianChart>
+            <TabItem Header="Eficiencia Del Día" Padding="5">
+                <Viewbox>
+                    <lvc:CartesianChart  Series="{Binding SeriesCollection}" LegendLocation="Left" x:Name="grafico" Background="Transparent" Margin="10" Height="900" Width="1500">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Modulos" Labels="{Binding Labels, StringFormat=\{0:d\}}" LabelsRotation="20">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Produccion" LabelFormatter="{Binding Formatter}" MinValue="0" ShowLabels="True">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                            <lvc:Axis Title="Eficiencia" LabelFormatter="{Binding Formatter2}" MinValue="0" Position="RightTop" ShowLabels="True">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                            <lvc:Axis Title="Fallos/Cambios" LabelFormatter="{Binding Formatter}" MinValue="0" Position="LeftBottom" ShowLabels="True">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Viewbox>
             </TabItem> 
             <TabItem Header="Producción Por Hora">
                 <Grid x:Name="gridProduccion" VerticalAlignment="Top">

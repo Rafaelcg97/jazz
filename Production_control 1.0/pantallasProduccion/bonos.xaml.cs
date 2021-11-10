@@ -359,7 +359,7 @@ namespace Production_control_1._0.pantallasProduccion
                 {
                     foreach (bonoPorModulo item in bonoPorModulo)
                     {
-                        if (item.modart == comboBoxModulo.SelectedItem.ToString() + "-1" || item.modart == comboBoxModulo.SelectedItem.ToString() + "-2")
+                        if (item.modart == comboBoxModulo.SelectedItem.ToString() + "-1" || item.modart == comboBoxModulo.SelectedItem.ToString() + "-2" || item.modart == comboBoxModulo.SelectedItem.ToString() + "-3")
                         {
                             listViewBonoPorModulo.Add(item);
                         }
