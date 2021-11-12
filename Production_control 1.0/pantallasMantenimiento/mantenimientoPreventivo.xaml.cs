@@ -313,8 +313,8 @@ namespace Production_control_1._0
                     solicitud.Content = item.id_solicitud.ToString();
                     hora_reporte.Content = item.hora_reportada.ToString();
 
-                    //se evalua si ya esta abierto
-                    if (item.hora_apertura.ToString() != "0")
+                    //se evalua el problema
+                    if (item.problema_reportado.ToString() != "AFILAR CUCHILLAS")
                     {
                         //si ya esta abierto se coloca la hora de apertura, por defecto el estado se coloca en abierto y se inabilita el boton de iniciar
                         hora_apertura.Content = item.hora_apertura.ToString();
@@ -381,16 +381,15 @@ namespace Production_control_1._0
                     }
                     else
                     {
-                        //si esta sin abrir se coloca el estado y la imagen que corresponde a cada boton
                         hora_apertura.Content = "----";
-                        estado.Content = "Sin Abrir";
+                        estado.Content = "----";
                         mecanico.Content = "----";
-                        iniciar.IsEnabled = true;
+                        iniciar.IsEnabled = false;
                         pausar.IsEnabled = false;
                         reanudar.IsEnabled = false;
                         terminar.IsEnabled = false;
 
-                        img_iniciar.Source = new BitmapImage(iniciar_habilitado);
+                        img_iniciar.Source = new BitmapImage(iniciar_inhabilitado);
                         img_pausar.Source = new BitmapImage(pausar_inhabilitado);
                         img_reanudar.Source = new BitmapImage(reanudar_inhabilitado);
                         img_terminar.Source = new BitmapImage(terminar_inhabilitado);

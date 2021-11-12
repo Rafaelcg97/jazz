@@ -81,18 +81,6 @@ namespace Production_control_1._0.pantallasSmedIngenieria
             cn_smed.Close();
             movimientos.ItemsSource = ultimos_movimientos;
 
-            //agregar lista de modulos
-            cn_manto.Open();
-            SqlDataReader dr4 = cm4.ExecuteReader();
-            while (dr4.Read())
-            {
-                modulo.Items.Add(dr4["modulo"].ToString());
-            };
-            dr4.Close();
-            cn_manto.Close();
-            comboBoxArteria.Items.Add("1");
-            comboBoxArteria.Items.Add("2");
-
             //habilitar boton
             habilitar_boton();
         }
@@ -275,19 +263,6 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         {
             habilitar_boton();
         }
-        private void modulo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string sql = "select id from orden_modulos where modulo='" + modulo.SelectedItem.ToString() + "'";
-            cn_manto.Open();
-            SqlCommand cm = new SqlCommand(sql, cn_manto);
-            SqlDataReader dr = cm.ExecuteReader();
-            if (dr.Read())
-            {
-                ubicacion_ = Convert.ToInt32(dr["id"]);
-            };
-            dr.Close();
-            cn_manto.Close();
-        }
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             string sql = "select nombre from usuarios where [ingenieria/SMED]='1' and nivel='1' and contrasena='" + passWordBoxValidarUsuario.Password + "'";
@@ -333,24 +308,6 @@ namespace Production_control_1._0.pantallasSmedIngenieria
         private void ButtonCerrarPopup2_Click(object sender, RoutedEventArgs e)
         {
             popUpValidarUsuario.IsOpen = false;
-        }
-        #endregion
-        #region formulario_nuevo_cambio
-        private void cambio_Click(object sender, RoutedEventArgs e)
-        {
-            if (modulo.SelectedIndex > -1 && comboBoxArteria.SelectedIndex>-1)
-            {
-                string sql = "insert into solicitudes (modulo, arteria, ubicacion, problema_reportado, hora_reportada, hora_asignacion, hora_apertura, corresponde)  values('" + modulo.SelectedItem.ToString() + "', '"+comboBoxArteria.SelectedItem.ToString()+"', '"+ ubicacion_ + "', 'CAMBIO', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', '" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "', 'SMED')";
-                cn_manto.Open();
-                SqlCommand cm = new SqlCommand(sql, cn_manto);
-                cm.ExecuteNonQuery();
-                cn_manto.Close();
-                this.NavigationService.Navigate(new estadoPlantaProduccion());
-            }
-            else
-            {
-                MessageBox.Show("Seleccione todos los datos");
-            }
         }
         #endregion
         private void Button_Click(object sender, RoutedEventArgs e)

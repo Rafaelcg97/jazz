@@ -138,7 +138,7 @@ namespace Production_control_1._0.pantallasBMP
         private void cargarListaDeTarjetas()
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT DISTINCT kanban FROM lotesNoProgramadosTrims";
+            string sql = "SELECT DISTINCT kanban, lote FROM lotesNoProgramadosTrims";
             try
             {
                 tarjetas.Clear();
@@ -150,6 +150,7 @@ namespace Production_control_1._0.pantallasBMP
                     tarjetas.Add(new tarjetaKanban
                     {
                         tarjeta = dr["kanban"].ToString(),
+                        lote= dr["lote"].ToString(),
                         seleccionado = false
                     });
                 };

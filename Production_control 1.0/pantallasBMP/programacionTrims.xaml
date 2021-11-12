@@ -51,11 +51,11 @@
         <Viewbox Grid.ColumnSpan="11" >
             <Label Content="Programación Trims" FontWeight="Bold" FontSize="55" HorizontalContentAlignment="Center" Padding="0" Margin="0"/>
         </Viewbox>
-        <Viewbox Grid.Row="2" Grid.ColumnSpan="2" >
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="3"  Margin="15,10,25,0" >
             <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Tarjetas Kanban Disponibles</Label>
         </Viewbox>
-        <Viewbox Grid.Row="3" Grid.ColumnSpan="2" Margin="15,10,15,0">
-            <StackPanel Orientation="Horizontal">
+        <Viewbox Grid.Row="3" Grid.ColumnSpan="3" Margin="15,10,25,0">
+            <StackPanel Orientation="Horizontal" Width="400">
                 <Label Content="Buscar" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" Height="25" Padding="0" Margin="0,0,10,0"/>
                 <TextBox x:Name="txtBuscarTarjeta" Width="232" Height="25"  FontSize="18" TextChanged="txtBuscarTarjeta_TextChanged"/>
                 <ToggleButton x:Name="btnSeleccionarTodo" BorderBrush="Black" Background="Transparent" Height="25" Margin="0,0,10,0" Unchecked="btnSeleccionarTodo_Unchecked" Checked="btnSeleccionarTodo_Checked">
@@ -66,18 +66,25 @@
                 </Button>
             </StackPanel>
         </Viewbox>
-        <Viewbox Grid.Row="4" Grid.ColumnSpan="2" Margin="15,0,15,0" Grid.RowSpan="13" VerticalAlignment="Top">
-            <ListView x:Name="lstTarjetas" Width="460" Height="1300" FontSize="25">
+        <Viewbox Grid.Row="4" Grid.ColumnSpan="3" Margin="15,0,15,0" Grid.RowSpan="13" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView x:Name="lstTarjetas" Width="600" Height="1300" FontSize="25">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tarjeta" Width="270">
+                        <GridViewColumn Header="Tarjeta" Width="210">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding tarjeta}" Width="230" FontSize="24"/>
+                                    <Label Content="{Binding tarjeta}" Width="250" FontSize="24"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Seleccionar" Width="135">
+                        <GridViewColumn Header="Lote" Width="270">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding lote}" Width="230" FontSize="24"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Check" Width="90">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Viewbox Height="40" Width="40">
@@ -128,14 +135,21 @@
                 </Button>
             </StackPanel>
         </Viewbox>
-        <Viewbox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="6" Margin="15,0,15,0" Grid.RowSpan="13" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <ListView x:Name="lstTandas" Width="1500"  Height="1300" FontSize="25">
+        <Viewbox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="7" Margin="15,0,15,0" Grid.RowSpan="13" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView x:Name="lstTandas" Width="1700"  Height="1300" FontSize="25">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Tanda" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Text="{Binding tanda}" Width="225" TextChanged="TextBox_TextChanged"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tarjeta" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding tarjeta}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -193,11 +207,11 @@
             </ListView>
         </Viewbox>
 
-        <Viewbox Grid.Row="2" Grid.ColumnSpan="4" Grid.Column="9" >
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="10" >
             <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Partnumbers no clasificados</Label>
         </Viewbox>
 
-        <Viewbox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Margin="15,0,15,0" Grid.RowSpan="5" VerticalAlignment="Top">
+        <Viewbox Grid.Row="4" Grid.Column="10" Grid.ColumnSpan="3" Margin="15,0,15,0" Grid.RowSpan="5" VerticalAlignment="Top">
             <ListView x:Name="lstPartnumbersNoClasificados" Width="700" Height="500" FontSize="25"/>
         </Viewbox>
 
@@ -207,18 +221,18 @@
         </Viewbox>
 
 
-        <Viewbox Grid.Column="9" Grid.Row="12" Grid.RowSpan="1" HorizontalAlignment="Right">
+        <Viewbox Grid.Column="10" Grid.Row="12" Grid.RowSpan="1" HorizontalAlignment="Right">
             <Button x:Name="btnSubirTanda" Background="Transparent" BorderBrush="Transparent" Width="25" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnSubirTanda_Click">
                 <Image Source="/imagenes/flechaArriba.png"/>
             </Button>
         </Viewbox>
 
-        <Viewbox Grid.Column="9" Grid.Row="13" Grid.RowSpan="1" HorizontalAlignment="Right">
+        <Viewbox Grid.Column="10" Grid.Row="13" Grid.RowSpan="1" HorizontalAlignment="Right">
             <Button x:Name="btnBajarTanda" Background="Transparent" BorderBrush="Transparent" Width="25" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnBajarTanda_Click">
                 <Image Source="/imagenes/flechaAbajo.png"/>
             </Button>
         </Viewbox>
-        <Viewbox Grid.Row="11" Grid.Column="10" Grid.ColumnSpan="4" Margin="15" Grid.RowSpan="6" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Viewbox Grid.Row="11" Grid.Column="11" Grid.ColumnSpan="2" Margin="15" Grid.RowSpan="6" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListView x:Name="lstOrden" Width="525" Height="500" FontSize="25">
                 <ListView.View>
                     <GridView>

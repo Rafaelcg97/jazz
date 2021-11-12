@@ -21,7 +21,6 @@ namespace Production_control_1._0
             public string problema_reportado { get; set; }
             public DateTime hora_reportada { get; set; }
         }
-
         public class elemento_grafica
         {
             public DateTime fecha { get; set; }
@@ -45,7 +44,7 @@ namespace Production_control_1._0
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
             string sql = "select modulo from orden_modulos group by modulo";
             string sql2 = "select codigo from inventario_maquinas";
-            string sql3 = "select falla from defectos_linea";
+            string sql3 = "select falla from defectos_linea ORDER BY FALLA";
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlCommand cm2 = new SqlCommand(sql2, cn);

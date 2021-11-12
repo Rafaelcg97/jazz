@@ -26,7 +26,13 @@ namespace Production_control_1._0.pantallasIniciales
     public partial class produccion : UserControl
     {
         List<loteProgramacion> lotesProgramados = new List<loteProgramacion>();
-        #region clases_especiales_para_la_grafica
+        #region clasesGrafica
+
+        public ColumnSeries piezas { get; set; }
+        public LineSeries eficiencia { get; set; }
+        public LineSeries fallos { get; set; }
+        public LineSeries cambios { get; set; }
+
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<int, string> Formatter { get; set; }
@@ -35,52 +41,64 @@ namespace Production_control_1._0.pantallasIniciales
         #region datos_iniciales
         public produccion()
         {
-            InitializeComponent();
+
             #region datosIncialesDeGrafica
-            // se cargan los datos iniciales para la grafica
-            SeriesCollection = new SeriesCollection
+
+            piezas = new ColumnSeries
             {
-                new ColumnSeries
-                {
-                    Title = "Piezas",
-                    Values = new ChartValues<int> {0},
-                    Fill = System.Windows.Media.Brushes.DarkGreen,
-                    DataLabels=true,
-                },
-                new LineSeries
-                {
-                    Title="Eficiencia",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.Red,
-                    Fill = Brushes.Transparent,
-                    PointGeometry = DefaultGeometries.Circle,
-                    PointGeometrySize = 15,
-                    ScalesYAt=1,
-                    DataLabels=true,
-                },
-                new LineSeries
-                {
-                    Title="Fallos",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.DarkOrange,
-                    PointGeometry = DefaultGeometries.Circle,
-                    Fill = Brushes.Transparent,
-                    PointGeometrySize = 15,
-                    ScalesYAt=2,
-                    DataLabels=true,
-                },
-                new LineSeries
-                {
-                    Title="Cambios",
-                    Values= new ChartValues<double> {0},
-                    Stroke = System.Windows.Media.Brushes.Blue,
-                    PointGeometry = DefaultGeometries.Circle,
-                    Fill = Brushes.Transparent,
-                    PointGeometrySize = 15,
-                    ScalesYAt=2,
-                    DataLabels=true,
-                },
+                Title = "Piezas",
+                Values = new ChartValues<int> { 0 },
+                Fill = System.Windows.Media.Brushes.DarkGreen,
+                DataLabels = true,
+                
             };
+
+            eficiencia = new LineSeries
+            {
+                Title = "Eficiencia",
+                Values = new ChartValues<double> { 0 },
+                Stroke = System.Windows.Media.Brushes.Red,
+                Fill = Brushes.Transparent,
+                PointGeometry = DefaultGeometries.Circle,
+                PointGeometrySize = 15,
+                ScalesYAt = 1,
+                DataLabels = true,
+                Margin= new Thickness(-100),
+            };
+            fallos = new LineSeries
+            {
+                Title = "Fallos",
+                Values = new ChartValues<double> { 0 },
+                Stroke = System.Windows.Media.Brushes.DarkOrange,
+                PointGeometry = DefaultGeometries.Circle,
+                Fill = Brushes.Transparent,
+                PointGeometrySize = 15,
+                ScalesYAt = 2,
+                DataLabels = true,
+            };
+            cambios = new LineSeries
+            {
+                Title = "Cambios",
+                Values = new ChartValues<double> { 0 },
+                Stroke = System.Windows.Media.Brushes.Blue,
+                PointGeometry = DefaultGeometries.Circle,
+                Fill = Brushes.Transparent,
+                PointGeometrySize = 15,
+                ScalesYAt = 2,
+                DataLabels = true,
+            };
+
+            InitializeComponent();
+            // se cargan los datos iniciales para la grafica
+
+
+            SeriesCollection = new SeriesCollection
+        {
+                            piezas,
+                eficiencia,
+                fallos,
+                cambios
+        };
             Formatter = value => value.ToString("N");
             Formatter2 = value => value.ToString("P2");
             DataContext = this;
@@ -304,14 +322,14 @@ namespace Production_control_1._0.pantallasIniciales
             double disponible = 0;
             List<elemento_grafica> modulosProduccionEficiencia = new List<elemento_grafica>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, piezasNetas, minutosTrabajados, minutosDisponibles, eficiencia, trabajadoNeto, disponibleNeto, fallos, cambios from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
+            string sql = "consultarKPIS '"+fecha+"', '"+turno+"', '-' ";
             if (comboBoxCoordinadorNombre.SelectedIndex>0)
             {
-                sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, piezasNetas, minutosTrabajados, minutosDisponibles, eficiencia, trabajadoNeto, disponibleNeto, fallos, cambios from vistaKPI where fecha='" + fecha + "' and turno='" + turno +  "' and coordinador='"+ comboBoxCoordinadorNombre.SelectedItem.ToString() + "'";
+                sql = "consultarKPIS '" + fecha + "', '" + turno + "', '"+ comboBoxCoordinadorNombre.SelectedItem.ToString() + "'";
             }
             else
             {
-               sql = "select modart, coordinador, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, totalDePiezas, piezasNetas, minutosTrabajados, minutosDisponibles, eficiencia, trabajadoNeto, disponibleNeto, fallos, cambios from vistaKPI where fecha='" + fecha + "' and turno='" + turno + "' order by coordinador";
+               sql = "consultarKPIS '" + fecha + "', '" + turno + "', '-' ";
             }
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
@@ -348,17 +366,17 @@ namespace Production_control_1._0.pantallasIniciales
             cn.Close();
             //se limpian los datos cargados anteriormente para poder volver a cargar
             grafico.AxisX.Clear();
-            SeriesCollection[0].Values.Clear();
-            SeriesCollection[1].Values.Clear();
-            SeriesCollection[2].Values.Clear();
-            SeriesCollection[3].Values.Clear();
-            grafico.AxisX.Add(new Axis() { Labels = modulos.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 }, });
+            piezas.Values.Clear();
+            eficiencia.Values.Clear();
+            cambios.Values.Clear();
+            fallos.Values.Clear();
+            grafico.AxisX.Add(new Axis() { Labels = modulos.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 } });
             foreach (elemento_grafica item in modulosProduccionEficiencia)
             {
-                SeriesCollection[0].Values.Add(item.piezas);
-                SeriesCollection[1].Values.Add(item.eficiencia);
-                SeriesCollection[2].Values.Add(item.fallos);
-                SeriesCollection[3].Values.Add(item.cambio);
+                piezas.Values.Add(item.piezas);
+                eficiencia.Values.Add(item.eficiencia);
+                fallos.Values.Add(item.fallos);
+                cambios.Values.Add(item.cambio);
             };
             labelTotalPiezas.Content = totalPiezas;
             labelTotalEficiencia.Content = (trabajado / disponible).ToString("P0");
@@ -620,5 +638,50 @@ namespace Production_control_1._0.pantallasIniciales
                 MessageBox.Show(ex.ToString());
             }
         }
+        #region filtrosDeLaGrafi
+        private void chbPiezas_Checked(object sender, RoutedEventArgs e)
+        {
+            piezas.Fill = Brushes.DarkGreen;
+            piezas.Foreground = Brushes.Black;
+            piezas.Title = "Piezas";
+        }
+
+        private void chbPiezas_Unchecked(object sender, RoutedEventArgs e)
+        {
+            piezas.Title = "";
+            piezas.Fill = Brushes.Transparent;
+            piezas.Foreground = Brushes.Transparent;
+        }
+
+        private void chbEficiencia_Checked(object sender, RoutedEventArgs e)
+        {
+            eficiencia.Visibility = Visibility.Visible;
+        }
+
+        private void chbEficiencia_Unchecked(object sender, RoutedEventArgs e)
+        {
+            eficiencia.Visibility = Visibility.Hidden;
+        }
+
+        private void chbFallos_Checked(object sender, RoutedEventArgs e)
+        {
+            fallos.Visibility = Visibility.Visible;
+        }
+
+        private void chbFallos_Unchecked(object sender, RoutedEventArgs e)
+        {
+            fallos.Visibility = Visibility.Hidden;
+        }
+
+        private void chbCambios_Checked(object sender, RoutedEventArgs e)
+        {
+            cambios.Visibility = Visibility.Visible;
+        }
+
+        private void chbCambios_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cambios.Visibility = Visibility.Hidden;
+        }
+        #endregion
     }
 }
