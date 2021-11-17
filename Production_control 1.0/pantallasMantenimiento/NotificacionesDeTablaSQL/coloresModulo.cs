@@ -213,15 +213,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c1 = c1 + 1;
+                            ps1 = ps1 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps1 = ps1 + 1;
+                                c1 = c1 + 1;
                             }
                             else
                             {
@@ -246,15 +246,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c2 = c2 + 1;
+                            ps2 = ps2 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps2 = ps2 + 1;
+                                c2 = c2 + 1;
                             }
                             else
                             {
@@ -279,15 +279,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c3 = c3 + 1;
+                            ps3 = ps3 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps3 = ps3 + 1;
+                                c3 = c3 + 1;
                             }
                             else
                             {
@@ -312,15 +312,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c4 = c4 + 1;
+                            ps4 = ps4 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps4 = ps4 + 1;
+                                c4 = c4 + 1;
                             }
                             else
                             {
@@ -345,15 +345,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c5 = c5 + 1;
+                            ps5 = ps5 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps5 = ps5 + 1;
+                                c5 = c5 + 1;
                             }
                             else
                             {
@@ -378,15 +378,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c6 = c6 + 1;
+                            ps6 = ps6 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps6 = ps6 + 1;
+                                c6 = c6 + 1;
                             }
                             else
                             {
@@ -411,15 +411,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c7 = c7 + 1;
+                            ps7 = ps7 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps7 = ps7 + 1;
+                                c7 = c7 + 1;
                             }
                             else
                             {
@@ -444,15 +444,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c8 = c8 + 1;
+                            ps8 = ps8 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps8 = ps8 + 1;
+                                c8 = c8 + 1;
                             }
                             else
                             {
@@ -477,15 +477,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c9 = c9 + 1;
+                            ps9 = ps9 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps9 = ps9 + 1;
+                                c9 = c9 + 1;
                             }
                             else
                             {
@@ -510,15 +510,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c10 = c10 + 1;
+                            ps10 = ps10 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps10 = ps10 + 1;
+                                c10 = c10 + 1;
                             }
                             else
                             {
@@ -543,15 +543,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c11 = c11 + 1;
+                            ps11 = ps11 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps11 = ps11 + 1;
+                                c11 = c11 + 1;
                             }
                             else
                             {
@@ -576,15 +576,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c12 = c12 + 1;
+                            ps12 = ps12 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps12 = ps12 + 1;
+                                c12 = c12 + 1;
                             }
                             else
                             {
@@ -609,15 +609,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c13 = c13 + 1;
+                            ps13 = ps13 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps13 = ps13 + 1;
+                                c13 = c13 + 1;
                             }
                             else
                             {
@@ -642,15 +642,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c14 = c14 + 1;
+                            ps14 = ps14 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps14 = ps14 + 1;
+                                c14 = c14 + 1;
                             }
                             else
                             {
@@ -675,15 +675,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c15 = c15 + 1;
+                            ps15 = ps15 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps15 = ps15 + 1;
+                                c15 = c15 + 1;
                             }
                             else
                             {
@@ -708,15 +708,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c16 = c16 + 1;
+                            ps16 = ps16 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps16 = ps16 + 1;
+                                c16 = c16 + 1;
                             }
                             else
                             {
@@ -741,15 +741,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c17 = c17 + 1;
+                            ps17 = ps17 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps17 = ps17 + 1;
+                                c17 = c17 + 1;
                             }
                             else
                             {
@@ -774,15 +774,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c18 = c18 + 1;
+                            ps18 = ps18 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps18 = ps18 + 1;
+                                c18 = c18 + 1;
                             }
                             else
                             {
@@ -807,15 +807,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c19 = c19 + 1;
+                            ps19 = ps19 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps19 = ps19 + 1;
+                                c19 = c19+ 1;
                             }
                             else
                             {
@@ -840,15 +840,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c20 = c20 + 1;
+                            ps20 = ps20 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps20 = ps20 + 1;
+                                c20 = c20 + 1;
                             }
                             else
                             {
@@ -873,15 +873,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c21 = c21 + 1;
+                            ps21 = ps21 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps21 = ps21 + 1;
+                                c21 = c21 + 1;
                             }
                             else
                             {
@@ -906,15 +906,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c22 = c22 + 1;
+                            ps22 = ps22 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps22 = ps22 + 1;
+                                c22 = c22 + 1;
                             }
                             else
                             {
@@ -939,15 +939,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c23 = c23 + 1;
+                            ps23 = ps23 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps23 = ps23 + 1;
+                                c23 = c23 + 1;
                             }
                             else
                             {
@@ -972,15 +972,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c24 = c24 + 1;
+                            ps24 = ps24 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps24 = ps24 + 1;
+                                c24 = c24 + 1;
                             }
                             else
                             {
@@ -1005,15 +1005,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c25 = c25 + 1;
+                            ps25 = ps25 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps25 = ps25 + 1;
+                                c25 = c25 + 1;
                             }
                             else
                             {
@@ -1038,15 +1038,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c26 = c26 + 1;
+                            ps26 = ps26 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps26 = ps26 + 1;
+                                c26 = c26 + 1;
                             }
                             else
                             {
@@ -1071,15 +1071,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c27 = c27 + 1;
+                            ps27 = ps27 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps27 = ps27 + 1;
+                                c27 = c27 + 1;
                             }
                             else
                             {
@@ -1104,15 +1104,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c28 = c28 + 1;
+                            ps28 = ps28 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps28 = ps28 + 1;
+                                c28 = c28 + 1;
                             }
                             else
                             {
@@ -1137,15 +1137,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c29 = c29 + 1;
+                            ps29 = ps29 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps29 = ps29 + 1;
+                                c29 = c29 + 1;
                             }
                             else
                             {
@@ -1170,15 +1170,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c30 = c30 + 1;
+                            ps30 = ps30 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps30 = ps30 + 1;
+                                c30 = c30 + 1;
                             }
                             else
                             {
@@ -1203,15 +1203,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c31 = c31 + 1;
+                            ps31 = ps31 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps31 = ps31 + 1;
+                                c31 = c31 + 1;
                             }
                             else
                             {
@@ -1236,15 +1236,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c32 = c32 + 1;
+                            ps32 = ps32 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps32 = ps32 + 1;
+                                c32 = c32 + 1;
                             }
                             else
                             {
@@ -1269,15 +1269,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c33 = c33 + 1;
+                            ps33 = ps33 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps33 = ps33 + 1;
+                                c33 = c33 + 1;
                             }
                             else
                             {
@@ -1302,15 +1302,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c34 = c34 + 1;
+                            ps34 = ps34 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps34 = ps34 + 1;
+                                c34 = c34 + 1;
                             }
                             else
                             {
@@ -1335,15 +1335,15 @@ namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQ
                         }
                         break;
                     case "SMED":
-                        if (item.problema_reportado.ToString() == "CAMBIO")
+                        if (item.hora_asignacion.ToString() == "0")
                         {
-                            c35 = c35 + 1;
+                            ps35 = ps35 + 1;
                         }
                         else
                         {
-                            if (item.hora_asignacion.ToString() == "0")
+                            if (item.problema_reportado.ToString() == "CAMBIO")
                             {
-                                ps35 = ps35 + 1;
+                                c35 = c35 + 1;
                             }
                             else
                             {

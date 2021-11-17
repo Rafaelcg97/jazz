@@ -40,7 +40,7 @@ namespace Production_control_1._0.pantallasBMP
         #region calculosGenerales
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new pantallasBMP.menuBMP());
+            NavigationService.GoBack();
         }
         private void soloNumerosDecimales(object sender, KeyEventArgs e)
         {

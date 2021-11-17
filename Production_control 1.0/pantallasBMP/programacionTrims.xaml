@@ -142,63 +142,63 @@
                         <GridViewColumn Header="Tanda" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding tanda}" Width="225" TextChanged="TextBox_TextChanged"/>
+                                    <TextBox Text="{Binding tanda}" Width="400" Height="44" TextChanged="TextBox_TextChanged" Background="{Binding colorFondo}" Margin="0,0,-10,0" LostFocus="TextBox_LostFocus"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Tarjeta" Width="200">
+                        <GridViewColumn Header="Tarjeta" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding tarjeta}" Width="200"/>
+                                    <Label Content="{Binding tarjeta}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Lote" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding lote}" Width="200"/>
+                                    <Label Content="{Binding lote}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Estilo" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding estilo}" Width="250"/>
+                                    <Label Content="{Binding estilo}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Temporada" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding temporada}" Width="250"/>
+                                    <Label Content="{Binding temporada}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Color" Width="275">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding color}" Width="275"/>
+                                    <Label Content="{Binding color}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Copa" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding copa}" Width="110"/>
+                                    <Label Content="{Binding copa}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Make" Width="125">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding make}" Width="130" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                    <Label Content="{Binding make}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Tiempo" Width="135">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding sam}" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                    <Label Content="{Binding sam}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -208,15 +208,30 @@
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="10" >
-            <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Partnumbers no clasificados</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Partnumbers no clasificados</Label>
+                <Button x:Name="btnNavegarNoClasificados" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Height="25" Width="25" Click="btnNavegarNoClasificados_Click">
+                    <Image Source="/imagenes/tiempoTrims.png"/>
+                </Button>
+            </StackPanel>
         </Viewbox>
 
         <Viewbox Grid.Row="4" Grid.Column="10" Grid.ColumnSpan="3" Margin="15,0,15,0" Grid.RowSpan="5" VerticalAlignment="Top">
             <ListView x:Name="lstPartnumbersNoClasificados" Width="700" Height="500" FontSize="25"/>
         </Viewbox>
 
+        <Viewbox Grid.Row="9" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="1" Margin="15,10,20,0" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="Minutos Programados" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Grid>
+                    <ProgressBar x:Name="pbarProgramado" Value="0" Maximum="528" Width="500" Height="50"/>
+                    <Label x:Name="lblMinutos" Margin="20,0,0,0" FontSize="25" Content="0 min de 528 min"/>
+                </Grid>
+            </StackPanel>
+        </Viewbox>
 
-        <Viewbox Grid.Row="10" Grid.ColumnSpan="4" Grid.Column="9" >
+
+        <Viewbox Grid.Row="10" Grid.ColumnSpan="3" Grid.Column="10" >
             <Label FontSize="15" FontWeight="Bold" Margin="10" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Orden de prioridad de las Tandas</Label>
         </Viewbox>
 

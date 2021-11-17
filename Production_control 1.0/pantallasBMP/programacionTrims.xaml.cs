@@ -168,7 +168,7 @@ namespace Production_control_1._0.pantallasBMP
         private List<tarjetaKanban> consultarLotes(string cadenaTarjetas)
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT lote, modulo, estilo, color, temporada, cliente, make, copa FROM lotesNoProgramadosTrims WHERE kanban IN(" + cadenaTarjetas+ ") ORDER BY estilo, temporada, color";
+            string sql = "SELECT lote, kanban, modulo, estilo, color, temporada, cliente, make, copa FROM lotesNoProgramadosTrims WHERE kanban IN(" + cadenaTarjetas+ ") ORDER BY estilo, temporada, color";
             try
             {
                 cn.Open();
@@ -179,14 +179,16 @@ namespace Production_control_1._0.pantallasBMP
                     lotes.Add(new tarjetaKanban
                     {
                         lote = dr["lote"].ToString(),
-                        modulo=dr["modulo"].ToString(),
+                        tarjeta =dr["kanban"].ToString(),
+                        modulo = dr["modulo"].ToString(),
                         cliente = dr["cliente"].ToString(),
                         estilo = dr["estilo"].ToString(),
                         color = dr["color"].ToString(),
                         temporada = dr["temporada"].ToString(),
                         copa = Convert.ToBoolean(dr["copa"]),
-                        make = Convert.ToInt32(dr["make"] is DBNull ? 0 : dr["make"])
-                    });
+                        make = Convert.ToInt32(dr["make"] is DBNull ? 0 : dr["make"]),
+                        colorFondo="White"
+                    }) ;
                 };
                 dr.Close();
                 cn.Close();
@@ -224,7 +226,7 @@ namespace Production_control_1._0.pantallasBMP
         {
             List<tarjetaKanban> tiemposResultado = new List<tarjetaKanban>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT lote, round(sum(sam),5) as sam  FROM samPartNumbers where celula='trims' AND LOTE IN(" + cadenaLotes + ") GROUP BY lote";
+            string sql = "SELECT lote, count(partNumber) as conteoPartNumber round(sum(sam),5) as sam  FROM samPartNumbers where celula='trims' AND LOTE IN(" + cadenaLotes + ") GROUP BY lote";
             try
             {
                 cn.Open();
@@ -263,9 +265,7 @@ namespace Production_control_1._0.pantallasBMP
             int conteoMedianos = 0;
             int conteoPequenios = 0;
             int conteoGeneral = 0;
-
             int lotesMaximosDeTanda = 0;
-
             foreach (tarjetaKanban item in lotes)
             {
                 //validar si es REI pra verificar si debe o no tomarse en cuenta el color
@@ -309,6 +309,7 @@ namespace Production_control_1._0.pantallasBMP
                             if (conteoGrandes <= 3 && conteoMedianos <= 4 && conteoPequenios <= 5)
                             {
                                 item.tanda = idTandas + tanda;
+                                item.color = color;
                                 sam = sam + item.sam;
                             }
                             else
@@ -436,7 +437,6 @@ namespace Production_control_1._0.pantallasBMP
                                 conteoMedianos = 0;
                                 conteoPequenios = 0;
                                 conteoGeneral = 0;
-
                                 //determinar tamanio del lote
                                 #region determinarTamanio
                                 if (item.make <= 100)
@@ -605,6 +605,21 @@ namespace Production_control_1._0.pantallasBMP
                 color = item.color;
                 sam = item.sam;
             }
+
+            string tanda1 = ((tarjetaKanban)(lotes.First())).tanda;
+            string color1 = "LightBlue";
+            string color2 = "Pink";
+            foreach (tarjetaKanban item in lotes)
+            {
+                if(Convert.ToInt32(item.tanda.Substring(11, item.tanda.Length-11)) % 2 == 0)
+                {
+                    item.colorFondo = color1;
+                }
+                else
+                {
+                    item.colorFondo = color2;
+                }
+            }
         }
         private void btbSubir_Click(object sender, RoutedEventArgs e)
         {
@@ -648,6 +663,8 @@ namespace Production_control_1._0.pantallasBMP
             partnumbersNoClasificados.Clear();
             ordenTandasResultante.Clear();
             lstOrden.Items.Refresh();
+            pbarProgramado.Value = 0;
+            lblMinutos.Content = "0 min de 528 min";
         }
         private void btnGenerarTandas_Click(object sender, RoutedEventArgs e)
         {
@@ -664,8 +681,10 @@ namespace Production_control_1._0.pantallasBMP
         private void btnOrdenarTandas_Click(object sender, RoutedEventArgs e)
         {
             int conteoDatosVacios = 0;
+            double totalMinutos = 0;
             foreach (tarjetaKanban item in lotes)
             {
+                totalMinutos = totalMinutos + item.sam;
                 if (string.IsNullOrEmpty(item.tanda))
                 {
                     conteoDatosVacios = conteoDatosVacios + 1;
@@ -675,6 +694,8 @@ namespace Production_control_1._0.pantallasBMP
             {
                 lstOrden.ItemsSource = generarOrdenPrioridadesTandas((lotes.Select(o => o.tanda).Distinct().ToArray()).ToList());
                 lstOrden.Items.Refresh();
+                lblMinutos.Content=Math.Round(totalMinutos, 2)+" mintos de 528 de minutos";
+                pbarProgramado.Value = totalMinutos;
             }
             else
             {
@@ -745,6 +766,25 @@ namespace Production_control_1._0.pantallasBMP
             }
             return ordenTandasResultante;
         }
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string tanda1 = ((tarjetaKanban)(lotes.First())).tanda;
+            string color1 = "LightBlue";
+            string color2 = "Pink";
+            foreach (tarjetaKanban item in lotes)
+            {
+                if (Convert.ToInt32(item.tanda.Substring(11, item.tanda.Length - 11)) % 2 == 0)
+                {
+                    item.colorFondo = color1;
+                }
+                else
+                {
+                    item.colorFondo = color2;
+                }
+            }
+
+            lstTandas.Items.Refresh();
+        }
         #endregion
         #region controlesListViewOrdenTandas
         private void btnSubirTanda_Click(object sender, RoutedEventArgs e)
@@ -791,5 +831,12 @@ namespace Production_control_1._0.pantallasBMP
             }
         }
         #endregion
+
+        private void btnNavegarNoClasificados_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new partNumbers());
+        }
+
+
     }
 }

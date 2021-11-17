@@ -21,5 +21,10 @@ namespace Production_control_1._0.clases
         public double sam { get; set; }
         public bool copa { get; set; }
         public bool seleccionado { get; set; }
+        public string colorFondo { get; set; }
+        public int conteoPartNumber {get; set;}
+        public double pfdLoteTrims { get => 6.75; }
+        public double pfdTandaTrims { get => 27.1; }
+        public double pfdSubcategoriaTrims { get => 6.75; }
     }
 }

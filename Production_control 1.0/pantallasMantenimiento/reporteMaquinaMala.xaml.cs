@@ -14,6 +14,8 @@ namespace Production_control_1._0
 {
     public partial class reporteMaquinaMala : UserControl
     {
+        List<string> maquinas = new List<string>();
+        List<string> problemas = new List<string>();
         #region clases_especiales
         public class elementos
         {
@@ -58,17 +60,19 @@ namespace Production_control_1._0
             SqlDataReader dr2 = cm2.ExecuteReader();
             while (dr2.Read())
             {
-               maquina_reporte.Items.Add(dr2["codigo"].ToString());
+               maquinas.Add(dr2["codigo"].ToString());
             };
             dr2.Close();
             SqlDataReader dr3 = cm3.ExecuteReader();
             while (dr3.Read())
             {
-                problema_reporte.Items.Add(dr3["falla"].ToString());
+                problemas.Add(dr3["falla"].ToString());
             };
             dr3.Close();
             cn.Close();
 
+            maquina_reporte.ItemsSource = maquinas;
+            problema_reporte.ItemsSource = problemas;
             //habilitar o inhabilitar boton de envio
 
             habilitar_boton();
@@ -212,67 +216,6 @@ namespace Production_control_1._0
             string sql2 = "select top 25 maquina, problema_reportado, hora_reportada from solicitudes where modulo='" + modulo_reporte.SelectedItem.ToString() + "' order by hora_reportada desc";
             String sql3 = "select id from orden_modulos where modulo='"+ modulo_reporte.SelectedItem.ToString() +"'";
             cn.Open();
-            if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
-            {
-                string sql = "select TOP 1 hora_cierre from solicitudes where problema_reportado='CAMBIO' AND modulo='" + modulo_reporte.SelectedItem.ToString() + "'  AND arteria='" + comboBoxArteria.SelectedItem.ToString() + "' ORDER BY hora_cierre DESC";
-                SqlCommand cm = new SqlCommand(sql, cn);
-                SqlDataReader dr = cm.ExecuteReader();
-                //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
-
-                if (dr.Read())
-                {
-                    DateTime horaCierre = Convert.ToDateTime(dr["hora_cierre"]);
-                    DateTime ahora = DateTime.Now;
-                    double diferenciaHoras= (ahora - horaCierre).TotalDays * 24;
-
-                    //validar si el dia de cierre del ultimo cambio es igual al dia del reporte
-                    if (ahora.Date == horaCierre.Date)
-                    {
-                        if (diferenciaHoras <= 2)
-                        {
-                            corresponde_reporte.Content = "SMED";
-                        }
-                        else
-                        {
-                            corresponde_reporte.Content = "MANTENIMIENTO";
-                        }
-                    }
-                    //si los dias son diferentes validar si el cambio fue viernes
-                    else
-                    {
-                        //si el cambio fue viernes quitar el tiempo de fin de semana
-                        if (horaCierre.DayOfWeek == DayOfWeek.Friday)
-                        {
-                            if (diferenciaHoras - 62.7 <= 2)
-                            {
-                                corresponde_reporte.Content = "SMED";
-                            }
-                            else
-                            {
-                                corresponde_reporte.Content = "MANTENIMIENTO";
-                            }
-                        }
-                        else
-                        {
-                            if (diferenciaHoras - 14.7 <= 2)
-                            {
-                                corresponde_reporte.Content = "SMED";
-                            }
-                            else
-                            {
-                                corresponde_reporte.Content = "MANTENIMIENTO";
-                            }
-                        }
-                    }
-
-                }
-                else
-                {
-                    corresponde_reporte.Content = "MANTENIMIENTO";
-                };
-                dr.Close();
-            }
-
             //se agregan los ultimos problemas del modulo
             SqlCommand cm2 = new SqlCommand(sql2, cn);
             SqlDataReader dr2 = cm2.ExecuteReader();
@@ -296,85 +239,28 @@ namespace Production_control_1._0
         }
         private void comboBoxArteria_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
-            {
-                cn.Open();
-                string sql = "select TOP 1 hora_cierre from solicitudes where problema_reportado='CAMBIO' AND modulo='" + modulo_reporte.SelectedItem.ToString() + "'  AND arteria='" + comboBoxArteria.SelectedItem.ToString() + "' ORDER BY hora_cierre DESC";
-                SqlCommand cm = new SqlCommand(sql, cn);
-                SqlDataReader dr = cm.ExecuteReader();
-                //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
-
-                if (dr.Read())
-                {
-                    DateTime horaCierre = Convert.ToDateTime(dr["hora_cierre"]);
-                    DateTime ahora = DateTime.Now;
-                    double diferenciaHoras = (ahora - horaCierre).TotalDays * 24;
-                    //validar si el dia de cierre del ultimo cambio es igual al dia del reporte
-                    if (ahora.Date == horaCierre.Date)
-                    {
-                        if (diferenciaHoras<=2)
-                        {
-                            corresponde_reporte.Content = "SMED";
-                        }
-                        else
-                        {
-                            corresponde_reporte.Content = "MANTENIMIENTO";
-                        }
-                    }
-                    //si los dias son diferentes validar si el cambio fue viernes
-                    else
-                    {
-                        //si el cambio fue viernes quitar el tiempo de fin de semana
-                        if (horaCierre.DayOfWeek==DayOfWeek.Friday)
-                        {
-                            if (diferenciaHoras - 62.7 <= 2)
-                            {
-                                corresponde_reporte.Content = "SMED";
-                            }
-                            else
-                            {
-                                corresponde_reporte.Content = "MANTENIMIENTO";
-                            }
-                        }
-                        else
-                        {
-                            if (diferenciaHoras - 14.7 <= 2)
-                            {
-                                corresponde_reporte.Content = "SMED";
-                            }
-                            else
-                            {
-                                corresponde_reporte.Content = "MANTENIMIENTO";
-                            }
-                        }
-                    }
-
-                }
-                else
-                {
-                    corresponde_reporte.Content = "MANTENIMIENTO";
-                };
-                dr.Close();
-                cn.Close();
-                habilitar_boton();
-            }
+            corresponde_reporte.Content = areaEncargada();
         }
         private void buscar_maquina_Reporte_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //se limpian los items cargados en la lista de maquinas
-            maquina_reporte.Items.Clear();
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select codigo from inventario_maquinas where codigo like '%" + buscar_maquina_Reporte.Text.ToString() + "%'";
-            cn.Open();
-            SqlCommand cm = new SqlCommand(sql, cn);
-            SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
+            List<string> coincidencias = new List<string>();
+
+            foreach(string item in maquinas)
             {
-                maquina_reporte.Items.Add(dr["codigo"].ToString());
-            };
-            dr.Close();
-            cn.Close();
+                if(buscar_maquina_Reporte.Text.ToString() == "")
+                {
+                    coincidencias.Add(item);
+                }
+                else 
+                {
+                    if (item.ToLower().Contains(buscar_maquina_Reporte.Text.ToLower()))
+                    {
+                        coincidencias.Add(item);
+                    }
+                }
+            }
+
+            maquina_reporte.ItemsSource = coincidencias;
 
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
@@ -385,19 +271,25 @@ namespace Production_control_1._0
         }
         private void buscar_problema_reporte_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //se limpian los items cargados en la lista de maquinas
-            problema_reporte.Items.Clear();
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select falla from defectos_linea where falla like '%" + buscar_problema_reporte.Text.ToString() +"%'";
-            cn.Open();
-            SqlCommand cm = new SqlCommand(sql, cn);
-            SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
+            List<string> coincidencias = new List<string>();
+
+            foreach (string item in problemas)
             {
-                problema_reporte.Items.Add(dr["falla"].ToString());
-            };
-            dr.Close();
-            cn.Close();
+                if (buscar_problema_reporte.Text.ToString() == "")
+                {
+                    coincidencias.Add(item);
+                }
+                else
+                {
+                    if (item.ToLower().Contains(buscar_problema_reporte.Text.ToLower()))
+                    {
+                        coincidencias.Add(item);
+                    }
+                }
+            }
+
+            problema_reporte.ItemsSource = coincidencias;
+
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
@@ -449,6 +341,7 @@ namespace Production_control_1._0
         }
         private void problema_reporte_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            corresponde_reporte.Content = areaEncargada();
             //habilitar o inhabilitar boton de envio
             habilitar_boton();
         }
@@ -467,6 +360,86 @@ namespace Production_control_1._0
             cn.Close();
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new estadoPlantaProduccion();
+        }
+
+        private String areaEncargada()
+        {
+            string corresponde = "MANTENIMIENTO";
+            if (problema_reporte.SelectedIndex > -1)
+            {
+                if (problema_reporte.SelectedItem.ToString() == "CAMBIO")
+                {
+                    corresponde = "SMED";
+                }
+                else
+                {
+                    if (comboBoxArteria.SelectedIndex > -1 && modulo_reporte.SelectedIndex > -1)
+                    {
+                        SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
+                        string sql = "select TOP 1 hora_cierre from solicitudes where problema_reportado='CAMBIO' AND modulo='" + modulo_reporte.SelectedItem.ToString() + "'  AND arteria='" + comboBoxArteria.SelectedItem.ToString() + "' ORDER BY hora_cierre DESC";
+                        SqlCommand cm = new SqlCommand(sql, cn);
+                        cn.Open();
+                        SqlDataReader dr = cm.ExecuteReader();
+                        //si hay cambios cerrados hace menos de 2 horas se ke asigna el reporte a SMED
+
+                        if (dr.Read())
+                        {
+                            DateTime horaCierre = Convert.ToDateTime(dr["hora_cierre"]);
+                            DateTime ahora = DateTime.Now;
+                            double diferenciaHoras = (ahora - horaCierre).TotalDays * 24;
+
+                            //validar si el dia de cierre del ultimo cambio es igual al dia del reporte
+                            if (ahora.Date == horaCierre.Date)
+                            {
+                                if (diferenciaHoras <= 2)
+                                {
+                                    corresponde= "SMED";
+                                }
+                                else
+                                {
+                                    corresponde= "MANTENIMIENTO";
+                                }
+                            }
+                            //si los dias son diferentes validar si el cambio fue viernes
+                            else
+                            {
+                                //si el cambio fue viernes quitar el tiempo de fin de semana
+                                if (horaCierre.DayOfWeek == DayOfWeek.Friday)
+                                {
+                                    if (diferenciaHoras - 62.7 <= 2)
+                                    {
+                                        corresponde = "SMED";
+                                    }
+                                    else
+                                    {
+                                        corresponde = "MANTENIMIENTO";
+                                    }
+                                }
+                                else
+                                {
+                                    if (diferenciaHoras - 14.7 <= 2)
+                                    {
+                                        corresponde = "SMED";
+                                    }
+                                    else
+                                    {
+                                        corresponde= "MANTENIMIENTO";
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            corresponde= "MANTENIMIENTO";
+                        };
+                        dr.Close();
+                        cn.Close();
+                    }
+                }
+            }
+
+            return corresponde;
         }
         #endregion
         #region calculos_generales
