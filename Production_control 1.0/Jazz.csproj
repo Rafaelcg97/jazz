@@ -30,7 +30,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\fs-procesos\Ingenieria\JAZZUPDATE\</UpdateUrl>
     <MinimumRequiredVersion>5.1.0.1</MinimumRequiredVersion>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>5.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -386,6 +386,9 @@
     <Compile Include="pantallasBMP\partNumbers.xaml.cs">
       <DependentUpon>partNumbers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasBMP\preparacionCajasParciales.xaml.cs">
+      <DependentUpon>preparacionCajasParciales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasBMP\programacionTrims.xaml.cs">
       <DependentUpon>programacionTrims.xaml</DependentUpon>
     </Compile>
@@ -538,6 +541,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasBMP\partNumbers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasBMP\preparacionCajasParciales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

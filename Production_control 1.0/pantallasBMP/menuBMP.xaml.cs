@@ -32,5 +32,10 @@ namespace Production_control_1._0.pantallasBMP
         {
             NavigationService.Navigate(new controlTiemposTrims());
         }
+
+        private void btnPreparacionCajas_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new preparacionCajasParciales());
+        }
     }
 }

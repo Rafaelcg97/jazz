@@ -26,5 +26,21 @@ namespace Production_control_1._0.pantallasMantenimiento
         {
             this.NavigationService.GoBack();
         }
+
+        private void btnAgregarActividad_Click(object sender, RoutedEventArgs e)
+        {
+            if (calendarFecha.SelectedDate.HasValue)
+            {
+                dtpFecha.SelectedDate = calendarFecha.SelectedDate;
+                cmbMaquina.SelectedIndex = -1;
+                cmbActividad.SelectedIndex = -1;
+            }
+            popUpAgregarActividad.IsOpen = true;
+        }
+
+        private void btnCerrar_Click(object sender, RoutedEventArgs e)
+        {
+            popUpAgregarActividad.IsOpen = false;
+        }
     }
 }

@@ -7,87 +7,163 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="calendarioProgramacion">
-    <Page.Resources>
-        <Style x:Key="NavigationEllipseStyle" TargetType="{x:Type Ellipse}">
-
-            <Setter Property="Width" Value="20"/>
-
-            <Setter Property="Height" Value="20"/>
-
-            <Setter Property="Stroke" Value="#FF8EB0DC"/>
-
-            <Setter Property="StrokeThickness" Value="1"/>
-
-            <Setter Property="Fill">
-
-                <Setter.Value>
-
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-
-                        <GradientStop Color="#FFFAFCFF" Offset="0"/>
-
-                        <GradientStop Color="#FFFAFCFF" Offset="0.5"/>
-
-                        <GradientStop Color="#FFCCE2FF" Offset="0.5"/>
-
-                        <GradientStop Color="#FFCCE2FF" Offset="1"/>
-
-                    </LinearGradientBrush>
-
-                </Setter.Value>
-
-            </Setter>
-
-        </Style>
-    </Page.Resources>
-    <Grid>
+    <Grid x:Name="gridAreaTrabajo">
         <!--#region filas/columans-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <!--#endregion-->
-        <Button x:Name="salir_" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Margin="10,10,0,0" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
-            <Image Source="/imagenes/atras.png" Width="50" Height="50"/>
-        </Button>
-        <Viewbox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="11" Grid.RowSpan="17">
-            <CalendarItem  />
+        <Viewbox Grid.ColumnSpan="15" Grid.RowSpan="2" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="20,0,0,0" >
+                <Button x:Name="salir_" Background="Transparent" BorderBrush="Transparent" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                    <Image Source="/imagenes/atras.png" Width="40" Height="40"/>
+                </Button>
+                <Label Content="Programación de Mantenimiento" FontSize="60" FontWeight="Bold" Margin="235,0,0,0" />
+            </StackPanel>
         </Viewbox>
+        <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="17" Margin="20,0,0,0">
+            <Border Background="AliceBlue" CornerRadius="8">
+                <Calendar x:Name="calendarFecha" BorderThickness="0" Background="Transparent" IsTodayHighlighted="False" />
+            </Border>
+        </Viewbox>
+        <Viewbox Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="7" Grid.RowSpan="17" Margin="50,0,0,0">
+            <Border BorderBrush="Black" BorderThickness="5" CornerRadius="9">
+                <Grid Height="500" Width="700">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.ColumnSpan="10" HorizontalAlignment="Center" Padding="0" Foreground="Black" Content="Actividades de la fecha seleccionada" FontSize="25" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="10" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,0,0">
+                        <Label HorizontalAlignment="Center" Padding="0" Foreground="Black" Content="Agregar nueva actividad" FontSize="20" VerticalAlignment="Center"/>
+                        <Button x:Name="btnAgregarActividad" Background="Transparent" BorderThickness="0" Height="29" Width="29" BorderBrush="Transparent" Margin="15,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnAgregarActividad_Click">
+                            <Image Source="/imagenes/mas.png" Width="25" Height="25"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="11" Margin="10" FontSize="15" FontWeight="Bold">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Máquina" Width="165">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Actividad" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Minutos" Width="110">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Estatus" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Viewbox>
+        <Popup x:Name="popUpAgregarActividad" Width="450" Height="400" AllowsTransparency="True" PlacementTarget="{Binding ElementName=gridAreaTrabajo}" Placement="Center" StaysOpen="False" >
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Background="White">
+                <StackPanel>
+                    <Button x:Name="btnCerrar" Width="25" Height="25" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent" Click="btnCerrar_Click">
+                        <Image Source="/imagenes/cerrar.png"/>
+                    </Button>
+                    <Label Margin="5" FontSize="25" FontWeight="Bold" Content="Programacion de nueva actividad" HorizontalAlignment="Center" />
+                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" FontWeight="DemiBold" Content="Máquina:"/>
+                        <ComboBox x:Name="cmbMaquina" Margin="15,0,0,0" Height="22" Width="200"/>
+                    </StackPanel>
+                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" FontWeight="DemiBold" Content="Actividad:"/>
+                        <ComboBox x:Name="cmbActividad" Margin="10,0,0,0" Height="22" Width="200"/>
+                    </StackPanel>
+                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" FontWeight="DemiBold" Content="Fecha:"/>
+                        <DatePicker x:Name="dtpFecha" Margin="45,0,0,0" Height="22" Width="200" IsManipulationEnabled="False" IsEnabled="False" />
+                    </StackPanel>
+                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" FontWeight="DemiBold" Content="Anteriores no conclusas:"/>
+                        <CheckBox x:Name="chbAnterior" Margin="10,0,0,0" Content="Mantener"  Width="200" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button x:Name="btnProgramar" Margin="0,25,0,0" HorizontalAlignment="Center" Height="25" Width="100" Content="Programar" FontWeight="Bold" BorderBrush="Transparent" BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+        </Popup>
     </Grid>
 </Page>

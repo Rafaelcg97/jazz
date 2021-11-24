@@ -142,21 +142,23 @@
                         <GridViewColumn Header="Tanda" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding tanda}" Width="400" Height="44" TextChanged="TextBox_TextChanged" Background="{Binding colorFondo}" Margin="0,0,-10,0" LostFocus="TextBox_LostFocus"/>
+                                    <Border Width="400" Height="44" Background="{Binding colorFondo}" Margin="0,0,-10,0" HorizontalAlignment="Center">
+                                        <TextBox Text="{Binding tanda}" HorizontalAlignment="Center" Width="180" TextChanged="TextBox_TextChanged" LostFocus="TextBox_LostFocus" Margin="2"/>
+                                    </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Tarjeta" Width="250">
+                        <GridViewColumn Header="Tarjeta" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding tarjeta}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
+                                    <Label Content="{Binding tarjeta}" Width="400" Height="43" FontSize="18" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Lote" Width="200">
+                        <GridViewColumn Header="Lote" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding lote}" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
+                                    <Label Content="{Binding lote}" Width="400" FontSize="18" Height="43" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -195,10 +197,24 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Tiempo" Width="135">
+                        <GridViewColumn Header="Subcategorias" Width="135">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding conteoCategoria}" Height="44" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="SamLote" Width="135">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Label Content="{Binding sam}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="SamTanda" Width="135">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding samTanda}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="400" Background="{Binding colorFondo}" Margin="-10,0,-10,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

@@ -152,12 +152,12 @@
             <ListBox ItemsSource="{Binding U14}" Grid.Row="3" Grid.Column="13"/>
             <ListBox ItemsSource="{Binding U15}" Grid.Row="3" Grid.Column="14"/>
             <ListBox ItemsSource="{Binding U16}" Grid.Row="3" Grid.Column="15"/>
-            <ListBox ItemsSource="{Binding U17}" Grid.Row="12" Grid.Column="0"/>
-            <ListBox ItemsSource="{Binding U18}" Grid.Row="12" Grid.Column="1"/>
+            <ListBox ItemsSource="{Binding U17}" Grid.Row="12" Grid.Column="0" Background="Pink"/>
+            <ListBox ItemsSource="{Binding U18}" Grid.Row="12" Grid.Column="1" Background="Pink"/>
             <ListBox ItemsSource="{Binding U19}" Grid.Row="12" Grid.Column="2"/>
-            <ListBox ItemsSource="{Binding U20}" Grid.Row="12" Grid.Column="3"/>
+            <ListBox ItemsSource="{Binding U20}" Grid.Row="12" Grid.Column="3" Background="Pink"/>
             <ListBox ItemsSource="{Binding U21}" Grid.Row="12" Grid.Column="4"/>
-            <ListBox ItemsSource="{Binding U22}" Grid.Row="12" Grid.Column="5"/>
+            <ListBox ItemsSource="{Binding U22}" Grid.Row="12" Grid.Column="5" Background="Pink"/>
             <ListBox ItemsSource="{Binding U23}" Grid.Row="12" Grid.Column="6"/>
             <ListBox ItemsSource="{Binding U24}" Grid.Row="12" Grid.Column="7"/>
             <ListBox ItemsSource="{Binding U25}" Grid.Row="12" Grid.Column="8"/>

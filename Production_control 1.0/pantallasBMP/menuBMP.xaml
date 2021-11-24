@@ -74,5 +74,13 @@
                 </StackPanel>
             </Viewbox>
         </Button>
+        <Button x:Name="btnPreparacionCajas" Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="2" Background="Transparent" Click="btnPreparacionCajas_Click">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/abrir.png" MaxHeight="100"/>
+                    <Label Content="Cajas Parciales Pendientes" FontWeight="Bold" FontSize="15" Padding="0" Margin="5,9,5,0"/>
+                </StackPanel>
+            </Viewbox>
+        </Button>
     </Grid>
 </Page>

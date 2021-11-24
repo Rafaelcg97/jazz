@@ -48,6 +48,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
         private ObservableCollection<solicitudKanban> a = null;
         private ObservableCollection<solicitudKanban> r = null;
         private ObservableCollection<solicitudKanban> v = null;
+        private ObservableCollection<solicitudKanban> parciales = null;
         #endregion
         #region coleccionesObservablesPub
         public ObservableCollection<solicitudKanban> U1
@@ -346,6 +347,14 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                 return v;
             }
         }
+        public ObservableCollection<solicitudKanban> Parciales
+        {
+            get
+            {
+                parciales = parciales ?? new ObservableCollection<solicitudKanban>();
+                return parciales;
+            }
+        }
         #endregion
         public Dispatcher UIDispatcher { get; set; }
         public SQLNotifierPlanta Notifier { get; set; }
@@ -402,6 +411,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                     this.A.Clear();
                     this.R.Clear();
                     this.V.Clear();
+                    this.Parciales.Clear();
                     #endregion
                     #region agregarDatosLista
                     int conteoRojo = 0;
@@ -409,572 +419,584 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                     int conteoAmarrillo = 0;
                     foreach (DataRow dr in consultado.Rows)
                     {
-                        string color_ = "";
-                        if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"])==true)
+                        if (Convert.ToBoolean(dr["solicitudCajaParcial"] is DBNull? false : dr["solicitudCajaParcial"]) ==false || Convert.ToBoolean(dr["horaPreparacionCajaParcial"] is DBNull? false:true)==true )
                         {
-                            color_ = "Red";
-                            conteoRojo++;
-                        }
-                        else if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"]) == false)
-                        {
-                            color_ = "Orange";
-                        }
-                        else if (dr["tipo"].ToString() == "solicitud" && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
-                        {
-                            color_ = "Yellow";
-                            conteoAmarrillo++;
-                        }
-                        else if (dr["tipo"].ToString() == "devolucion" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()))
-                        {
-                            color_ = "Blue";
+                            string color_ = "";
+                            if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"]) == true)
+                            {
+                                color_ = "Red";
+                                conteoRojo++;
+                            }
+                            else if (dr["tipo"].ToString() == "solicitud" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"]) == false)
+                            {
+                                color_ = "Orange";
+                            }
+                            else if (dr["tipo"].ToString() == "solicitud" && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
+                            {
+                                color_ = "Yellow";
+                                conteoAmarrillo++;
+                            }
+                            else if (dr["tipo"].ToString() == "devolucion" && string.IsNullOrEmpty(dr["fechaInicio"].ToString()))
+                            {
+                                color_ = "Blue";
+                            }
+                            else
+                            {
+                                color_ = "#FF6FC136";
+                                conteoVerde++;
+                            }
+
+                            switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
+                            {
+                                case 1:
+                                    solicitudKanban itemU1 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U1.Add(itemU1);
+                                    break;
+                                case 2:
+                                    solicitudKanban itemU2 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U2.Add(itemU2);
+                                    break;
+                                case 3:
+                                    solicitudKanban itemU3 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U3.Add(itemU3);
+                                    break;
+                                case 4:
+                                    solicitudKanban itemU4 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U4.Add(itemU4);
+                                    break;
+                                case 5:
+                                    solicitudKanban itemU5 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U5.Add(itemU5);
+                                    break;
+                                case 6:
+                                    solicitudKanban itemU6 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U6.Add(itemU6);
+                                    break;
+                                case 7:
+                                    solicitudKanban itemU7 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U7.Add(itemU7);
+                                    break;
+                                case 8:
+                                    solicitudKanban itemU8 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U8.Add(itemU8);
+                                    break;
+                                case 9:
+                                    solicitudKanban itemU9 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U9.Add(itemU9);
+                                    break;
+                                case 10:
+                                    solicitudKanban itemU10 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U10.Add(itemU10);
+                                    break;
+                                case 11:
+                                    solicitudKanban itemU11 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U11.Add(itemU11);
+                                    break;
+                                case 12:
+                                    solicitudKanban itemU12 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U12.Add(itemU12);
+                                    break;
+                                case 13:
+                                    solicitudKanban itemU13 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U13.Add(itemU13);
+                                    break;
+                                case 14:
+                                    solicitudKanban itemU14 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U14.Add(itemU14);
+                                    break;
+                                case 15:
+                                    solicitudKanban itemU15 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U15.Add(itemU15);
+                                    break;
+                                case 16:
+                                    solicitudKanban itemU16 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U16.Add(itemU16);
+                                    break;
+                                case 17:
+                                    solicitudKanban itemU17 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U17.Add(itemU17);
+                                    break;
+                                case 18:
+                                    solicitudKanban itemU18 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U18.Add(itemU18);
+                                    break;
+                                case 19:
+                                    solicitudKanban itemU19 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U19.Add(itemU19);
+                                    break;
+                                case 20:
+                                    solicitudKanban itemU20 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U20.Add(itemU20);
+                                    break;
+                                case 21:
+                                    solicitudKanban itemU21 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U21.Add(itemU21);
+                                    break;
+                                case 22:
+                                    solicitudKanban itemU22 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U22.Add(itemU22);
+                                    break;
+                                case 23:
+                                    solicitudKanban itemU23 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U23.Add(itemU23);
+                                    break;
+                                case 24:
+                                    solicitudKanban itemU24 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U24.Add(itemU24);
+                                    break;
+                                case 25:
+                                    solicitudKanban itemU25 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U25.Add(itemU25);
+                                    break;
+                                case 26:
+                                    solicitudKanban itemU26 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U26.Add(itemU26);
+                                    break;
+                                case 27:
+                                    solicitudKanban itemU27 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U27.Add(itemU27);
+                                    break;
+                                case 28:
+                                    solicitudKanban itemU28 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U28.Add(itemU28);
+                                    break;
+                                case 29:
+                                    solicitudKanban itemU29 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U29.Add(itemU29);
+                                    break;
+                                case 30:
+                                    solicitudKanban itemU30 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U30.Add(itemU30);
+                                    break;
+                                case 31:
+                                    solicitudKanban itemU31 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U31.Add(itemU31);
+                                    break;
+                                case 32:
+                                    solicitudKanban itemU32 = new solicitudKanban
+                                    {
+                                        solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                        tipo = dr["tipo"].ToString(),
+                                        modulo = dr["modulo"].ToString(),
+                                        ubicacion = Convert.ToInt32(dr["ubicacion"]),
+                                        fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
+                                        color = color_,
+                                        atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
+                                        validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
+                                    };
+                                    this.U32.Add(itemU32);
+                                    break;
+                            }
+
+                            if (string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"]) == true)
+                            {
+                                TimeSpan diferencia = DateTime.Now - Convert.ToDateTime(dr["fechaSolicitud"]);
+                                double diferenciaenminutos = diferencia.TotalMinutes;
+
+                                solicitudKanban itemP = new solicitudKanban
+                                {
+                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                    modulo = dr["modulo"].ToString(),
+                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd   hh:mm"),
+                                };
+                                this.P.Add(itemP);
+                            }
+                            else if (!string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
+                            {
+                                solicitudKanban itemPP = new solicitudKanban
+                                {
+                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
+                                    modulo = dr["modulo"].ToString(),
+                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd"),
+                                    motivo = dr["motivoParcial"].ToString()
+                                };
+                                this.PP.Add(itemPP);
+                            }
                         }
                         else
                         {
-                            color_ = "#FF6FC136";
-                            conteoVerde++;
-                        }
-
-                        switch (Convert.ToInt32(dr["ubicacion"] is DBNull ? 0 : dr["ubicacion"]))
-                        {
-                            case 1:
-                                solicitudKanban itemU1 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio= Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0: dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U1.Add(itemU1);
-                                break;
-                            case 2:
-                                solicitudKanban itemU2 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U2.Add(itemU2);
-                                break;
-                            case 3:
-                                solicitudKanban itemU3 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U3.Add(itemU3);
-                                break;
-                            case 4:
-                                solicitudKanban itemU4 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U4.Add(itemU4);
-                                break;
-                            case 5:
-                                solicitudKanban itemU5 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U5.Add(itemU5);
-                                break;
-                            case 6:
-                                solicitudKanban itemU6 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U6.Add(itemU6);
-                                break;
-                            case 7:
-                                solicitudKanban itemU7 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U7.Add(itemU7);
-                                break;
-                            case 8:
-                                solicitudKanban itemU8 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U8.Add(itemU8);
-                                break;
-                            case 9:
-                                solicitudKanban itemU9 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U9.Add(itemU9);
-                                break;
-                            case 10:
-                                solicitudKanban itemU10 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U10.Add(itemU10);
-                                break;
-                            case 11:
-                                solicitudKanban itemU11 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U11.Add(itemU11);
-                                break;
-                            case 12:
-                                solicitudKanban itemU12 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U12.Add(itemU12);
-                                break;
-                            case 13:
-                                solicitudKanban itemU13 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U13.Add(itemU13);
-                                break;
-                            case 14:
-                                solicitudKanban itemU14 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U14.Add(itemU14);
-                                break;
-                            case 15:
-                                solicitudKanban itemU15 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U15.Add(itemU15);
-                                break;
-                            case 16:
-                                solicitudKanban itemU16 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U16.Add(itemU16);
-                                break;
-                            case 17:
-                                solicitudKanban itemU17 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U17.Add(itemU17);
-                                break;
-                            case 18:
-                                solicitudKanban itemU18 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U18.Add(itemU18);
-                                break;
-                            case 19:
-                                solicitudKanban itemU19 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U19.Add(itemU19);
-                                break;
-                            case 20:
-                                solicitudKanban itemU20 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U20.Add(itemU20);
-                                break;
-                            case 21:
-                                solicitudKanban itemU21 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U21.Add(itemU21);
-                                break;
-                            case 22:
-                                solicitudKanban itemU22 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U22.Add(itemU22);
-                                break;
-                            case 23:
-                                solicitudKanban itemU23 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U23.Add(itemU23);
-                                break;
-                            case 24:
-                                solicitudKanban itemU24 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U24.Add(itemU24);
-                                break;
-                            case 25:
-                                solicitudKanban itemU25 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U25.Add(itemU25);
-                                break;
-                            case 26:
-                                solicitudKanban itemU26 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U26.Add(itemU26);
-                                break;
-                            case 27:
-                                solicitudKanban itemU27 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U27.Add(itemU27);
-                                break;
-                            case 28:
-                                solicitudKanban itemU28 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U28.Add(itemU28);
-                                break;
-                            case 29:
-                                solicitudKanban itemU29 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U29.Add(itemU29);
-                                break;
-                            case 30:
-                                solicitudKanban itemU30 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U30.Add(itemU30);
-                                break;
-                            case 31:
-                                solicitudKanban itemU31 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U31.Add(itemU31);
-                                break;
-                            case 32:
-                                solicitudKanban itemU32 = new solicitudKanban
-                                {
-                                    solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                    tipo = dr["tipo"].ToString(),
-                                    modulo = dr["modulo"].ToString(),
-                                    ubicacion = Convert.ToInt32(dr["ubicacion"]),
-                                    fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaInicio = Convert.ToDateTime(dr["fechaInicio"] is DBNull ? "1900-01-01" : dr["fechaInicio"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    fechaEntrega = Convert.ToDateTime(dr["fechaEntrega"] is DBNull ? "1900-01-01" : dr["fechaEntrega"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                                    color = color_,
-                                    atiendeSolicitud = Convert.ToInt32(dr["atiendeSolicitud"] is DBNull ? 0 : dr["atiendeSolicitud"]),
-                                    validadoSmed = Convert.ToBoolean(dr["validadoSmed"]),
-                                };
-                                this.U32.Add(itemU32);
-                                break;
-                        }
-
-                        if(string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && Convert.ToBoolean(dr["validadoSmed"])==true)
-                        {
-                            TimeSpan diferencia = DateTime.Now - Convert.ToDateTime(dr["fechaSolicitud"]);
-                            double diferenciaenminutos = diferencia.TotalMinutes;
-
-                            solicitudKanban itemP = new solicitudKanban
+                            solicitudKanban parciales1 = new solicitudKanban
                             {
                                 solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
                                 modulo = dr["modulo"].ToString(),
-                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd   hh:mm"),
+                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("yyyy-MM-dd hh:mm:ss"),
                             };
-                            this.P.Add(itemP);
+                            this.Parciales.Add(parciales1);
                         }
-                        else if(!string.IsNullOrEmpty(dr["fechaInicio"].ToString()) && !string.IsNullOrEmpty(dr["fechaParcial"].ToString()))
-                        {
-                            solicitudKanban itemPP = new solicitudKanban
-                            {
-                                solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
-                                modulo = dr["modulo"].ToString(),
-                                fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd"),
-                                motivo=dr["motivoParcial"].ToString()
-                            };
-                            this.PP.Add(itemPP);
-                        }
-
                     }
 
                     solicitudKanban itemR = new solicitudKanban

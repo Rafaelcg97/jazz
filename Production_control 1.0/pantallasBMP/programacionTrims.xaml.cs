@@ -83,6 +83,7 @@ namespace Production_control_1._0.pantallasBMP
         {
             string cadenaTarjetas = "'";
             bool existenDatosSeleccionados = false;
+            string cadenaLotes = "'";
             List<tarjetaKanban> elementosCoincidentes = new List<tarjetaKanban>();
             foreach (tarjetaKanban item in tarjetas)
             {
@@ -91,6 +92,7 @@ namespace Production_control_1._0.pantallasBMP
                     existenDatosSeleccionados = true;
                     cadenaTarjetas = cadenaTarjetas + item.tarjeta + "', '";
                     elementosCoincidentes.Add(item);
+                    cadenaLotes = cadenaLotes + item.lote + "', '";
                 }
             }
 
@@ -100,36 +102,28 @@ namespace Production_control_1._0.pantallasBMP
             {
                 txtBuscarTarjeta.Clear();
                 btnSeleccionarTodo.IsChecked = false;
-                lstTandas.ItemsSource = consultarLotes(cadenaTarjetas.Substring(0, cadenaTarjetas.Length - 3));
-                lstTarjetas.ItemsSource = tarjetas;
-                lstTarjetas.Items.Refresh();
-                lstTandas.Items.Refresh();
 
-                //generar cadena de lotes para verificar si todos los partNumbers tienen datos
-                string cadenaLotes = "'";
-                bool existenLotesAgregados = false;
-                foreach (tarjetaKanban item in lstTandas.Items)
-                {
-                    existenLotesAgregados = true;
-                    cadenaLotes = cadenaLotes + item.lote + "', '";
-                }
-                if (existenLotesAgregados == true)
-                {
-                    lstPartnumbersNoClasificados.ItemsSource = consultarPartnumbersNulos(cadenaLotes.Substring(0, cadenaLotes.Length - 3));
-                    lstPartnumbersNoClasificados.Items.Refresh();
+                lstPartnumbersNoClasificados.ItemsSource = consultarPartnumbersNulos(cadenaLotes.Substring(0, cadenaLotes.Length - 3));
+                lstPartnumbersNoClasificados.Items.Refresh();
 
-                    List<tarjetaKanban> listaTiempos = consultarTiempos(cadenaLotes.Substring(0, cadenaLotes.Length - 3));
-                    foreach(tarjetaKanban item in lotes)
+                List<tarjetaKanban> listaTiempos = consultarTiempos(cadenaLotes.Substring(0, cadenaLotes.Length - 3));
+                foreach (tarjetaKanban item in elementosCoincidentes)
+                {
+                    foreach (tarjetaKanban subitem in listaTiempos)
                     {
-                        foreach(tarjetaKanban subitem in listaTiempos)
+                        if (item.lote == subitem.lote)
                         {
-                            if (item.lote == subitem.lote)
-                            {
-                                item.sam = subitem.sam;
-                            }
+                            item.sam = Math.Round(subitem.sam + subitem.pfdLoteTrims, 3);
+                            item.conteoCategoria = subitem.conteoCategoria;
                         }
                     }
                 }
+
+                lotes.AddRange(elementosCoincidentes);
+                lstTandas.ItemsSource = lotes;
+                lstTarjetas.ItemsSource = tarjetas;
+                lstTarjetas.Items.Refresh();
+                lstTandas.Items.Refresh();
             }
 
         }
@@ -138,7 +132,7 @@ namespace Production_control_1._0.pantallasBMP
         private void cargarListaDeTarjetas()
         {
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT DISTINCT kanban, lote FROM lotesNoProgramadosTrims";
+            string sql = "SELECT kanban, lote, estilo, color, cliente, temporada, make, copa FROM lotesNoProgramadosTrims WHERE  kanban like '%WK%'";
             try
             {
                 tarjetas.Clear();
@@ -151,6 +145,12 @@ namespace Production_control_1._0.pantallasBMP
                     {
                         tarjeta = dr["kanban"].ToString(),
                         lote= dr["lote"].ToString(),
+                        estilo = dr["estilo"].ToString(),
+                        color=dr["color"].ToString(),
+                        cliente=dr["cliente"].ToString(),
+                        temporada=dr["temporada"].ToString(),
+                        make= Convert.ToInt32(dr["make"] is DBNull ? 0: dr["make"]),
+                        copa= Convert.ToBoolean(dr["copa"]),
                         seleccionado = false
                     });
                 };
@@ -164,41 +164,6 @@ namespace Production_control_1._0.pantallasBMP
             {
                 System.Windows.MessageBox.Show(ex.Message);
             }
-        }
-        private List<tarjetaKanban> consultarLotes(string cadenaTarjetas)
-        {
-            SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT lote, kanban, modulo, estilo, color, temporada, cliente, make, copa FROM lotesNoProgramadosTrims WHERE kanban IN(" + cadenaTarjetas+ ") ORDER BY estilo, temporada, color";
-            try
-            {
-                cn.Open();
-                SqlCommand cm = new SqlCommand(sql, cn);
-                SqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    lotes.Add(new tarjetaKanban
-                    {
-                        lote = dr["lote"].ToString(),
-                        tarjeta =dr["kanban"].ToString(),
-                        modulo = dr["modulo"].ToString(),
-                        cliente = dr["cliente"].ToString(),
-                        estilo = dr["estilo"].ToString(),
-                        color = dr["color"].ToString(),
-                        temporada = dr["temporada"].ToString(),
-                        copa = Convert.ToBoolean(dr["copa"]),
-                        make = Convert.ToInt32(dr["make"] is DBNull ? 0 : dr["make"]),
-                        colorFondo="White"
-                    }) ;
-                };
-                dr.Close();
-                cn.Close();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
-            }
-
-            return lotes;
         }
         private List<string> consultarPartnumbersNulos(string cadenaLotes)
         {
@@ -226,7 +191,7 @@ namespace Production_control_1._0.pantallasBMP
         {
             List<tarjetaKanban> tiemposResultado = new List<tarjetaKanban>();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_bmp"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "SELECT lote, count(partNumber) as conteoPartNumber round(sum(sam),5) as sam  FROM samPartNumbers where celula='trims' AND LOTE IN(" + cadenaLotes + ") GROUP BY lote";
+            string sql = "SELECT lote, count(categoria) as conteoCategoria, round(sum(sam),5) as sam  FROM samPartNumbers where celula='trims' AND LOTE IN(" + cadenaLotes + ") GROUP BY lote";
             try
             {
                 cn.Open();
@@ -234,7 +199,12 @@ namespace Production_control_1._0.pantallasBMP
                 SqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    tiemposResultado.Add(new tarjetaKanban {lote=dr["lote"].ToString(), sam=Convert.ToDouble(dr["sam"] is DBNull? 0: dr["sam"]) });
+                    tiemposResultado.Add(
+                        new tarjetaKanban 
+                        {
+                            lote=dr["lote"].ToString(), 
+                            sam=Convert.ToDouble(dr["sam"] is DBNull? 0: dr["sam"]), 
+                            conteoCategoria=Convert.ToInt32(dr["conteoCategoria"]) });
                 };
                 dr.Close();
                 cn.Close();
@@ -259,13 +229,17 @@ namespace Production_control_1._0.pantallasBMP
             string cliente = (lotes.First()).cliente;
             string color = (lotes.First()).color;
             int make = (lotes.First()).make;
-            double sam = (lotes.First()).sam;
+            double sam = (lotes.First()).sam + 27.1;
             int tanda = 1;
             int conteoGrandes = 0;
             int conteoMedianos = 0;
             int conteoPequenios = 0;
             int conteoGeneral = 0;
             int lotesMaximosDeTanda = 0;
+
+            int acumuladoCategorias = 0;
+            int conteoLotesTnda = 0;
+
             foreach (tarjetaKanban item in lotes)
             {
                 //validar si es REI pra verificar si debe o no tomarse en cuenta el color
@@ -310,14 +284,18 @@ namespace Production_control_1._0.pantallasBMP
                             {
                                 item.tanda = idTandas + tanda;
                                 item.color = color;
-                                sam = sam + item.sam;
+                                acumuladoCategorias = acumuladoCategorias + item.conteoCategoria;
+                                conteoLotesTnda++;
+                                sam = sam + item.sam+ ((Math.Round(Convert.ToDouble(acumuladoCategorias)/Convert.ToDouble(conteoLotesTnda),0)*6.25));
                             }
                             else
                             {
                                 tanda = tanda + 1;
                                 make = 0;
                                 item.tanda = idTandas + tanda;
-                                sam = item.sam;
+                                acumuladoCategorias = item.conteoCategoria;
+                                conteoLotesTnda = 1;
+                                sam = item.sam +27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                             }
                         }
                         else
@@ -346,6 +324,8 @@ namespace Production_control_1._0.pantallasBMP
                             tanda = tanda + 1;
                             make = 0;
                             item.tanda = idTandas + tanda;
+                            acumuladoCategorias = item.conteoCategoria;
+                            conteoLotesTnda=1;
                         }
 
                     }
@@ -375,6 +355,8 @@ namespace Production_control_1._0.pantallasBMP
                         tanda = tanda + 1;
                         make = 0;
                         item.tanda = idTandas + tanda;
+                        acumuladoCategorias = item.conteoCategoria;
+                        conteoLotesTnda = 1;
                     }
                 }
                 //si no es REI
@@ -400,7 +382,6 @@ namespace Production_control_1._0.pantallasBMP
                                 conteoGrandes = conteoGrandes + 1;
                             }
                             #endregion
-
                             if (conteoGrandes > 0)
                             {
                                 lotesMaximosDeTanda = 3;
@@ -421,14 +402,18 @@ namespace Production_control_1._0.pantallasBMP
                                 if (conteoGrandes <= 3 && conteoMedianos <= 4 && conteoPequenios <= 5)
                                 {
                                     item.tanda = idTandas + tanda;
-                                    sam = sam+ item.sam;
+                                    acumuladoCategorias = acumuladoCategorias + item.conteoCategoria;
+                                    conteoLotesTnda++;
+                                    sam = sam+ item.sam + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                                 }
                                 else
                                 {
                                     tanda = tanda + 1;
                                     make = 0;
                                     item.tanda = idTandas + tanda;
-                                    sam = item.sam;
+                                    acumuladoCategorias = item.conteoCategoria;
+                                    conteoLotesTnda = 1;
+                                    sam = item.sam+27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                                 }
                             }
                             else
@@ -456,7 +441,9 @@ namespace Production_control_1._0.pantallasBMP
                                 tanda = tanda + 1;
                                 make = 0;
                                 item.tanda = idTandas + tanda;
-                                sam = item.sam;
+                                acumuladoCategorias = item.conteoCategoria;
+                                conteoLotesTnda = 1;
+                                sam = item.sam+27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                             }
 
                         }
@@ -486,7 +473,9 @@ namespace Production_control_1._0.pantallasBMP
                             tanda = tanda + 1;
                             make = 0;
                             item.tanda = idTandas + tanda;
-                            sam = item.sam;
+                            acumuladoCategorias = item.conteoCategoria;
+                            conteoLotesTnda = 1;
+                            sam = item.sam+27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                         }
                     }
                     else
@@ -529,14 +518,18 @@ namespace Production_control_1._0.pantallasBMP
                                 if (conteoGrandes <= 2 && conteoMedianos <= 4 && conteoPequenios <= 5)
                                 {
                                     item.tanda = idTandas + tanda;
-                                    sam = sam+item.sam;
+                                    acumuladoCategorias = acumuladoCategorias + item.conteoCategoria;
+                                    conteoLotesTnda++;
+                                    sam = sam+item.sam + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                                 }
                                 else
                                 {
                                     tanda = tanda + 1;
                                     make = 0;
                                     item.tanda = idTandas + tanda;
-                                    sam = item.sam;
+                                    acumuladoCategorias = item.conteoCategoria;
+                                    conteoLotesTnda = 1;
+                                    sam = item.sam+27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                                 }
                             }
                             else
@@ -565,7 +558,9 @@ namespace Production_control_1._0.pantallasBMP
                                 tanda = tanda + 1;
                                 make = 0;
                                 item.tanda = idTandas + tanda;
-                                sam = item.sam;
+                                acumuladoCategorias = item.conteoCategoria;
+                                conteoLotesTnda = 1;
+                                sam = item.sam+27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                             }
 
                         }
@@ -595,7 +590,9 @@ namespace Production_control_1._0.pantallasBMP
                             tanda = tanda + 1;
                             make = 0;
                             item.tanda = idTandas + tanda;
-                            sam = item.sam;
+                            acumuladoCategorias = item.conteoCategoria;
+                            conteoLotesTnda = 1;
+                            sam = item.sam+ 27.1 + ((Math.Round(Convert.ToDouble(acumuladoCategorias) / Convert.ToDouble(conteoLotesTnda), 0) * 6.25));
                         }
                     }
                 }
@@ -603,12 +600,13 @@ namespace Production_control_1._0.pantallasBMP
                 temporada = item.temporada;
                 make = item.make;
                 color = item.color;
-                sam = item.sam;
+                acumuladoCategorias = item.acumuladoCategoria;
+                conteoLotesTnda = 0;
             }
 
             string tanda1 = ((tarjetaKanban)(lotes.First())).tanda;
             string color1 = "LightBlue";
-            string color2 = "Pink";
+            string color2 = "LightGray";
             foreach (tarjetaKanban item in lotes)
             {
                 if(Convert.ToInt32(item.tanda.Substring(11, item.tanda.Length-11)) % 2 == 0)
@@ -620,6 +618,30 @@ namespace Production_control_1._0.pantallasBMP
                     item.colorFondo = color2;
                 }
             }
+
+
+            var result= lotes.GroupBy(d => d.tanda)
+                .Select(
+                g => 
+                new tarjetaKanban
+                {
+                    tanda = g.First().tanda,
+                    samTanda = (27.1+g.Sum(s => s.sam) + (g.Average(s => s.conteoCategoria)*6.75))* g.Max(s => s.pfdCliente),
+                });
+           
+            foreach(tarjetaKanban item in result)
+            {
+                foreach(tarjetaKanban subitem in lotes)
+                {
+                    if (item.tanda == subitem.tanda)
+                    {
+                        subitem.samTanda =Math.Round(item.samTanda,3);
+                    }
+                }
+            }
+
+
+            lstTandas.Items.Refresh();
         }
         private void btbSubir_Click(object sender, RoutedEventArgs e)
         {

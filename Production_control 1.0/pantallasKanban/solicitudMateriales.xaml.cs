@@ -103,6 +103,7 @@ namespace Production_control_1._0.pantallasKanban
             labelEstadoAccesorios.Content = "Pendiente";
             labelEstadoBinding.Content = "Pendiente";
             labelEstadoHilos.Content = "Pendiente";
+            labelEstadoHilosSmed.Content = "Pendiente";
             labelEstadoElastico.Content = "Pendiente";
             labelEstadoBra.Content = "Pendiente";
             labelEstadoTela.Content = "Pendiente";
@@ -178,6 +179,9 @@ namespace Production_control_1._0.pantallasKanban
                         case "Hilos":
                             labelEstadoHilos.Content = "Solicitado";
                             break;
+                        case "HilosSmed":
+                            labelEstadoHilosSmed.Content = "Solicitado";
+                            break;
                         case "Tela":
                             List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
                             foreach (solicitudKanban talla in listViewTallasTela.Items)
@@ -246,6 +250,9 @@ namespace Production_control_1._0.pantallasKanban
                                 break;
                             case "Hilos":
                                 labelEstadoHilos.Content = "Agregado";
+                                break;
+                            case "HilosSmed":
+                                labelEstadoHilosSmed.Content = "Agregado";
                                 break;
                             case "Tela":
                                 List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
@@ -434,6 +441,25 @@ namespace Production_control_1._0.pantallasKanban
                 validarEntregados();
             }
         }
+        private void buttonAgregarHiloSmed_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxLote.SelectedIndex > -1)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoHilosSmed.Content.ToString() == "Pendiente")
+                {
+                    listViewListaMateriales.Items.Add(new solicitudKanban
+                    {
+                        lote = ((solicitudKanban)(listBoxLote.SelectedItem)).lote,
+                        modulo = listBoxModulo.SelectedItem.ToString(),
+                        material = "HilosSmed",
+                        cantidad = 1,
+                        talla = "Unica"
+                    });
+                }
+                validarEntregados();
+            }
+        }
         private void buttonAgregarElastico_Click(object sender, RoutedEventArgs e)
         {
             if (listBoxLote.SelectedIndex > -1)
@@ -584,11 +610,27 @@ namespace Production_control_1._0.pantallasKanban
                 ItemsControlAccesorios.Items.Clear();
                 ItemsControlBinding.Items.Clear();
                 ItemsControlHilos.Items.Clear();
+                ItemsControlHilosSmed.Items.Clear();
                 ItemsControlBra.Items.Clear();
                 ItemsControlElastico.Items.Clear();
                 ItemsControlTela.Items.Clear();
                 listViewCajas.Items.Clear();
                 listViewGancho.Items.Clear();
+
+                //activar o desactivar lotesmed
+
+                //if (listBoxLote.SelectedItem.ToString().Contains("SMED"))
+                //{
+                //    tbiSmed.IsEnabled = true;
+                //}
+                //else
+                //{
+                //    tbiSmed.IsEnabled = false;
+                //    if (tab.SelectedIndex == 3)
+                //    {
+                //        tab.SelectedIndex = 0;
+                //    }
+                //}
 
                 //cargar en lista todos los materiales que tiene lote seleccionado escepto cajas y ganchos
                 cnKanban.Open();
@@ -675,6 +717,7 @@ namespace Production_control_1._0.pantallasKanban
                     if(item.categoryName== "Thread")
                     {
                         ItemsControlHilos.Items.Add(item.partNumber);
+                        ItemsControlHilosSmed.Items.Add(item.partNumber);
                     }
                     else if (item.categoryName == "Trim" && item.subCategoryName== "Send Out")
                     {
@@ -737,6 +780,7 @@ namespace Production_control_1._0.pantallasKanban
                 ItemsControlAccesorios.Items.Clear();
                 ItemsControlBinding.Items.Clear();
                 ItemsControlHilos.Items.Clear();
+                ItemsControlHilosSmed.Items.Clear();
                 ItemsControlBra.Items.Clear();
                 ItemsControlElastico.Items.Clear();
                 ItemsControlTela.Items.Clear();
@@ -840,7 +884,7 @@ namespace Production_control_1._0.pantallasKanban
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + !chBoxLoteSmed.IsChecked + "') SELECT SCOPE_IDENTITY()";
+            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed, solicitudCajaParcial) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + !chBoxLoteSmed.IsChecked + "', '" + chBoxCajaParcial.IsChecked +"') SELECT SCOPE_IDENTITY()";
             cnKanban.Open();
             SqlCommand cm = new SqlCommand(sql, cnKanban);
             SqlDataReader dr = cm.ExecuteReader();
@@ -880,5 +924,7 @@ namespace Production_control_1._0.pantallasKanban
                 }
             }
         }
+
+
     }
 }
