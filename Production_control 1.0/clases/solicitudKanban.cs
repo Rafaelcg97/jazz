@@ -37,5 +37,8 @@ namespace Production_control_1._0.clases
         public string[] motivos { get; set; }
         public string area { get; set; }
         public string motivo { get; set; }
+        public string ubicacionM { get; set; }
+        public int responsable { get; set; }
+        public string movimiento { get; set; }
     }
 }

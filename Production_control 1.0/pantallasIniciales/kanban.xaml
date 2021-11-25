@@ -66,7 +66,7 @@
                 <Label Content="Solicitar Movimiento" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="White"  Margin="5,5,5,0"/>
             </Grid>
         </Border>
-        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="8" Grid.RowSpan="5" x:Name="borderLote" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave">
+        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="8" Grid.RowSpan="5" x:Name="borderLote" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderLote_MouseUp">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

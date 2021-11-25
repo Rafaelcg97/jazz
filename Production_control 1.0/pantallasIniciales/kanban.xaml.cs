@@ -60,5 +60,12 @@ namespace Production_control_1._0.pantallasIniciales
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new solicitudMateriales());
         }
+
+        private void borderLote_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            estadoLotes estadoLotes = new estadoLotes();
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = estadoLotes;
+        }
     }
 }

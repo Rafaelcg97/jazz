@@ -1,0 +1,172 @@
+﻿<Page x:Class="Production_control_1._0.pantallasKanban.estadoLotes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Production_control_1._0.pantallasKanban"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="estadoLotes">
+
+    <Grid>
+        <!--#region filas/columans-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+        <Viewbox Grid.ColumnSpan="15" Grid.RowSpan="2" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="20,0,0,0" >
+                <Button x:Name="salir_" Background="Transparent" BorderBrush="Transparent" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                    <Image Source="/imagenes/atras.png" Width="40" Height="40"/>
+                </Button>
+                <Label Content="Historial de Transacciones por Lote" FontSize="60" FontWeight="Bold" Margin="235,0,0,0" />
+            </StackPanel>
+        </Viewbox>
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="5" Margin="20,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Buscar Lote" Padding="5" FontWeight="Bold"/>
+                <TextBox x:Name="txtBuscarLote" Height="15" Width="100" TextChanged="txtBuscarLote_TextChanged" FontSize="10"/>
+                <Button x:Name="btnBuscarLote" Height="15" Width="20" Margin="5,0,0,0" Background="Transparent" Click="btnBuscarLote_Click">
+                    <Image Source="/imagenes/lupa.png"/>
+                </Button>
+                <Ellipse x:Name="ellipseEstado" Height="15" Width="15" Fill="Green" Margin="5,0,0,0"/>
+            </StackPanel>
+        </Viewbox>
+
+        <Viewbox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="7" Margin="20,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Label Content="Resumen por Célula" Padding="5" FontWeight="Bold"/>
+        </Viewbox>
+
+
+        <Viewbox Grid.Row="3" Grid.ColumnSpan="9" Grid.RowSpan="15" Margin="20" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListView x:Name="lstMovimientos" Width="1000" Height="800" FontWeight="Bold" FontSize="15">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Lote" Width="175">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding lote}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Movimiento" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding movimiento}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Material" Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding material}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Paquetes" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding cantidad}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Responsable" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding responsable}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Fecha" Width="175">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding fechaSolicitud}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ubicacion" Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding modulo}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Viewbox>
+
+        <Viewbox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="7" Grid.RowSpan="15" Margin="20" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <ListView x:Name="lstResumen" Width="900" Height="900" FontSize="20" FontWeight="Bold">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Lote" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding lote}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Material" Width="300">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding material}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tipo Movimiento" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding movimiento}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Cantidad" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding cantidad}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Viewbox>
+    </Grid>
+</Page>

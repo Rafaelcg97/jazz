@@ -233,7 +233,7 @@ namespace Production_control_1._0.pantallasKanban
             listViewListaMateriales.Items.Clear();
             listViewListaMaterialesValidar.Items.Clear();
             SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "select detalleKanbanId, solicitudKanbanId, lote, material, talla, cantidad, diferencia, entregado, motivoEntregaParcial, areaResponsable from detalleSolicitudeKanban where solicitudKanbanId="+id ;
+            string sql = "select detalleKanbanId, solicitudKanbanId, lote, material, talla, cantidad, diferencia, entregado, motivoEntregaParcial, areaResponsable, ubicacion from detalleSolicitudKanbanU where solicitudKanbanId="+id ;
             cn.Open();
             SqlCommand cm = new SqlCommand(sql, cn);
             SqlDataReader dr = cm.ExecuteReader();
@@ -249,8 +249,39 @@ namespace Production_control_1._0.pantallasKanban
                 {
                     habilitadoEntrega = false;
                 }
-                listViewListaMateriales.Items.Add(new solicitudKanban {solicitudKanbanId=Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado= Convert.ToInt32(dr["cantidad"]), habilitado=habilitado, diferencia=Convert.ToInt32(dr["diferencia"] is DBNull? 0: dr["diferencia"])+ Convert.ToInt32(dr["cantidad"]), chequeado= Convert.ToBoolean(dr["entregado"]), habilitadoEntrega=habilitadoEntrega, motivos=motivos_, areas=areas_, motivo=Convert.ToString(dr["motivoEntregaParcial"] is DBNull? "-": dr["motivoEntregaParcial"]), area= Convert.ToString(dr["areaResponsable"] is DBNull ? "-" : dr["areaResponsable"]) });
-                listViewListaMaterialesValidar.Items.Add(new solicitudKanban { solicitudKanbanId = Convert.ToInt32(dr["detalleKanbanId"]), lote = dr["lote"].ToString(), material = dr["material"].ToString(), talla = dr["talla"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), solicitado = Convert.ToInt32(dr["cantidad"]), habilitado = habilitado, diferencia = Convert.ToInt32(dr["diferencia"] is DBNull ? 0 : dr["diferencia"]) + Convert.ToInt32(dr["cantidad"]), chequeado = Convert.ToBoolean(dr["entregado"]), habilitadoEntrega = habilitadoEntrega });
+                listViewListaMateriales.Items.Add(
+                    new solicitudKanban 
+                    {
+                        solicitudKanbanId=Convert.ToInt32(dr["detalleKanbanId"]), 
+                        lote = dr["lote"].ToString(), 
+                        material = dr["material"].ToString(), 
+                        talla = dr["talla"].ToString(), 
+                        cantidad = Convert.ToInt32(dr["cantidad"]), 
+                        solicitado= Convert.ToInt32(dr["cantidad"]), 
+                        habilitado=habilitado, 
+                        diferencia=Convert.ToInt32(dr["diferencia"] is DBNull? 0: dr["diferencia"])+ Convert.ToInt32(dr["cantidad"]), 
+                        chequeado= Convert.ToBoolean(dr["entregado"]), 
+                        habilitadoEntrega=habilitadoEntrega, 
+                        motivos=motivos_, 
+                        areas=areas_, 
+                        motivo=Convert.ToString(dr["motivoEntregaParcial"] is DBNull? "-": dr["motivoEntregaParcial"]), 
+                        area= Convert.ToString(dr["areaResponsable"] is DBNull ? "-" : dr["areaResponsable"]),
+                        ubicacionM=dr["ubicacion"].ToString()
+                    });
+
+                listViewListaMaterialesValidar.Items.Add(
+                    new solicitudKanban 
+                    { 
+                        solicitudKanbanId = Convert.ToInt32(dr["detalleKanbanId"]), 
+                        lote = dr["lote"].ToString(), 
+                        material = dr["material"].ToString(), 
+                        talla = dr["talla"].ToString(), 
+                        cantidad = Convert.ToInt32(dr["cantidad"]), 
+                        solicitado = Convert.ToInt32(dr["cantidad"]), 
+                        habilitado = habilitado, 
+                        diferencia = Convert.ToInt32(dr["diferencia"] is DBNull ? 0 : dr["diferencia"]) + Convert.ToInt32(dr["cantidad"]), 
+                        chequeado = Convert.ToBoolean(dr["entregado"]), 
+                        habilitadoEntrega = habilitadoEntrega });
             }
             dr.Close();
             cn.Close();

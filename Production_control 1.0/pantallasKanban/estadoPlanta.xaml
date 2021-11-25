@@ -300,10 +300,10 @@
                     <ListView x:Name="listViewListaMateriales" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="6" Margin="7,0,7,0">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="110" Header="Lote">
+                                <GridViewColumn Width="105" Header="Lote">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding lote}" FontWeight="Bold"/>
+                                            <Label Content="{Binding lote}" FontWeight="Bold" Padding="0"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -325,6 +325,13 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <xctk:IntegerUpDown Value="{Binding cantidad}" IsEnabled="{Binding habilitado}" Minimum="{Binding solicitado}" Maximum="{Binding diferencia}" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" Header="Ubicacion">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding ubicacionM}" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

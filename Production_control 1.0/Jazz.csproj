@@ -30,7 +30,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\fs-procesos\Ingenieria\JAZZUPDATE\</UpdateUrl>
     <MinimumRequiredVersion>5.1.0.1</MinimumRequiredVersion>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>5.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -401,6 +401,9 @@
     <Compile Include="pantallasIniciales\validarUsuarioBMP.xaml.cs">
       <DependentUpon>validarUsuarioBMP.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasKanban\estadoLotes.xaml.cs">
+      <DependentUpon>estadoLotes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasKanban\estadoPlanta.xaml.cs">
       <DependentUpon>estadoPlanta.xaml</DependentUpon>
     </Compile>
@@ -561,6 +564,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasIniciales\validarUsuarioBMP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasKanban\estadoLotes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
