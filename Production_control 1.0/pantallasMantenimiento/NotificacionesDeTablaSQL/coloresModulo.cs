@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Production_control_1._0.clases;
-using static Production_control_1._0.estadoPlantaProduccion;
+using JazzCCO._0.clases;
+using static JazzCCO._0.estadoPlantaProduccion;
 using Brush = System.Windows.Media.Brush;
-using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
+using JazzCCO._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
 using System.Collections.ObjectModel;
 
-namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL
+namespace JazzCCO._0.pantallasMantenimiento.NotificacionesDeTablaSQL
 {
     public class coloresModulo
     {

@@ -1,4 +1,4 @@
-﻿using Production_control_1._0.pantallasBMP;
+﻿using JazzCCO._0.pantallasBMP;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     public partial class validarUsuarioBMP : UserControl
     {

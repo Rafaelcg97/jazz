@@ -6,10 +6,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Production_control_1._0.clases;
-using Production_control_1._0.pantallasInsumos.NotificacionesDeTablaSQL;
+using JazzCCO._0.clases;
+using JazzCCO._0.pantallasInsumos.NotificacionesDeTablaSQL;
 
-namespace Production_control_1._0.pantallasInsumos
+namespace JazzCCO._0.pantallasInsumos
 {
     public partial class estadoSolicitudesUsuarios : Page
     {

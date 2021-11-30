@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     /// <summary>
     /// Interaction logic for muestras.xaml

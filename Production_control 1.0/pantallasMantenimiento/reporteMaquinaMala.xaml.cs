@@ -10,7 +10,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System.Windows.Media;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class reporteMaquinaMala : UserControl
     {

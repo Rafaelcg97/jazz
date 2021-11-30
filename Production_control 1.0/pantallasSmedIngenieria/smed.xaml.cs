@@ -17,7 +17,7 @@ using System.Configuration;
 using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.EventArgs;
 
-namespace Production_control_1._0.pantallasSmedIngenieria
+namespace JazzCCO._0.pantallasSmedIngenieria
 {
     public partial class smed : Page
     {

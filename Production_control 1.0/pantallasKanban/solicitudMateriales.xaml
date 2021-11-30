@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="Production_control_1._0.pantallasKanban.solicitudMateriales"
+﻿<UserControl x:Class="JazzCCO._0.pantallasKanban.solicitudMateriales"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Production_control_1._0.pantallasKanban"
+             xmlns:local="clr-namespace:JazzCCO._0.pantallasKanban"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -554,7 +554,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="Tela" Background="MediumPurple" FontWeight="Bold" FontSize="15">
+            <TabItem Header="Piezas Cortadas" Background="MediumPurple" FontWeight="Bold" FontSize="15">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

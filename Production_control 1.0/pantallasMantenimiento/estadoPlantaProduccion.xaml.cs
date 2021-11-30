@@ -7,11 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Production_control_1._0.clases;
-using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
+using JazzCCO._0.clases;
+using JazzCCO._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
 
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class estadoPlantaProduccion : Page
     {

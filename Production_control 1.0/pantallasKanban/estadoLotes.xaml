@@ -1,9 +1,9 @@
-﻿<Page x:Class="Production_control_1._0.pantallasKanban.estadoLotes"
+﻿<Page x:Class="JazzCCO._0.pantallasKanban.estadoLotes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Production_control_1._0.pantallasKanban"
+      xmlns:local="clr-namespace:JazzCCO._0.pantallasKanban"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="estadoLotes">
@@ -70,7 +70,7 @@
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="7" Margin="20,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Label Content="Resumen por Célula" Padding="5" FontWeight="Bold"/>
+            <Label Content="Resumen por Categoria" Padding="5" FontWeight="Bold"/>
         </Viewbox>
 
 
@@ -81,49 +81,49 @@
                         <GridViewColumn Header="Lote" Width="175">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding lote}"/>
+                                    <Label Content="{Binding lote}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Movimiento" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding movimiento}"/>
+                                    <Label Content="{Binding movimiento}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Material" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding material}"/>
+                                    <Label Content="{Binding material}" Background="{Binding color}" Width="400"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Paquetes" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding cantidad}"/>
+                                    <Label Content="{Binding cantidad}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Responsable" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding responsable}"/>
+                                    <Label Content="{Binding responsable}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Fecha" Width="175">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding fechaSolicitud}"/>
+                                    <Label Content="{Binding fechaSolicitud}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Ubicacion" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding modulo}"/>
+                                    <Label Content="{Binding modulo}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -136,31 +136,38 @@
             <ListView x:Name="lstResumen" Width="900" Height="900" FontSize="20" FontWeight="Bold">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Lote" Width="200">
+                        <GridViewColumn Header="Lote" Width="180">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding lote}"/>
+                                    <Label Content="{Binding lote}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Material" Width="300">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding material}"/>
+                                    <Label Content="{Binding material}" Background="{Binding color}" Width="400"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Tipo Movimiento" Width="200">
+                        <GridViewColumn Header="Estado" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding movimiento}"/>
+                                    <Label Content="{Binding movimiento}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Cantidad" Width="200">
+                        <GridViewColumn Header="Balance" Width="140">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding cantidad}"/>
+                                    <Label Content="{Binding cantidad}" Background="{Binding color}" Width="200"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ubicacion" Width="140">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding modulo}" Background="{Binding color}" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

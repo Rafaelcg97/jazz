@@ -16,10 +16,10 @@ using System.Windows.Shapes;
 using System.Printing;
 using System.Drawing.Printing;
 using NHibernate.Impl;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System.Management;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class impresion : Page
     {

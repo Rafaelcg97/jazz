@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Production_control_1._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo
+namespace JazzCCO._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo
 {
     class notificacion
     {

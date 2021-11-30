@@ -1,4 +1,4 @@
-﻿using Production_control_1._0.clases;
+﻿using JazzCCO._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     public partial class produccionHora : UserControl
     {

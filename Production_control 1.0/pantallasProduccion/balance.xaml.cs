@@ -9,14 +9,14 @@ using System.Data.SqlClient;
 using System.Configuration;
 using LiveCharts;
 using LiveCharts.Wpf;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System.Linq;
 using System.Text;
 using Microsoft.Win32;
 using System.IO;
 using System.Diagnostics;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class balance : Page
     {

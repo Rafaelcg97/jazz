@@ -4,11 +4,11 @@ using System.Windows.Controls;
 using System.Configuration;
 using System.Xml;
 using System.Data.SqlClient;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     public partial class configuracion : UserControl
     {

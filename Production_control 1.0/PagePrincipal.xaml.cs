@@ -7,7 +7,7 @@ using com.sun.javadoc;
 using System;
 using System.Diagnostics;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
 
     public partial class PagePrincipal : Page

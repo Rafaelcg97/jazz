@@ -18,9 +18,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 
-namespace Production_control_1._0.pantallasProduccion
+namespace JazzCCO._0.pantallasProduccion
 {
     public partial class resultadosBuenasPracticas : UserControl
     {

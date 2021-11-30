@@ -19,9 +19,9 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.Win32;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     public partial class produccion : UserControl
     {
@@ -463,7 +463,7 @@ namespace Production_control_1._0.pantallasIniciales
                     {
                         SqlConnection cn = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
                         string sqlp = "select modulo, SchStart, estatus, targetDate, MOCut, PONumber, StyleNumber, StyleName, " +
-                                   "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, terminadas " +
+                                   "StyleColorName, tipoEmpaque, packQuantity, SeasonCode, CompanyNumber, QuantityOrdered, sam, terminadas " +
                                    "from programacionPoly order by modulo, SchStart, StartSequence";
                         cn.Open();
                         SqlCommand cm = new SqlCommand(sqlp, cn);
@@ -495,8 +495,9 @@ namespace Production_control_1._0.pantallasIniciales
                                 CompanyNumber = dr["CompanyNumber"].ToString(),
                                 QuantityOrdered = Convert.ToInt32(dr["QuantityOrdered"] is DBNull ? 0 : dr["QuantityOrdered"]),
                                 terminadas = Convert.ToInt32(dr["terminadas"] is DBNull ? 0 : dr["terminadas"]),
+                                sam = Convert.ToDouble(dr["sam"]),
                                 color = color_
-                            }); ;
+                            }) ;
                         };
                         cn.Close();
                         foreach (loteProgramacion item in lotesProgramados)

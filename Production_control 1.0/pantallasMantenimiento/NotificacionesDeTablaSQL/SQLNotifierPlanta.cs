@@ -4,9 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Media;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 
-namespace Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL
+namespace JazzCCO._0.pantallasMantenimiento.NotificacionesDeTablaSQL
 {
     class SQLNotifierPlanta
     {

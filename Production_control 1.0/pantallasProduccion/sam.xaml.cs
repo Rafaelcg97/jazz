@@ -6,13 +6,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Configuration;
 using System.Data.SqlClient;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System.Text;
 using Microsoft.Win32;
 using System.IO;
 using System.Diagnostics;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class sam : Page
     {

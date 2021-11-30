@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Production_control_1._0.clases
+namespace JazzCCO._0.clases
 {
     public class loteProgramacion
     {
@@ -24,5 +24,6 @@ namespace Production_control_1._0.clases
         public int QuantityOrdered { get; set; }
         public int terminadas { get; set; }
         public string color { get; set; }
+        public double sam { get; set; }
     }
 }

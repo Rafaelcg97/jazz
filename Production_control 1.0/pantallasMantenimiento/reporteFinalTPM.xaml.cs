@@ -7,7 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Production_control_1._0.pantallasMantenimiento
+namespace JazzCCO._0.pantallasMantenimiento
 {
     public partial class reporteFinalTPM : Page
     {

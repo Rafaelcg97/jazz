@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Production_control_1._0.clases
+namespace JazzCCO._0.clases
 {
     public class asistencia
     {

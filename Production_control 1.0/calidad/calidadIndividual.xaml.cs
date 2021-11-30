@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 
-namespace Production_control_1._0.calidad
+namespace JazzCCO._0.calidad
 {
     public partial class calidadIndividual : Page
     {

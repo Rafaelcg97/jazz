@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{388F808E-AA02-41DB-B177-89E2CDC133FB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Production_control_1._0</RootNamespace>
-    <AssemblyName>Jazz-CCO Production Control</AssemblyName>
+    <RootNamespace>JazzCCO._0</RootNamespace>
+    <AssemblyName>Jazz-CCO</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -30,7 +30,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\fs-procesos\Ingenieria\JAZZUPDATE\</UpdateUrl>
     <MinimumRequiredVersion>5.1.0.1</MinimumRequiredVersion>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>5.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1010,9 +1010,6 @@
     <Resource Include="imagenes\terminar_in.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imageonline-co-whitebackgroundremoved.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="imagenes\logoJazz.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1058,6 +1055,10 @@
     <ProjectReference Include="..\Microsoft.Windows.Shell\Microsoft.Windows.Shell.csproj">
       <Project>{55d5297c-f1df-4b76-a3c1-d82cc294eebb}</Project>
       <Name>Microsoft.Windows.Shell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQLConnection\SQLConnection.csproj">
+      <Project>{0d928063-ce11-4e29-8f6e-65690ce9fb90}</Project>
+      <Name>SQLConnection</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

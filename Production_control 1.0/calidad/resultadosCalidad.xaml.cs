@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,7 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0.calidad
+namespace JazzCCO._0.calidad
 {
     public partial class resultadosCalidad : UserControl
     {

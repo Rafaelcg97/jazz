@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class imprimir_balance : Page
     {

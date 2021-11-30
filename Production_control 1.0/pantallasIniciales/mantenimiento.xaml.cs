@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Production_control_1._0.pantallasMantenimiento;
+using JazzCCO._0.pantallasMantenimiento;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     public partial class mantenimiento : UserControl
     {

@@ -1,4 +1,4 @@
-﻿using Production_control_1._0.clases;
+﻿using JazzCCO._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 
-namespace Production_control_1._0.pantallasKanban
+namespace JazzCCO._0.pantallasKanban
 {
     public partial class estadoLotes : Page
     {
@@ -73,6 +73,41 @@ namespace Production_control_1._0.pantallasKanban
                 SqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
+                    string color_ = "White";
+                    if (dr["material"].ToString().ToLower().Contains("hanger"))
+                    {
+                        color_ = "LightGreen";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("boxe"))
+                    {
+                        color_ = "LightBlue";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("accesorios"))
+                    {
+                        color_ = "LightYellow";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("binding"))
+                    {
+                        color_ = "LightCoral";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("copas"))
+                    {
+                        color_ = "LightSalmon";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("elastico"))
+                    {
+                        color_ = "LightGray";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("hilos"))
+                    {
+                        color_ = "Pink";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("tela"))
+                    {
+                        color_ = "LightSteelBlue";
+                    }
+
+
                     string tipo_ = "Entrada";
                     if (Convert.ToInt32(dr["tipoMovimiento"]) == -1)
                     {
@@ -87,7 +122,8 @@ namespace Production_control_1._0.pantallasKanban
                             cantidad = Convert.ToInt32(dr["paquetes"]),
                             responsable = Convert.ToInt32(dr["responsable"]),
                             fechaSolicitud = Convert.ToDateTime(dr["fechaMovimiento"]).ToString("yyyy-MM-dd hh:mm:ss"),
-                            modulo = dr["ubicacion"].ToString()
+                            modulo = dr["ubicacion"].ToString(),
+                            color=color_
                         });
                 }
                 dr.Close();
@@ -105,10 +141,10 @@ namespace Production_control_1._0.pantallasKanban
         private List<solicitudKanban> consultarResumenLotes(string lote, int consulta = 0)
         {
             listaResumenMovimientos.Clear();
-            string sql = "SELECT lote, material, ubicacion, tipoMovimiento, totalMovimientos FROM resumenMovimientosKanban ORDER BY lote, material";
+            string sql = "SELECT lote, material, totalMovimientos, balance, ubicacion  FROM resumenMovimientosKanban ORDER BY lote, material";
             if (consulta == 1)
             {
-                sql = "SELECT lote, material, ubicacion, tipoMovimiento, totalMovimientos FROM resumenMovimientosKanban WHERE lote LIKE'" + lote + "%' ORDER BY lote, material";
+                sql = "SELECT lote, material, totalMovimientos, balance, ubicacion FROM resumenMovimientosKanban WHERE lote LIKE'" + lote + "%' ORDER BY lote, material";
             }
             try
             {
@@ -117,14 +153,49 @@ namespace Production_control_1._0.pantallasKanban
                 SqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
+                    string color_ = "White";
+                    if (dr["material"].ToString().ToLower().Contains("hanger"))
+                    {
+                        color_ = "LightGreen";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("boxe"))
+                    {
+                        color_ = "LightBlue";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("accesorios"))
+                    {
+                        color_ = "LightYellow";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("binding"))
+                    {
+                        color_ = "LightCoral";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("copas"))
+                    {
+                        color_ = "LightSalmon";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("elastico"))
+                    {
+                        color_ = "LightGray";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("hilos"))
+                    {
+                        color_ = "Pink";
+                    }
+                    else if (dr["material"].ToString().ToLower().Contains("tela"))
+                    {
+                        color_ = "LightSteelBlue";
+                    }
+
                     listaResumenMovimientos.Add(
                         new solicitudKanban
                         {
-                            movimiento = dr["tipoMovimiento"].ToString(),
+                            movimiento = dr["balance"].ToString(),
                             lote = dr["lote"].ToString(),
                             material = dr["material"].ToString(),
                             cantidad = Convert.ToInt32(dr["totalMovimientos"]),
-                            modulo = dr["ubicacion"].ToString()
+                            modulo = dr["ubicacion"].ToString(),
+                            color=color_
                         });
                 }
                 dr.Close();
@@ -136,7 +207,7 @@ namespace Production_control_1._0.pantallasKanban
             }
 
             ellipseEstado.Fill = Brushes.Green;
-            return listaMovimientos;
+            return listaResumenMovimientos;
         }
     }
 }

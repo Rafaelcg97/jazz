@@ -1,9 +1,9 @@
-﻿<Page x:Class="Production_control_1._0.pantallasKanban.estadoPlanta"
+﻿ <Page x:Class="JazzCCO._0.pantallasKanban.estadoPlanta"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Production_control_1._0.pantallasKanban" 
+      xmlns:local="clr-namespace:JazzCCO._0.pantallasKanban" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
@@ -134,7 +134,6 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-
             <!--#region modulos-->
             <ListBox ItemsSource="{Binding U1}" Grid.Row="3" Grid.Column="0"/>
             <ListBox ItemsSource="{Binding U2}" Grid.Row="3" Grid.Column="1"/>
@@ -152,18 +151,18 @@
             <ListBox ItemsSource="{Binding U14}" Grid.Row="3" Grid.Column="13"/>
             <ListBox ItemsSource="{Binding U15}" Grid.Row="3" Grid.Column="14"/>
             <ListBox ItemsSource="{Binding U16}" Grid.Row="3" Grid.Column="15"/>
-            <ListBox ItemsSource="{Binding U17}" Grid.Row="12" Grid.Column="0" Background="Pink"/>
-            <ListBox ItemsSource="{Binding U18}" Grid.Row="12" Grid.Column="1" Background="Pink"/>
+            <ListBox ItemsSource="{Binding U17}" Grid.Row="12" Grid.Column="0" Background="#FFF5D8DD"/>
+            <ListBox ItemsSource="{Binding U18}" Grid.Row="12" Grid.Column="1" Background="#FFF5D8DD"/>
             <ListBox ItemsSource="{Binding U19}" Grid.Row="12" Grid.Column="2"/>
-            <ListBox ItemsSource="{Binding U20}" Grid.Row="12" Grid.Column="3" Background="Pink"/>
+            <ListBox ItemsSource="{Binding U20}" Grid.Row="12" Grid.Column="3" Background="#FFF5D8DD"/>
             <ListBox ItemsSource="{Binding U21}" Grid.Row="12" Grid.Column="4"/>
-            <ListBox ItemsSource="{Binding U22}" Grid.Row="12" Grid.Column="5" Background="Pink"/>
+            <ListBox ItemsSource="{Binding U22}" Grid.Row="12" Grid.Column="5" Background="#FFF5D8DD"/>
             <ListBox ItemsSource="{Binding U23}" Grid.Row="12" Grid.Column="6"/>
-            <ListBox ItemsSource="{Binding U24}" Grid.Row="12" Grid.Column="7"/>
-            <ListBox ItemsSource="{Binding U25}" Grid.Row="12" Grid.Column="8"/>
+            <ListBox ItemsSource="{Binding U24}" Grid.Row="12" Grid.Column="7" Background="#FFBAD8E2"/>
+            <ListBox ItemsSource="{Binding U25}" Grid.Row="12" Grid.Column="8" Background="#FFBAD8E2"/>
             <ListBox ItemsSource="{Binding U26}" Grid.Row="12" Grid.Column="9"/>
-            <ListBox ItemsSource="{Binding U27}" Grid.Row="12" Grid.Column="10"/>
-            <ListBox ItemsSource="{Binding U28}" Grid.Row="12" Grid.Column="11"/>
+            <ListBox ItemsSource="{Binding U27}" Grid.Row="12" Grid.Column="10" Background="#FFBAD8E2"/>
+            <ListBox ItemsSource="{Binding U28}" Grid.Row="12" Grid.Column="11" Background="#FFBAD8E2"/>
             <ListBox ItemsSource="{Binding U29}" Grid.Row="12" Grid.Column="12"/>
             <ListBox ItemsSource="{Binding U30}" Grid.Row="12" Grid.Column="13"/>
             <ListBox ItemsSource="{Binding U31}" Grid.Row="12" Grid.Column="14"/>
@@ -173,7 +172,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Ellipse Width="15" Height="15" Fill="Red" Margin="7"/>
+                                <Ellipse Width="15" Height="15" Fill="{Binding color}" Margin="7"/>
                                 <Label Content="{Binding modulo}" Foreground="White" Width="85"/>
                                 <Label Content="{Binding solicitudKanbanId}" Foreground="White" Width="55"/>
                                 <Label Content="{Binding fechaSolicitud}" Foreground="White"/>

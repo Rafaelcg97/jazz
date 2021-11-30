@@ -12,7 +12,7 @@ using System.Xml;
 using LiveCharts;
 using LiveCharts.Wpf;
 
-namespace Production_control_1._0.pantallasIniciales
+namespace JazzCCO._0.pantallasIniciales
 {
     public partial class inicio : UserControl
     {

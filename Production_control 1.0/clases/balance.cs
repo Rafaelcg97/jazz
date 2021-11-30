@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Production_control_1._0.clases
+namespace JazzCCO._0.clases
 {
     public class balance : estilo 
     {

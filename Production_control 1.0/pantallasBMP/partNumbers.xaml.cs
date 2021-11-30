@@ -1,4 +1,4 @@
-﻿using Production_control_1._0.clases;
+﻿using JazzCCO._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
 
-namespace Production_control_1._0.pantallasBMP
+namespace JazzCCO._0.pantallasBMP
 {
     public partial class partNumbers : Page
     {

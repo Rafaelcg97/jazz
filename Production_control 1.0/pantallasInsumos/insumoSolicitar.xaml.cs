@@ -14,9 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 
-namespace Production_control_1._0.pantallasInsumos
+namespace JazzCCO._0.pantallasInsumos
 {
     public partial class insumosSolicitar : UserControl
     {

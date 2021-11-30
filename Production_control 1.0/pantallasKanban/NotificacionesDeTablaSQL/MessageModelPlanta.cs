@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Data;
 using System.Data.SqlClient;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 
-namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
+namespace JazzCCO._0.pantallasKanban.NotificacionesDeTablaSQL
 {
     class MessageModelPlanta
     {
@@ -967,11 +967,22 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
                                 TimeSpan diferencia = DateTime.Now - Convert.ToDateTime(dr["fechaSolicitud"]);
                                 double diferenciaenminutos = diferencia.TotalMinutes;
 
+                                if(Convert.ToBoolean(dr["loteSmed"]) == true)
+                                {
+                                    color_ = "Orange";
+                                }
+                                else
+                                {
+                                    color_ = "Red";
+                                }
+
+
                                 solicitudKanban itemP = new solicitudKanban
                                 {
                                     solicitudKanbanId = Convert.ToInt32(dr["solicitudKanbanId"]),
                                     modulo = dr["modulo"].ToString(),
                                     fechaSolicitud = Convert.ToDateTime(dr["fechaSolicitud"]).ToString("MMM-dd   hh:mm"),
+                                    color=color_
                                 };
                                 this.P.Add(itemP);
                             }

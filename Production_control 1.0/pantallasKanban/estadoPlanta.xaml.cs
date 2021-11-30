@@ -1,5 +1,5 @@
-﻿using Production_control_1._0.clases;
-using Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL;
+﻿using JazzCCO._0.clases;
+using JazzCCO._0.pantallasKanban.NotificacionesDeTablaSQL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,7 +21,7 @@ using System.Windows.Shapes;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 
-namespace Production_control_1._0.pantallasKanban
+namespace JazzCCO._0.pantallasKanban
 {
     public partial class estadoPlanta : Page
     {

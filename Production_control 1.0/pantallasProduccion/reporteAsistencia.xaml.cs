@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Production_control_1._0.pantallasProduccion
+namespace JazzCCO._0.pantallasProduccion
 {
     public partial class reporteAsistencia : Page
     {

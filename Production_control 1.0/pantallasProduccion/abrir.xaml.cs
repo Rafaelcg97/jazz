@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class abrir : Page
     {

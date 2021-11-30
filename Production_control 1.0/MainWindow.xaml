@@ -1,4 +1,4 @@
-﻿<ccl:CustomChromeWindow  x:Class="Production_control_1._0.MainWindow"
+﻿<ccl:CustomChromeWindow  x:Class="JazzCCO._0.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"

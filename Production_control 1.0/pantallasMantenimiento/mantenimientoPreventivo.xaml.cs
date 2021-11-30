@@ -7,12 +7,12 @@ using System.Data.SqlClient;
 using System.Configuration;
 using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.EventArgs;
-using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
-using Production_control_1._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo;
-using Production_control_1._0.clases;
+using JazzCCO._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
+using JazzCCO._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo;
+using JazzCCO._0.clases;
 using System.Windows.Media;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     public partial class mantenimientoPreventivo : UserControl
     {

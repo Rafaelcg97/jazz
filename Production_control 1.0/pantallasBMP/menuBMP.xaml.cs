@@ -1,10 +1,10 @@
-﻿using Production_control_1._0.clases;
+﻿using JazzCCO._0.clases;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace Production_control_1._0.pantallasBMP
+namespace JazzCCO._0.pantallasBMP
 {
     public partial class menuBMP : Page
     {

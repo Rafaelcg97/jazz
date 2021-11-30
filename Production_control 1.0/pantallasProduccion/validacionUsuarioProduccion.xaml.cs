@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Production_control_1._0.pantallasProduccion
+namespace JazzCCO._0.pantallasProduccion
 {
     public partial class validacionUsuarioProduccion : UserControl
     {

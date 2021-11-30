@@ -1,4 +1,4 @@
-﻿using Production_control_1._0.clases;
+﻿using JazzCCO._0.clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,17 +8,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using SQLConnection;
 
-namespace Production_control_1._0.pantallasKanban
+namespace JazzCCO._0.pantallasKanban
 {
     public partial class solicitudMateriales : UserControl
     {
-        #region varibalesConexion
-        public SqlConnection cnProduccion = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_produccion"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        public SqlConnection cnIngenieria = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_ing"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        public SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        public SqlConnection cnManto = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_manto"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-        #endregion
         #region listasGlobales
         List<solicitudKanban> listaCompletaLotes = new List<solicitudKanban>();
         List<materialesEstilos> listaDeMaterialesCompleta = new List<materialesEstilos>();
@@ -160,78 +155,78 @@ namespace Production_control_1._0.pantallasKanban
             //cargar si ya se ha entregado
             if (listBoxLote.SelectedIndex > -1)
             {
-                cnKanban.Open();
-                listaDeMaterialesCompleta.Clear();
-                string sql = "select material, talla from detalleSolicitudeKanban where lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "'";
-
-                SqlCommand cm = new SqlCommand(sql, cnKanban);
-                SqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
+                using(SqlConnection cn = ConexionTexopsServer.Kanban())
                 {
-                    switch (dr["material"].ToString())
+                    listaDeMaterialesCompleta.Clear();
+                    string sql = "select material, talla from detalleSolicitudeKanban where lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "'";
+
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    while (dr.Read())
                     {
-                        case "Accesorios":
-                            labelEstadoAccesorios.Content = "Solicitado";
-                            break;
-                        case "Binding":
-                            labelEstadoBinding.Content = "Solicitado";
-                            break;
-                        case "Hilos":
-                            labelEstadoHilos.Content = "Solicitado";
-                            break;
-                        case "HilosSmed":
-                            labelEstadoHilosSmed.Content = "Solicitado";
-                            break;
-                        case "Tela":
-                            List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
-                            foreach (solicitudKanban talla in listViewTallasTela.Items)
-                            {
-                                if (talla.talla == dr["talla"].ToString())
+                        switch (dr["material"].ToString())
+                        {
+                            case "Accesorios":
+                                labelEstadoAccesorios.Content = "Solicitado";
+                                break;
+                            case "Binding":
+                                labelEstadoBinding.Content = "Solicitado";
+                                break;
+                            case "Hilos":
+                                labelEstadoHilos.Content = "Solicitado";
+                                break;
+                            case "HilosSmed":
+                                labelEstadoHilosSmed.Content = "Solicitado";
+                                break;
+                            case "Tela":
+                                List<solicitudKanban> listaActualizadaTela = new List<solicitudKanban>();
+                                foreach (solicitudKanban talla in listViewTallasTela.Items)
                                 {
-                                    listaActualizadaTela.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
+                                    if (talla.talla == dr["talla"].ToString())
+                                    {
+                                        listaActualizadaTela.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
+                                    }
+                                    else
+                                    {
+                                        listaActualizadaTela.Add(talla);
+                                    }
                                 }
-                                else
+
+                                labelEstadoTela.Content = "Solicitado";
+
+                                listViewTallasTela.Items.Clear();
+                                foreach (solicitudKanban elemento in listaActualizadaTela)
                                 {
-                                    listaActualizadaTela.Add(talla);
+                                    listViewTallasTela.Items.Add(elemento);
                                 }
-                            }
-
-                            labelEstadoTela.Content = "Solicitado";
-
-                            listViewTallasTela.Items.Clear();
-                            foreach (solicitudKanban elemento in listaActualizadaTela)
-                            {
-                                listViewTallasTela.Items.Add(elemento);
-                            }
-                            break;
-                        case "Copas":
-                            List<solicitudKanban> listaActualizadaCopas = new List<solicitudKanban>();
-                            foreach (solicitudKanban talla in listViewTallasBra.Items)
-                            {
-                                if (talla.talla == dr["talla"].ToString())
+                                break;
+                            case "Copas":
+                                List<solicitudKanban> listaActualizadaCopas = new List<solicitudKanban>();
+                                foreach (solicitudKanban talla in listViewTallasBra.Items)
                                 {
-                                    listaActualizadaCopas.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
+                                    if (talla.talla == dr["talla"].ToString())
+                                    {
+                                        listaActualizadaCopas.Add(new solicitudKanban { talla = talla.talla, chequeado = true, habilitado = false, cantidad = talla.cantidad });
+                                    }
+                                    else
+                                    {
+                                        listaActualizadaCopas.Add(talla);
+                                    }
                                 }
-                                else
+
+                                labelEstadoTela.Content = "Solicitado";
+
+                                listViewTallasBra.Items.Clear();
+                                foreach (solicitudKanban elemento in listaActualizadaCopas)
                                 {
-                                    listaActualizadaCopas.Add(talla);
+                                    listViewTallasBra.Items.Add(elemento);
                                 }
-                            }
-
-                            labelEstadoTela.Content = "Solicitado";
-
-                            listViewTallasBra.Items.Clear();
-                            foreach (solicitudKanban elemento in listaActualizadaCopas)
-                            {
-                                listViewTallasBra.Items.Add(elemento);
-                            }
-                            break;
+                                break;
+                        }
                     }
+                    dr.Close();
                 }
-                dr.Close();
-                cnKanban.Close();
-
-
+ 
                 //validar si ya se encuentran en la lista por solicitar
                 foreach (solicitudKanban item in listViewListaMateriales.Items)
                 {
@@ -617,102 +612,95 @@ namespace Production_control_1._0.pantallasKanban
                 listViewCajas.Items.Clear();
                 listViewGancho.Items.Clear();
 
-                //activar o desactivar lotesmed
-
-                //if (listBoxLote.SelectedItem.ToString().Contains("SMED"))
-                //{
-                //    tbiSmed.IsEnabled = true;
-                //}
-                //else
-                //{
-                //    tbiSmed.IsEnabled = false;
-                //    if (tab.SelectedIndex == 3)
-                //    {
-                //        tab.SelectedIndex = 0;
-                //    }
-                //}
 
                 //cargar en lista todos los materiales que tiene lote seleccionado escepto cajas y ganchos
-                cnKanban.Open();
-                listaDeMaterialesCompleta.Clear();
-                string sql = "select " +
-                    "CategoryName, " +
-                    "SubCategoryName, " +
-                    "PartNumber, " +
-                    "description " +
-                    "from  componentesPorLote " +
-                    "where manufactureId= '"+loteSeleccionado.manufactureId+"'";
 
-                SqlCommand cm = new SqlCommand(sql, cnKanban);
-                SqlDataReader dr = cm.ExecuteReader();
-                while(dr.Read())
+                using (SqlConnection cn = ConexionTexopsServer.Kanban())
                 {
-                    listaDeMaterialesCompleta.Add(new materialesEstilos {categoryName=dr["categoryName"].ToString(), subCategoryName=dr["SubCategoryName"].ToString(), partNumber=dr["partNumber"].ToString(), description=dr["description"].ToString()});
-                }
-                dr.Close();
+                    listaDeMaterialesCompleta.Clear();
+                    string sql = "select " +
+                        "CategoryName, " +
+                        "SubCategoryName, " +
+                        "PartNumber, " +
+                        "description " +
+                        "from  componentesPorLote " +
+                        "where manufactureId= '" + loteSeleccionado.manufactureId + "'";
 
-                sql = "select a.talla, " +
-                    "make, " +
-                    "case when b.cantidad is null then 0 else b.cantidad end as cantidadTela, " +
-                    "case when c.cantidad is null then 0 else c.cantidad end as cantidadBra " +
-                    "from tallasLotes a " +
-                    "left join (SELECT* FROM detalleSolicitudeKanban WHERE material = 'tela') b on a.lote = b.lote and a.talla = b.talla " +
-                    "left join(SELECT* FROM detalleSolicitudeKanban WHERE material= 'copas') c on a.lote = c.lote and c.talla = b.talla" +
-                    " where a.lote = '"+loteSeleccionado.lote+"'";
-                cm = new SqlCommand(sql, cnKanban);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    bool chequeadoTela_ = false;
-                    bool habilitadoTela_ = true;
-                    bool chequeadoBra_ = false;
-                    bool habilitadoBra_ = true;
-                    if (Convert.ToInt32(dr["make"])== Convert.ToInt32(dr["cantidadTela"]))
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    while (dr.Read())
                     {
-                        chequeadoTela_ = true;
-                        habilitadoTela_ = false;
+                        listaDeMaterialesCompleta.Add(new materialesEstilos { categoryName = dr["categoryName"].ToString(), subCategoryName = dr["SubCategoryName"].ToString(), partNumber = dr["partNumber"].ToString(), description = dr["description"].ToString() });
                     }
-                    if (Convert.ToInt32(dr["make"]) == Convert.ToInt32(dr["cantidadBra"]))
-                    {
-                        chequeadoBra_ = true;
-                        habilitadoBra_ = false;
-                    }
-                    solicitudKanban item = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeadoTela_, habilitado = habilitadoTela_, cantidad= Convert.ToInt32(dr["make"]) };
-                    solicitudKanban item2 = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeadoBra_, habilitado = habilitadoBra_, cantidad = Convert.ToInt32(dr["make"]) };
-                    listViewTallasTela.Items.Add(item);
-                    listViewTallasBra.Items.Add(item2);
-                }
-                dr.Close();
+                    dr.Close();
 
-                //consultar y agregar cajas, ganchos
-                sql = "select " +
-                    "a.PartNumber, " +
-                    "max(CEILING(a.quantity)) as cantidad, " +
-                    "case when sum(b.cantidad) is null then 0 else sum(b.cantidad) end as solicitado " +
-                    "from componentesPorLote a " +
-                    "left join detalleSolicitudeKanban b " +
-                    "on a.lote=b.lote and a.PartNumber=b.material " +
-                    "where (a.SubCategoryName='Boxes' or a.SubCategoryName='Hangers') " +
-                    "and a.lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "' group by a.PartNumber";
+                    sql = "select a.talla, " +
+                        "make, " +
+                        "case when b.cantidad is null then 0 else b.cantidad end as cantidadTela, " +
+                        "case when c.cantidad is null then 0 else c.cantidad end as cantidadBra " +
+                        "from tallasLotes a " +
+                        "left join (SELECT* FROM detalleSolicitudeKanban WHERE material = 'tela') b on a.lote = b.lote and a.talla = b.talla " +
+                        "left join(SELECT* FROM detalleSolicitudeKanban WHERE material= 'copas') c on a.lote = c.lote and c.talla = b.talla" +
+                        " where a.lote = '" + loteSeleccionado.lote + "'";
+                    cm = new SqlCommand(sql, cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        bool chequeadoTela_ = false;
+                        bool habilitadoTela_ = true;
+                        bool chequeadoBra_ = false;
+                        bool habilitadoBra_ = true;
+                        if (Convert.ToInt32(dr["make"]) == Convert.ToInt32(dr["cantidadTela"]))
+                        {
+                            chequeadoTela_ = true;
+                            habilitadoTela_ = false;
+                        }
+                        if (Convert.ToInt32(dr["make"]) == Convert.ToInt32(dr["cantidadBra"]))
+                        {
+                            chequeadoBra_ = true;
+                            habilitadoBra_ = false;
+                        }
+                        solicitudKanban item = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeadoTela_, habilitado = habilitadoTela_, cantidad = Convert.ToInt32(dr["make"]) };
+                        solicitudKanban item2 = new solicitudKanban { talla = dr["talla"].ToString(), chequeado = chequeadoBra_, habilitado = habilitadoBra_, cantidad = Convert.ToInt32(dr["make"]) };
+                        listViewTallasTela.Items.Add(item);
+                        listViewTallasBra.Items.Add(item2);
+                    }
+                    dr.Close();
 
-                cm = new SqlCommand(sql, cnKanban);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    int diferencia_ = Convert.ToInt32(dr["cantidad"]) - Convert.ToInt32(dr["solicitado"]);
-                    if (dr["partNumber"].ToString().Contains("BOXES"))
+                    //consultar y agregar cajas, ganchos
+                    sql = "select " +
+                        "a.PartNumber, " +
+                        "max(CEILING(a.quantity)) as cantidad, " +
+                        "case when sum(b.cantidad) is null then 0 else sum(b.cantidad) end as solicitado " +
+                        "from componentesPorLote a " +
+                        "left join detalleSolicitudeKanban b " +
+                        "on a.lote=b.lote and a.PartNumber=b.material " +
+                        "where (a.SubCategoryName='Boxes' or a.SubCategoryName='Hangers') " +
+                        "and a.lote='" + ((solicitudKanban)listBoxLote.SelectedItem).lote + "' group by a.PartNumber";
+
+                    cm = new SqlCommand(sql, cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
                     {
-                        listViewCajas.Items.Add(new solicitudKanban { material = dr["partNumber"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), agregado = 0, solicitado = Convert.ToInt32(dr["solicitado"]), diferencia = diferencia_, habilitado = true });
+                        int diferencia_ = Convert.ToInt32(dr["cantidad"]) - Convert.ToInt32(dr["solicitado"]);
+                        if (dr["partNumber"].ToString().Contains("BOXES"))
+                        {
+                            listViewCajas.Items.Add(new solicitudKanban { material = dr["partNumber"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), agregado = 0, solicitado = Convert.ToInt32(dr["solicitado"]), diferencia = diferencia_, habilitado = true });
+                        }
+                        else
+                        {
+                            listViewGancho.Items.Add(new solicitudKanban { material = dr["partNumber"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), agregado = 0, solicitado = Convert.ToInt32(dr["solicitado"]), diferencia = diferencia_, habilitado = true });
+                        }
                     }
-                    else
-                    {
-                        listViewGancho.Items.Add(new solicitudKanban { material = dr["partNumber"].ToString(), cantidad = Convert.ToInt32(dr["cantidad"]), agregado = 0, solicitado = Convert.ToInt32(dr["solicitado"]), diferencia = diferencia_, habilitado = true });
-                    }
+                    dr.Close();
                 }
-                dr.Close();
-                cnKanban.Close();
+
+
+
+
+
                 //clasificar materiales
-                foreach(materialesEstilos item in listaDeMaterialesCompleta)
+                foreach (materialesEstilos item in listaDeMaterialesCompleta)
                 {
                     if(item.categoryName== "Thread")
                     {
@@ -791,50 +779,51 @@ namespace Production_control_1._0.pantallasKanban
                 listViewListaMateriales.Items.Clear();
 
                 //carga ubicacion de 
-                cnManto.Open();
-                string sql = "select id from orden_modulos where modulo = '" + listBoxModulo.SelectedItem.ToString() + "'";
-                SqlCommand cm = new SqlCommand(sql, cnManto);
-                SqlDataReader dr = cm.ExecuteReader();
-                if (dr.Read())
+                using(SqlConnection cn = ConexionTexopsServer.Mantenimiento())
                 {
-                    labelUbicacion.Content = dr["id"].ToString();
+                    string sql = "select id from orden_modulos where modulo = '" + listBoxModulo.SelectedItem.ToString() + "'";
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        labelUbicacion.Content = dr["id"].ToString();
+                    }
+                    dr.Close();
                 }
-                dr.Close();
-                cnManto.Close();
-
-
-                cnKanban.Open();
-                sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes where modulo='" + listBoxModulo.SelectedItem.ToString() + "'";
-                cm = new SqlCommand(sql, cnKanban);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
+                using(SqlConnection cn = ConexionTexopsServer.Kanban())
                 {
-                    listBoxLote.Items.Add(
-                      new solicitudKanban
-                      {
-                          manufactureId = Convert.ToInt32(dr["manufactureId"]),
-                          lote = dr["lote"].ToString(),
-                          cantidad = Convert.ToInt32(dr["make"]),
-                          estilo = dr["estilo"].ToString(),
-                          styleId = Convert.ToInt32(dr["estiloId"]),
-                          temporada = dr["temporada"].ToString(),
-                          color = dr["color"].ToString()
-                      });
 
-                    listaCompletaLotes.Add(
-                        new solicitudKanban
-                        {
-                            manufactureId = Convert.ToInt32(dr["manufactureId"]),
-                            lote = dr["lote"].ToString(),
-                            cantidad = Convert.ToInt32(dr["make"]),
-                            estilo = dr["estilo"].ToString(),
-                            styleId = Convert.ToInt32(dr["estiloId"]),
-                            temporada = dr["temporada"].ToString(),
-                            color = dr["color"].ToString()
-                        });
-                };
-                dr.Close();
-                cnKanban.Close();
+                    string sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes where modulo='" + listBoxModulo.SelectedItem.ToString() + "'";
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        listBoxLote.Items.Add(
+                          new solicitudKanban
+                          {
+                              manufactureId = Convert.ToInt32(dr["manufactureId"]),
+                              lote = dr["lote"].ToString(),
+                              cantidad = Convert.ToInt32(dr["make"]),
+                              estilo = dr["estilo"].ToString(),
+                              styleId = Convert.ToInt32(dr["estiloId"]),
+                              temporada = dr["temporada"].ToString(),
+                              color = dr["color"].ToString()
+                          });
+
+                        listaCompletaLotes.Add(
+                            new solicitudKanban
+                            {
+                                manufactureId = Convert.ToInt32(dr["manufactureId"]),
+                                lote = dr["lote"].ToString(),
+                                cantidad = Convert.ToInt32(dr["make"]),
+                                estilo = dr["estilo"].ToString(),
+                                styleId = Convert.ToInt32(dr["estiloId"]),
+                                temporada = dr["temporada"].ToString(),
+                                color = dr["color"].ToString()
+                            });
+                    };
+                    dr.Close();
+                }
             }
         }
         private void passwordboxUsuario_PasswordChanged(object sender, RoutedEventArgs e)
@@ -868,17 +857,18 @@ namespace Production_control_1._0.pantallasKanban
             sql = "select modulosProduccion.modulo as modulo, usuarios.codigo as codigo from modulosProduccion left join ingenieria.dbo.usuarios on ";
             sql = sql + "modulosProduccion.ingenieroProcesosCodigo= usuarios.codigo or modulosProduccion.coordinadorCodigo= usuarios.codigo ";
             sql = sql + "where produccion=1 and contrasena='" + passwordboxUsuario.Password + "'";
-            cnProduccion.Open();
-            cm = new SqlCommand(sql, cnProduccion);
-            dr = cm.ExecuteReader();
-            while (dr.Read())
+           using(SqlConnection cn = ConexionTexopsServer.Produccion())
             {
-                listBoxModulo.Items.Add(dr["modulo"].ToString());
-                labelUsuario.Content = dr["codigo"].ToString();
-                buttonEnviarSolicitud.IsEnabled = true;
+                cm = new SqlCommand(sql, cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    listBoxModulo.Items.Add(dr["modulo"].ToString());
+                    labelUsuario.Content = dr["codigo"].ToString();
+                    buttonEnviarSolicitud.IsEnabled = true;
+                }
+                dr.Close();
             }
-            dr.Close();
-            cnProduccion.Close();
             #endregion
         }
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
@@ -924,7 +914,5 @@ namespace Production_control_1._0.pantallasKanban
                 }
             }
         }
-
-
     }
 }

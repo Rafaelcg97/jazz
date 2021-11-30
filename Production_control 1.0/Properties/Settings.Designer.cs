@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Production_control_1._0.Properties {
+namespace JazzCCO._0.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,50 @@ namespace Production_control_1._0.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TEXOPS-SMED\\SQLEXPRESS;Initial Catalog=kanban;Persist Security Info=T" +
+            "rue;User ID=jazz;Password=*4815162342*190397;User Instance=False")]
+        public string conexionSQLKanban {
+            get {
+                return ((string)(this["conexionSQLKanban"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TEXOPS-SMED\\SQLEXPRESS;Initial Catalog=produccion;User ID=jazz;Passwo" +
+            "rd=*4815162342*190397")]
+        public string conexionSQLProduccion {
+            get {
+                return ((string)(this["conexionSQLProduccion"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TEXOPS-SMED\\SQLEXPRESS;Initial Catalog=manto;Persist Security Info=Tr" +
+            "ue;User ID=jazz;Password=*4815162342*190397")]
+        public string conexionSQLMantenimiento {
+            get {
+                return ((string)(this["conexionSQLMantenimiento"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TEXOPS-SMED\\SQLEXPRESS;Initial Catalog=ingenieria;Persist Security In" +
+            "fo=True;User ID=jazz;Password=*4815162342*190397")]
+        public string conexionSQLIngenieria {
+            get {
+                return ((string)(this["conexionSQLIngenieria"]));
             }
         }
     }

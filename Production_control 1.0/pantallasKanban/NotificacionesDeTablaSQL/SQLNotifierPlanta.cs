@@ -4,9 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Media;
-using Production_control_1._0.clases;
+using JazzCCO._0.clases;
 
-namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
+namespace JazzCCO._0.pantallasKanban.NotificacionesDeTablaSQL
 {
     class SQLNotifierPlanta
     {
@@ -51,7 +51,7 @@ namespace Production_control_1._0.pantallasKanban.NotificacionesDeTablaSQL
         public DataTable RegisterDependency()
         {
 
-            this.CurrentCommand = new SqlCommand("select [solicitudKanbanId], [tipo], [modulo], [ubicacion], [atiendeSolicitud], [fechaSolicitud], [fechaInicio], [fechaParcial], [motivoParcial], [fechaEntrega], [validadoSmed], [solicitudCajaParcial], [horaPreparacionCajaParcial] from dbo.solicitudesKanban where [fechaEntrega] is null order by [loteSmed] Desc, [solicitudKanbanId] Asc", this.CurrentConnection);
+            this.CurrentCommand = new SqlCommand("select [solicitudKanbanId], [tipo], [modulo], [ubicacion], [atiendeSolicitud], [fechaSolicitud], [fechaInicio], [fechaParcial], [motivoParcial], [fechaEntrega], [loteSmed], [validadoSmed], [solicitudCajaParcial], [horaPreparacionCajaParcial] from dbo.solicitudesKanban where [fechaEntrega] is null order by [loteSmed] Desc, [solicitudKanbanId] Asc", this.CurrentConnection);
             this.CurrentCommand.Notification = null;
 
 

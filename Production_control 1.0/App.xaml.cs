@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Production_control_1._0
+namespace JazzCCO._0
 {
     /// <summary>
     /// Interaction logic for App.xaml

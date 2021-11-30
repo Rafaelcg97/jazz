@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using Production_control_1._0.clases;
-using Production_control_1._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
+using JazzCCO._0.clases;
+using JazzCCO._0.pantallasMantenimiento.NotificacionesDeTablaSQL;
 
-namespace Production_control_1._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo
+namespace JazzCCO._0.pantallasMantenimiento.NotificacionesMantenimientoPreventivo
 {
     class mensaje
     {
