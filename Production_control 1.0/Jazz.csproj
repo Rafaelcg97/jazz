@@ -59,7 +59,7 @@
     <ApplicationIcon>logo2sinfondo %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Production_control_1._0.App</StartupObject>
+    <StartupObject>JazzCCO._0.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
