@@ -66,5 +66,14 @@ namespace JazzCCO._0.Properties {
                 return ((string)(this["conexionSQLIngenieria"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*4815162342*190397*2864216")]
+        public string desencriptarContrasenia {
+            get {
+                return ((string)(this["desencriptarContrasenia"]));
+            }
+        }
     }
 }

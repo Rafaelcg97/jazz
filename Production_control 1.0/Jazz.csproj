@@ -1044,6 +1044,10 @@
     <Resource Include="imagenes\observar.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClasesTexops\ClasesTexops.csproj">
+      <Project>{62defbda-a7f7-46b0-98ba-8e485b81815e}</Project>
+      <Name>ClasesTexops</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ControlLib4\ControlLib4.csproj">
       <Project>{19436f88-d12d-452d-8d02-56142ff3e8cd}</Project>
       <Name>ControlLib4</Name>
