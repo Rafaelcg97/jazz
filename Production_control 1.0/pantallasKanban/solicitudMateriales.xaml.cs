@@ -62,7 +62,7 @@ namespace JazzCCO._0.pantallasKanban
                 //se verifica si aun no ha sido entregado
                 if (labelEstadoAccesorios.Content.ToString() == "Pendiente")
                 {
-                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Accesorios", "Unica", 1));
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Accesorios", "Unica", 0,1));
                 }
                 resetEtiquetas();
             }
@@ -74,7 +74,7 @@ namespace JazzCCO._0.pantallasKanban
                 //se verifica si aun no ha sido entregado
                 if (labelEstadoBinding.Content.ToString() == "Pendiente")
                 {
-                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Binding", "Unica", 1));
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Binding", "Unica", 0,1));
                 }
                 resetEtiquetas();
             }
@@ -86,7 +86,7 @@ namespace JazzCCO._0.pantallasKanban
                 //se verifica si aun no ha sido entregado
                 if (labelEstadoHilos.Content.ToString() == "Pendiente")
                 {
-                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Hilos", "Unica", 1));
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Hilos", "Unica", 0,1));
                 }
                 resetEtiquetas();
             }
@@ -98,7 +98,7 @@ namespace JazzCCO._0.pantallasKanban
                 //se verifica si aun no ha sido entregado
                 if (labelEstadoHilosSmed.Content.ToString() == "Pendiente")
                 {
-                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "HilosSmed", "Unica", 1));
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "HilosSmed", "Unica", 0,1));
                 }
                 resetEtiquetas();
             }
@@ -110,7 +110,19 @@ namespace JazzCCO._0.pantallasKanban
                 //se verifica si aun no ha sido entregado
                 if (labelEstadoElastico.Content.ToString() == "Pendiente")
                 {
-                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Elastico", "Unica", 1));
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Elastico", "Unica", 0,1));
+                }
+                resetEtiquetas();
+            }
+        }
+        private void buttonAgregarElasticoSecundario_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxLote.SelectedIndex > -1)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoElasticoSecundario.Content.ToString() == "Pendiente")
+                {
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "ElasticoSecundario", "Unica", 0, 1));
                 }
                 resetEtiquetas();
             }
@@ -123,7 +135,7 @@ namespace JazzCCO._0.pantallasKanban
                 {
                     if (item.Value.SolicitadoKanban==true)
                     {
-                        listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem),"Tela",item.Value.TallaPartnumber,item.Value.RequeridoPartnumber));
+                        listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem),"PiezasCortadas",item.Value.TallaPartnumber,0, item.Value.RequeridoPartnumber));
                     }
                 }
                 resetEtiquetas();
@@ -137,7 +149,7 @@ namespace JazzCCO._0.pantallasKanban
                 {
                     if (item.Value.SolicitadoKanban == true)
                     {
-                        listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Copas", item.Value.TallaPartnumber, item.Value.RequeridoPartnumber));
+                        listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Copas", item.Value.TallaPartnumber, 0, item.Value.RequeridoPartnumber));
                     }
                 }
                 resetEtiquetas();
@@ -159,13 +171,14 @@ namespace JazzCCO._0.pantallasKanban
                                 if (item.CodigoPartNumber == subitem.CodigoPartNumber && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
                                 {
                                     coincidencia = true;
-                                    subitem.RequeridoPartnumber = subitem.RequeridoPartnumber + item.ValorSeleccionadoKanban;
+                                    subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumber + item.ValorSeleccionadoKanban;
+                                    subitem.RequeridoPartnumber = subitem.RequeridoPartnumber - item.ValorSeleccionadoKanban;
                                 }
                             }
 
                             if (coincidencia == false)
                             {
-                                listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, item.ValorSeleccionadoKanban));
+                                listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber,(item.RequeridoPartnumber- item.SolicitadoPartnumber-item.ValorSeleccionadoKanban), item.ValorSeleccionadoKanban));
                             }
                             resetEtiquetas();
                         }
@@ -179,7 +192,7 @@ namespace JazzCCO._0.pantallasKanban
                     {
                         if (item.ValorSeleccionadoKanban > 0)
                         {
-                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, item.ValorSeleccionadoKanban));
+                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, (item.RequeridoPartnumber - item.SolicitadoPartnumber - item.ValorSeleccionadoKanban), item.ValorSeleccionadoKanban));
                             resetEtiquetas();
                         }
                     }
@@ -202,13 +215,14 @@ namespace JazzCCO._0.pantallasKanban
                                 if (item.CodigoPartNumber == subitem.CodigoPartNumber && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
                                 {
                                     coincidencia = true;
-                                    subitem.RequeridoPartnumber = subitem.RequeridoPartnumber + item.ValorSeleccionadoKanban;
+                                    subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumber + item.ValorSeleccionadoKanban;
+                                    subitem.RequeridoPartnumber = subitem.RequeridoPartnumber - item.ValorSeleccionadoKanban;
                                 }
                             }
 
                             if (coincidencia == false)
                             {
-                                listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, item.ValorSeleccionadoKanban));
+                                listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, (item.RequeridoPartnumber - item.SolicitadoPartnumber - item.ValorSeleccionadoKanban), item.ValorSeleccionadoKanban));
                             }
                             resetEtiquetas();
                         }
@@ -222,7 +236,7 @@ namespace JazzCCO._0.pantallasKanban
                     {
                         if (item.ValorSeleccionadoKanban > 0)
                         {
-                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, item.ValorSeleccionadoKanban));
+                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.CodigoPartNumber, item.TallaPartnumber, (item.RequeridoPartnumber - item.SolicitadoPartnumber - item.ValorSeleccionadoKanban), item.ValorSeleccionadoKanban));
                             resetEtiquetas();
                         }
                     }
@@ -245,13 +259,14 @@ namespace JazzCCO._0.pantallasKanban
                                 if (item.Value.CodigoPartNumber == subitem.CodigoPartNumber && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
                                 {
                                     coincidencia = true;
-                                    subitem.RequeridoPartnumber = subitem.RequeridoPartnumber + item.Value.ValorSeleccionadoKanban;
+                                    subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumber + item.Value.ValorSeleccionadoKanban;
+                                    subitem.RequeridoPartnumber = subitem.RequeridoPartnumber - item.Value.ValorSeleccionadoKanban;
                                 }
                             }
 
                             if (coincidencia == false)
                             {
-                                listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.Value.CodigoPartNumber, item.Value.TallaPartnumber, item.Value.ValorSeleccionadoKanban));
+                                listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.Value.CodigoPartNumber, item.Value.TallaPartnumber, (item.Value.RequeridoPartnumber - item.Value.SolicitadoPartnumber - item.Value.ValorSeleccionadoKanban), item.Value.ValorSeleccionadoKanban));
                             }
                             resetEtiquetas();
                         }
@@ -265,11 +280,35 @@ namespace JazzCCO._0.pantallasKanban
                     {
                         if (item.Value.ValorSeleccionadoKanban > 0)
                         {
-                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.Value.CodigoPartNumber, item.Value.TallaPartnumber, item.Value.ValorSeleccionadoKanban));
+                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), item.Value.CodigoPartNumber, item.Value.TallaPartnumber, (item.Value.RequeridoPartnumber - item.Value.SolicitadoPartnumber - item.Value.ValorSeleccionadoKanban), item.Value.ValorSeleccionadoKanban));
                             resetEtiquetas();
                         }
                     }
                 }
+            }
+        }
+        private void buttonAgregarTelaSmed_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxLote.SelectedIndex > -1)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoTelaSmed.Content.ToString() == "Pendiente")
+                {
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "TelaSmed", "Unica", 0, 1));
+                }
+                resetEtiquetas();
+            }
+        }
+        private void buttonAgregarPiezasSmed_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxLote.SelectedIndex > -1)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoPiezasSmed.Content.ToString() == "Pendiente")
+                {
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "PiezasCortadasSmed", "Unica", 0, 1));
+                }
+                resetEtiquetas();
             }
         }
         #endregion
@@ -302,7 +341,7 @@ namespace JazzCCO._0.pantallasKanban
                 using (SqlConnection cn = ConexionTexopsServer.Kanban())
                 {
                     listaDeMaterialesCompleta.Clear();
-                    string sql = "consultarEntregasLotes '" + loteSeleccionado.NumeroLote + "'";
+                    string sql = "consultarEntregas '" + loteSeleccionado.ManufactureIdLote+ "', '" + loteSeleccionado.NumeroLote +"'";
                     try
                     {
                         SqlCommand cm = new SqlCommand(sql, cn);
@@ -325,6 +364,7 @@ namespace JazzCCO._0.pantallasKanban
                 HashSet<string> HShilos = new HashSet<string>();
                 HashSet<string> HScopas = new HashSet<string>();
                 HashSet<string> HSelastico= new HashSet<string>();
+                HashSet<string> HSelasticoSecundario = new HashSet<string>();
                 HashSet<string> HStela = new HashSet<string>();
                 Dictionary<string,Partnumber> DTallasTela = new Dictionary<string,Partnumber>();
                 Dictionary<string, Partnumber> DTallasCopa = new Dictionary<string, Partnumber>();
@@ -349,26 +389,41 @@ namespace JazzCCO._0.pantallasKanban
                         case "Elastico":
                             HSelastico.Add(item.CodigoPartNumber);
                             break;
-                        case "Tela":
-                            HStela.Add(item.CodigoPartNumber);
-                            try
+                        case "ElasticoSecundario":
+                            HSelasticoSecundario.Add(item.CodigoPartNumber);
+                            break;
+                        case "PiezasCortadas":
+                            if(item.TallaPartnumber != "unica")
                             {
-                                DTallasTela.Add(item.TallaPartnumber, item);
-                            }
-                            catch
-                            {
+                                try
+                                {
+                                    DTallasTela.Add(item.TallaPartnumber, item);
+                                }
+                                catch
+                                {
 
+                                }
+                            }
+                            else
+                            {
+                                HStela.Add(item.CodigoPartNumber);
                             }
                             break;
                         case "Copas":
-                            HScopas.Add(item.CodigoPartNumber);
-                            try
+                            if (item.TallaPartnumber != "unica")
                             {
-                                DTallasCopa.Add(item.TallaPartnumber, item);
-                            }
-                            catch
-                            {
+                                try
+                                {
+                                    DTallasCopa.Add(item.TallaPartnumber, item);
+                                }
+                                catch
+                                {
 
+                                }
+                            }
+                            else
+                            {
+                                HScopas.Add(item.CodigoPartNumber);
                             }
                             break;
                         case "Binding":
@@ -400,8 +455,11 @@ namespace JazzCCO._0.pantallasKanban
                 ItemsControlHilos.ItemsSource = HShilos;
                 ItemsControlHilosSmed.ItemsSource = HShilos;
                 ItemsControlElastico.ItemsSource = HSelastico;
+                ItemsControlElasticoSecundario.ItemsSource = HSelasticoSecundario;
                 ItemsControlBra.ItemsSource = HScopas;
                 listViewTallasTela.ItemsSource = DTallasTela;
+                ItemsControlTelaSmed.ItemsSource = HStela;
+                ItemsControlPiezasSmed.ItemsSource = HStela;
                 listViewTallasBra.ItemsSource = DTallasCopa;
                 listViewGancho.ItemsSource = DGanchos;
 
@@ -410,11 +468,29 @@ namespace JazzCCO._0.pantallasKanban
                     HScajasParciales.Add(HScajas.OrderBy(m => m.RequeridoPartnumber).ToHashSet().First());
                     HScajasPrincipales.Add(HScajas.OrderByDescending(m => m.RequeridoPartnumber).ToHashSet().First());
 
+                    foreach (Partnumber item in HScajasParciales)
+                    {
+                        item.RequeridoPartnumber = Math.Ceiling(item.RequeridoPartnumber);
+                    }
+
+                    foreach (Partnumber item in HScajasPrincipales)
+                    {
+                        item.RequeridoPartnumber = Math.Ceiling(item.RequeridoPartnumber);
+                    }
+
+
+
+
                     listViewCajasParciales.ItemsSource = HScajasParciales;
                     listViewCajas.ItemsSource = HScajasPrincipales;
                 }
                 else
                 {
+                    foreach (Partnumber item in HScajas)
+                    {
+                        item.RequeridoPartnumber = Math.Ceiling(item.RequeridoPartnumber);
+                    }
+
                     listViewCajas.ItemsSource = HScajas;
                 }
 
@@ -462,21 +538,24 @@ namespace JazzCCO._0.pantallasKanban
                 listViewListaMateriales.Items.Clear();
                 if (listBoxModulo.SelectedItem.ToString() == "SMED")
                 {
+                    chBoxCajaParcial.IsChecked = false;
+                    chBoxCajaParcial.IsEnabled = false;
+                    chBoxLoteSmed.IsChecked = true;
+                    chBoxLoteSmed.IsEnabled = false;
                     tab.SelectedIndex = 3;
                     tabAccesorios.Visibility = Visibility.Collapsed;
                     tabBinding.Visibility = Visibility.Collapsed;
                     tabHilos.Visibility = Visibility.Collapsed;
                     tbHilosSmed.Visibility = Visibility.Visible;
+                    tabTelaSmed.Visibility = Visibility.Visible;
+                    tabPiezasSmed.Visibility = Visibility.Visible;
                     tabElastico.Visibility = Visibility.Collapsed;
+                    tabElasticoSecundario.Visibility = Visibility.Collapsed;
                     tabCajas.Visibility = Visibility.Collapsed;
                     tabCajasParciales.Visibility = Visibility.Collapsed;
                     tabGancho.Visibility = Visibility.Collapsed;
                     tabTela.Visibility = Visibility.Collapsed;
                     tabBra.Visibility = Visibility.Collapsed;
-                    chBoxCajaParcial.IsChecked = false;
-                    chBoxCajaParcial.IsEnabled = false;
-                    chBoxLoteSmed.IsChecked = true;
-                    chBoxLoteSmed.IsEnabled = false;
                 }
                 else
                 {
@@ -486,7 +565,10 @@ namespace JazzCCO._0.pantallasKanban
                     tabBinding.Visibility = Visibility.Visible;
                     tabHilos.Visibility = Visibility.Visible;
                     tbHilosSmed.Visibility = Visibility.Collapsed;
+                    tabTelaSmed.Visibility = Visibility.Collapsed;
+                    tabPiezasSmed.Visibility = Visibility.Collapsed;
                     tabElastico.Visibility = Visibility.Visible;
+                    tabElasticoSecundario.Visibility = Visibility.Visible;
                     tabCajas.Visibility = Visibility.Visible;
                     tabCajasParciales.Visibility = Visibility.Collapsed;
                     tabGancho.Visibility = Visibility.Visible;
@@ -585,27 +667,42 @@ namespace JazzCCO._0.pantallasKanban
         }
         private void buttonEnviarSolicitud_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection cnKanban = new SqlConnection("Data Source=" + ConfigurationManager.AppSettings["servidor_ing"] + ";Initial Catalog=" + ConfigurationManager.AppSettings["base_kanban"] + ";Persist Security Info=True;User ID=" + ConfigurationManager.AppSettings["usuario_ing"] + ";Password=" + ConfigurationManager.AppSettings["pass_ing"]);
-            string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed, solicitudCajaParcial) values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + !chBoxLoteSmed.IsChecked + "', '" + chBoxCajaParcial.IsChecked +"') SELECT SCOPE_IDENTITY()";
-            cnKanban.Open();
-            SqlCommand cm = new SqlCommand(sql, cnKanban);
-            SqlDataReader dr = cm.ExecuteReader();
-            dr.Read();
-            int idIngreso = Convert.ToInt32(dr[0]);
-            dr.Close();
-            //ingresar detalles de la orden
-            foreach (SolicitudKanban item in listViewListaMateriales.Items)
+            using (SqlConnection cn = ConexionTexopsServer.Kanban())
             {
-                sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad, entregado) values('" + idIngreso + "', '" + item.NumeroLote + "', '" + item.CodigoPartNumber + "', '" + item.TallaPartnumber + "', '" + item.RequeridoPartnumber+ "', 0)";
-                if (item.CodigoPartNumber.Contains("HANGER"))
+                //guardar la solicitud 
+                string sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed, solicitudCajaParcial) " +
+                    "values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + chBoxLoteSmed.IsChecked + "', '" + !chBoxLoteSmed.IsChecked + "', '" + chBoxCajaParcial.IsChecked + "') SELECT SCOPE_IDENTITY()";
+                int idIngreso = 0;
+                //si es un lote smed solicitado por smed dejar ya validada la solicitud de smed
+                if (listBoxModulo.SelectedItem.ToString() == "SMED")
                 {
-                    //sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad, diferencia, requerido, entregado) values('" + idIngreso + "', '" + item.NumeroLote + "', '" + item.CodigoPartNumber + "', '" + item.TallaPartnumber + "', '" + item.RequeridoPartnumber + "', '" + (item.diferencia - item.cantidad) + "','" + item.solicitado + "', 0)";
+                    sql = "insert into solicitudesKanban(tipo, modulo, ubicacion, fechaSolicitud, loteSmed, validadoSmed, solicitudCajaParcial) " +
+                        "values('solicitud', '" + listBoxModulo.SelectedItem.ToString() + "', '" + labelUbicacion.Content + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + true + "', '" + true + "', '" + false + "') SELECT SCOPE_IDENTITY()";
                 }
-                cm = new SqlCommand(sql, cnKanban);
-                cm.ExecuteNonQuery();
-            }
-            cnKanban.Close();
 
+                try
+                {
+                    SqlCommand cm = new SqlCommand(sql, cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    dr.Read();
+                    idIngreso = Convert.ToInt32(dr[0]);
+                    dr.Close();
+
+                    //ingresar cada item  de la orden
+                    foreach (SolicitudKanban item in listViewListaMateriales.Items)
+                    {
+                        sql = "insert into detalleSolicitudeKanban(solicitudKanbanId, lote, material, talla, cantidad, diferencia, entregado) " +
+                            "values('" + idIngreso + "', '" + item.NumeroLote + "', '" + item.CodigoPartNumber + "', '" + item.TallaPartnumber + "', '"+ item.SolicitadoPartnumber+"', '" + item.RequeridoPartnumber + "', 0)";
+                        cm = new SqlCommand(sql, cn);
+                        cm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
+            }
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = new estadoPlanta();
         }
@@ -630,11 +727,10 @@ namespace JazzCCO._0.pantallasKanban
             labelEstadoHilos.Content = "No necesario";
             labelEstadoHilosSmed.Content = "No necesario";
             labelEstadoElastico.Content = "No necesario";
-            labelEstadoCajas.Content = "No necesario";
-            labelEstadoCajasParciales.Content = "No necesario";
-            labelEstadoGanchos.Content = "No necesario";
-            labelEstadoTela.Content = "No necesario";
-            labelEstadoBra.Content = "No necesario";
+            labelEstadoElasticoSecundario.Content = "No necesario";
+            labelEstadoHilosSmed.Content = "No necesario";
+            labelEstadoTelaSmed.Content = "No necesario";
+            labelEstadoPiezasSmed.Content = "No necesario";
 
             int materialesAgregados = listViewListaMateriales.Items.Count;
 
@@ -754,6 +850,34 @@ namespace JazzCCO._0.pantallasKanban
                             }
                         }
                         break;
+                    case "ElasticoSecundario":
+                        if (item.SolicitadoPartnumber == 1)
+                        {
+                            labelEstadoElasticoSecundario.Content = "Solicitado";
+                        }
+                        else
+                        {
+                            if (materialesAgregados > 0)
+                            {
+                                foreach (SolicitudKanban subitem in listViewListaMateriales.Items)
+                                {
+                                    if (subitem.CodigoPartNumber == "ElasticoSecundario" && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                    {
+                                        labelEstadoElasticoSecundario.Content = "Agregado";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        labelEstadoElasticoSecundario.Content = "Pendiente";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                labelEstadoElasticoSecundario.Content = "Pendiente";
+                            }
+                        }
+                        break;
                     case "Binding":
                         if (item.SolicitadoPartnumber == 1)
                         {
@@ -782,77 +906,134 @@ namespace JazzCCO._0.pantallasKanban
                             }
                         }
                         break;
+                    case "TelaSmed":
+                        if (item.SolicitadoPartnumber == 1)
+                        {
+                            labelEstadoTelaSmed.Content = "Solicitado";
+                        }
+                        else
+                        {
+                            if (materialesAgregados > 0)
+                            {
+                                foreach (SolicitudKanban subitem in listViewListaMateriales.Items)
+                                {
+                                    if (subitem.CodigoPartNumber == "TelaSmed" && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                    {
+                                        labelEstadoTelaSmed.Content = "Agregado";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        labelEstadoTelaSmed.Content = "Pendiente";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                labelEstadoTelaSmed.Content = "Pendiente";
+                            }
+                        }
+                        break;
+                    case "PiezasCortadasSmed":
+                        if (item.SolicitadoPartnumber == 1)
+                        {
+                            labelEstadoPiezasSmed.Content = "Solicitado";
+                        }
+                        else
+                        {
+                            if (materialesAgregados > 0)
+                            {
+                                foreach (SolicitudKanban subitem in listViewListaMateriales.Items)
+                                {
+                                    if (subitem.CodigoPartNumber == "PiezasCortadasSmed" && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                    {
+                                        labelEstadoPiezasSmed.Content = "Agregado";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        labelEstadoPiezasSmed.Content = "Pendiente";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                labelEstadoPiezasSmed.Content = "Pendiente";
+                            }
+                        }
+                        break;
+
                 }
             }
-
             foreach(SolicitudKanban item in listViewListaMateriales.Items)
             {
-                switch (item.CodigoPartNumber)
+                if (item.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
                 {
-                    case "Tela":
-                        foreach (KeyValuePair <string,Partnumber> subitem in listViewTallasTela.Items)
-                        {
-                            if (item.TallaPartnumber == subitem.Value.TallaPartnumber)
+                    switch (item.CodigoPartNumber)
+                    {
+                        case "PiezasCortadas":
+                            foreach (KeyValuePair<string, Partnumber> subitem in listViewTallasTela.Items)
                             {
-                                subitem.Value.SolicitadoKanban = false;
-                                subitem.Value.SolicitadoPartnumber = item.RequeridoPartnumber;
+                                if (item.TallaPartnumber == subitem.Value.TallaPartnumber)
+                                {
+                                    subitem.Value.SolicitadoKanban = false;
+                                    subitem.Value.SolicitadoPartnumber = item.SolicitadoPartnumber;
+                                }
                             }
-                        }
 
-                        listViewTallasTela.Items.Refresh();
-                        break;
-                    case "Copas":
-                        foreach (KeyValuePair<string, Partnumber> subitem in listViewTallasBra.Items)
-                        {
-                            if (item.TallaPartnumber == subitem.Value.TallaPartnumber)
+                            listViewTallasTela.Items.Refresh();
+                            break;
+                        case "Copas":
+                            foreach (KeyValuePair<string, Partnumber> subitem in listViewTallasBra.Items)
                             {
-                                subitem.Value.SolicitadoKanban = false;
-                                subitem.Value.SolicitadoPartnumber = item.RequeridoPartnumber;
-                            }
-                        }
-                        listViewTallasBra.Items.Refresh();
-                        break;
-                    default:
-                        if (item.CodigoPartNumber.ToLower().Contains("box"))
-                        {
-                            foreach(Partnumber subitem in listViewCajas.Items)
-                            {
-                                if (item.CodigoPartNumber == subitem.CodigoPartNumber &&  item.NumeroLote==((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                if (item.TallaPartnumber == subitem.Value.TallaPartnumber)
                                 {
-                                    subitem.ValorSeleccionadoKanban = 0;
-                                    subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumberInicial+ item.RequeridoPartnumber;
+                                    subitem.Value.SolicitadoKanban = false;
+                                    subitem.Value.SolicitadoPartnumber = item.SolicitadoPartnumber;
                                 }
                             }
-                            listViewCajas.Items.Refresh();
+                            listViewTallasBra.Items.Refresh();
+                            break;
+                        default:
+                            if (item.CodigoPartNumber.ToLower().Contains("box"))
+                            {
+                                foreach (Partnumber subitem in listViewCajas.Items)
+                                {
+                                    if (item.CodigoPartNumber == subitem.CodigoPartNumber)
+                                    {
+                                        subitem.ValorSeleccionadoKanban = 0;
+                                        subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumberInicial + item.SolicitadoPartnumber;
+                                    }
+                                }
+                                listViewCajas.Items.Refresh();
 
-                            foreach (Partnumber subitem in listViewCajasParciales.Items)
-                            {
-                                if (item.CodigoPartNumber == subitem.CodigoPartNumber && item.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                foreach (Partnumber subitem in listViewCajasParciales.Items)
                                 {
-                                    subitem.ValorSeleccionadoKanban = 0;
-                                    subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumberInicial + item.RequeridoPartnumber;
+                                    if (item.CodigoPartNumber == subitem.CodigoPartNumber)
+                                    {
+                                        subitem.ValorSeleccionadoKanban = 0;
+                                        subitem.SolicitadoPartnumber = subitem.SolicitadoPartnumberInicial + item.SolicitadoPartnumber;
+                                    }
                                 }
+                                listViewCajasParciales.Items.Refresh();
                             }
-                            listViewCajasParciales.Items.Refresh();
-                        }
-                        else if (item.CodigoPartNumber.ToLower().Contains("hanger"))
-                        {
-                            foreach (KeyValuePair<string, Partnumber> subitem in listViewGancho.Items)
+                            else if (item.CodigoPartNumber.ToLower().Contains("hanger"))
                             {
-                                if (item.CodigoPartNumber == subitem.Value.CodigoPartNumber && item.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                foreach (KeyValuePair<string, Partnumber> subitem in listViewGancho.Items)
                                 {
-                                    subitem.Value.ValorSeleccionadoKanban = 0;
-                                    subitem.Value.SolicitadoPartnumber = subitem.Value.SolicitadoPartnumberInicial + item.RequeridoPartnumber;
+                                    if (item.CodigoPartNumber == subitem.Value.CodigoPartNumber)
+                                    {
+                                        subitem.Value.ValorSeleccionadoKanban = 0;
+                                        subitem.Value.SolicitadoPartnumber = subitem.Value.SolicitadoPartnumberInicial + item.SolicitadoPartnumber;
+                                    }
                                 }
+                                listViewGancho.Items.Refresh();
                             }
-                            listViewGancho.Items.Refresh();
-                        }
-                        break;
+                            break;
+                    }
                 }
+
             }
-
-
-
         }
         private void limpiarListas()
         {
@@ -873,7 +1054,6 @@ namespace JazzCCO._0.pantallasKanban
             listViewTallasTela.ItemsSource = new List<Partnumber>();
             listViewTallasBra.ItemsSource= new List<Partnumber>();
         }
-
         private void chBoxCajaParcial_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -883,19 +1063,19 @@ namespace JazzCCO._0.pantallasKanban
 
             listViewListaMateriales.Items.Clear();
             resetEtiquetas();
-            tab.SelectedIndex = 6;
+            tab.SelectedIndex = 7;
             tabAccesorios.Visibility = Visibility.Collapsed;
             tabBinding.Visibility = Visibility.Collapsed;
             tabHilos.Visibility = Visibility.Collapsed;
             tbHilosSmed.Visibility = Visibility.Collapsed;
             tabElastico.Visibility = Visibility.Collapsed;
+            tabElasticoSecundario.Visibility = Visibility.Collapsed;
             tabCajas.Visibility = Visibility.Collapsed;
             tabCajasParciales.Visibility = Visibility.Visible;
             tabGancho.Visibility = Visibility.Collapsed;
             tabTela.Visibility = Visibility.Collapsed;
             tabBra.Visibility = Visibility.Collapsed;
         }
-
         private void chBoxCajaParcial_Unchecked(object sender, RoutedEventArgs e)
         {
             chBoxLoteSmed.IsChecked = false;
@@ -907,8 +1087,8 @@ namespace JazzCCO._0.pantallasKanban
             tabAccesorios.Visibility = Visibility.Visible;
             tabBinding.Visibility = Visibility.Visible;
             tabHilos.Visibility = Visibility.Visible;
-            tbHilosSmed.Visibility = Visibility.Visible;
             tabElastico.Visibility = Visibility.Visible;
+            tabElasticoSecundario.Visibility = Visibility.Visible;
             tabCajas.Visibility = Visibility.Visible;
             tabCajasParciales.Visibility = Visibility.Collapsed;
             tabGancho.Visibility = Visibility.Visible;

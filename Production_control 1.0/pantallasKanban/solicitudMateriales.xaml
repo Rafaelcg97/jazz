@@ -7,6 +7,31 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="0" CornerRadius="8" Width="150" Margin="2">
+                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="1"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="DarkRed" />
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="DarkSlateBlue" />
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <!--#region filas/columnas-->
         <Grid.ColumnDefinitions>
@@ -123,13 +148,6 @@
                 </StackPanel>
             </StackPanel>
         </Viewbox>
-
-
-
-
-
-
-
         <Border BorderBrush="Black" BorderThickness="4" Grid.Column="10" Grid.Row="5" Grid.RowSpan="20" Grid.ColumnSpan="5" CornerRadius="10">
             <ListView x:Name="listViewListaMateriales" FontSize="15" FontWeight="Bold" Margin="5" KeyDown="listViewListaMateriales_KeyDown">
                 <ListView.View>
@@ -158,7 +176,7 @@
                         <GridViewColumn Header="Cantidad" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding RequeridoPartnumber}" FontSize="12" Foreground="White" Background="DarkOrange" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="200"/>
+                                    <Label Content="{Binding SolicitadoPartnumber}" FontSize="12" Foreground="White" Background="DarkOrange" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="200"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -169,7 +187,7 @@
 
         <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="10" Grid.RowSpan="15" HorizontalAlignment="Left">
             <TabControl x:Name="tab" Margin="55,0,0,0" Width="1500" Height="800">
-                <TabItem Header="Accesorios" Background="Pink" FontWeight="Bold" FontSize="25" x:Name="tabAccesorios">
+                <TabItem FontSize="25" x:Name="tabAccesorios" Header="Accesorios">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -210,7 +228,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlAccesorios" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlAccesorios" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
@@ -221,7 +239,7 @@
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Binding" Background="LightBlue" FontWeight="Bold" FontSize="25" x:Name="tabBinding">
+                <TabItem FontSize="25" x:Name="tabBinding" Header="Binding">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -262,7 +280,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlBinding" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlBinding" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:" />
@@ -273,7 +291,7 @@
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Hilos" Background="LightGreen" FontWeight="Bold" FontSize="25" x:Name="tabHilos">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabHilos" Header="Hilos">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -314,7 +332,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlHilos" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlHilos" Foreground="Black" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
@@ -325,7 +343,7 @@
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tbHilosSmed"  Header="Hilos SMED" Background="CornflowerBlue" FontWeight="Bold" FontSize="25">
+                <TabItem x:Name="tbHilosSmed"  FontWeight="Bold" FontSize="25" Header="HilosSmed">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -366,7 +384,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlHilosSmed" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlHilosSmed" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
@@ -377,7 +395,7 @@
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Elastico Secundario" Background="LightGray" FontWeight="Bold" FontSize="25" x:Name="tabElastico">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabElastico" Header="Elastico">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -418,7 +436,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlElastico" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlElastico" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
@@ -429,7 +447,59 @@
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Caja" Background="Yellow" FontWeight="Bold" FontSize="25" x:Name="tabCajas">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabElasticoSecundario" Header="Elast Sec">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
+                        <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
+                            <ScrollViewer>
+                                <ItemsControl x:Name="ItemsControlElasticoSecundario" Foreground="Black" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                            </ScrollViewer>
+                        </Border>
+                        <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
+                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoElasticoSecundario" Content="Pendiente" FontWeight="Light" Margin="1"/>
+                        <Button x:Name="buttonAgregarElasticoSecundario" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarElasticoSecundario_Click" >
+                            <Image Source="/imagenes/mas.png"/>
+                        </Button>
+                    </Grid>
+                </TabItem>
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabCajas" Header="Cajas">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -504,15 +574,13 @@
                                 </ListView.View>
                             </ListView>
                         </Border>
-                        <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
-                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
-                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoCajas" Content="Pendiente" FontWeight="Light" Margin="1"/>
-                        <Button x:Name="buttonAgregarCajas" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarCajas_Click">
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="5" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud" HorizontalContentAlignment="Center"/>
+                        <Button x:Name="buttonAgregarCajas" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarCajas_Click">
                             <Image Source="/imagenes/mas.png"/>
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Caja Parcial" Background="Yellow" FontWeight="Bold" FontSize="25" x:Name="tabCajasParciales">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabCajasParciales" Header="Cajas Parciales">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -587,15 +655,13 @@
                                 </ListView.View>
                             </ListView>
                         </Border>
-                        <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
-                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
-                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoCajasParciales" Content="Pendiente" FontWeight="Light" Margin="1"/>
-                        <Button x:Name="buttonAgregarCajasParciales" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarCajasParciales_Click">
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" FontWeight="Bold" Content="Agregar a la solicitud:"/>
+                        <Button x:Name="buttonAgregarCajasParciales" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarCajasParciales_Click">
                             <Image Source="/imagenes/mas.png"/>
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Gancho" Background="Orange" FontWeight="Bold" FontSize="25" x:Name="tabGancho">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabGancho" Header="Ganchos">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -670,15 +736,13 @@
                                 </ListView.View>
                             </ListView>
                         </Border>
-                        <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
-                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
-                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoGanchos" Content="Pendiente" FontWeight="Light" Margin="1"/>
-                        <Button x:Name="buttonAgregarGanchos" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarGanchos_Click">
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="5" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud" HorizontalAlignment="Center"/>
+                        <Button x:Name="buttonAgregarGanchos" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarGanchos_Click">
                             <Image Source="/imagenes/mas.png"/>
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Piezas Cortadas" Background="MediumPurple" FontWeight="Bold" FontSize="25" x:Name="tabTela">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabTela" Header="Piezas">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -719,7 +783,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="5" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlTela" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlTela" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.ColumnSpan="8" Grid.Row="7" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="Tallas:"/>
@@ -743,19 +807,31 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
+                                        <GridViewColumn Header="Talla" Width="125">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Path=Value.SolicitadoPartnumber}" HorizontalAlignment="Center" FontSize="35"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Talla" Width="125">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Path=Value.RequeridoPartnumber}" HorizontalAlignment="Center" FontSize="35"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
                         </Border>
-                        <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
-                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
-                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoTela" Content="Pendiente" FontWeight="Light" Margin="1"/>
-                        <Button x:Name="buttonAgregarTela" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarTela_Click">
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="5" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud" HorizontalAlignment="Center"/>
+                        <Button x:Name="buttonAgregarTela" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarTela_Click">
                             <Image Source="/imagenes/mas.png"/>
                         </Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Bra Cups" Background="Aqua" FontWeight="Bold" FontSize="25" x:Name="tabBra">
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabBra" Header="Copas">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -796,7 +872,7 @@
                         <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
                         <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="5" BorderBrush="Black" BorderThickness="1" Margin="15" >
                             <ScrollViewer>
-                                <ItemsControl x:Name="ItemsControlBra" FontWeight="Light" ScrollViewer.CanContentScroll="True" Margin="4" />
+                                <ItemsControl x:Name="ItemsControlBra" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
                             </ScrollViewer>
                         </Border>
                         <Label Grid.ColumnSpan="8" Grid.Row="7" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="Tallas:"/>
@@ -824,10 +900,112 @@
                                 </ListView.View>
                             </ListView>
                         </Border>
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="5" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud" HorizontalAlignment="Center" />
+                        <Button x:Name="buttonAgregarBra" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarBra_Click">
+                            <Image Source="/imagenes/mas.png"/>
+                        </Button>
+                    </Grid>
+                </TabItem>
+                <TabItem FontWeight="Bold" FontSize="25" x:Name="tabTelaSmed" Header="Tela SMED">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
+                        <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
+                            <ScrollViewer>
+                                <ItemsControl x:Name="ItemsControlTelaSmed" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
+                            </ScrollViewer>
+                        </Border>
                         <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
-                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:" />
-                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoBra" Content="Pendiente" FontWeight="Light" Margin="1"/>
-                        <Button x:Name="buttonAgregarBra" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarBra_Click">
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
+                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoTelaSmed" Content="Pendiente" FontWeight="Light" Margin="1" />
+                        <Button x:Name="buttonAgregarTelaSmed" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarTelaSmed_Click" >
+                            <Image Source="/imagenes/mas.png"/>
+                        </Button>
+                    </Grid>
+                </TabItem>
+                <TabItem  FontWeight="Bold" FontSize="25" x:Name="tabPiezasSmed" Header="Piezas SMED">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="2" Padding="0" FontWeight="Bold" Margin="15,0,0,0" Content="PartNumbers que incluye:"/>
+                        <Border Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="15" BorderBrush="Black" BorderThickness="1" Margin="15" >
+                            <ScrollViewer>
+                                <ItemsControl x:Name="ItemsControlPiezasSmed" FontWeight="Light" Foreground="Black" ScrollViewer.CanContentScroll="True" Margin="4" />
+                            </ScrollViewer>
+                        </Border>
+                        <Label Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="2" FontWeight="Bold" Content="Estado del material:"/>
+                        <Label Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="2" FontWeight="Bold" Content="Agregar a la solicitud:"/>
+                        <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="labelEstadoPiezasSmed" Content="Pendiente" FontWeight="Light" Margin="1" />
+                        <Button x:Name="buttonAgregarPiezasSmed" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonAgregarPiezasSmed_Click" >
                             <Image Source="/imagenes/mas.png"/>
                         </Button>
                     </Grid>
@@ -838,13 +1016,5 @@
         <Button x:Name="buttonEnviarSolicitud" Grid.Row="26" Grid.Column="12" Grid.ColumnSpan="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Width="90" Height="90" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="buttonEnviarSolicitud_Click" >
             <Image Source="/imagenes/enviar.png"/>
         </Button>
-
-
-
-
-
-
-
-
     </Grid>
 </UserControl>

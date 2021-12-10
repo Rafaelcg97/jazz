@@ -5,13 +5,14 @@
         Modulo modulo= new Modulo();
         Lote lote;
 
-        public SolicitudKanban(Modulo modulo, Lote lote, string codigoPartnumber, string tallaPartnumber, double requeridoPartnumber)
+        public SolicitudKanban(Modulo modulo, Lote lote, string codigoPartnumber, string tallaPartnumber, double requeridoPartnumber, double solicitadoPartNumber)
         {
             this.lote = lote;
             this.modulo = modulo;
             CodigoPartNumber = codigoPartnumber;
             TallaPartnumber = tallaPartnumber;
             RequeridoPartnumber = requeridoPartnumber;
+            SolicitadoPartnumber = solicitadoPartNumber;
         }
 
         public SolicitudKanban()
