@@ -5,19 +5,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Documents.Serialization;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 
@@ -26,8 +21,8 @@ namespace JazzCCO._0.pantallasKanban
     public partial class estadoPlanta : Page
     {
         string modulo = "";
-        string[] motivos_ = new string[4];
-        string[] areas_ = new string[7];
+        string[] motivos_ = new string[5];
+        string[] areas_ = new string[11];
         #region datosIniciales
         public estadoPlanta()
         {
@@ -61,6 +56,7 @@ namespace JazzCCO._0.pantallasKanban
             motivos_[1] = "Pendiente de preparación";
             motivos_[2] = "Pendiente de aprobación";
             motivos_[3] = "Falta de materiales";
+            motivos_[4] = "Falta de ingreso";
 
             areas_[0] = "-";
             areas_[1] = "Trims";
@@ -69,6 +65,10 @@ namespace JazzCCO._0.pantallasKanban
             areas_[4] = "Recibo";
             areas_[5] = "QA";
             areas_[6] = "Subli";
+            areas_[7] = "Kanban";
+            areas_[8] = "BMP Telas";
+            areas_[9] = "PreIngenieria";
+            areas_[10] = "Produccion";
 
         }
         public void CreatePermission()

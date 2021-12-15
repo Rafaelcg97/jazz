@@ -41,80 +41,48 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="5" x:Name="borderSolicitud" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderSolicitud_MouseUp">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Image Source="/imagenes/solicitudKanban.png" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="7"/>
-                <Label Content="Solicitar Movimiento" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="White"  Margin="5,5,5,0"/>
-            </Grid>
+        <Viewbox Grid.RowSpan="2" Grid.ColumnSpan="11" HorizontalAlignment="Center">
+            <Label Content="Trabajo Disponible en Kanban" FontSize="45" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="25,0,0,0"/>
+        </Viewbox>
+        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="3" x:Name="borderSolicitud" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderSolicitud_MouseUp">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/solicitudKanban.png" Width="200" Height="140"/>
+                    <Label Content="Solicitar Materiales para Modulos de Costura" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"  Margin="10,0,10,0"/>
+                </StackPanel>
+            </Viewbox>
         </Border>
-        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="8" Grid.RowSpan="5" x:Name="borderLote" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderLote_MouseUp">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Image Source="/imagenes/estadoLotes.png" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="7"/>
-                <Label Content="Estado de Lotes" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="White" Margin="5,5,5,0"/>
-            </Grid>
+        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="3" x:Name="borderKanban" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderKanban_MouseUp">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/kanban.png"  Width="200" Height="140"/>
+                    <Label Content="Estado de Solicitudes de Modulos de Costura" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"  Margin="5,5,5,0"/>
+                </StackPanel>
+            </Viewbox>
         </Border>
-        <Border Grid.Column="7" Grid.ColumnSpan="7" Grid.Row="2" Grid.RowSpan="11" x:Name="borderKanban" Background="Transparent" Margin="25" BorderBrush="Black" BorderThickness="9" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderKanban_MouseUp">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="32*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="0*"/>
-                </Grid.RowDefinitions>
-                <Image Source="/imagenes/kanban.png" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="7"/>
-                <Label Content="Estado de Modulos de Costura" Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="Black"  Margin="5,10,5,0"/>
-            </Grid>
+        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="6" Grid.RowSpan="3" x:Name="borderLote" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderLote_MouseUp">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/estadoLotes.png" Width="200" Height="140" Margin="0,5,0,0"/>
+                    <Label Content="Historial de Movimientos por Lote" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"  Margin="5,5,5,0"/>
+                </StackPanel>
+            </Viewbox>
+        </Border>
+        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="9" Grid.RowSpan="3" x:Name="borderEntradas" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderEntradas_MouseUp">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/trasladar.png" Width="200" Height="140"/>
+                    <Label Content="Realizar Movimientos de Lote" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"  Margin="5,5,5,0"/>
+                </StackPanel>
+            </Viewbox>
+        </Border>
+        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="12" Grid.RowSpan="3" x:Name="borderCuadrarLotes" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderLote_MouseUp">
+            <Viewbox>
+                <StackPanel>
+                    <Image Source="/imagenes/niveles.png" Width="200" Height="140"/>
+                    <Label Content="Cuadratura de Movimientos" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"  Margin="5,5,5,0"/>
+                </StackPanel>
+            </Viewbox>
         </Border>
     </Grid>
 </UserControl>

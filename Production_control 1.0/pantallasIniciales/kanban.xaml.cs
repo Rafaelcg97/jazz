@@ -67,5 +67,12 @@ namespace JazzCCO._0.pantallasIniciales
             Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
             GridPrincipal.Content = estadoLotes;
         }
+
+        private void borderEntradas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Grid GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Grid)) as Grid;
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(new pantallasKanban.validacionUsuarioKanban());
+        }
     }
 }

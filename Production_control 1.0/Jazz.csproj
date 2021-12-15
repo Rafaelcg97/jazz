@@ -407,6 +407,9 @@
     <Compile Include="pantallasKanban\estadoPlanta.xaml.cs">
       <DependentUpon>estadoPlanta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasKanban\movimientosLotes.xaml.cs">
+      <DependentUpon>movimientosLotes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasKanban\NotificacionesDeTablaSQL\MessageModelPlanta.cs" />
     <Compile Include="pantallasKanban\NotificacionesDeTablaSQL\SQLNotifierPlanta.cs" />
     <Compile Include="pantallasKanban\solicitudMateriales.xaml.cs">
@@ -449,6 +452,9 @@
     </Compile>
     <Compile Include="pantallasInsumos\validacionUsuario.xaml.cs">
       <DependentUpon>validacionUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pantallasKanban\validacionUsuarioKanban.xaml.cs">
+      <DependentUpon>validacionUsuarioKanban.xaml</DependentUpon>
     </Compile>
     <Compile Include="pantallasMantenimiento\calendarioProgramacion.xaml.cs">
       <DependentUpon>calendarioProgramacion.xaml</DependentUpon>
@@ -575,6 +581,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pantallasKanban\movimientosLotes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pantallasKanban\solicitudMateriales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -624,6 +634,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasInsumos\validacionUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasKanban\validacionUsuarioKanban.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1140,6 +1154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\texopslogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\niveles.png" />
+    <Resource Include="imagenes\trasladar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

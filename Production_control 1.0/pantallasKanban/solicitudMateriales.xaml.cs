@@ -1,14 +1,13 @@
-﻿using System;
+﻿using ClasesTexops;
+using SQLConnection;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using SQLConnection;
-using ClasesTexops;
 
 namespace JazzCCO._0.pantallasKanban
 {
@@ -107,12 +106,43 @@ namespace JazzCCO._0.pantallasKanban
         {
             if (listBoxLote.SelectedIndex > -1)
             {
-                //se verifica si aun no ha sido entregado
-                if (labelEstadoElastico.Content.ToString() == "Pendiente")
+                int conteoTallasElastico = 0;
+                int conteoTallasElasticoSeleccionadas = 0;
+
+                //contar tallas de elastico y agregadas de lote
+                foreach (SolicitudKanban item in listViewListaMateriales.Items)
                 {
-                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Elastico", "Unica", 0,1));
+                    if (item.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote && item.CodigoPartNumber=="Elastico")
+                    {
+                        conteoTallasElastico++;
+                    }
                 }
-                resetEtiquetas();
+
+                //contar tallas de elastico seleccionadas
+                foreach (KeyValuePair<string, Partnumber> item in listViewTallasElastico.Items)
+                {
+                    if (item.Value.SolicitadoKanban == true)
+                    {
+                        conteoTallasElasticoSeleccionadas++;
+                    }
+                }
+
+
+                if (conteoTallasElastico + conteoTallasElasticoSeleccionadas <= 2)
+                {
+                    foreach (KeyValuePair<string, Partnumber> item in listViewTallasElastico.Items)
+                    {
+                        if (item.Value.SolicitadoKanban == true)
+                        {
+                            listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Elastico", item.Value.TallaPartnumber, 0, item.Value.RequeridoPartnumber));
+                        }
+                    }
+                    resetEtiquetas();
+                }
+                else
+                {
+                    MessageBox.Show("Solo se pueden pedir dos tallas de elastico por lote");
+                }
             }
         }
         private void buttonAgregarElasticoSecundario_Click(object sender, RoutedEventArgs e)
@@ -311,6 +341,18 @@ namespace JazzCCO._0.pantallasKanban
                 resetEtiquetas();
             }
         }
+        private void buttonAgregarWraphia_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxLote.SelectedIndex > -1)
+            {
+                //se verifica si aun no ha sido entregado
+                if (labelEstadoWraphia.Content.ToString() == "Pendiente")
+                {
+                    listViewListaMateriales.Items.Add(new SolicitudKanban(new Modulo(listBoxModulo.SelectedItem.ToString()), (Lote)(listBoxLote.SelectedItem), "Drawcord/Wraphia", "Unica", 0, 1));
+                }
+                resetEtiquetas();
+            }
+        }
         #endregion
         #region datosGeneralesDeFormulario
         private void listBoxLote_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -366,8 +408,10 @@ namespace JazzCCO._0.pantallasKanban
                 HashSet<string> HSelastico= new HashSet<string>();
                 HashSet<string> HSelasticoSecundario = new HashSet<string>();
                 HashSet<string> HStela = new HashSet<string>();
+                HashSet<string> HSWraphia = new HashSet<string>();
                 Dictionary<string,Partnumber> DTallasTela = new Dictionary<string,Partnumber>();
                 Dictionary<string, Partnumber> DTallasCopa = new Dictionary<string, Partnumber>();
+                Dictionary<string, Partnumber> DTallasElastico = new Dictionary<string, Partnumber>();
                 HashSet<Partnumber> HScajas = new HashSet<Partnumber>();
                 HashSet<Partnumber> HScajasParciales = new HashSet<Partnumber>();
                 HashSet<Partnumber> HScajasPrincipales = new HashSet<Partnumber>();
@@ -387,7 +431,21 @@ namespace JazzCCO._0.pantallasKanban
 
                             break;
                         case "Elastico":
-                            HSelastico.Add(item.CodigoPartNumber);
+                            if (item.TallaPartnumber != "unica")
+                            {
+                                try
+                                {
+                                    DTallasElastico.Add(item.TallaPartnumber, item);
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                            else
+                            {
+                                HSelastico.Add(item.CodigoPartNumber);
+                            }
                             break;
                         case "ElasticoSecundario":
                             HSelasticoSecundario.Add(item.CodigoPartNumber);
@@ -429,6 +487,9 @@ namespace JazzCCO._0.pantallasKanban
                         case "Binding":
                             HSbinding.Add(item.CodigoPartNumber);
                             break;
+                        case "Drawcord/Wraphia":
+                            HSWraphia.Add(item.CodigoPartNumber);
+                            break;
                         default:
                             if (item.CategoryPartNumber.ToLower().Contains("box"))
                             {
@@ -457,11 +518,13 @@ namespace JazzCCO._0.pantallasKanban
                 ItemsControlElastico.ItemsSource = HSelastico;
                 ItemsControlElasticoSecundario.ItemsSource = HSelasticoSecundario;
                 ItemsControlBra.ItemsSource = HScopas;
+                ItemsControlWraphia.ItemsSource = HSWraphia;
                 listViewTallasTela.ItemsSource = DTallasTela;
                 ItemsControlTelaSmed.ItemsSource = HStela;
                 ItemsControlPiezasSmed.ItemsSource = HStela;
                 listViewTallasBra.ItemsSource = DTallasCopa;
                 listViewGancho.ItemsSource = DGanchos;
+                listViewTallasElastico.ItemsSource = DTallasElastico;
 
                 if (HScajas.Count() > 1)
                 {
@@ -544,6 +607,7 @@ namespace JazzCCO._0.pantallasKanban
                     chBoxLoteSmed.IsEnabled = false;
                     tab.SelectedIndex = 3;
                     tabAccesorios.Visibility = Visibility.Collapsed;
+                    tabWraphia.Visibility = Visibility.Collapsed;
                     tabBinding.Visibility = Visibility.Collapsed;
                     tabHilos.Visibility = Visibility.Collapsed;
                     tbHilosSmed.Visibility = Visibility.Visible;
@@ -562,6 +626,7 @@ namespace JazzCCO._0.pantallasKanban
                     tab.SelectedIndex = 0;
                     chBoxLoteSmed.IsChecked = true;
                     tabAccesorios.Visibility = Visibility.Visible;
+                    tabWraphia.Visibility = Visibility.Visible;
                     tabBinding.Visibility = Visibility.Visible;
                     tabHilos.Visibility = Visibility.Visible;
                     tbHilosSmed.Visibility = Visibility.Collapsed;
@@ -579,7 +644,6 @@ namespace JazzCCO._0.pantallasKanban
                     chBoxLoteSmed.IsChecked = false;
                     chBoxLoteSmed.IsEnabled = true;
                 }
-
                 //carga ubicacion de 
                 using(SqlConnection cn = ConexionTexopsServer.Mantenimiento())
                 {
@@ -603,7 +667,8 @@ namespace JazzCCO._0.pantallasKanban
                 {
                     try
                     {
-                        string sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes where modulo='" + listBoxModulo.SelectedItem.ToString() + "'";
+                        // string sql = "ConsultarLotesHabilitados '" + listBoxModulo.SelectedItem.ToString() + "'";
+                        string sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes WHERE modulo='"+ listBoxModulo.SelectedItem.ToString() + "'";
                         if (listBoxModulo.SelectedItem.ToString() == "SMED")
                         {
                             sql = "select manufactureId, lote, make, estilo, estiloId, temporada, color from lotes WHERE kanban LIKE '%SMED%'";
@@ -726,11 +791,11 @@ namespace JazzCCO._0.pantallasKanban
             labelEstadoBinding.Content = "No necesario";
             labelEstadoHilos.Content = "No necesario";
             labelEstadoHilosSmed.Content = "No necesario";
-            labelEstadoElastico.Content = "No necesario";
             labelEstadoElasticoSecundario.Content = "No necesario";
             labelEstadoHilosSmed.Content = "No necesario";
             labelEstadoTelaSmed.Content = "No necesario";
             labelEstadoPiezasSmed.Content = "No necesario";
+            labelEstadoWraphia.Content = "No necesario";
 
             int materialesAgregados = listViewListaMateriales.Items.Count;
 
@@ -819,34 +884,6 @@ namespace JazzCCO._0.pantallasKanban
                             else
                             {
                                 labelEstadoHilosSmed.Content = "Pendiente";
-                            }
-                        }
-                        break;
-                    case "Elastico":
-                        if (item.SolicitadoPartnumber == 1)
-                        {
-                            labelEstadoElastico.Content = "Solicitado";
-                        }
-                        else
-                        {
-                            if (materialesAgregados > 0)
-                            {
-                                foreach (SolicitudKanban subitem in listViewListaMateriales.Items)
-                                {
-                                    if (subitem.CodigoPartNumber == "Elastico" && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
-                                    {
-                                        labelEstadoElastico.Content = "Agregado";
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        labelEstadoElastico.Content = "Pendiente";
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                labelEstadoElastico.Content = "Pendiente";
                             }
                         }
                         break;
@@ -962,7 +999,34 @@ namespace JazzCCO._0.pantallasKanban
                             }
                         }
                         break;
-
+                    case "Drawcord/Wraphia":
+                        if (item.SolicitadoPartnumber == 1)
+                        {
+                            labelEstadoWraphia.Content = "Solicitado";
+                        }
+                        else
+                        {
+                            if (materialesAgregados > 0)
+                            {
+                                foreach (SolicitudKanban subitem in listViewListaMateriales.Items)
+                                {
+                                    if (subitem.CodigoPartNumber == "Drawcord/Wraphia" && subitem.NumeroLote == ((Lote)listBoxLote.SelectedItem).NumeroLote)
+                                    {
+                                        labelEstadoWraphia.Content = "Agregado";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        labelEstadoWraphia.Content = "Pendiente";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                labelEstadoWraphia.Content = "Pendiente";
+                            }
+                        }
+                        break;
                 }
             }
             foreach(SolicitudKanban item in listViewListaMateriales.Items)
@@ -982,6 +1046,18 @@ namespace JazzCCO._0.pantallasKanban
                             }
 
                             listViewTallasTela.Items.Refresh();
+                            break;
+                        case "Elastico":
+                            foreach (KeyValuePair<string, Partnumber> subitem in listViewTallasElastico.Items)
+                            {
+                                if (item.TallaPartnumber == subitem.Value.TallaPartnumber)
+                                {
+                                    subitem.Value.SolicitadoKanban = false;
+                                    subitem.Value.SolicitadoPartnumber = item.SolicitadoPartnumber;
+                                }
+                            }
+
+                            listViewTallasElastico.Items.Refresh();
                             break;
                         case "Copas":
                             foreach (KeyValuePair<string, Partnumber> subitem in listViewTallasBra.Items)
@@ -1065,6 +1141,7 @@ namespace JazzCCO._0.pantallasKanban
             resetEtiquetas();
             tab.SelectedIndex = 7;
             tabAccesorios.Visibility = Visibility.Collapsed;
+            tabWraphia.Visibility = Visibility.Collapsed;
             tabBinding.Visibility = Visibility.Collapsed;
             tabHilos.Visibility = Visibility.Collapsed;
             tbHilosSmed.Visibility = Visibility.Collapsed;
@@ -1085,6 +1162,7 @@ namespace JazzCCO._0.pantallasKanban
             resetEtiquetas();
             tab.SelectedIndex = 0;
             tabAccesorios.Visibility = Visibility.Visible;
+            tabWraphia.Visibility = Visibility.Visible;
             tabBinding.Visibility = Visibility.Visible;
             tabHilos.Visibility = Visibility.Visible;
             tabElastico.Visibility = Visibility.Visible;
