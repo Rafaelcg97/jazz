@@ -401,6 +401,9 @@
     <Compile Include="pantallasIniciales\validarUsuarioBMP.xaml.cs">
       <DependentUpon>validarUsuarioBMP.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pantallasKanban\cuadraturaEntregaMateriales.xaml.cs">
+      <DependentUpon>cuadraturaEntregaMateriales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pantallasKanban\estadoLotes.xaml.cs">
       <DependentUpon>estadoLotes.xaml</DependentUpon>
     </Compile>
@@ -570,6 +573,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pantallasIniciales\validarUsuarioBMP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pantallasKanban\cuadraturaEntregaMateriales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

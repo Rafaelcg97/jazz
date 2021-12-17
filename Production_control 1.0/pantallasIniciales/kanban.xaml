@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:JazzCCO._0.pantallasIniciales"
+             xmlns:local="clr-namespace:JazzCCO._0.pantallasIniciales" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
@@ -44,6 +45,20 @@
         <Viewbox Grid.RowSpan="2" Grid.ColumnSpan="11" HorizontalAlignment="Center">
             <Label Content="Trabajo Disponible en Kanban" FontSize="45" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="25,0,0,0"/>
         </Viewbox>
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="11" Grid.RowSpan="12">
+            <lvc:CartesianChart x:Name="grafMaterialesDisponibles" Series="{Binding SeriesCollection}" LegendLocation="Left" Background="Transparent" Margin="10" Height="900" Width="1500">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Modulos" Labels="{Binding Labels}"/>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Piezas Preparadas" LabelFormatter="{Binding Formatter}" MinValue="0" ShowLabels="True">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator StrokeThickness="0"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Viewbox>
         <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="3" x:Name="borderSolicitud" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderSolicitud_MouseUp">
             <Viewbox>
                 <StackPanel>
@@ -76,7 +91,7 @@
                 </StackPanel>
             </Viewbox>
         </Border>
-        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="12" Grid.RowSpan="3" x:Name="borderCuadrarLotes" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderLote_MouseUp">
+        <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="12" Grid.RowSpan="3" x:Name="borderCuadrarLotes" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderCuadrarLotes_MouseUp">
             <Viewbox>
                 <StackPanel>
                     <Image Source="/imagenes/niveles.png" Width="200" Height="140"/>

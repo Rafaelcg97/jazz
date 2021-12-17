@@ -74,5 +74,12 @@ namespace JazzCCO._0.pantallasIniciales
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(new pantallasKanban.validacionUsuarioKanban());
         }
+
+        private void borderCuadrarLotes_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            cuadraturaEntregaMateriales cuadraturaEntregaMateriales = new cuadraturaEntregaMateriales();
+            Frame GridPrincipal = GetDependencyObjectFromVisualTree(this, typeof(Frame)) as Frame;
+            GridPrincipal.Content = cuadraturaEntregaMateriales;
+        }
     }
 }
