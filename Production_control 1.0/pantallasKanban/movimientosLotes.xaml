@@ -57,7 +57,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Content="Paquetes:" Width="125"/>
-                        <xctk:IntegerUpDown x:Name="nudCantidadPaquetes" Height="15" Margin="30,0,0,0"  FontSize="8" Width="85" Value="0" Minimum="0" Maximum="10" FontWeight="Bold" />
+                        <xctk:IntegerUpDown x:Name="nudCantidadPaquetes" Height="15" Margin="30,0,0,0"  FontSize="8" Width="85" Value="0" Minimum="0" Maximum="4000" FontWeight="Bold" />
                     </StackPanel>
                 </StackPanel>
             </Border>

@@ -14,7 +14,93 @@
                 <Button x:Name="salir_" Height="30" Width="30" Background="Transparent" HorizontalAlignment="Left" BorderBrush="Transparent" Margin="0,0,0,0" Click="salir__Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Image Source="/imagenes/atras.png" Width="20" Height="20"/>
                 </Button>
-                <Label Content="Cuadratura de Entrega de Materiales" Height="35" Margin="220,0,0,0" FontSize="20" FontFamily="calibri" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Label Content="Cuadratura de Entrega de Materiales" Height="35" Margin="190,0,0,0" FontSize="20" FontFamily="calibri" FontWeight="Bold" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="325" Margin="10" Background="AliceBlue">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Lotes Terminados con Salidas Pendientes" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold"/>
+                        <Button x:Name="btnDescargarSalidas" Background="Transparent" BorderThickness="0.5" Height="15" Width="50" Click="btnDescargarSalidas_Click">
+                            <Image Source="/imagenes/descargar.png"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView x:Name="lstvSalidasPendientes" Width="300" Height="300" Margin="10" FontSize="6" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" FontWeight="Bold">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Lote" Width="112">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding NumeroLote}" Background="DarkRed" Width="200" Foreground="White" FontWeight="Bold"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Material" Width="126">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding CodigoPartNumber}" Background="DarkGreen" Width="200" Foreground="White" FontWeight="Bold"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Inventario" Width="55">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding RequeridoPartnumber}" Background="DarkBlue" Width="200" Foreground="White" FontWeight="Bold"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Width="325" Margin="10" Background="#FFE4D7D9">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Lotes Terminados con Solicitudes Pendientes" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold"/>
+                        <Button x:Name="btnDescargarSolicitudes" Background="Transparent" BorderThickness="0.5" Height="15" Width="50" Click="btnDescargarSolicitudes_Click">
+                            <Image Source="/imagenes/descargar.png"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView x:Name="lstvSolicitudesPendientes" Width="300" Height="300" Margin="10" FontSize="6" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"  FontWeight="Bold">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Lote" Width="85">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding NumeroLote}" Background="DarkRed" Width="200" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Material" Width="84">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding CategoryPartNumber}" Background="DarkGreen" Width="200" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Talla" Width="35">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding TallaPartnumber}" Background="DarkGreen" Width="200" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Requerido" Width="45">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding RequeridoPartnumber}" Background="DarkOrange" Width="200" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Solicitado" Width="45">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding SolicitadoPartnumber}" Background="DarkBlue" Width="200" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Viewbox>

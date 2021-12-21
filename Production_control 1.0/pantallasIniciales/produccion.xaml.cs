@@ -49,10 +49,8 @@ namespace JazzCCO._0.pantallasIniciales
                 Title = "Piezas",
                 Values = new ChartValues<int> { 0 },
                 Fill = System.Windows.Media.Brushes.DarkGreen,
-                DataLabels = true,
-                
+                DataLabels = true,     
             };
-
             eficiencia = new LineSeries
             {
                 Title = "Eficiencia",
@@ -93,12 +91,12 @@ namespace JazzCCO._0.pantallasIniciales
 
 
             SeriesCollection = new SeriesCollection
-        {
-                            piezas,
+            {
+                piezas,
                 eficiencia,
                 fallos,
                 cambios
-        };
+            };
             Formatter = value => value.ToString("N");
             Formatter2 = value => value.ToString("P2");
             DataContext = this;
