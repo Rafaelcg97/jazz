@@ -426,7 +426,7 @@
                                 <GridViewColumn Header="Style Name" Width="187">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding sam}" Background="{Binding color}" Width="200" FontSize="12"/>
+                                            <Label Content="{Binding StyleName}" Background="{Binding color}" Width="200" FontSize="12"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

@@ -15,7 +15,7 @@
                 </Button>
                 <Label Content="Movimiento de Material" Height="30" Margin="220,0,0,0" FontSize="20" FontFamily="calibri" FontWeight="Bold" VerticalAlignment="Center"/>
             </StackPanel>
-            <Border BorderBrush="Black" CornerRadius="8" BorderThickness="0" Height="60" Width="400" Margin="5" Background="AliceBlue" VerticalAlignment="Center">
+            <Border BorderBrush="Black" CornerRadius="8" BorderThickness="0" Height="50" Width="400" Margin="5" Background="AliceBlue" VerticalAlignment="Center">
                 <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Content="Responsable:" Width="125"/>
@@ -27,7 +27,7 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Black" CornerRadius="8" BorderThickness="0" Height="150" Width="400" Margin="5" Background="Pink" VerticalAlignment="Center">
+            <Border BorderBrush="Black" CornerRadius="8" BorderThickness="0" Height="140" Width="400" Margin="5" Background="Pink" VerticalAlignment="Center">
                 <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Content="Lote:" Width="125"/>
@@ -45,7 +45,7 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Black" CornerRadius="8" BorderThickness="0" Height="80" Width="400" Margin="5" Background="LightGreen"  VerticalAlignment="Center">
+            <Border BorderBrush="Black" CornerRadius="8" BorderThickness="0" Height="105" Width="400" Margin="5" Background="LightGreen"  VerticalAlignment="Center">
                 <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Content="Tipo de Movimiento:" Width="125"/>
@@ -56,7 +56,11 @@
                         <ComboBox x:Name="cmbxMaterial" Margin="30,0,0,0" Height="15" FontSize="8" BorderThickness="0.5" Width="85"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label FontWeight="Bold" Content="Paquetes:" Width="125"/>
+                        <Label FontWeight="Bold" Content="Talla:" Width="125"/>
+                        <ComboBox x:Name="cmbxTalla" Margin="30,0,0,0" Height="15" FontSize="8" BorderThickness="0.5" Width="85"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontWeight="Bold" Content="Unidades:" Width="125"/>
                         <xctk:IntegerUpDown x:Name="nudCantidadPaquetes" Height="15" Margin="30,0,0,0"  FontSize="8" Width="85" Value="0" Minimum="0" Maximum="4000" FontWeight="Bold" />
                     </StackPanel>
                 </StackPanel>

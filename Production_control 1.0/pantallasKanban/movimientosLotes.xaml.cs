@@ -1,19 +1,11 @@
-﻿using System;
+﻿using SQLConnection;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using SQLConnection;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace JazzCCO._0.pantallasKanban
 {
@@ -111,11 +103,13 @@ namespace JazzCCO._0.pantallasKanban
                 ltbxUbicaciones.SelectedIndex = -1;
                 nudCantidadPaquetes.Value = 0;
                 cmbxMaterial.Items.Clear();
+                cmbxTalla.Items.Clear();
                 using (SqlConnection cn = ConexionTexopsServer.Kanban())
                 {
                     try
                     {
                         cmbxMaterial.SelectedIndex = -1;
+                        cmbxTalla.SelectedIndex = -1;
                         string sql = "SELECT PartNumber FROM componentesPorLote WHERE (SubCategoryName='Hangers' OR SubCategoryName='Boxes') AND lote='"+ ltbxLotes.SelectedItem.ToString() +"'";
                         SqlCommand cm = new SqlCommand(sql, cn);
                         SqlDataReader dr = cm.ExecuteReader();
@@ -135,6 +129,16 @@ namespace JazzCCO._0.pantallasKanban
                         cmbxMaterial.Items.Add("PiezasCortadas");
                         cmbxMaterial.Items.Add("PiezasCortadasSmed");
                         cmbxMaterial.Items.Add("TelaSmed");
+
+                        sql = "SELECT talla FROM tallasLotes WHERE lote='" + ltbxLotes.SelectedItem.ToString() + "'";
+                        cm = new SqlCommand(sql, cn);
+                        dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            cmbxTalla.Items.Add(dr["talla"].ToString());
+                        }
+                        dr.Close();
+                        cmbxTalla.Items.Add("unica");
                     }
                     catch (Exception ex)
                     {
@@ -145,7 +149,7 @@ namespace JazzCCO._0.pantallasKanban
         }
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            if(ltbxLotes.SelectedIndex>-1 && ltbxUbicaciones.SelectedIndex > -1 && cmbxTipoMovimiento.SelectedIndex>-1 && cmbxMaterial.SelectedIndex > -1 && nudCantidadPaquetes.Value>0)
+            if(ltbxLotes.SelectedIndex>-1 && ltbxUbicaciones.SelectedIndex > -1 && cmbxTipoMovimiento.SelectedIndex>-1 && cmbxMaterial.SelectedIndex > -1 && cmbxTalla.SelectedIndex>-1 && nudCantidadPaquetes.Value>0)
             {
                 using (SqlConnection cn = ConexionTexopsServer.Kanban())
                 {
@@ -157,8 +161,8 @@ namespace JazzCCO._0.pantallasKanban
                             tipoMovimiento = -1;
                         }
 
-                        string sql = "INSERT INTO movimientosKanban(tipoMovimiento, lote, material, paquetes, responsable, fechaMovimiento, ubicacion) " +
-                            "VALUES('" + tipoMovimiento + "', '" + ltbxLotes.SelectedItem.ToString() + "', '" + cmbxMaterial.SelectedItem.ToString() + "', '" + nudCantidadPaquetes.Value + "', '" + lblResponsable.Content.ToString() + "', '" + lblFecha.Content.ToString() + "', '" + ltbxUbicaciones.SelectedItem.ToString() + "')";
+                        string sql = "INSERT INTO movimientosKanban(tipoMovimiento, lote, material, talla, paquetes, responsable, fechaMovimiento, ubicacion) " +
+                            "VALUES('" + tipoMovimiento + "', '" + ltbxLotes.SelectedItem.ToString() + "', '" + cmbxMaterial.SelectedItem.ToString() + "', '" + cmbxTalla.SelectedItem.ToString() +"', '" + nudCantidadPaquetes.Value + "', '" + lblResponsable.Content.ToString() + "', '" + lblFecha.Content.ToString() + "', '" + ltbxUbicaciones.SelectedItem.ToString() + "')";
                         SqlCommand cm = new SqlCommand(sql, cn);
                         cm.ExecuteNonQuery();
 

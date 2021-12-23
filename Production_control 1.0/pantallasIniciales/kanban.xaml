@@ -46,7 +46,7 @@
             <Label Content="Trabajo Disponible en Kanban" FontSize="45" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="25,0,0,0"/>
         </Viewbox>
         <Viewbox Grid.Row="2" Grid.ColumnSpan="11" Grid.RowSpan="12">
-            <lvc:CartesianChart x:Name="grafMaterialesDisponibles" Series="{Binding SeriesCollection}" LegendLocation="Left" Background="Transparent" Margin="10" Height="900" Width="1500">
+            <lvc:CartesianChart x:Name="grafMaterialesDisponibles" Series="{Binding SeriesCollection}" LegendLocation="Left" Background="Transparent" Margin="10" Height="950" Width="1550">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Labels="{Binding Labels}" LabelsRotation="45" Foreground="Black" FontWeight="Bold" FontSize="15">
                         <lvc:Axis.Separator>
@@ -62,6 +62,21 @@
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
+        </Viewbox>
+        <Viewbox Grid.Row="14" Grid.ColumnSpan="11" Margin="20,0,0,10" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="10" Height="10" Fill="#FF339FF9"/>
+                <Label Content="Total Accesorios:" FontSize="10" FontWeight="Bold"/>
+                <Label x:Name="lblTotalAccesorios" FontSize="10" Content="0" Width="50"/>
+                
+                <Ellipse Width="10" Height="10" Fill="#FFD40404"/>
+                <Label Content="Total Hilos:" FontSize="10" FontWeight="Bold"/>
+                <Label x:Name="lblTotalHilos" FontSize="10" Content="0" Width="50"/>
+
+                <Ellipse Width="10" Height="10" Fill="#FFF0CD31"/>
+                <Label Content="Total Binding:" FontSize="10" FontWeight="Bold"/>
+                <Label x:Name="lblTotalBinding" FontSize="10" Content="0" Width="50"/>
+            </StackPanel>
         </Viewbox>
         <Border Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="3" x:Name="borderSolicitud" Background="Black" Margin="25" CornerRadius="10" MouseEnter="Border_MouseEnter" MouseLeave="border_MouseLeave" MouseUp="borderSolicitud_MouseUp">
             <Viewbox>

@@ -49,7 +49,7 @@ namespace JazzCCO._0.pantallasIniciales
             listaModulos = wipTotal.Select(x => x.NombreModulo).Distinct().ToList();
 
             Labels = listaModulos.ToArray();
-            grafMaterialesDisponibles.AxisX.Add(new Axis() { Labels = modulos.ToArray(), LabelsRotation = 45, ShowLabels = true, Separator = { Step = 1 } });
+
             foreach(string item in listaModulos)
             {
                 bool encontradoAccesorios = false;
@@ -88,7 +88,9 @@ namespace JazzCCO._0.pantallasIniciales
                 }
             }
 
-
+            lblTotalAccesorios.Content = listaAccesorios.Sum();
+            lblTotalBinding.Content = listaBinding.Sum();
+            lblTotalHilos.Content = listaHilos.Sum();
 
 
 
