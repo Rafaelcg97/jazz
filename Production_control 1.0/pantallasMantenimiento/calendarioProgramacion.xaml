@@ -57,9 +57,30 @@
                 <Label Content="Programación de Mantenimiento" FontSize="60" FontWeight="Bold" Margin="235,0,0,0" />
             </StackPanel>
         </Viewbox>
+        <Viewbox Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5" Margin="0,20,0,0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="btnAgregarActividad" Background="Transparent" BorderThickness="0" Height="45" Width="30" BorderBrush="Transparent" Margin="15,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnAgregarActividad_Click">
+                        <StackPanel>
+                            <Image Source="/imagenes/mas.png" Width="20" Height="20"/>
+                            <TextBlock HorizontalAlignment="Center" Padding="0" Foreground="Black" Text="Agregar actividad" TextAlignment="Center" FontSize="5" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="btnHistorialActividades" Background="Transparent" BorderThickness="0" Height="45" Width="30" BorderBrush="Transparent" Margin="15,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnAgregarActividad_Click">
+                        <StackPanel>
+                            <Image Source="/imagenes/expediente.png" Width="20" Height="20"/>
+                            <TextBlock HorizontalAlignment="Center" Padding="0" Foreground="Black" Text="Actividades Existentes" TextAlignment="Center" FontSize="5" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+
         <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="17" Margin="20,0,0,0">
             <Border Background="AliceBlue" CornerRadius="8">
-                <Calendar x:Name="calendarFecha" BorderThickness="0" Background="Transparent" IsTodayHighlighted="False" />
+                <Calendar x:Name="calendarFecha" BorderThickness="0" Background="Transparent" IsTodayHighlighted="False" DisplayDateChanged="calendarFecha_DisplayDateChanged" SelectedDatesChanged="calendarFecha_SelectedDatesChanged" />
             </Border>
         </Viewbox>
         <Viewbox Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="7" Grid.RowSpan="17" Margin="50,0,0,0">
@@ -95,40 +116,28 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Grid.ColumnSpan="10" HorizontalAlignment="Center" Padding="0" Foreground="Black" Content="Actividades de la fecha seleccionada" FontSize="25" FontWeight="Bold"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="10" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,0,0">
-                        <Label HorizontalAlignment="Center" Padding="0" Foreground="Black" Content="Agregar nueva actividad" FontSize="20" VerticalAlignment="Center"/>
-                        <Button x:Name="btnAgregarActividad" Background="Transparent" BorderThickness="0" Height="29" Width="29" BorderBrush="Transparent" Margin="15,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnAgregarActividad_Click">
-                            <Image Source="/imagenes/mas.png" Width="25" Height="25"/>
-                        </Button>
-                    </StackPanel>
-                    <ListView Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="11" Margin="10" FontSize="15" FontWeight="Bold">
+
+                    <ListView x:Name="lstActividadesDia" Grid.Row="2" Grid.ColumnSpan="10" Grid.RowSpan="12" Margin="10" FontSize="15" FontWeight="Bold">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Máquina" Width="165">
+                                <GridViewColumn Header="Máquina" Width="130">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label/>
+                                            <Label Content="{Binding NombreEquipo}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Actividad" Width="200">
+                                <GridViewColumn Header="Actividad" Width="250">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label/>
+                                            <TextBlock Text="{Binding NombreActividad}" TextWrapping="Wrap" Width="240"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Minutos" Width="110">
+                                <GridViewColumn Header="Estatus" Width="165">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Estatus" Width="200">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Label/>
+                                            <ComboBox x:Name="cmbStatus" Width="150" SelectedItem="{Binding StatusActividad}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -138,30 +147,46 @@
                 </Grid>
             </Border>
         </Viewbox>
-        <Popup x:Name="popUpAgregarActividad" Width="450" Height="400" AllowsTransparency="True" PlacementTarget="{Binding ElementName=gridAreaTrabajo}" Placement="Center" StaysOpen="False" >
+        <Popup x:Name="popUpAgregarActividad" Width="450" Height="450" AllowsTransparency="True" PlacementTarget="{Binding ElementName=gridAreaTrabajo}" Placement="Center" StaysOpen="False" >
             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Background="White">
                 <StackPanel>
                     <Button x:Name="btnCerrar" Width="25" Height="25" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent" Click="btnCerrar_Click">
                         <Image Source="/imagenes/cerrar.png"/>
                     </Button>
                     <Label Margin="5" FontSize="25" FontWeight="Bold" Content="Programacion de nueva actividad" HorizontalAlignment="Center" />
-                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
-                        <Label FontSize="20" FontWeight="DemiBold" Content="Máquina:"/>
-                        <ComboBox x:Name="cmbMaquina" Margin="15,0,0,0" Height="22" Width="200"/>
+                    <StackPanel  Margin="50,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" Width="110" FontWeight="DemiBold" Content="Máquina:"/>
+                        <ComboBox x:Name="cmbMaquina" Margin="10,0,0,0" Height="25" Width="200">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding NombreEquipo}" Padding="0"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </StackPanel>
-                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
-                        <Label FontSize="20" FontWeight="DemiBold" Content="Actividad:"/>
-                        <ComboBox x:Name="cmbActividad" Margin="10,0,0,0" Height="22" Width="200"/>
+                    <StackPanel  Margin="50,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" Width="110" FontWeight="DemiBold" Content="Actividad:"/>
+                        <TextBox x:Name="txtActividad" Margin="10,0,0,0" Height="50" Width="200" VerticalContentAlignment="Top" MaxLength="500" TextWrapping="Wrap"/>
                     </StackPanel>
-                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
-                        <Label FontSize="20" FontWeight="DemiBold" Content="Fecha:"/>
-                        <DatePicker x:Name="dtpFecha" Margin="45,0,0,0" Height="22" Width="200" IsManipulationEnabled="False" IsEnabled="False" />
+                    <StackPanel  Margin="50,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" Width="110" FontWeight="DemiBold" Content="Inicio:"/>
+                        <DatePicker x:Name="dtpFecha" Margin="10,0,0,0" Height="22" Width="200" IsManipulationEnabled="False" IsEnabled="False" />
                     </StackPanel>
-                    <StackPanel  Margin="5,15,0,0" Orientation="Horizontal">
-                        <Label FontSize="20" FontWeight="DemiBold" Content="Anteriores no conclusas:"/>
-                        <CheckBox x:Name="chbAnterior" Margin="10,0,0,0" Content="Mantener"  Width="200" VerticalAlignment="Center"/>
+                    <StackPanel  Margin="50,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" FontWeight="DemiBold" Width="110" Content="Frecuencia:"/>
+                        <ComboBox x:Name="cmbFrecuencia" Margin="10,0,0,0" Height="22" Width="200">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding NombreFrecuencia}" Padding="0"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </StackPanel>
-                    <Button x:Name="btnProgramar" Margin="0,25,0,0" HorizontalAlignment="Center" Height="25" Width="100" Content="Programar" FontWeight="Bold" BorderBrush="Transparent" BorderThickness="0"/>
+                    <StackPanel  Margin="50,15,0,0" Orientation="Horizontal">
+                        <Label FontSize="20" FontWeight="DemiBold" Width="110" Content="Comentar:"/>
+                        <TextBox x:Name="txtComentario" Margin="10,0,0,0" Height="50" Width="200" VerticalContentAlignment="Top" MaxLength="500" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <Button x:Name="btnProgramar" Height="25" Width="150" Margin="0,20,0,0" Content="Programar" FontWeight="Bold" BorderBrush="Transparent" BorderThickness="0" Background="DarkBlue" Foreground="White" Click="btnProgramar_Click"/>
                 </StackPanel>
             </Border>
         </Popup>

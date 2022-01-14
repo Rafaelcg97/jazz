@@ -206,7 +206,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Grid.Column="1" Grid.Row="1" Source="/imagenes/calendario.png" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
-                <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Formulario TPM" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                <TextBlock Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8" Grid.RowSpan="2" Text="Programación Mantenimiento" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,0,0,15" VerticalAlignment="Bottom" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>
